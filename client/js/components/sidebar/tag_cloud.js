@@ -6,15 +6,15 @@ import { addSelectedTag } from '../../actions/sync.js';
 class DefaultSidebar extends React.Component {
   constructor() {
     super();
-    this.state = { tagSelected: null }
+    this.state = { selectedTags: [] }
     this.changeOnClick = this.changeOnClick.bind(this);
   }
 
   changeOnClick(tag) {
     this.props.addSelectedTag(tag);
-    this.setState({ tagSelected: 'selected' })
-    // console.log(this.refs.button)
-    // this.refs.button.style.backgroundColor = '#ccc';
+    this.setState({
+      selectedTags: [ ...this.state.selectedTags, tag.id ]
+    });
   }
 
   testClick(event) {
@@ -31,9 +31,14 @@ class DefaultSidebar extends React.Component {
           <button className="close-button"
             onClick={defaultDisplay}>X</button>
           <div>
-            {tags.map((tag) => <button className={this.state.tagSelected} ref="button"
+            {tags.map((tag) => {
+              let tagClass = "tag-button";
+              if (this.state.selectedTags.indexOf(tag.id) !== -1) {
+                tagClass = "tag-button-selected";
+              }
+              return <button className={tagClass}
               onClick={() => {this.changeOnClick(tag)}}
-              key={tag.id}>{tag.tag}</button>)}
+              key={tag.id}>{tag.tag}</button>})}
           </div>
           <button className="filter-button"
             onClick={changeTagsOnDisplay}>{buttonText}</button>
