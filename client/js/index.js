@@ -3,8 +3,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import store from './store';
-// import Map from './components/map/map';
-// import Sidebar from './components/sidebar/sidebar';
 import MapDisplay from './components/pages/map_display';
 
 ReactDOM.render(

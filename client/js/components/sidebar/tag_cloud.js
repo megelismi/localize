@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { addSelectedTag } from '../../actions/sync.js';
+import * as actionCreators from '../../actions/sync.js';
 
 class DefaultSidebar extends React.Component {
   constructor() {
@@ -15,10 +15,6 @@ class DefaultSidebar extends React.Component {
     this.setState({
       selectedTags: [ ...this.state.selectedTags, tag.id ]
     });
-  }
-
-  testClick(event) {
-    console.log('worked')
   }
 
   render() {
@@ -48,10 +44,4 @@ class DefaultSidebar extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = (dispatch) => {
-  return { addSelectedTag: (tag) => { dispatch(addSelectedTag(tag)) } }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(DefaultSidebar);
+export default connect(null, actionCreators)(DefaultSidebar);

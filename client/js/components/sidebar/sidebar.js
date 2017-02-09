@@ -1,10 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getTags } from '../../actions/get_request.js';
-import { addSelectedTag, toggleTagFilter, setTagFilter, clearAllSelectedTags, selectById } from '../../actions/sync.js';
+import { bindActionCreators } from 'redux'
+import * as getActionCreators from '../../actions/get_request.js';
+import * as syncActionCreators from '../../actions/sync.js';
 import ModalDisplay from './modal_display';
 import DefaultSidebar from './default_sidebar';
 import TagCloud from './tag_cloud';
+
+// import * as todoActionCreators from './todoActionCreators'
+// import * as counterActionCreators from './counterActionCreators'
+
 
 class Sidebar extends React.Component {
   constructor() {
@@ -16,29 +21,29 @@ class Sidebar extends React.Component {
   }
 
   displayTags(e) {
-    this.props.getTags()
-    this.props.clearAllSelectedTags();
+    this.props.getActionCreators.getTags()
+    this.props.syncActionCreators.clearAllSelectedTags();
     this.setState({ displayTagCloud: true });
   }
 
   changeTagsOnDisplay(e) {
-    this.props.toggleTagFilter();
+    this.props.syncActionCreators.toggleTagFilter();
     this.setState({ displayTagCloud: false });
     if (this.props.filter) {
-      this.props.clearAllSelectedTags();
+      this.props.syncActionCreators.clearAllSelectedTags();
     }
   }
 
   defaultDisplay(e) {
-    this.props.setTagFilter();
+    this.props.syncActionCreators.setTagFilter();
     this.setState({ displayTagCloud: false });
-    this.props.clearAllSelectedTags();
+    this.props.syncActionCreators.clearAllSelectedTags();
   }
 
   render () {
     const selectedUser = null;
-    const { locations, mergedLocations, selectedLocation, selectedTags, filter, showAllTags } = this.props;
-    if ((selectedLocation) && this.props.locations) {
+    const { locations, mergedLocations, selectedLocation, selectedTags, filter, showAllTags, allTags } = this.props;
+    if ((selectedLocation) && locations) {
       const selected = mergedLocations.filter((location) => location.id === selectedLocation );
       return <ModalDisplay title={selected[0].name} info={selected[0].long_description} />
     }
@@ -46,34 +51,29 @@ class Sidebar extends React.Component {
       return <ModalDisplay />
     }
     if (filter) {
-      return <TagCloud tags={this.props.selectedTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Clear filters'} />
+      return <TagCloud tags={selectedTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Clear filters'} />
     }
     if (showAllTags && this.state.displayTagCloud) {
-      return <TagCloud tags={this.props.allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} />
+      return <TagCloud tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} />
     }
     return <DefaultSidebar displayTags={this.displayTags} />
   }
 }
 
-const mapStateToProps = (state) => ({
-  locations: state.locationState.locations,
-  selectedLocation: state.locationState.selected_location,
-  allTags: state.locationState.tags,
-  selectedTags: state.locationState.selected_tags,
-  filter: state.locationState.filter,
-  showAllTags: state.locationState.show_all_tags,
-  mergedLocations: state.locationState.merged_location_info
+const mapStateToProps = ({ locationState }) => ({
+  locations: locationState.locations,
+  selectedLocation: locationState.selectedLocation,
+  allTags: locationState.tags,
+  selectedTags: locationState.selectedTags,
+  filter: locationState.filter,
+  showAllTags: locationState.showAllTags,
+  mergedLocations: locationState.mergedLocationInfo
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getTags: () => { dispatch(getTags()) },
-    clearAllSelectedTags: () => { dispatch(clearAllSelectedTags()) },
-    addSelectedTag: (tag) => { dispatch(addSelectedTag(tag)) },
-    toggleTagFilter: (tag) => { dispatch(toggleTagFilter(tag)) },
-    setTagFilter: (tag) => { dispatch(setTagFilter(tag)) },
-    clearAllSelectedTags: (tag) => { dispatch(clearAllSelectedTags(tag)) },
-    selectById: (id) => { dispatch(selectById(id)) }
+    getActionCreators: bindActionCreators(getActionCreators, dispatch),
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
   }
 }
 
