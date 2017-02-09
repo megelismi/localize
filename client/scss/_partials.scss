@@ -1,0 +1,42 @@
+.header, .footer {
+	margin: 0 5px 30px 5px;
+	width: 100%;
+	padding: 15px 0;
+	ul {
+		list-style: none;
+		padding-right: 10px;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
+		margin: 0;
+		padding-right: 50px;
+		li {
+			display: inline-block;
+			padding: 10px;
+			a {
+				text-decoration: none;
+				color: black;
+				&:hover {
+					color: gray;
+				}
+			}
+		}
+	}
+}
+
+.header {
+	border-bottom: 1px solid gray;
+	z-index: 999998;
+	left: 0;
+}
+
+.footer {
+	border-top: 1px solid gray;
+	float:left;
+	bottom: 0;
+	z-index: 999999;
+	margin-top: 10px;
+	ul {
+		justify-content: center !important;
+	}
+}

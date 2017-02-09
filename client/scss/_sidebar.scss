@@ -1,0 +1,22 @@
+.sidebar {
+  float: right;
+  width: 25vw;
+  height: 100vh;
+  border: 1px solid gray;
+  border-radius: 2px;
+  margin-right: 15px;
+  padding: 15px;
+  text-align: center;
+}
+
+.close-button {
+	float: left;
+}
+
+.modal-location-title {
+	margin-top: 30px;
+}
+
+.filter-button, .close-button {
+  color: red;
+}

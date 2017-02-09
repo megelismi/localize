@@ -1,29 +1,94 @@
-import 'babel-polyfill';
-import express from 'express';
+  import 'babel-polyfill';
+  import express from 'express';
+  import bodyParser from 'body-parser';
 
-const HOST = process.env.HOST;
-const PORT = process.env.PORT || 8080;
+  const HOST = process.env.HOST;
+  const PORT = process.env.PORT || 8080;
 
-console.log(`Server running in ${process.env.NODE_ENV} mode`);
+  console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
-const app = express();
+  const app = express();
 
-app.use(express.static(process.env.CLIENT_PATH));
+  const knex = require('knex')({
+    client: 'pg',
+      connection: 'postgres://kxtoxtxg:fHkkP3KmbQHqeKYSq1wnMAETHsDBWjCN@babar.elephantsql.com:5432/kxtoxtxg'
+  })
 
-function runServer() {
-    return new Promise((resolve, reject) => {
-        app.listen(PORT, HOST, (err) => {
-            if (err) {
-                console.error(err);
-                reject(err);
-            }
+  app.use(express.static(process.env.CLIENT_PATH));
+  app.use(bodyParser.json());
 
-            const host = HOST || 'localhost';
-            console.log(`Listening on ${host}:${PORT}`);
-        });
+
+  app.get('/locations', (req, res) => {
+    knex('locations').then((locations) => {
+      return res.status(200).json(locations);
     });
-}
+  })
 
-if (require.main === module) {
-    runServer();
-}
+  //get all tags
+
+  app.get('/tags', (req, res) => {
+    knex('tags').then((tags) => {
+      return res.status(200).json(tags);
+    })
+  })
+
+  // get all data from location_tags
+
+  app.get('/locations/tags', (req,res) => {
+    knex('location_tags').then((location_tags) => {
+        return res.status(200).json(location_tags);
+    })
+  })
+
+  //get all reviews
+
+  app.get('/reviews', (req,res) => {
+    knex('reviews').then((reviews) => {
+      return res.status(200).json(reviews);
+    })
+  })
+
+  //get all locations with that tag
+
+  app.get('/locations/:tag', (req, res) => {
+    const { tag } = req.params;
+    knex('tags').where({tag}).select('user_id')
+    .then((data) => {
+      knex('locations').whereIn('user_id', data[0].user_id)
+      .then((locations) => {
+          return res.status(200).json(locations);
+      })
+    })
+  })
+
+  //get all users with that tag
+
+  app.get('/users/:tag', (req, res) => {
+    const { tag } = req.params;
+    knex('tags').where({tag}).select('user_id')
+    .then((data) => {
+      knex('users').whereIn('id', data[0].user_id)
+      .then((users) => {
+        console.log(users)
+         return res.status(200).json(users);
+      })
+    })
+  })
+
+  function runServer() {
+      return new Promise((resolve, reject) => {
+          app.listen(PORT, HOST, (err) => {
+              if (err) {
+                  console.error(err);
+                  reject(err);
+              }
+
+              const host = HOST || 'localhost';
+              console.log(`Listening on ${host}:${PORT}`);
+          });
+      });
+  }
+
+  if (require.main === module) {
+      runServer();
+  }
