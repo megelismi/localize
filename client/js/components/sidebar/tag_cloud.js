@@ -29,7 +29,7 @@ class DefaultSidebar extends React.Component {
           <div>
             {tags.map((tag) => {
               let tagClass;
-              this.state.selectedTags.indexOf(tag.id) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";
+              this.props.selected.indexOf(tag) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";
               return <button className={tagClass}
               onClick={() => {this.changeOnClick(tag)}}
               key={tag.id}>{tag.tag}</button>})}
@@ -42,4 +42,8 @@ class DefaultSidebar extends React.Component {
   }
 }
 
-export default connect(null, actionCreators)(DefaultSidebar);
+const matchStateToProps = (state) => ({
+  selected: state.locationState.selectedTags
+})
+
+export default connect(matchStateToProps, actionCreators)(DefaultSidebar);
