@@ -75,6 +75,14 @@
     })
   })
 
+  //get all users 
+
+  app.get('/users', (req, res) => {
+    knex('users').then((users) => {
+      return res.status(200).json(users);
+    })
+  })
+
   function runServer() {
       return new Promise((resolve, reject) => {
           app.listen(PORT, HOST, (err) => {
