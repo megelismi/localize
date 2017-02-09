@@ -4,21 +4,26 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/sync.js';
 
 class DefaultSidebar extends React.Component {
-  constructor() {
-    super();
-    this.state = { selectedTags: [] }
+  constructor(props) {
+    super(props);
     this.changeOnClick = this.changeOnClick.bind(this);
+    this.renderNext = this.renderNext.bind(this);
   }
 
   changeOnClick(tag) {
     this.props.addSelectedTag(tag);
-    this.setState({
-      selectedTags: [ ...this.state.selectedTags, tag.id ]
-    });
+  }
+
+  renderNext() {
+    if (this.props.selected.length === 0) {
+      this.props.defaultDisplay();
+    } else {
+      this.props.changeTagsOnDisplay();
+    }
   }
 
   render() {
-    const { tags, defaultDisplay, changeTagsOnDisplay, buttonText } = this.props;
+    const { tags, defaultDisplay, changeTagsOnDisplay, buttonText, selected } = this.props;
     if (!tags) {
       return <div></div>
     } else {
@@ -29,13 +34,13 @@ class DefaultSidebar extends React.Component {
           <div>
             {tags.map((tag) => {
               let tagClass;
-              this.props.selected.indexOf(tag) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";
+              selected.indexOf(tag) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";
               return <button className={tagClass}
               onClick={() => {this.changeOnClick(tag)}}
               key={tag.id}>{tag.tag}</button>})}
           </div>
           <button className="filter-button"
-            onClick={changeTagsOnDisplay}>{buttonText}</button>
+            onClick={this.renderNext}>{buttonText}</button>
         </div>
       )
     }
