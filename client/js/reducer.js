@@ -45,10 +45,18 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
       locationTagsError: true
     });
     case sync_actions.ADD_SELECTED_TAG:
-    let tags = state.selected_tags || [];
-    return state = Object.assign({}, state, {
-      selectedTags: [ ...tags, action.tag ]
-    });
+    let tags = state.selectedTags || [];
+    if (state.selectedTags.indexOf(action.tag) === -1) {
+      return state = Object.assign({}, state, {
+        selectedTags: [ ...tags, action.tag ]
+      });
+    } else {
+      let deleteAt = state.selectedTags.findIndex((elem) => elem.id === action.tag.id);
+      let newArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
+      return state = Object.assign({}, state, {
+        selectedTags: newArray
+      });
+    }
     case sync_actions.TOGGLE_TAG_FILTER:
     return state = Object.assign({}, state, {
       filter: !state.filter

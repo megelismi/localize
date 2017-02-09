@@ -28,10 +28,8 @@ class DefaultSidebar extends React.Component {
             onClick={defaultDisplay}>X</button>
           <div>
             {tags.map((tag) => {
-              let tagClass = "tag-button";
-              if (this.state.selectedTags.indexOf(tag.id) !== -1) {
-                tagClass = "tag-button-selected";
-              }
+              let tagClass;
+              this.state.selectedTags.indexOf(tag.id) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";
               return <button className={tagClass}
               onClick={() => {this.changeOnClick(tag)}}
               key={tag.id}>{tag.tag}</button>})}
