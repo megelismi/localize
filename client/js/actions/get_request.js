@@ -1,6 +1,25 @@
 // refactor into middleware
 
+import { getServer } from './async_middleware';
+
 import * as get_result from './get_result.js';
+
+// export const getLocations = getServer('/locations', get_result.getLocationsSuccess, get_result.getLocationsError)
+
+
+export const getUsers = () => dispatch => {
+  return fetch('/users')
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    return res.json();
+  }).then(res => {
+    dispatch(get_result.getUsersSuccess(res))
+  }).catch(err => {
+    dispatch(get_result.getUsersError(err))
+  });
+}
 
 export const getLocations = () => dispatch => {
   return fetch('/locations')

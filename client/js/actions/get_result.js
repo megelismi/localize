@@ -45,3 +45,15 @@ export const getDescriptionsError = error => ({
   type: GET_DESCRIPTIONS_ERROR,
   error
 });
+
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const getUsersSuccess = users => ({
+  type: GET_USERS_SUCCESS,
+  users
+});
+
+export const GET_USERS_ERROR = 'GET_USERS_ERROR';
+export const getUsersError = error => ({
+  type: GET_USERS_ERROR,
+  error
+});
