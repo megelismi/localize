@@ -12,7 +12,7 @@ const DefaultSidebar = (props) => {
             <ul key={user.id}>
               <li>{user.first_name}</li>
               <li>{user.bio}</li>
-              <li><button onClick={() => {hashHistory.push('/' + user.id)}}>{user.first_name}{'\'s '}{props.city}</button></li>
+              <li><button>{user.first_name}{'\'s '}{props.city}</button></li>
               <li><button>{user.first_name}{'\'s profile'}</button></li>
             </ul>
           )
