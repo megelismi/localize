@@ -1,3 +1,5 @@
+// refactor into middleware
+
 import * as get_result from './get_result.js';
 
 export const getLocations = () => dispatch => {

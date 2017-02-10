@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectById } from '../../actions/sync.js';
+import * as actionCreators from '../../actions/sync.js';
 
 const ModalDisplay = (props) => {
   return (
@@ -13,10 +13,4 @@ const ModalDisplay = (props) => {
   )
 }
 
-const mapStateToProps = () => ({})
-
-const mapDispatchToProps = (dispatch) => {
-  return { selectById: (id) => { dispatch(selectById(id)) } }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(ModalDisplay);
+export default connect(null, actionCreators)(ModalDisplay);

@@ -6,7 +6,8 @@ const mergeLocationAndDescription = (locations, descriptions) => {
       return merge = Object.assign({}, match, {
         short_description: merge.short_description,
         long_description: merge.long_description,
-        image: merge.image
+        image: merge.image,
+        user_id: merge.user_id
       });
     });
     return merge;
