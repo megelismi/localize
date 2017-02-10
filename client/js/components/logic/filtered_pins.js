@@ -5,7 +5,7 @@ const filteredPins = (selectedTags, locationTags, mergedLocations) => {
     return locationTags.filter((pair) => pair.tag_id === id)
     .map((object) => object.location_id) })
     .reduce((a, b) => a.concat(b))
-    .filter((item, idx, ary) => ary.indexOf(item) == idx );
+    .filter((item, idx, ary) => ary.indexOf(item) === idx );
 
   let filteredLocations = arrayOfLocationIds.map((locationId) => {
     return mergedLocations.filter((location) => location.id === locationId);

@@ -6,6 +6,7 @@ import * as syncActionCreators from '../../actions/sync.js';
 import ModalDisplay from './modal_display';
 import DefaultSidebar from './default_sidebar';
 import TagCloud from './tag_cloud';
+import filteredUsers from '../logic/filtered_users';
 
 class Sidebar extends React.Component {
   constructor() {
@@ -46,6 +47,7 @@ class Sidebar extends React.Component {
     if (!this.props.users) {
       return <div></div>
     } else {
+      let selectedUsers = filteredUsers(mergedLocations, users);
       if ((selectedLocation) && locations) {
         const selected = mergedLocations.filter((location) => location.id === selectedLocation );
         return <ModalDisplay title={selected[0].name} info={selected[0].long_description} />
@@ -59,7 +61,7 @@ class Sidebar extends React.Component {
       if (showAllTags && this.state.displayTagCloud) {
         return <TagCloud tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} />
       }
-      return <DefaultSidebar displayTags={this.displayTags} users={users} city={'Portland'} />
+      return <DefaultSidebar displayTags={this.displayTags} locations={mergedLocations} users={selectedUsers} city={'Portland'} />
     }
   }
 }
