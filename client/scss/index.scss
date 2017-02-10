@@ -1,3 +1,15 @@
-#map1 {
-  height: 600px;
+@import 'map';
+@import 'partials';
+@import 'sidebar';
+
+$base-font: 'Lato', sans-serif;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: $base-font;
 }
