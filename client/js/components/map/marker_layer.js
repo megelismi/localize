@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { selectById, saveMergedLocationInfo } from '../../actions/sync.js';
+import * as actionCreators from '../../actions/sync.js';
 import { LayerGroup, Marker, Popup } from 'react-leaflet';
 
 class MarkerLayer extends React.Component {
@@ -29,13 +29,4 @@ class MarkerLayer extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-		selectById: (id) => { dispatch(selectById(id)) },
-    saveMergedLocationInfo: (info) => { dispatch(saveMergedLocationInfo(info)) }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(MarkerLayer);
+export default connect(null, actionCreators)(MarkerLayer);
