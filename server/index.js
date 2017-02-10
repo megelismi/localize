@@ -53,7 +53,7 @@
     })
   })
 
-  // get all data from location_tags
+  //get all data from location_tags
 
   app.get('/locations/tags', (req,res) => {
     knex('locations_users_tags').then((location_tags) => {

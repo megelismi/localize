@@ -79,6 +79,23 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
   }
 }
 
+const userState = (state = {}, action) => {
+  switch (action.type) {
+    case get_actions.GET_USERS_SUCCESS:
+    return state = Object.assign({}, state, {
+      users: action.users,
+      usersError: false
+    });
+    case get_actions.GET_USERS_ERROR:
+    return state = Object.assign({}, state, {
+      usersError: true
+    });
+    default:
+    return state;
+  }
+}
+
 export default combineReducers({
-  locationState
+  locationState,
+  userState
 });
