@@ -1,6 +1,7 @@
   import 'babel-polyfill';
   import express from 'express';
   import bodyParser from 'body-parser';
+  import mergeLocationAndDescription from './handlers/locations_handler'
 
   const HOST = process.env.HOST;
   const PORT = process.env.PORT || 8080;
@@ -17,11 +18,31 @@
   app.use(express.static(process.env.CLIENT_PATH));
   app.use(bodyParser.json());
 
+// get all locations
 
   app.get('/locations', (req, res) => {
     knex('locations').then((locations) => {
       return res.status(200).json(locations);
     });
+  })
+
+  //get all reviews
+
+    app.get('/reviews', (req,res) => {
+    knex('reviews').then((reviews) => {
+      return res.status(200).json(reviews);
+    })
+  })
+
+// get all locations with reviews
+
+  app.get('/locations/reviews', (req, res) => {
+    knex('locations').then((locations) => {
+      knex('reviews').then((reviews) => {
+        let merged = mergeLocationAndDescription(locations, reviews); 
+        return res.status(200).json(merged);
+      })
+    })
   })
 
   //get all tags
@@ -37,14 +58,6 @@
   app.get('/locations/tags', (req,res) => {
     knex('locations_users_tags').then((location_tags) => {
         return res.status(200).json(location_tags);
-    })
-  })
-
-  //get all reviews
-
-  app.get('/reviews', (req,res) => {
-    knex('reviews').then((reviews) => {
-      return res.status(200).json(reviews);
     })
   })
 
@@ -90,7 +103,6 @@
       return res.status(200).json(data);
     })
   })
-
 
   function runServer() {
       return new Promise((resolve, reject) => {
