@@ -15,7 +15,7 @@ class MapComponent extends React.Component {
     this.props.getLocations();
     this.props.getDescriptions();
     this.props.getLocationTags();
-    this.props.getUsers();
+    // this.props.getUsers();
   }
 
   render() {

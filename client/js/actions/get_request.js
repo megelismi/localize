@@ -4,8 +4,23 @@ import { getServer } from './async_middleware';
 
 import * as get_result from './get_result.js';
 
-// export const getLocations = getServer('/locations', get_result.getLocationsSuccess, get_result.getLocationsError)
-
+// function createApiAction(endpoint, name) {
+//   return () => dispatch => {
+//     return fetch(endpoint)
+//     .then(res => {
+//       if (!res.ok) {
+//         throw new Error(res.statusText)
+//       }
+//       return res.json();
+//     }).then(res => {
+//       dispatch(get_result[`${ name }Success`](res))
+//     }).catch(err => {
+//       dispatch(get_result[`${ name }Error`](res))
+//     });
+//   }
+// }
+//
+// export const getUsers = createApiAction('/users', 'getUsers')
 
 export const getUsers = () => dispatch => {
   return fetch('/users')

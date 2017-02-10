@@ -39,7 +39,7 @@
   app.get('/locations/reviews', (req, res) => {
     knex('locations').then((locations) => {
       knex('reviews').then((reviews) => {
-        let merged = mergeLocationAndDescription(locations, reviews); 
+        let merged = mergeLocationAndDescription(locations, reviews);
         return res.status(200).json(merged);
       })
     })
