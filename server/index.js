@@ -35,8 +35,8 @@
   // get all data from location_tags
 
   app.get('/locations/tags', (req,res) => {
-    knex('location_tags').then((location_tags) => {
-        return res.status(200).json(location_tags);
+    knex('locations_users_tags').then((locations_users_tags) => {
+        return res.status(200).json(locations_users_tags);
     })
   })
 
@@ -75,7 +75,7 @@
     })
   })
 
-  //get all users 
+  //get all users
 
   app.get('/users', (req, res) => {
     knex('users').then((users) => {
