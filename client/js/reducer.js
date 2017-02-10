@@ -59,7 +59,7 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
     }
     case sync_actions.TOGGLE_TAG_FILTER:
     return state = Object.assign({}, state, {
-      filter: !state.filter
+      filterBoolean: !state.filter
     });
     case sync_actions.SET_TAG_FILTER:
     return state = Object.assign({}, state, {
@@ -71,8 +71,9 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
       showAllTags: true
     });
     case sync_actions.SELECT_BY_ID:
+    const selected = state.mergedLocationInfo.filter((location) => location.id === action.id);
     return state = Object.assign({}, state, {
-      selectedLocation: action.id
+      selectedLocation: selected[0]
     });
     default:
     return state;

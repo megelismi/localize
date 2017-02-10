@@ -42,26 +42,21 @@ class Sidebar extends React.Component {
   }
 
   render () {
-    const selectedUser = null;
-    const { locations, mergedLocations, selectedLocation, selectedTags, filter, showAllTags, allTags, users } = this.props;
+    const { locations, mergedLocations, selectedLocation, selectedTags, filterBoolean, showAllTags, allTags, users } = this.props;
     if (!this.props.users) {
       return <div></div>
     } else {
-      let selectedUsers = filteredUsers(mergedLocations, users);
-      if ((selectedLocation) && locations) {
-        const selected = mergedLocations.filter((location) => location.id === selectedLocation );
-        return <ModalDisplay title={selected[0].name} info={selected[0].long_description} />
+      if (selectedLocation) {
+        // const selected = mergedLocations.filter((location) => location.id === selectedLocation);
+        return <ModalDisplay title={selectedLocation.name} info={selectedLocation.long_description} />
       }
-      if (selectedUser) {
-        return <ModalDisplay title={selected[0].name} info={selected[0].long_description} />
-      }
-      if (filter) {
+      if (filterBoolean) {
         return <TagCloud tags={selectedTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Clear filters'} />
       }
       if (showAllTags && this.state.displayTagCloud) {
         return <TagCloud tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} />
       }
-      return <DefaultSidebar displayTags={this.displayTags} locations={mergedLocations} users={selectedUsers} city={'Portland'} />
+      return <DefaultSidebar displayTags={this.displayTags} locations={mergedLocations} users={filteredUsers(mergedLocations, users)} city={'Portland'} />
     }
   }
 }
@@ -69,11 +64,13 @@ class Sidebar extends React.Component {
 const mapStateToProps = (state) => ({
   locations: state.locationState.locations,
   selectedLocation: state.locationState.selectedLocation,
+  mergedLocations: state.locationState.mergedLocationInfo,
+  filterBoolean: state.locationState.filterBoolean,
+
   allTags: state.locationState.tags,
   selectedTags: state.locationState.selectedTags,
-  filter: state.locationState.filter,
   showAllTags: state.locationState.showAllTags,
-  mergedLocations: state.locationState.mergedLocationInfo,
+
   users: state.userState.users
 });
 
