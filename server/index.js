@@ -83,6 +83,14 @@
     })
   })
 
+  //get all location id/user ids/ tag ids
+
+  app.get('/locations/users/tags', (req, res) => {
+    knex('locations_users_tags').then((data) => {
+      return res.status(200).json(data);
+    })
+  })
+
 
   function runServer() {
       return new Promise((resolve, reject) => {
