@@ -88,7 +88,7 @@
     })
   })
 
-  //get all users 
+  //get all users
 
   app.get('/users', (req, res) => {
     knex('users').then((users) => {
