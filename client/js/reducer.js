@@ -26,6 +26,18 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
     return state = Object.assign({}, state, {
       descriptionsError: true
     });
+    case sync_actions.SELECT_BY_ID:
+    const selected = state.mergedLocationInfo.filter((location) => location.id === action.id);
+    return state = Object.assign({}, state, {
+      selectedLocation: selected[0]
+    });
+    default:
+    return state;
+  }
+}
+
+const tagState = (state = {}, action) => {
+  switch (action.type) {
     case get_actions.GET_TAGS_SUCCESS:
     return state = Object.assign({}, state, {
       tags: action.tags,
@@ -69,11 +81,6 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
     return state = Object.assign({}, state, {
       selectedTags: []
     });
-    case sync_actions.SELECT_BY_ID:
-    const selected = state.mergedLocationInfo.filter((location) => location.id === action.id);
-    return state = Object.assign({}, state, {
-      selectedLocation: selected[0]
-    });
     default:
     return state;
   }
@@ -97,5 +104,6 @@ const userState = (state = {}, action) => {
 
 export default combineReducers({
   locationState,
+  tagState,
   userState
 });

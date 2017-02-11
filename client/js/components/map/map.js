@@ -19,7 +19,7 @@ class MapComponent extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
-    const { locations, descriptions, selectedTags, locationTags, filterBoolean } = this.props.locationState;
+    const { locations, descriptions, selectedTags, locationTags, filterBoolean } = this.props;
     if (!locations || !descriptions) {
       return <div></div>
     } else {
@@ -37,7 +37,11 @@ class MapComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  locationState: state.locationState
+  locations: state.locationState.locations,
+  descriptions: state.locationState.descriptions,
+  selectedTags: state.tagState.selectedTags,
+  locationTags: state.tagState.locationTags,
+  filterBoolean: state.tagState.filterBoolean
 });
 
 export default connect(mapStateToProps, actionCreators)(MapComponent);

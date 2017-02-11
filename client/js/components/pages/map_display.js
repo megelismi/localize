@@ -1,6 +1,6 @@
 import React from 'react';
 import Map from '../map/map';
-import Sidebar from '../sidebar/sidebar';
+import NewSidebar from '../new_sidebar/new_sidebar';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
 
@@ -10,7 +10,7 @@ const MapDisplay = () => {
       <div>
       	<Header />
         <Map />
-        <Sidebar />
+        <NewSidebar />
         <Footer />
       </div>
     )
