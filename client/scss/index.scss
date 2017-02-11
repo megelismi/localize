@@ -2,7 +2,16 @@
 @import 'partials';
 @import 'sidebar';
 
-$base-font: 'Lato', sans-serif;
+@font-face {
+    font-family: 'stokedregular';
+    src: url('stoked-webfont.woff2') format('woff2'),
+         url('stoked-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+$base-font: 'stokedregular';
 
 * {
   box-sizing: border-box;
@@ -11,7 +20,7 @@ $base-font: 'Lato', sans-serif;
 body {
   padding: 0;
   margin: 0;
-  font-family: $base-font;
+  font-family: 'stokedregular';
 }
 
 html, body, div, span, applet, object, iframe,
@@ -33,6 +42,7 @@ time, mark, audio, video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    font-family: 'stokedregular';
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
