@@ -12,67 +12,52 @@ import filteredUsers from '../logic/filtered_users';
 class Sidebar extends React.Component {
   constructor() {
     super();
-    this.state = { displayTagCloud: false }
-    this.displayTags = this.displayTags.bind(this);
-    this.changeTagsOnDisplay = this.changeTagsOnDisplay.bind(this);
-    this.defaultDisplay = this.defaultDisplay.bind(this);
+    // this.state = { displayTagCloud: false }
+    // this.displayTags = this.displayTags.bind(this);
+    // this.changeTagsOnDisplay = this.changeTagsOnDisplay.bind(this);
+    // this.defaultDisplay = this.defaultDisplay.bind(this);
   }
 
   componentDidMount() {
     this.props.getActionCreators.getUsers();
-  }
-
-  displayTags(e) {
     this.props.getActionCreators.getTags();
-    this.props.syncActionCreators.clearAllSelectedTags();
-    this.setState({ displayTagCloud: true });
+    // this.setState({ displayTagCloud: true });
   }
 
-  changeTagsOnDisplay(e) {
-    this.props.syncActionCreators.toggleTagFilter();
-    this.setState({ displayTagCloud: false });
-    if (this.props.filterBoolean) {
-      this.props.syncActionCreators.clearAllSelectedTags();
-    }
-  }
+  // displayTags(e) {
+  //   this.props.getActionCreators.getTags();
+  //   this.props.syncActionCreators.clearAllSelectedTags();
+  //   this.setState({ displayTagCloud: true });
+  // }
 
-  defaultDisplay(e) {
-    this.props.syncActionCreators.setTagFilter();
-    this.setState({ displayTagCloud: false });
-    this.props.syncActionCreators.clearAllSelectedTags();
-  }
+  // changeTagsOnDisplay(e) {
+  //   this.props.syncActionCreators.toggleTagFilter();
+  //   this.setState({ displayTagCloud: false });
+  //   if (this.props.filterBoolean) {
+  //     this.props.syncActionCreators.clearAllSelectedTags();
+  //   }
+  // }
+  //
+  // defaultDisplay(e) {
+  //   this.props.syncActionCreators.setTagFilter();
+  //   this.setState({ displayTagCloud: false });
+  //   this.props.syncActionCreators.clearAllSelectedTags();
+  // }
 
   render () {
     const { locations, mergedLocations, selectedLocation, selectedTags, filterBoolean, allTags, users } = this.props;
     let sidebarHead, sidebarBody, sidebarModal, displayTags;
 
-    if (!this.props.users) {
+    if (!this.props.users || !this.props.allTags) {
       return <div></div>
     } else {
-      sidebarBody = <DefaultSidebar locations={mergedLocations} users={filteredUsers(mergedLocations, users)} city={'Portland'} />
-      displayTags = <DisplayTags displayTags={this.displayTags} />
-      if (selectedLocation) {
-        return <ModalDisplay title={selectedLocation.name} info={selectedLocation.long_description} />
-      } else {
-        if (!filterBoolean && !this.state.displayTagCloud) {
-          return (
-            <div className="sidebar">
-              {displayTags}
-              {sidebarBody}
-            </div>
-          )
-        } else {
-          sidebarHead = this.state.displayTagCloud ?
-            <TagCloud boolean={true} tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} /> :
-            <TagCloud boolean={false} tags={selectedTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Clear filters'} />
-          return (
-            <div className="sidebar">
-              <div>{sidebarHead}</div>
-              <div>{sidebarBody}</div>
-            </div>
-          )
-        }
-      }
+      console.log('all tags -- sidebar', this.props.allTags);
+      return (
+        <div className="sidebar">
+          <TagCloud boolean={true} tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} />
+          <DefaultSidebar locations={mergedLocations} users={users} city={'Portland'} />
+        </div>
+      )
     }
   }
 }

@@ -27,6 +27,7 @@ class DefaultSidebar extends React.Component {
     if (!tags) {
       return <div></div>
     } else {
+      console.log('all tags -- tag_cloud', this.props.tags);
       return (
         <div>
           <button className="close-button"

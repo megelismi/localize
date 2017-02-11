@@ -2,7 +2,7 @@ import React from 'react';
 import { hashHistory } from 'react-router';
 
 const DefaultSidebar = (props) => {
-
+  console.log('default sidebar...', props.users)
   return (
 <<<<<<< HEAD
     <div className="sidebar">
