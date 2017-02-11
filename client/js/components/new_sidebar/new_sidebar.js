@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import * as actionCreators from '../../actions/get_request.js';
 
 class NewSidebar extends React.Component {
-
-  componentDidMount() {
-  }
-
+  
   render() {
     if (!this.props.users || !this.props.locationTags) {
       return <div>Nope</div>

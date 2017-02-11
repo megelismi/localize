@@ -19,13 +19,13 @@ class MapComponent extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
-    const { locations, selectedTags, locationTags, filterBoolean, mergedLocations } = this.props;
+    const { locations, selectedTags, locationTags, filterBoolean, locationAndDescription } = this.props;
     if (!locations) {
       return <div></div>
     } else {
       let locationPins;
       // let mergedLocations = mergeLocationAndDescription(locations, descriptions);
-      !filterBoolean ? locationPins = mergedLocations : locationPins = filteredPins(selectedTags, locationTags, mergedLocations);
+      !filterBoolean ? locationPins = locationAndDescription : locationPins = filteredPins(selectedTags, locationTags, locationAndDescription);
       return (
         <Map className="display-map" center={city} zoom={14}>
           <Tile />
@@ -38,7 +38,7 @@ class MapComponent extends React.Component {
 
 const mapStateToProps = (state) => ({
   locations: state.locationState.locations,
-  mergedLocations: state.locationState.mergedLocations,
+  locationAndDescription: state.locationState.locationAndDescription,
   selectedTags: state.tagState.selectedTags,
   locationTags: state.tagState.locationTags,
   filterBoolean: state.tagState.filterBoolean
