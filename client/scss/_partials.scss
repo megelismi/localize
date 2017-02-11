@@ -1,3 +1,5 @@
+$app-font: 'stokedregular';
+
 .header, .footer {
   margin: 0 5px 30px 5px;
   width: 100%;
@@ -39,4 +41,12 @@
   ul {
     justify-content: center !important;
   }
+}
+
+.app-name {
+  font-family: $app-font;
+  width: 30%;
+  font-size: 30px; 
+  background-color: yellow; 
+
 }

@@ -4,14 +4,15 @@
 
 @font-face {
     font-family: 'stokedregular';
-    src: url('stoked-webfont.woff2') format('woff2'),
-         url('stoked-webfont.woff') format('woff');
+    src: url('../assets/fonts/stoked-webfont.woff2') format('woff2'),
+         url('../assets/fonts/stoked-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 
 }
 
-$base-font: 'stokedregular';
+$base-font: 'Lato', sans-serif;
+$logo-font: 'stokedregular';
 
 * {
   box-sizing: border-box;
@@ -20,7 +21,7 @@ $base-font: 'stokedregular';
 body {
   padding: 0;
   margin: 0;
-  font-family: 'stokedregular';
+  font-family: $base-font !important;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -42,7 +43,6 @@ time, mark, audio, video {
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    font-family: 'stokedregular';
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
@@ -67,3 +67,4 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
