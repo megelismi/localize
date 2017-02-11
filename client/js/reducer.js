@@ -68,7 +68,6 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
     case sync_actions.CLEAR_ALL_SELECTED_TAGS:
     return state = Object.assign({}, state, {
       selectedTags: []
-      // showAllTags: true
     });
     case sync_actions.SELECT_BY_ID:
     const selected = state.mergedLocationInfo.filter((location) => location.id === action.id);

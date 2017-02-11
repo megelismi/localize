@@ -23,7 +23,7 @@ class DefaultSidebar extends React.Component {
   }
 
   render() {
-    const { tags, defaultDisplay, changeTagsOnDisplay, buttonText, selected } = this.props;
+    const { tags, defaultDisplay, changeTagsOnDisplay, buttonText, selected, boolean } = this.props;
     if (!tags) {
       return <div></div>
     } else {
@@ -31,10 +31,14 @@ class DefaultSidebar extends React.Component {
         <div>
           <button className="close-button"
 <<<<<<< HEAD
+<<<<<<< HEAD
             onClick={defaultDisplay}>X</button>
           <div className="tag-button-container">
 =======
             onClick={() => {this.renderNext(true)}}>X</button>
+=======
+            onClick={() => {this.renderNext(boolean)}}>X</button>
+>>>>>>> Stable-ish.
           <div>
 >>>>>>> Extract displayTags button into own component.
             {tags.map((tag) => {

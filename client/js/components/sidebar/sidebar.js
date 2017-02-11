@@ -63,8 +63,8 @@ class Sidebar extends React.Component {
           )
         } else {
           sidebarHead = this.state.displayTagCloud ?
-            <TagCloud tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} /> :
-            <TagCloud tags={selectedTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Clear filters'} />
+            <TagCloud boolean={true} tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} /> :
+            <TagCloud boolean={false} tags={selectedTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Clear filters'} />
           return (
             <div className="sidebar">
               <div>{sidebarHead}</div>
@@ -85,7 +85,6 @@ const mapStateToProps = (state) => ({
 
   allTags: state.locationState.tags,
   selectedTags: state.locationState.selectedTags,
-  // showAllTags: state.locationState.showAllTags,
 
   users: state.userState.users
 });
