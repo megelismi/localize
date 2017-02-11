@@ -6,6 +6,7 @@ import * as syncActionCreators from '../../actions/sync.js';
 import ModalDisplay from './modal_display';
 import DefaultSidebar from './default_sidebar';
 import TagCloud from './tag_cloud';
+import DisplayTags from './display_tags';
 import filteredUsers from '../logic/filtered_users';
 
 class Sidebar extends React.Component {
@@ -22,7 +23,7 @@ class Sidebar extends React.Component {
   }
 
   displayTags(e) {
-    this.props.getActionCreators.getTags()
+    this.props.getActionCreators.getTags();
     this.props.syncActionCreators.clearAllSelectedTags();
     this.setState({ displayTagCloud: true });
   }
@@ -30,7 +31,7 @@ class Sidebar extends React.Component {
   changeTagsOnDisplay(e) {
     this.props.syncActionCreators.toggleTagFilter();
     this.setState({ displayTagCloud: false });
-    if (this.props.filter) {
+    if (this.props.filterBoolean) {
       this.props.syncActionCreators.clearAllSelectedTags();
     }
   }
@@ -42,21 +43,36 @@ class Sidebar extends React.Component {
   }
 
   render () {
-    const { locations, mergedLocations, selectedLocation, selectedTags, filterBoolean, showAllTags, allTags, users } = this.props;
+    const { locations, mergedLocations, selectedLocation, selectedTags, filterBoolean, allTags, users } = this.props;
+    let sidebarHead, sidebarBody, sidebarModal, displayTags;
+
     if (!this.props.users) {
       return <div></div>
     } else {
+      sidebarBody = <DefaultSidebar locations={mergedLocations} users={filteredUsers(mergedLocations, users)} city={'Portland'} />
+      displayTags = <DisplayTags displayTags={this.displayTags} />
       if (selectedLocation) {
-        // const selected = mergedLocations.filter((location) => location.id === selectedLocation);
         return <ModalDisplay title={selectedLocation.name} info={selectedLocation.long_description} />
+      } else {
+        if (!filterBoolean && !this.state.displayTagCloud) {
+          return (
+            <div className="sidebar">
+              {displayTags}
+              {sidebarBody}
+            </div>
+          )
+        } else {
+          sidebarHead = this.state.displayTagCloud ?
+            <TagCloud tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} /> :
+            <TagCloud tags={selectedTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Clear filters'} />
+          return (
+            <div className="sidebar">
+              <div>{sidebarHead}</div>
+              <div>{sidebarBody}</div>
+            </div>
+          )
+        }
       }
-      if (filterBoolean) {
-        return <TagCloud tags={selectedTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Clear filters'} />
-      }
-      if (showAllTags && this.state.displayTagCloud) {
-        return <TagCloud tags={allTags} changeTagsOnDisplay={this.changeTagsOnDisplay} defaultDisplay={this.defaultDisplay} buttonText={'Filter'} />
-      }
-      return <DefaultSidebar displayTags={this.displayTags} locations={mergedLocations} users={filteredUsers(mergedLocations, users)} city={'Portland'} />
     }
   }
 }
@@ -69,7 +85,7 @@ const mapStateToProps = (state) => ({
 
   allTags: state.locationState.tags,
   selectedTags: state.locationState.selectedTags,
-  showAllTags: state.locationState.showAllTags,
+  // showAllTags: state.locationState.showAllTags,
 
   users: state.userState.users
 });

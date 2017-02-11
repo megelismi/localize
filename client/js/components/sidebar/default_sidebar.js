@@ -4,6 +4,7 @@ import { hashHistory } from 'react-router';
 const DefaultSidebar = (props) => {
 
   return (
+<<<<<<< HEAD
     <div className="sidebar">
       <div className="sidebar-nav">
         <ul>
@@ -26,6 +27,19 @@ const DefaultSidebar = (props) => {
           })}
           </div>
       </div>
+=======
+    <div>
+      {props.users.map((user) => {
+        return (
+          <ul key={user.id}>
+            <li>{user.first_name}</li>
+            <li>{user.bio}</li>
+            <li><button>{user.first_name}{'\'s '}{props.city}</button></li>
+            <li><button>{user.first_name}{'\'s profile'}</button></li>
+          </ul>
+        )
+      })}
+>>>>>>> Extract displayTags button into own component.
     </div>
   )
 }
