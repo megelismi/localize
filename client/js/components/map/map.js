@@ -16,12 +16,10 @@ class MapComponent extends React.Component {
     if (!locations || !locationAndDescription) {
       return <div></div>
     } else {
-      let locationPins;
-      !filterBoolean ? locationPins = locationAndDescription : locationPins = filteredPins(selectedTags, locationTags, locationAndDescription);
       return (
         <Map className="display-map" center={city} zoom={14}>
           <Tile />
-          <MarkerLayer locationInfo={locationPins} />
+          <MarkerLayer locationInfo={locationAndDescription} />
         </Map>
       );
     }
@@ -32,8 +30,7 @@ const mapStateToProps = (state) => ({
   locations: state.locationState.locations,
   locationAndDescription: state.locationState.locationAndDescription,
   selectedTags: state.tagState.selectedTags,
-  locationTags: state.tagState.locationTags,
-  filterBoolean: state.tagState.filterBoolean
+  locationTags: state.tagState.locationTags
 });
 
 export default connect(mapStateToProps)(MapComponent);

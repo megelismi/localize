@@ -10,11 +10,6 @@ export const addSelectedTag = tag => ({
   tag
 });
 
-export const TOGGLE_TAG_FILTER = 'TOGGLE_TAG_FILTER';
-export const toggleTagFilter = () => ({
-  type: TOGGLE_TAG_FILTER
-});
-
 export const CLEAR_ALL_SELECTED_TAGS = 'CLEAR_ALL_SELECTED_TAGS';
 export const clearAllSelectedTags = () => ({
   type: CLEAR_ALL_SELECTED_TAGS

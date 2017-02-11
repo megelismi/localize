@@ -82,10 +82,6 @@ const tagState = (state = {}, action) => {
         selectedTags: newArray
       });
     }
-    case sync_actions.TOGGLE_TAG_FILTER:
-    return state = Object.assign({}, state, {
-      filterBoolean: !state.filterBoolean
-    });
     case sync_actions.SET_TAG_FILTER:
     return state = Object.assign({}, state, {
       filter: false
