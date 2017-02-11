@@ -26,7 +26,7 @@
     });
   })
 
-  //get all reviews
+  // get all reviews
 
     app.get('/reviews', (req,res) => {
     knex('reviews').then((reviews) => {
@@ -45,7 +45,7 @@
     })
   })
 
-  //get all tags
+  // get all tags
 
   app.get('/tags', (req, res) => {
     knex('tags').then((tags) => {
@@ -53,7 +53,7 @@
     })
   })
 
-  //get all data from location_tags
+  // get all data from location_tags
 
   app.get('/locations/tags', (req,res) => {
     knex('locations_users_tags').then((location_tags) => {
@@ -61,7 +61,7 @@
     })
   })
 
-  //get all locations with that tag
+  // get all locations with that tag
 
   app.get('/locations/:tag', (req, res) => {
     const { tag } = req.params;
@@ -74,7 +74,7 @@
     })
   })
 
-  //get all users with that tag
+  // get all users with that tag
 
   app.get('/users/:tag', (req, res) => {
     const { tag } = req.params;
@@ -88,7 +88,7 @@
     })
   })
 
-  //get all users
+  // get all users
 
   app.get('/users', (req, res) => {
     knex('users').then((users) => {
@@ -96,7 +96,7 @@
     })
   })
 
-  //get all location id/user ids/ tag ids
+  // get all location id/user ids/tag ids
 
   app.get('/locations/users/tags', (req, res) => {
     knex('locations_users_tags').then((data) => {

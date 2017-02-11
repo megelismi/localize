@@ -12,19 +12,19 @@ import filteredPins from '../logic/filtered_pins';
 class MapComponent extends React.Component {
 
   componentDidMount() {
-    this.props.getLocations();
-    this.props.getDescriptions();
-    this.props.getLocationTags();
+    // this.props.getLocations();
+    // this.props.getDescriptions();
+    // this.props.getLocationTags();
   }
 
   render() {
     const city = [43.6615, -70.2553];
-    const { locations, descriptions, selectedTags, locationTags, filterBoolean } = this.props;
-    if (!locations || !descriptions) {
+    const { locations, selectedTags, locationTags, filterBoolean, mergedLocations } = this.props;
+    if (!locations) {
       return <div></div>
     } else {
       let locationPins;
-      let mergedLocations = mergeLocationAndDescription(locations, descriptions);
+      // let mergedLocations = mergeLocationAndDescription(locations, descriptions);
       !filterBoolean ? locationPins = mergedLocations : locationPins = filteredPins(selectedTags, locationTags, mergedLocations);
       return (
         <Map className="display-map" center={city} zoom={14}>
@@ -38,7 +38,7 @@ class MapComponent extends React.Component {
 
 const mapStateToProps = (state) => ({
   locations: state.locationState.locations,
-  descriptions: state.locationState.descriptions,
+  mergedLocations: state.locationState.mergedLocations,
   selectedTags: state.tagState.selectedTags,
   locationTags: state.tagState.locationTags,
   filterBoolean: state.tagState.filterBoolean

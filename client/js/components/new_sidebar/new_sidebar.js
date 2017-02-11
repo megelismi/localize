@@ -7,6 +7,7 @@ class NewSidebar extends React.Component {
   componentDidMount() {
     this.props.getLocationTags();
     this.props.getUsers();
+    this.props.getLocationsAndDescriptions();
   }
 
   render() {

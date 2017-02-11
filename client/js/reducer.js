@@ -13,19 +13,32 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
     return state = Object.assign({}, state, {
       locationsError: true
     });
-    case sync_actions.SAVE_MERGED_LOCATION_INFO:
-    return state = Object.assign({}, state, {
-      mergedLocationInfo: action.info
-    });
     case get_actions.GET_DESCRIPTIONS_SUCCESS:
+      let mergedLocations = action.descriptions.map(description => {
+        let merge = description;
+        let matches = state.locations.filter(location => location.id === merge.location_id);
+        matches.forEach(match => {
+          return merge = Object.assign({}, match, {
+            short_description: merge.short_description,
+            long_description: merge.long_description,
+            image: merge.image,
+            user_id: merge.user_id
+          });
+        });
+        return merge;
+      });
     return state = Object.assign({}, state, {
-      descriptions: action.descriptions,
-      descriptionsError: false
+      locationAndDescription: mergedLocations,
+      getDescriptionsError: false
     });
     case get_actions.GET_DESCRIPTIONS_ERROR:
     return state = Object.assign({}, state, {
-      descriptionsError: true
+      getDescriptionsError: true
     });
+    // case sync_actions.SAVE_MERGED_LOCATION_INFO:
+    // return state = Object.assign({}, state, {
+    //   mergedLocationInfo: action.info
+    // });
     case sync_actions.SELECT_BY_ID:
     const selected = state.mergedLocationInfo.filter((location) => location.id === action.id);
     return state = Object.assign({}, state, {
