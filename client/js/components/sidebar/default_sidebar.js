@@ -9,11 +9,12 @@ const DefaultSidebar = (props) => {
       <div>
         {props.users.map((user) => {
           return (
-            <ul key={user.id}>
-              <li>{user.first_name}</li>
-              <li>{user.bio}</li>
-              <li><button>{user.first_name}{'\'s '}{props.city}</button></li>
-              <li><button>{user.first_name}{'\'s profile'}</button></li>
+            <ul className="user-info" key={user.id}>
+              <img className="user-image" src={user.image} />
+              <li className="user-name">{user.first_name}</li>
+              <li className="user-bio">{user.bio}</li>
+              <li><button className="see-user-city">See {user.first_name}{'\'s '}{props.city}</button></li>
+              <li><button className="see-user-profile">See {user.first_name}{'\'s profile'}</button></li>
             </ul>
           )
         })}

@@ -2,10 +2,9 @@
 .sidebar {
   float: right;
   width: 25vw;
-  height: 100vh;
-  border: 1px solid gray;
+  // border: 1px solid gray;
   border-radius: 2px;
-  margin-right: 15px;
+  margin-right: 20px;
   padding: 15px;
   text-align: center;
 }
@@ -24,4 +23,53 @@
 
 .tag-button-selected {
   background-color: lightblue;
+}
+
+.user-info {
+  border-bottom: 1px solid gray; 
+  padding-bottom: 10px; 
+}
+
+.user-info:last-child {
+  border-bottom: none; 
+}
+
+.user-image {
+  width: 150px; 
+  padding-top: 12px;
+}
+
+.user-name {
+  font-weight: bold; 
+  font-size: 18px; 
+  color: #2D2D2D;
+  padding-top: 12px; 
+}
+
+.user-bio {
+  text-align: left;
+  font-size: 14px;
+  padding: 12px;
+}
+
+.see-user-city, .see-user-profile {
+  border: none;
+  background-color: white;
+  font-size: 13px; 
+  // color: #52489C;
+  // color: #F45B69;
+   color: #4ddcb1;
+  &:hover {
+    // color: #DE5360;
+    color: #51B2B2; 
+
+  }
+}
+
+.see-user-city {
+
+}
+
+.see-user-profile {
+
 }

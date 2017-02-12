@@ -17,9 +17,11 @@ $app-font: 'stokedregular';
       padding: 10px;
       a {
         text-decoration: none;
-        color: black;
+        // color: #2D2D2D;
+          color: #4ddcb1;
+        // color: #F45B69;
         &:hover {
-          color: gray;
+          color: #51B2B2;
         }
       }
     }
@@ -45,8 +47,10 @@ $app-font: 'stokedregular';
 
 .app-name {
   font-family: $app-font;
-  width: 30%;
-  font-size: 30px; 
-  background-color: yellow; 
-
+  width: 50%;
+  font-size: 35px; 
+  // color: #F45B69; 
+  color: #4ddcb1;
+  float: left; 
+  margin-left: 15px; 
 }
