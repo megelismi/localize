@@ -1,7 +1,5 @@
 const mergeLocationAndDescription = (locations, descriptions) => {
-  console.log('locations', locations)
-  console.log('descriptions', descriptions)
-  let mergedLocations = descriptions.map(description => {
+   let mergedLocations = descriptions.map(description => {
     let merge = description;
     let matches = locations.filter(location => location.id === merge.location_id);
     matches.forEach(match => {
