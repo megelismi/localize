@@ -17,11 +17,11 @@ $app-font: 'stokedregular';
       padding: 10px;
       a {
         text-decoration: none;
-        // color: #2D2D2D;
-          color: #4ddcb1;
+        color: #2D2D2D;
+          // color: #4ddcb1;
         // color: #F45B69;
         &:hover {
-          color: #51B2B2;
+          color: gray;
           cursor: pointer;
         }
       }
