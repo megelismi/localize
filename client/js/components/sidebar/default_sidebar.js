@@ -5,7 +5,7 @@ const DefaultSidebar = (props) => {
 
   return (
     <div className="sidebar">
-      <button onClick={() => {props.displayTags()}}>{"What are you looking for?"}</button>
+      <button className="sidebar-nav-button" onClick={() => {props.displayTags()}}>{"What are you looking for?"}</button>
       <div>
         {props.users.map((user) => {
           return (

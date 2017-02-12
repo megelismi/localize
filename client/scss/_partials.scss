@@ -29,13 +29,13 @@ $app-font: 'stokedregular';
 }
 
 .header {
-  border-bottom: 1px solid gray;
+  border-bottom: 1px solid lightgray;
   z-index: 999998;
   left: 0;
 }
 
 .footer {
-  border-top: 1px solid gray;
+  border-top: 1px solid lightgray;
   float:left;
   bottom: 0;
   z-index: 999999;

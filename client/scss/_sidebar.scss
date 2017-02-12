@@ -2,10 +2,9 @@
 .sidebar {
   float: right;
   width: 25vw;
-  // border: 1px solid gray;
   border-radius: 2px;
   margin-right: 20px;
-  padding: 15px;
+  padding: 0 15px 15px 15px;
   text-align: center;
 }
 
@@ -52,7 +51,7 @@
   padding: 12px;
 }
 
-.see-user-city, .see-user-profile {
+.see-user-city, .see-user-profile, .sidebar-nav-button {
   border: none;
   background-color: white;
   font-size: 13px; 
@@ -66,10 +65,7 @@
   }
 }
 
-.see-user-city {
-
+.sidebar-nav-button {
+  font-size: 18px !important;
 }
 
-.see-user-profile {
-
-}
