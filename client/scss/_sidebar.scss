@@ -6,14 +6,13 @@ $accent-color: #4ddcb1;
 
 .sidebar {
   float: right;
-  width: 25%;
+  width: 30%;
   height: 100vh; 
   border-radius: 2px;
   margin-right: 35px;
   padding: 0 15px 50px 15px;
   text-align: center;
-  overflow: hidden; 
-  position: relative; 
+  overflow: hidden;  
 }
 
 .sidebar-inner-container {
@@ -95,12 +94,12 @@ $accent-color: #4ddcb1;
   margin: 40px 0; 
 }
 
-.user-info {
+.user-info-list {
   border-bottom: 1px solid $border-color; 
   padding-bottom: 10px; 
 }
 
-.user-info:last-child {
+.user-info-list:last-child {
   border-bottom: none; 
 }
 

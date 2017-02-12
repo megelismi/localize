@@ -12,10 +12,10 @@ const DefaultSidebar = (props) => {
         </ul>
       </div>
       <div className="sidebar-inner-container">
-        <div>
+        <div className="user-info-container">
           {props.users.map((user) => {
             return (
-              <ul className="user-info" key={user.id}>
+              <ul className="user-info-list" key={user.id}>
                 <img className="user-image" src={user.image} />
                 <li className="user-name">{user.first_name}</li>
                 <li className="user-bio">{user.bio}</li>
