@@ -44,58 +44,6 @@ export const getLocationsAndDescriptions = () => dispatch => {
   });
 }
 
-// export const getLocationsAndDescriptions = () => dispatch => {
-//   return fetch('/locations')
-//   .then(location_res => {
-//     if (!location_res.ok) {
-//       throw new Error(res.statusText)
-//     }
-//     return location_res.json();
-//   }).then((location_res, location_err) => {
-//     return fetch('/reviews')
-//     .then(res => {
-//       if (!res.ok) {
-//         throw new Error(res.statusText)
-//       }
-//       return res.json();
-//     }).then(res => {
-//       dispatch(get_result.getLocationsSuccess(res))
-//       dispatch(get_result.getDescriptionsSuccess(res))
-//     }).catch(err => {
-//       dispatch(get_result.getLocationsError(err))
-//       dispatch(get_result.getDescriptionsSuccess(err))
-//     });
-//   });
-// }
-
-// export const getLocations = () => dispatch => {
-//   return fetch('/locations')
-//   .then(res => {
-//     if (!res.ok) {
-//       throw new Error(res.statusText)
-//     }
-//     return res.json();
-//   }).then(res => {
-//     dispatch(get_result.getLocationsSuccess(res))
-//   }).catch(err => {
-//     dispatch(get_result.getLocationsError(err))
-//   });
-// }
-//
-// export const getDescriptions = () => dispatch => {
-//   return fetch('/reviews')
-//   .then(res => {
-//     if (!res.ok) {
-//       throw new Error(res.statusText)
-//     }
-//     return res.json();
-//   }).then(res => {
-//     dispatch(get_result.getDescriptionsSuccess(res))
-//   }).catch(err => {
-//     dispatch(get_result.getDescriptionsSuccess(err))
-//   });
-// }
-
 export const getTags = () => dispatch => {
   return fetch('/tags')
   .then(res => {

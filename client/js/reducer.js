@@ -35,12 +35,8 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
     return state = Object.assign({}, state, {
       getDescriptionsError: true
     });
-    // case sync_actions.SAVE_MERGED_LOCATION_INFO:
-    // return state = Object.assign({}, state, {
-    //   mergedLocationInfo: action.info
-    // });
     case sync_actions.SELECT_BY_ID:
-    const selected = state.mergedLocationInfo.filter((location) => location.id === action.id);
+    const selected = state.locationAndDescription.filter((location) => location.id === action.id);
     return state = Object.assign({}, state, {
       selectedLocation: selected[0]
     });
@@ -60,15 +56,6 @@ const tagState = (state = {}, action) => {
     return state = Object.assign({}, state, {
       tagsError: true
     });
-    case get_actions.GET_LOCATION_TAGS_SUCCESS:
-    return state = Object.assign({}, state, {
-      locationTags: action.location_tags,
-      locationTagsError: false
-    });
-    case get_actions.GET_LOCATION_TAGS_ERROR:
-    return state = Object.assign({}, state, {
-      locationTagsError: true
-    });
     case sync_actions.ADD_SELECTED_TAG:
     let tags = state.selectedTags || [];
     if (state.selectedTags.indexOf(action.tag) === -1) {
@@ -82,6 +69,30 @@ const tagState = (state = {}, action) => {
         selectedTags: newArray
       });
     }
+    case get_actions.GET_LOCATION_TAGS_SUCCESS:
+    let locations;
+      if (state.selectedTags) {
+        let arrayOfTagIds = state.selectedTags.map((tag) => tag.id);
+        let arrayOfLocationIds = arrayOfTagIds.map((id) => {
+          return action.location_tags.filter((pair) => pair.tag_id === id)
+          .map((object) => object.location_id) })
+          .reduce((a, b) => a.concat(b))
+          .filter((item, idx, ary) => ary.indexOf(item) === idx );
+        let locations = arrayOfLocationIds.map((locationId) => {
+          return state.locationAndDescription.filter((location) => location.id === locationId);
+        }).reduce((a, b) => a.concat(b));
+      } else {
+        locations = action.location_tags;
+      }
+    return state = Object.assign({}, state, {
+      filteredLocations: locations,
+      locationTags: action.location_tags,
+      locationTagsError: false
+    });
+    case get_actions.GET_LOCATION_TAGS_ERROR:
+    return state = Object.assign({}, state, {
+      locationTagsError: true
+    });
     case sync_actions.SET_TAG_FILTER:
     return state = Object.assign({}, state, {
       filter: false
