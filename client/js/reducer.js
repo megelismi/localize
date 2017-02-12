@@ -49,7 +49,7 @@ const tagState = (state = {}, action) => {
   switch (action.type) {
     case get_actions.GET_TAGS_SUCCESS:
     return state = Object.assign({}, state, {
-      tags: action.tags,
+      tagInfo: action.tags,
       tagsError: false
     });
     case get_actions.GET_TAGS_ERROR:
@@ -70,22 +70,7 @@ const tagState = (state = {}, action) => {
       });
     }
     case get_actions.GET_LOCATION_TAGS_SUCCESS:
-    let locations;
-      if (state.selectedTags) {
-        let arrayOfTagIds = state.selectedTags.map((tag) => tag.id);
-        let arrayOfLocationIds = arrayOfTagIds.map((id) => {
-          return action.location_tags.filter((pair) => pair.tag_id === id)
-          .map((object) => object.location_id) })
-          .reduce((a, b) => a.concat(b))
-          .filter((item, idx, ary) => ary.indexOf(item) === idx );
-        let locations = arrayOfLocationIds.map((locationId) => {
-          return state.locationAndDescription.filter((location) => location.id === locationId);
-        }).reduce((a, b) => a.concat(b));
-      } else {
-        locations = action.location_tags;
-      }
     return state = Object.assign({}, state, {
-      filteredLocations: locations,
       locationTags: action.location_tags,
       locationTagsError: false
     });

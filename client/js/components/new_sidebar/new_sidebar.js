@@ -17,7 +17,7 @@ class NewSidebar extends React.Component {
     let display;
     this.state.displayLocals ?
       display = <LocalsDisplay /> :
-      display = <TagsDisplay />
+      display = <TagsDisplay tags={this.props.tagInfo} selected={this.props.selectedTags} />
     return (
       <div>
         <div>
@@ -35,7 +35,9 @@ class NewSidebar extends React.Component {
 
 const mapStateToProps = (state) => ({
   users: state.userState.users,
-  locationTags: state.tagState.locationTags
+  tagInfo: state.tagState.tagInfo,
+  locationTags: state.tagState.locationTags,
+  selectedTags: state.tagState.selectedTags
 })
 
 export default connect(mapStateToProps, actionCreators)(NewSidebar);

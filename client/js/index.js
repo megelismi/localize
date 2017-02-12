@@ -6,13 +6,11 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import MapDisplay from './components/pages/map_display';
-import UserDisplay from './components/sidebar/user_display';
 
 const routes = (
   <Provider store={store}>
 		<Router history={hashHistory}>
 			<Route path = '/' component={MapDisplay} />
-      <Route path = '/:user_id' component={UserDisplay} />
 		</Router>
   </Provider>
 );

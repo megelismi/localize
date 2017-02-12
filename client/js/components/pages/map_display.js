@@ -9,6 +9,7 @@ import Footer from '../partials/footer';
 class MapDisplay extends React.Component {
 
   componentDidMount() {
+    this.props.getTags();
     this.props.getLocationTags();
     this.props.getUsers();
     this.props.getLocationsAndDescriptions();

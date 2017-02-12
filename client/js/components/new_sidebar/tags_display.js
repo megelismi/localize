@@ -1,21 +1,23 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
-const TagsDisplay = () => {
+const TagsDisplay = (props) => {
+  console.log('Tags display', props);
+  let tagClass = 'tag-button';
+
   return (
     <div>
-      {tags.map((tag) => {
+      {props.tags.map((tag) => {
         let tagClass;
-        selected.indexOf(tag) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";
+        // if (props.selected) {
+        //   selected.indexOf(tag) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";
+        // }
         return <button className={tagClass}
-        onClick={() => {this.changeOnClick(tag)}}
-        key={tag.id}>{tag.tag}</button>})}
+
+          key={tag.id}>{tag.tag}</button>})}
     </div>
   )
 }
 
-const mapStateToProps = (state) => ({
-  tags: state.tagState
-});
+export default TagsDisplay;
 
-export default connect ()(TagsDisplay);
+// onClick={() => {this.changeOnClick(tag)}}
