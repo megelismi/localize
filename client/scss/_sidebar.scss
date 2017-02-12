@@ -34,7 +34,7 @@
 }
 
 .user-image {
-  width: 150px; 
+  border-radius: 50%;
   padding-top: 12px;
 }
 
@@ -49,6 +49,7 @@
   text-align: left;
   font-size: 14px;
   padding: 12px;
+  line-height: 20px; 
 }
 
 .see-user-city, .see-user-profile, .sidebar-nav-button {
