@@ -1,4 +1,11 @@
 $app-font: 'stokedregular';
+$border-color: lightgray; 
+$accent-color: #4ddcb1 ; 
+$charcoal: #2D2D2D; 
+$purple: #4062BB;
+$darkpurple: #748CCD;
+
+//#51B2B2
 
 .header, .footer {
   margin: 0 5px 30px 5px;
@@ -17,9 +24,7 @@ $app-font: 'stokedregular';
       padding: 10px;
       a {
         text-decoration: none;
-        color: #2D2D2D;
-          // color: #4ddcb1;
-        // color: #F45B69;
+        color: $charcoal;
         &:hover {
           color: gray;
           cursor: pointer;
@@ -29,14 +34,9 @@ $app-font: 'stokedregular';
   }
 }
 
-.header {
-  border-bottom: 1px solid lightgray;
-  z-index: 999998;
-  left: 0;
-}
 
 .footer {
-  border-top: 1px solid lightgray;
+  border-top: 1px solid $border-color;
   float:left;
   bottom: 0;
   z-index: 999999;
@@ -46,12 +46,37 @@ $app-font: 'stokedregular';
   }
 }
 
-.app-name {
+.navbar-brand {
   font-family: $app-font;
-  width: 50%;
-  font-size: 35px; 
-  // color: #F45B69; 
-  color: #4ddcb1;
-  float: left; 
-  margin-left: 15px; 
+  color: $accent-color !important; 
+  font-size: 32px !important; 
+}
+
+.navbar-inverse {
+  background-color: white !important;
+  border-color: white !important; 
+  border-bottom: 1px solid $border-color !important; 
+}
+
+.navbar-toggle {
+  background-color: white !important;
+  border-color: $accent-color !important;
+}
+
+.navbar-collapse {
+  border-color: $border-color !important;   
+}
+
+.icon-bar {
+  background-color: $accent-color !important; 
+}
+
+.right-link {
+  font-size: 16px !important;
+  a {
+     color: $purple !important;
+     &:hover {
+        color: $darkpurple !important;  
+     }
+  } 
 }

@@ -1,3 +1,6 @@
+$charcoal: #2D2D2D;
+$purple: #4062BB;
+$darkpurple: #748CCD;  
 
 .sidebar {
   float: right;
@@ -41,7 +44,7 @@
 .user-name {
   font-weight: bold; 
   font-size: 18px; 
-  color: #2D2D2D;
+  color: $charcoal;
   padding-top: 12px; 
 }
 
@@ -58,17 +61,17 @@
   font-size: 13px; 
   // color: #52489C;
   // color: #F45B69;
-  color: #4062BB;
+  color: $purple; 
   &:hover {
     // color: #DE5360;
-    color: #748CCD; 
+    color: $darkpurple; 
     cursor: pointer;
   }
 }
 
 .sidebar-nav-button {
   font-size: 18px !important;
-  color: #2D2D2D !important;
+  color: $charcoal !important;
   &:hover {
     color: gray !important;
   }
