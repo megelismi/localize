@@ -45,7 +45,7 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
   }
 }
 
-const tagState = (state = {}, action) => {
+const tagState = (state = { selectedTags: [] }, action) => {
   switch (action.type) {
     case get_actions.GET_TAGS_SUCCESS:
     return state = Object.assign({}, state, {
@@ -57,7 +57,8 @@ const tagState = (state = {}, action) => {
       tagsError: true
     });
     case sync_actions.ADD_SELECTED_TAG:
-    let tags = state.selectedTags || [];
+    let tags = state.selectedTags;
+    console.log('add selected tag', action.tag);
     if (state.selectedTags.indexOf(action.tag) === -1) {
       return state = Object.assign({}, state, {
         selectedTags: [ ...tags, action.tag ]

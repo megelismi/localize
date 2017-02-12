@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../actions/get_request.js';
+import * as syncActionCreators from '../../actions/sync.js';
 import LocalsDisplay from './locals_display';
 import TagsDisplay from './tags_display';
 
@@ -17,7 +17,7 @@ class NewSidebar extends React.Component {
     let display;
     this.state.displayLocals ?
       display = <LocalsDisplay /> :
-      display = <TagsDisplay tags={this.props.tagInfo} selected={this.props.selectedTags} />
+      display = <TagsDisplay tags={this.props.tagInfo} selected={this.props.selectedTags} addSelectedTag={this.props.addSelectedTag} />
     return (
       <div>
         <div>
@@ -36,8 +36,7 @@ class NewSidebar extends React.Component {
 const mapStateToProps = (state) => ({
   users: state.userState.users,
   tagInfo: state.tagState.tagInfo,
-  locationTags: state.tagState.locationTags,
   selectedTags: state.tagState.selectedTags
-})
+});
 
-export default connect(mapStateToProps, actionCreators)(NewSidebar);
+export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
