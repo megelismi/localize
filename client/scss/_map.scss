@@ -1,3 +1,5 @@
+$accent-color: #4ddcb1; 
+
 .display-map {
   float: left;
   width: 70vw;
@@ -7,3 +9,26 @@
   border-right: 1px solid gray;
 
 }
+
+.leaflet-popup-content {
+	text-align: center; 
+}
+
+.leaflet-popup-content p {
+	 margin: 12px 0; 
+}
+
+.location-name {
+	font-weight: bold; 
+	font-size: 16px; 
+	color: $accent-color;   
+}
+
+.location-short-description {
+	font-size: 14px;  
+}
+
+.see-location-details-button {
+
+}
+
