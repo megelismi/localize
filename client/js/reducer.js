@@ -2,7 +2,7 @@ import * as get_actions from './actions/get_result';
 import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
-const locationState = (state = { filter: false, show_all: true }, action) => {
+const locationState = (state = { locationAndDescription: [] }, action) => {
   switch (action.type) {
     case get_actions.GET_LOCATIONS_SUCCESS:
     return state = Object.assign({}, state, {
@@ -30,6 +30,24 @@ const locationState = (state = { filter: false, show_all: true }, action) => {
     return state = Object.assign({}, state, {
       locationAndDescription: mergedLocations,
       getDescriptionsError: false
+    });
+    case sync_actions.FILTER_LOCATIONS:
+      let filteredLocations;
+      if (action.selectedTags.length > 0) {
+        let arrayOfTagIds = action.selectedTags.map((tag) => tag.id);
+        let arrayOfLocationIds = arrayOfTagIds.map((id) => {
+          return action.locationTags.filter((object) => object.tag_id === id)
+          .map((object) => object.location_id) })
+          .reduce((a, b) => a.concat(b))
+          .filter((item, idx, ary) => ary.indexOf(item) === idx );
+        filteredLocations = arrayOfLocationIds.map((locationId) => {
+          return state.locationAndDescription.filter((location) => location.id === locationId);
+        }).reduce((a, b) => a.concat(b));
+      } else {
+        filteredLocations = state.locationAndDescription;
+      }
+    return state = Object.assign({}, state, {
+      filteredLocations: filteredLocations
     });
     case get_actions.GET_DESCRIPTIONS_ERROR:
     return state = Object.assign({}, state, {

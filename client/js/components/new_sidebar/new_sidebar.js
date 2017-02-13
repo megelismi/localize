@@ -13,11 +13,20 @@ class NewSidebar extends React.Component {
   showLocalsView() { this.setState({ displayLocals: true }) }
   showTagsView() { this.setState({ displayLocals: false }) }
 
+  changeMap() {
+    const { selectedTags, tagInfo, locationTags } = this.props;
+    this.props.filterLocations(selectedTags, tagInfo, locationTags);
+  }
+
   render() {
     let display;
     this.state.displayLocals ?
       display = <LocalsDisplay /> :
-      display = <TagsDisplay tags={this.props.tagInfo} selected={this.props.selectedTags} addSelectedTag={this.props.addSelectedTag} />
+      display = <TagsDisplay
+        tags={this.props.tagInfo}
+        selected={this.props.selectedTags}
+        addSelectedTag={this.props.addSelectedTag}
+        changeMap={this.changeMap.bind(this)} />
     return (
       <div>
         <div>
@@ -36,7 +45,8 @@ class NewSidebar extends React.Component {
 const mapStateToProps = (state) => ({
   users: state.userState.users,
   tagInfo: state.tagState.tagInfo,
-  selectedTags: state.tagState.selectedTags
+  selectedTags: state.tagState.selectedTags,
+  locationTags: state.tagState.locationTags
 });
 
 export default connect(mapStateToProps, syncActionCreators)(NewSidebar);

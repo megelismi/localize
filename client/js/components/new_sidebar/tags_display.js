@@ -5,7 +5,10 @@ const TagsDisplay = (props) => {
 
   const changeOnClick = (tag) => {
     props.addSelectedTag(tag);
+    props.changeMap();
   }
+
+  console.log('tags display', props.selectedTags)
 
   return (
     <div>

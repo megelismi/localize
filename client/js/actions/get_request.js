@@ -3,6 +3,7 @@
 import { getServer } from './async_middleware';
 
 import * as get_result from './get_result.js';
+import * as sync from './sync.js';
 
 export const getUsers = () => dispatch => {
   return fetch('/users')
@@ -40,7 +41,9 @@ export const getLocationsAndDescriptions = () => dispatch => {
       dispatch(get_result.getDescriptionsSuccess(res))
     }).catch(err => {
       dispatch(get_result.getDescriptionsSuccess(err))
-    });
+    }).then(() => {
+      dispatch(sync.filterLocations([], [], [], []))
+    })
   });
 }
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Map, LayersControl } from 'react-leaflet';
 import { connect } from 'react-redux';
+import * as syncActionCreators from '../../actions/sync.js';
 import L from 'leaflet';
 import Tile from './tile_layer';
 import MarkerLayer from './marker_layer';
@@ -10,14 +11,14 @@ class MapComponent extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
-    const { locationAndDescription } = this.props;
-    if (!locationAndDescription) {
+    const { filteredLocations } = this.props;
+    if (!filteredLocations) {
       return <div></div>
     } else {
       return (
         <Map className="display-map" center={city} zoom={14}>
           <Tile />
-          <MarkerLayer locationInfo={locationAndDescription} />
+          <MarkerLayer locationInfo={filteredLocations} />
         </Map>
       );
     }
@@ -25,7 +26,8 @@ class MapComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  locationAndDescription: state.locationState.locationAndDescription
+  locationAndDescription: state.locationState.locationAndDescription,
+  filteredLocations: state.locationState.filteredLocations
 });
 
-export default connect(mapStateToProps)(MapComponent);
+export default connect(mapStateToProps, syncActionCreators)(MapComponent);

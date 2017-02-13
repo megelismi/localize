@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../actions/get_request.js';
+import { bindActionCreators } from 'redux';
+import * as getActionCreators from '../../actions/get_request.js';
+import * as syncActionCreators from '../../actions/sync.js';
 import Map from '../map/map';
 import NewSidebar from '../new_sidebar/new_sidebar';
 import Header from '../partials/header';
@@ -9,10 +11,10 @@ import Footer from '../partials/footer';
 class MapDisplay extends React.Component {
 
   componentDidMount() {
-    this.props.getTags();
-    this.props.getLocationTags();
-    this.props.getUsers();
-    this.props.getLocationsAndDescriptions();
+    this.props.getActionCreators.getTags();
+    this.props.getActionCreators.getLocationTags();
+    this.props.getActionCreators.getUsers();
+    this.props.getActionCreators.getLocationsAndDescriptions();
   }
 
   render() {
@@ -27,4 +29,16 @@ class MapDisplay extends React.Component {
   }
 }
 
-export default connect(null, actionCreators)(MapDisplay);
+
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getActionCreators: bindActionCreators(getActionCreators, dispatch),
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(MapDisplay);
