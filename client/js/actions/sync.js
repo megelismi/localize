@@ -31,11 +31,11 @@ export const selectUserAndUpdateTags = user => (dispatch, getState) => {
     type: SELECT_USER,
     user
   });
-
   if (getState().selectedUserLocations) {
     dispatch({
       type: FILTER_TAGS_BY_SELECTED_LOCATIONS
     });
   }
+
 
 }
