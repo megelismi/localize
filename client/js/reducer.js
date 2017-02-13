@@ -33,15 +33,13 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
 
     return state = Object.assign({}, state, {
       locationAndDescription: mergedLocations,
-      // filteredJoinArrayForTags,
       getDescriptionsError: false
     });
 
     case sync_actions.SELECT_USER:
-    // work here :)
+
       let selectedUserLocations;
       if (action.user) {
-        console.log('made it!', action.user)
         let filteredJoinArrayForUser = state.locationUserTags.filter((object) => {
           return object.user_id === action.user.id
         });
@@ -69,13 +67,17 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       let newTagsArray, filteredLocations;
 
       // modify an array of all currently selected tags
+      console.log('state.selectedTags.indexOf(action.tag)', state.selectedTags.indexOf(action.tag));
+
       if (state.selectedTags.indexOf(action.tag) === -1) {
         !action.tag ?
           newTagsArray = [] :
           newTagsArray = [ ...state.selectedTags, action.tag ]
-      } else if (state.selectedTags.indexOf(action.tag) === 0) {
+      } else if (state.selectedTags.indexOf(action.tag) !== 0) {
         let deleteAt = state.selectedTags.findIndex((elem) => elem === action.tag);
+        console.log('selected tags', state.selectedTags);
         newTagsArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
+        console.log('delete at', deleteAt, 'newtagsarray', newTagsArray)
       } else {
         newTagsArray = [];
       }
