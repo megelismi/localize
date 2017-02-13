@@ -30,8 +30,19 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
         });
         return merge;
       });
+
+      let locationIDs = mergedLocations.map((location) => location.id)
+      .filter((item, idx, ary) => ary.indexOf(item) === idx );
+
+      let filteredJoinArrayForTags = locationIDs.map((id) => {
+        return state.locationUserTags.filter((object) => object.location_id === id)
+        .map((object) => object.tag_id) })
+        .reduce((a, b) => a.concat(b))
+        .filter((item, idx, ary) => ary.indexOf(item) === idx );
+
     return state = Object.assign({}, state, {
       locationAndDescription: mergedLocations,
+      filteredJoinArrayForTags,
       getDescriptionsError: false
     });
 
@@ -55,13 +66,13 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       if (state.selectedTags.length === 0 || newTagsArray.length === 0) {
         filteredLocations = state.locationAndDescription;
       } else {
-        let filteredLocationIDs = newTagsArray.map((id) => {
+        let filteredJoinArray = newTagsArray.map((id) => {
           return state.locationUserTags.filter((object) => object.tag_id === id)
           .map((object) => object.location_id) })
           .reduce((a, b) => a.concat(b))
           .filter((item, idx, ary) => ary.indexOf(item) === idx );
-        filteredLocations = filteredLocationIDs.map((locationId) => {
-          return state.locationAndDescription.filter((location) => location.id === locationId);
+        filteredLocations = filteredJoinArray.map((locationID) => {
+          return state.locationAndDescription.filter((location) => location.id === locationID);
         }).reduce((a, b) => a.concat(b));
       }
     return state = Object.assign({}, state, {
@@ -70,8 +81,18 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     });
 
     case get_actions.GET_TAGS_SUCCESS:
+    let filteredTags;
+    if (state.filteredJoinArrayForTags) {
+      filteredTags = state.filteredJoinArrayForTags.map((object) => {
+        action.tags.filter((tag) => tag.id === object.tag_id)
+      })
+    } else {
+      filteredTags = [];
+    }
+
     return state = Object.assign({}, state, {
       tagInfo: action.tags,
+      filteredTags,
       tagsError: false
     });
 

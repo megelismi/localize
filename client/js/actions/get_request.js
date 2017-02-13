@@ -42,24 +42,38 @@ export const getLocationsAndDescriptions = () => dispatch => {
     }).catch(err => {
       dispatch(get_result.getDescriptionsSuccess(err))
     }).then(() => {
-      dispatch(sync.filterByTag())
-    })
+      return fetch('/tags')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.statusText)
+        }
+        return res.json();
+      }).then(res => {
+        dispatch(get_result.getTagsSuccess(res))
+      }).catch(err => {
+        dispatch(get_result.getTagsError(err))
+      }).then(() => {
+        dispatch(sync.filterByTag())
+      });
+    });
   });
 }
 
-export const getTags = () => dispatch => {
-  return fetch('/tags')
-  .then(res => {
-    if (!res.ok) {
-      throw new Error(res.statusText)
-    }
-    return res.json();
-  }).then(res => {
-    dispatch(get_result.getTagsSuccess(res))
-  }).catch(err => {
-    dispatch(get_result.getTagsError(err))
-  });
-}
+
+
+// export const getTags = () => dispatch => {
+//   return fetch('/tags')
+//   .then(res => {
+//     if (!res.ok) {
+//       throw new Error(res.statusText)
+//     }
+//     return res.json();
+//   }).then(res => {
+//     dispatch(get_result.getTagsSuccess(res))
+//   }).catch(err => {
+//     dispatch(get_result.getTagsError(err))
+//   });
+// }
 
 export const getLocationTags = () => dispatch => {
   return fetch('/locations/tags')
