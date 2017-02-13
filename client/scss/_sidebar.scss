@@ -25,7 +25,8 @@ $accent-color: #4ddcb1;
 .sidebar-nav {
   border-bottom: 1px solid $border-color;
   padding-top: 7px; 
-  margin-left: 30px; 
+  margin-left: 30px;
+  margin-bottom: 10px;  
   ul {
     li {
       display: inline-block; 
@@ -94,9 +95,10 @@ $accent-color: #4ddcb1;
   margin: 40px 0; 
 }
 
-.user-info-list {
+.user-image-and-description-container {
   border-bottom: 1px solid $border-color; 
-  padding-bottom: 10px; 
+  padding-bottom: 10px;
+  text-align: left;  
 }
 
 .user-info-list:last-child {
@@ -104,21 +106,22 @@ $accent-color: #4ddcb1;
 }
 
 .user-image {
-  border-radius: 50%;
-  padding-top: 12px;
+  border-radius: 4%;
+  width: 70px; 
+  float: left; 
 }
 
 .user-name {
   font-weight: bold; 
-  font-size: 18px; 
+  font-size: 16px; 
   color: $charcoal;
-  padding-top: 12px; 
+  margin-left: 86px; 
 }
 
 .user-bio {
   text-align: left;
   font-size: 14px;
-  padding: 12px;
+  padding: 5px 0 5px 86px; 
   line-height: 20px; 
 }
 
@@ -132,6 +135,10 @@ $accent-color: #4ddcb1;
     color: $darkpurple; 
     cursor: pointer;
   }
+}
+
+.see-user-city {
+  margin-left: 81px; 
 }
 
 
