@@ -13,7 +13,7 @@ const TagsDisplay = (props) => {
         return <button className={tagClass}
           onClick={() => {props.filterByTag(tag.id)}}
           key={tag.id}>{tag.tag}</button>})}
-        <button onClick={props.clearAllAppliedTags}>Clear all</button>
+        <button className="filter-button" onClick={props.clearAllAppliedTags}>Clear all</button>
     </div>
   )
 }
