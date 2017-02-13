@@ -69,6 +69,8 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
 
     case sync_actions.FILTER_BY_TAG:
       let newTagsArray, filteredLocations;
+
+      // modify an array of all currently selected tags
       if (state.selectedTags.indexOf(action.tag) === -1) {
         !action.tag ?
           newTagsArray = [] :
@@ -79,6 +81,8 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       } else {
         newTagsArray = [];
       }
+
+      // find all locations that match any tag in selected tags array
       if (newTagsArray.length === 0) {
         filteredLocations = state.locationAndDescription;
       } else {
@@ -93,6 +97,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
           return state.locationAndDescription.filter((location) => location.id === locationID);
         }).reduce((a, b) => a.concat(b));
       }
+
     return state = Object.assign({}, state, {
       selectedTags: newTagsArray,
       filteredLocations

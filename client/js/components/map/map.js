@@ -28,7 +28,6 @@ class MapComponent extends React.Component {
 
 const mapStateToProps = (state) => ({
   selectedUserLocations: state.selectedUserLocations,
-  locationAndDescription: state.locationAndDescription,
   filteredLocations: state.filteredLocations
 });
 
