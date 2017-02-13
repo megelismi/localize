@@ -20,3 +20,8 @@ export const selectById = id => ({
   type: SELECT_BY_ID,
   id
 });
+
+export const FILTER_TAGS_BY_SELECTED_LOCATIONS = 'FILTER_TAGS_BY_SELECTED_LOCATIONS';
+export const filterTagsBySelectedLocations = () => ({
+  type: FILTER_TAGS_BY_SELECTED_LOCATIONS
+})

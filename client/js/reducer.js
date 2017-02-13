@@ -113,9 +113,22 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
 
     // CALLED IN CHAIN AFTER LOCATIONS & DESCRIPTIONS -- ASYNC CALL TO DB
     case get_actions.GET_TAGS_SUCCESS:
+    return state = Object.assign({}, state, {
+      tagInfo: action.tags,
+      tagsError: false
+    });
+
+    case get_actions.GET_TAGS_ERROR:
+    return state = Object.assign({}, state, {
+      tagsError: true
+    });
+
+    case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
+    console.log('CALLED GET TAGS SUCCESS')
     let filteredTags;
     if (state.locationAndDescription) {
       let locationsToFilter = state.selectedUserLocations || state.locationAndDescription
+      console.log('locations to be filtered...', locationsToFilter)
       let locationIDs = locationsToFilter.map((location) => location.id)
       .filter((item, idx, ary) => ary.indexOf(item) === idx );
       let filteredJoinArrayForTags = locationIDs.map((id) => {
@@ -124,20 +137,14 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
         .reduce((a, b) => a.concat(b))
         .filter((item, idx, ary) => ary.indexOf(item) === idx );
       filteredTags = filteredJoinArrayForTags.map((id) => {
-        return action.tags.filter((tag) => tag.id === id)
+        return state.tagInfo.filter((tag) => tag.id === id)
       }).reduce((a, b) => a.concat(b));
     } else {
       filteredTags = [];
     }
     return state = Object.assign({}, state, {
-      tagInfo: action.tags,
       filteredTags,
       tagsError: false
-    });
-
-    case get_actions.GET_TAGS_ERROR:
-    return state = Object.assign({}, state, {
-      tagsError: true
     });
 
     // DB CALL -- A JOIN TABLE USED TO FIGURE OUT ASSOCIATIONS BTWN LOCATIONS, USERS, AND TAGS
@@ -163,7 +170,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     });
 
     // SYNC ACTION THAT FINDS A SPECIFIC LOCATION TO DISPLAY IN SIDEBAR
-    // cleared by passing in 'null' when user Xes out of detailed description view
+    // cleared by passing in 'null' when user X's out of detailed description view
     case sync_actions.SELECT_BY_ID:
     const selected = state.locationAndDescription.filter((location) => location.id === action.id);
     return state = Object.assign({}, state, {

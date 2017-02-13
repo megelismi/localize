@@ -13,7 +13,7 @@ const MarkerLayer = (props) => {
               <span className="popup-info">
                 <p className="location-name">{location.name}</p>
                 <p className="location-short-description">{location.short_description}</p>
-                <button className="see-location-details-button" onClick={() => {this.props.selectById(location.id)}}>See details</button>
+                <button className="see-location-details-button" onClick={() => {props.selectById(location.id)}}>See details</button>
               </span>
             </Popup>
           </Marker>

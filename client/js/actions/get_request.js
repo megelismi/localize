@@ -55,6 +55,8 @@ export const getLocationsAndDescriptions = () => dispatch => {
         dispatch(get_result.getTagsError(err))
       }).then(() => {
         dispatch(sync.filterByTag())
+      }).then(() => {
+        dispatch(sync.filterTagsBySelectedLocations())
       });
     });
   });

@@ -18,6 +18,7 @@ class NewSidebar extends React.Component {
   showAllUsers() {
     this.showLocalsView();
     this.props.selectUser(null);
+    this.props.filterTagsBySelectedLocations();
   }
 
   render() {
