@@ -1,4 +1,5 @@
 var path = require('path');
+// require('path/to/bootstrap.css');
 
 var webpack = require('webpack');
 

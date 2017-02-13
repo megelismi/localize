@@ -2,6 +2,15 @@
 @import 'partials';
 @import 'sidebar';
 
+@font-face {
+    font-family: 'stokedregular';
+    src: url('../assets/fonts/stoked-webfont.woff2') format('woff2'),
+         url('../assets/fonts/stoked-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 $base-font: 'Lato', sans-serif;
 
 * {
@@ -11,7 +20,8 @@ $base-font: 'Lato', sans-serif;
 body {
   padding: 0;
   margin: 0;
-  font-family: $base-font;
+  font-family: $base-font !important;
+  color: #5F5F5F;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -57,3 +67,132 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+
+
+@media only screen and (max-width: 1020px) {
+ .display-map {
+    width: 60%; 
+ }
+
+ .sidebar {
+    width: 34%; 
+ }
+}
+
+@media only screen and (max-width: 865px) {
+ .display-map {
+    width: 55%; 
+    margin-left: 10px; 
+ }
+
+ .sidebar {
+    margin-right: 70px
+ }
+
+}
+
+ @media only screen and (max-width: 768px) {
+
+   .display-map {
+      width: 90%;
+      float: none;  
+      margin-left: auto !important;  
+      margin-right: auto !important; 
+   }
+
+   .sidebar {
+    float: none; 
+    width: 100%; 
+    margin-right: 0; 
+   }
+
+   .sidebar-inner-container {  
+    overflow-y: hidden; 
+    margin-left: 0; 
+    height: auto; 
+   }
+
+   .user-info-container {
+    display: flex; 
+    justify-content: center; 
+    flex-wrap: wrap; 
+    align-items: center; 
+   }
+
+   .user-info-list {
+    width: 30%;  
+    border-bottom: none;
+    margin: 10px;  
+   }
+
+   .user-image {
+    width: 130px; 
+   }
+
+  .user-bio {
+    font-size: 12px;
+    padding: 0px;
+    line-height: 15px;
+  }
+
+   .see-user-city, .see-user-profile {
+      float: left;  
+   }
+
+   .user-name {
+      font-size: 16px; 
+   }
+
+   .sidebar-nav {
+      margin-left: 0; 
+   }
+
+   .sidebar {
+      padding: 0;
+      height: auto;  
+   }
+}
+
+ @media only screen and (max-width: 620px) {
+
+    .user-info-list {
+      width: 40%; 
+      margin: 10px 20px;
+    }
+
+  }
+
+   @media only screen and (max-width: 460px) {
+
+    .user-info-list {
+      width: 100%; 
+      margin: 10px;
+      padding: 10px; 
+      display: flex; 
+      align-items: center; 
+      flex-direction: column;  
+    }
+
+    .display-map {
+      margin-left: 0; 
+    }
+
+    .user-name {
+      margin-bottom: 10px; 
+    }
+
+    .tag-button-container {
+      margin: 20px 0; 
+    }
+
+    .close-button {
+      margin-left: 15px;
+
+    }
+
+    .sidebar {
+      padding: 5px; 
+    }
+
+  }

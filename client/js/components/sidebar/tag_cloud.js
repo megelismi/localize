@@ -31,7 +31,7 @@ class DefaultSidebar extends React.Component {
         <div className="sidebar">
           <button className="close-button"
             onClick={defaultDisplay}>X</button>
-          <div>
+          <div className="tag-button-container">
             {tags.map((tag) => {
               let tagClass;
               selected.indexOf(tag) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";

@@ -16,9 +16,9 @@ class MarkerLayer extends React.Component {
             return <Marker position={location.lat_long} key={index}>
               <Popup>
                 <span className="popup-info">
-                  <span className="location-name">{location.name}</span>
-                  <br />{location.short_description}<br />
-                  <button onClick={() => {this.props.selectById(location.id)}}>See details</button>
+                  <p className="location-name">{location.name}</p>
+                  <p className="location-short-description">{location.short_description}</p>
+                  <button className="see-location-details-button" onClick={() => {this.props.selectById(location.id)}}>See details</button>
                 </span>
               </Popup>
             </Marker>
