@@ -123,27 +123,34 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       tagsError: true
     });
 
+    // CALLED AT END OF LONG ASYNC CHAIN WHEN PAGE FIRST LOADS
+    // CALLED WITH THUNK ALONG WITH SELECT_USER WHEN A USER IS SELECTED
+    // only display tags that are relevant to whatever locations are currently displayed on map
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
-    let filteredTags;
-    if (state.locationAndDescription) {
-      let locationsToFilter = state.selectedUserLocations || state.locationAndDescription
-      let locationIDs = locationsToFilter.map((location) => location.id)
-      .filter((item, idx, ary) => ary.indexOf(item) === idx );
-      let filteredJoinArrayForTags = locationIDs.map((id) => {
-        return state.locationUserTags.filter((object) => object.location_id === id)
-        .map((object) => object.tag_id) })
-        .reduce((a, b) => a.concat(b))
+      let filteredTags;
+      if (state.locationAndDescription) {
+        let locationsToFilter = state.selectedUserLocations || state.locationAndDescription
+        let locationIDs = locationsToFilter.map((location) => location.id)
         .filter((item, idx, ary) => ary.indexOf(item) === idx );
-      filteredTags = filteredJoinArrayForTags.map((id) => {
-        return state.tagInfo.filter((tag) => tag.id === id)
-      }).reduce((a, b) => a.concat(b));
-    } else {
-      filteredTags = [];
-    }
+        let filteredJoinArrayForTags = locationIDs.map((id) => {
+          return state.locationUserTags.filter((object) => object.location_id === id)
+          .map((object) => object.tag_id) })
+          .reduce((a, b) => a.concat(b))
+          .filter((item, idx, ary) => ary.indexOf(item) === idx );
+        filteredTags = filteredJoinArrayForTags.map((id) => {
+          return state.tagInfo.filter((tag) => tag.id === id)
+        }).reduce((a, b) => a.concat(b));
+      } else {
+        filteredTags = [];
+      }
     return state = Object.assign({}, state, {
       filteredTags,
       tagsError: false
     });
+
+    // implementing this atm would require a different UI where you could see both tags & users at once
+    // case sync_action.FILTER_USERS_BY_SELECTED_TAGS:
+    // return state
 
     // DB CALL -- A JOIN TABLE USED TO FIGURE OUT ASSOCIATIONS BTWN LOCATIONS, USERS, AND TAGS
     case get_actions.GET_LOCATION_USER_TAGS_SUCCESS:
