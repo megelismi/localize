@@ -25,3 +25,17 @@ export const FILTER_TAGS_BY_SELECTED_LOCATIONS = 'FILTER_TAGS_BY_SELECTED_LOCATI
 export const filterTagsBySelectedLocations = () => ({
   type: FILTER_TAGS_BY_SELECTED_LOCATIONS
 })
+
+export const selectUserAndUpdateTags = user => (dispatch, getState) => {
+  dispatch({
+    type: SELECT_USER,
+    user
+  });
+
+  if (getState().selectedUserLocations) {
+    dispatch({
+      type: FILTER_TAGS_BY_SELECTED_LOCATIONS
+    });
+  }
+
+}

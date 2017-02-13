@@ -18,7 +18,12 @@ class NewSidebar extends React.Component {
   showAllUsers() {
     this.showLocalsView();
     this.props.selectUser(null);
-    this.props.filterTagsBySelectedLocations();
+  }
+
+  selectLocalUser(user) {
+    console.log(this.props);
+    // this.props.selectedUser(user);
+    this.props.selectUserAndUpdateTags(user);
   }
 
   render() {
@@ -33,7 +38,7 @@ class NewSidebar extends React.Component {
       display = <LocalsDisplay
         city={'Portland'}
         users={users}
-        selectUser={selectUser} />
+        selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
       display = <TagsDisplay
         tags={filteredTags}

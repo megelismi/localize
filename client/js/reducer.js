@@ -124,11 +124,9 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     });
 
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
-    console.log('CALLED GET TAGS SUCCESS')
     let filteredTags;
     if (state.locationAndDescription) {
       let locationsToFilter = state.selectedUserLocations || state.locationAndDescription
-      console.log('locations to be filtered...', locationsToFilter)
       let locationIDs = locationsToFilter.map((location) => location.id)
       .filter((item, idx, ary) => ary.indexOf(item) === idx );
       let filteredJoinArrayForTags = locationIDs.map((id) => {
