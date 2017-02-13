@@ -27,7 +27,6 @@ class NewSidebar extends React.Component {
   }
 
   render() {
-    console.log('new SIDEBAR PROPS', this.props)
     let display;
     const { selectedLocation, selectById, users, selectUser, filteredTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser } = this.props;
     if (selectedLocation) {

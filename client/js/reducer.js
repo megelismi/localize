@@ -55,7 +55,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
           return state.filteredLocations.filter((location) => {
             return location.id === object.location_id
           });
-        }).reduce((a, b) => a.concat(b)).filter((location) => location.user_id === action.user.id);
+        }).reduce((a, b) => a.concat(b)).filter((item, idx, ary) => ary.indexOf(item) === idx );
       } else {
         selectedUserLocations = null;
       }
