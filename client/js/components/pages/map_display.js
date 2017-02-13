@@ -15,6 +15,7 @@ class MapDisplay extends React.Component {
     this.props.getActionCreators.getLocationTags();
     this.props.getActionCreators.getUsers();
     this.props.getActionCreators.getLocationsAndDescriptions();
+    this.props.syncActionCreators.filterByTag();
   }
 
   render() {

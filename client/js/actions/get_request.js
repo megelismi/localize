@@ -42,7 +42,7 @@ export const getLocationsAndDescriptions = () => dispatch => {
     }).catch(err => {
       dispatch(get_result.getDescriptionsSuccess(err))
     }).then(() => {
-      dispatch(sync.filterLocations([], [], [], []))
+      dispatch(sync.filterByTag())
     })
   });
 }
@@ -69,8 +69,8 @@ export const getLocationTags = () => dispatch => {
     }
     return res.json();
   }).then(res => {
-    dispatch(get_result.getLocationTagsSuccess(res))
+    dispatch(get_result.getLocationUserTagsSuccess(res))
   }).catch(err => {
-    dispatch(get_result.getLocationTagsError(err))
+    dispatch(get_result.getLocationUserTagsError(err))
   });
 }

@@ -3,12 +3,7 @@ import React from 'react';
 const TagsDisplay = (props) => {
   let tagClass = 'tag-button';
 
-  const changeOnClick = (tag) => {
-    props.addSelectedTag(tag);
-    props.changeMap();
-  }
-
-  console.log('tags display', props.selectedTags)
+  console.log('tag display props', props);
 
   return (
     <div>
@@ -18,7 +13,7 @@ const TagsDisplay = (props) => {
           props.selected.indexOf(tag) !== -1 ? tagClass = "tag-button-selected" : tagClass = "tag-button";
         }
         return <button className={tagClass}
-          onClick={() => {changeOnClick(tag)}}
+          onClick={() => {props.filterByTag(tag.id)}}
           key={tag.id}>{tag.tag}</button>})}
     </div>
   )

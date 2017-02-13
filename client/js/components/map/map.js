@@ -26,8 +26,8 @@ class MapComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  locationAndDescription: state.locationState.locationAndDescription,
-  filteredLocations: state.locationState.filteredLocations
+  locationAndDescription: state.locationAndDescription,
+  filteredLocations: state.filteredLocations
 });
 
 export default connect(mapStateToProps, syncActionCreators)(MapComponent);

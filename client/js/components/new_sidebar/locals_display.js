@@ -24,7 +24,7 @@ const LocalsDisplay = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.userState.users
+  users: state.users
 });
 
 export default connect(mapStateToProps)(LocalsDisplay);
