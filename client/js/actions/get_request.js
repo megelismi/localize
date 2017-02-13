@@ -19,6 +19,7 @@ export const getUsers = () => dispatch => {
   });
 }
 
+// move to server
 export const getLocationsAndDescriptions = () => dispatch => {
   return fetch('/locations')
   .then(res => {
@@ -54,6 +55,8 @@ export const getLocationsAndDescriptions = () => dispatch => {
         dispatch(get_result.getTagsError(err))
       }).then(() => {
         dispatch(sync.filterByTag())
+      }).then(() => {
+        dispatch(sync.filterTagsBySelectedLocations())
       });
     });
   });
