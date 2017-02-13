@@ -14,12 +14,11 @@ class NewSidebar extends React.Component {
   showTagsView() { this.setState({ displayLocals: false }) }
 
   render() {
-    console.log('new sidebar props', this.props)
     let display;
     this.state.displayLocals ?
       display = <LocalsDisplay /> :
       display = <TagsDisplay
-        tags={this.props.tagInfo}
+        tags={this.props.filteredTags}
         selected={this.props.selectedTags}
         filterByTag={this.props.filterByTag} />
     return (
@@ -39,7 +38,7 @@ class NewSidebar extends React.Component {
 
 const mapStateToProps = (state) => ({
   users: state.users,
-  tagInfo: state.tagInfo,
+  filteredTags: state.filteredTags,
   selectedTags: state.selectedTags,
   locationTags: state.locationTags
 });

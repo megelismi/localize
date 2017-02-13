@@ -83,9 +83,9 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     case get_actions.GET_TAGS_SUCCESS:
     let filteredTags;
     if (state.filteredJoinArrayForTags) {
-      filteredTags = state.filteredJoinArrayForTags.map((object) => {
-        action.tags.filter((tag) => tag.id === object.tag_id)
-      })
+      filteredTags = state.filteredJoinArrayForTags.map((id) => {
+        return action.tags.filter((tag) => tag.id === id)
+      }).reduce((a, b) => a.concat(b));
     } else {
       filteredTags = [];
     }

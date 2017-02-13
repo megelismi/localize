@@ -1,9 +1,8 @@
 import React from 'react';
 
 const TagsDisplay = (props) => {
+  
   let tagClass = 'tag-button';
-
-  console.log('tag display props', props);
 
   return (
     <div>
