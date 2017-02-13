@@ -52,7 +52,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     });
 
     case sync_actions.FILTER_BY_TAG:
-      let newTagsArray, filteredLocations;
+      let newTagsArray, filteredLocations, filteredJoinArray;
       if (state.selectedTags.indexOf(action.tag) === -1) {
         !action.tag ?
           newTagsArray = [] :
@@ -63,11 +63,13 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       } else {
         newTagsArray = [];
       }
-      if (state.selectedTags.length === 0 || newTagsArray.length === 0) {
+      if (newTagsArray.length === 0) {
         filteredLocations = state.locationAndDescription;
       } else {
         let filteredJoinArray = newTagsArray.map((id) => {
-          return state.locationUserTags.filter((object) => object.tag_id === id)
+          return state.locationUserTags.filter((object) => {
+            return object.tag_id === id
+          })
           .map((object) => object.location_id) })
           .reduce((a, b) => a.concat(b))
           .filter((item, idx, ary) => ary.indexOf(item) === idx );
@@ -77,6 +79,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       }
     return state = Object.assign({}, state, {
       selectedTags: newTagsArray,
+      filteredJoinArray,
       filteredLocations
     });
 
