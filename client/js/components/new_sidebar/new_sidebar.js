@@ -43,13 +43,14 @@ class NewSidebar extends React.Component {
     }
 
     return (
-      <div>
-        <div>
-          <button onClick={this.showAllUsers.bind(this)}>The locals</button>
-          <button onClick={this.showTagsView.bind(this)}>{"What are you looking for?"}</button>
+      <div className="sidebar">
+        <div className="sidebar-nav">
+          <ul>
+            <li> <button className="sidebar-nav-button" onClick={this.showTagsView.bind(this)}>{"Filter"}</button></li>
+            <li> <button className="sidebar-nav-button" onClick={this.showAllUsers.bind(this)}>{"Users"}</button></li>
+          </ul>
         </div>
-        <br /><br />
-        <div>{display}</div>
+        <div className="sidebar-inner-container">{display}</div>
       </div>
     )
   }
@@ -63,3 +64,9 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
+
+
+   //<div>
+          //<button onClick={this.showAllUsers.bind(this)}>The locals</button>
+          //<button onClick={this.showTagsView.bind(this)}>{"What are you looking for?"}</button>
+        //</div>
