@@ -46,13 +46,13 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
         !action.tag ?
           newTagsArray = [] :
           newTagsArray = [ ...state.selectedTags, action.tag ]
-        console.log('ADD TAG', newTagsArray)
-      } else {
+      } else if (state.selectedTags.indexOf(action.tag) === 0) {
         let deleteAt = state.selectedTags.findIndex((elem) => elem === action.tag);
-        let newTagsArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
-        console.log('REMOVE TAG', newTagsArray)
+        newTagsArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
+      } else {
+        newTagsArray = [];
       }
-      if (state.selectedTags.length === 0 || !newTagsArray) {
+      if (state.selectedTags.length === 0 || newTagsArray.length === 0) {
         filteredLocations = state.locationAndDescription;
       } else {
         let filteredLocationIDs = newTagsArray.map((id) => {
@@ -64,8 +64,6 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
           return state.locationAndDescription.filter((location) => location.id === locationId);
         }).reduce((a, b) => a.concat(b));
       }
-      console.log('NEW TAGS ARRAY', newTagsArray);
-      console.log('filteredLocations ARRAY', filteredLocations);
     return state = Object.assign({}, state, {
       selectedTags: newTagsArray,
       filteredLocations
