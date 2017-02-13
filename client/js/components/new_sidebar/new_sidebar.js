@@ -32,8 +32,7 @@ class NewSidebar extends React.Component {
     const { selectedLocation, selectById, users, selectUser, filteredTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser } = this.props;
     if (selectedLocation) {
       display = <LocationDetailsDisplay
-        name={selectedLocation.name}
-        info={selectedLocation.long_description}
+        locationInfo={selectedLocation}
         selectById={selectById} />
     } else if (this.state.displayLocals) {
       display = <LocalsDisplay
