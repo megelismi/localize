@@ -52,7 +52,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     });
 
     case sync_actions.FILTER_BY_TAG:
-      let newTagsArray, filteredLocations, filteredJoinArray;
+      let newTagsArray, filteredLocations;
       if (state.selectedTags.indexOf(action.tag) === -1) {
         !action.tag ?
           newTagsArray = [] :
@@ -79,8 +79,13 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       }
     return state = Object.assign({}, state, {
       selectedTags: newTagsArray,
-      filteredJoinArray,
       filteredLocations
+    });
+
+    case sync_actions.CLEAR_ALL_APPLIED_TAGS:
+    return state = Object.assign({}, state, {
+      selectedTags: [],
+      filteredLocations: state.locationAndDescription
     });
 
     case get_actions.GET_TAGS_SUCCESS:

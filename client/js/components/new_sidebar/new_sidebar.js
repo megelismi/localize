@@ -20,6 +20,7 @@ class NewSidebar extends React.Component {
       display = <TagsDisplay
         tags={this.props.filteredTags}
         selected={this.props.selectedTags}
+        clearAllAppliedTags={this.props.clearAllAppliedTags}
         filterByTag={this.props.filterByTag} />
     return (
       <div>
@@ -38,6 +39,7 @@ class NewSidebar extends React.Component {
 
 const mapStateToProps = (state) => ({
   users: state.users,
+  selected: state.selectedTags,
   filteredTags: state.filteredTags,
   selectedTags: state.selectedTags,
   locationTags: state.locationTags
