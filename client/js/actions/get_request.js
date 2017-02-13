@@ -19,6 +19,7 @@ export const getUsers = () => dispatch => {
   });
 }
 
+// move to server
 export const getLocationsAndDescriptions = () => dispatch => {
   return fetch('/locations')
   .then(res => {

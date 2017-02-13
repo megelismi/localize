@@ -16,7 +16,6 @@ class NewSidebar extends React.Component {
   showTagsView() { this.setState({ displayLocals: false, displayTags: true }) }
 
   showAllUsers() {
-    console.log('show all users')
     this.showLocalsView();
     this.props.selectUser(null);
   }
