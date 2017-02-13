@@ -11,14 +11,15 @@ class MapComponent extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
-    const { filteredLocations } = this.props;
+    const { filteredLocations, selectedUserLocations } = this.props;
     if (!filteredLocations) {
       return <div></div>
     } else {
+      let locations = selectedUserLocations || filteredLocations;
       return (
         <Map className="display-map" center={city} zoom={14}>
           <Tile />
-          <MarkerLayer locationInfo={filteredLocations} />
+          <MarkerLayer locationInfo={locations} />
         </Map>
       );
     }
@@ -26,6 +27,7 @@ class MapComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  selectedUserLocations: state.selectedUserLocations,
   locationAndDescription: state.locationAndDescription,
   filteredLocations: state.filteredLocations
 });

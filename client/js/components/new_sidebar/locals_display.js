@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 const LocalsDisplay = (props) => {
 
@@ -11,7 +10,7 @@ const LocalsDisplay = (props) => {
             <ul key={user.id}>
               <li>{user.first_name}</li>
               <li>{user.bio}</li>
-              <li><button>{user.first_name}{'\'s '}{props.city}</button></li>
+              <li><button onClick={() => {props.selectUser(user)}}>{user.first_name}{'\'s '}{props.city}</button></li>
               <li><button>{user.first_name}{'\'s profile'}</button></li>
             </ul>
           )
@@ -23,8 +22,4 @@ const LocalsDisplay = (props) => {
   }
 }
 
-const mapStateToProps = (state) => ({
-  users: state.users
-});
-
-export default connect(mapStateToProps)(LocalsDisplay);
+export default LocalsDisplay;

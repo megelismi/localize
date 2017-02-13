@@ -16,7 +16,9 @@ class NewSidebar extends React.Component {
   render() {
     let display;
     this.state.displayLocals ?
-      display = <LocalsDisplay /> :
+      display = <LocalsDisplay
+        users={this.props.users}
+        selectUser={this.props.selectUser} /> :
       display = <TagsDisplay
         tags={this.props.filteredTags}
         selected={this.props.selectedTags}

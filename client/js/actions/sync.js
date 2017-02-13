@@ -8,3 +8,9 @@ export const CLEAR_ALL_APPLIED_TAGS = 'CLEAR_ALL_APPLIED_TAGS';
 export const clearAllAppliedTags = () => ({
   type: CLEAR_ALL_APPLIED_TAGS
 });
+
+export const SELECT_USER = 'SELECT_USER';
+export const selectUser = user => ({
+  type: SELECT_USER,
+  user
+});

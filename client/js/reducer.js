@@ -46,6 +46,22 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       getDescriptionsError: false
     });
 
+    case sync_actions.SELECT_USER:
+      let filteredJoinArrayForUser = state.locationUserTags.filter((object) => {
+        return object.user_id === action.user.id
+      });
+
+      let selectedUserLocations = filteredJoinArrayForUser.map((object) => {
+        return state.filteredLocations.filter((location) => {
+          return location.id === object.location_id
+        });
+      }).reduce((a, b) => a.concat(b)).filter((location) => location.user_id === action.user.id);
+
+    return state = Object.assign({}, state, {
+      selectedUserLocations,
+      selectedUser: action.user
+    });
+
     case get_actions.GET_DESCRIPTIONS_ERROR:
     return state = Object.assign({}, state, {
       getDescriptionsError: true
