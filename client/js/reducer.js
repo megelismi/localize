@@ -31,18 +31,9 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
         return merge;
       });
 
-      let locationIDs = mergedLocations.map((location) => location.id)
-      .filter((item, idx, ary) => ary.indexOf(item) === idx );
-
-      let filteredJoinArrayForTags = locationIDs.map((id) => {
-        return state.locationUserTags.filter((object) => object.location_id === id)
-        .map((object) => object.tag_id) })
-        .reduce((a, b) => a.concat(b))
-        .filter((item, idx, ary) => ary.indexOf(item) === idx );
-
     return state = Object.assign({}, state, {
       locationAndDescription: mergedLocations,
-      filteredJoinArrayForTags,
+      // filteredJoinArrayForTags,
       getDescriptionsError: false
     });
 
@@ -111,8 +102,20 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
 
     case get_actions.GET_TAGS_SUCCESS:
     let filteredTags;
-    if (state.filteredJoinArrayForTags) {
-      filteredTags = state.filteredJoinArrayForTags.map((id) => {
+
+    if (state.locationAndDescription) {
+      let locationsToFilter = state.selectedUserLocations || state.locationAndDescription
+      console.log('locationsToFilter', locationsToFilter)
+      let locationIDs = locationsToFilter.map((location) => location.id)
+      .filter((item, idx, ary) => ary.indexOf(item) === idx );
+
+      let filteredJoinArrayForTags = locationIDs.map((id) => {
+        return state.locationUserTags.filter((object) => object.location_id === id)
+        .map((object) => object.tag_id) })
+        .reduce((a, b) => a.concat(b))
+        .filter((item, idx, ary) => ary.indexOf(item) === idx );
+
+      filteredTags = filteredJoinArrayForTags.map((id) => {
         return action.tags.filter((tag) => tag.id === id)
       }).reduce((a, b) => a.concat(b));
     } else {
@@ -150,6 +153,12 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     case get_actions.GET_USERS_ERROR:
     return state = Object.assign({}, state, {
       usersError: true
+    });
+
+    case sync_actions.SELECT_BY_ID:
+    const selected = state.locationAndDescription.filter((location) => location.id === action.id);
+    return state = Object.assign({}, state, {
+      selectedLocation: selected[0]
     });
 
     default:

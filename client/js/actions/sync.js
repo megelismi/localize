@@ -14,3 +14,9 @@ export const selectUser = user => ({
   type: SELECT_USER,
   user
 });
+
+export const SELECT_BY_ID = 'SELECT_BY_ID';
+export const selectById = id => ({
+  type: SELECT_BY_ID,
+  id
+});

@@ -59,22 +59,6 @@ export const getLocationsAndDescriptions = () => dispatch => {
   });
 }
 
-
-
-// export const getTags = () => dispatch => {
-//   return fetch('/tags')
-//   .then(res => {
-//     if (!res.ok) {
-//       throw new Error(res.statusText)
-//     }
-//     return res.json();
-//   }).then(res => {
-//     dispatch(get_result.getTagsSuccess(res))
-//   }).catch(err => {
-//     dispatch(get_result.getTagsError(err))
-//   });
-// }
-
 export const getLocationTags = () => dispatch => {
   return fetch('/locations/tags')
   .then(res => {
