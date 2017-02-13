@@ -73,7 +73,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
         !action.tag ?
           newTagsArray = [] :
           newTagsArray = [ ...state.selectedTags, action.tag ]
-      } else if (state.selectedTags.indexOf(action.tag) !== 0) {
+      } else if (state.selectedTags.indexOf(action.tag) !== -1) {
         let deleteAt = state.selectedTags.findIndex((elem) => elem === action.tag);
         console.log('selected tags', state.selectedTags);
         newTagsArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
