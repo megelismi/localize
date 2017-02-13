@@ -1,39 +1,55 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as syncActionCreators from '../../actions/sync.js';
+import LocationDetailsDisplay from './location_details_display';
 import LocalsDisplay from './locals_display';
 import TagsDisplay from './tags_display';
 
 class NewSidebar extends React.Component {
   constructor() {
     super();
-    this.state = { displayLocals: true }
+    this.state = { displayLocals: true, displayTags: false }
+    this.showLocalsView = this.showLocalsView.bind(this);
   }
 
-  showLocalsView() { this.setState({ displayLocals: true }) }
-  showTagsView() { this.setState({ displayLocals: false }) }
+  showLocalsView() { this.setState({ displayLocals: true, displayTags: false }) }
+  showTagsView() { this.setState({ displayLocals: false, displayTags: true }) }
+
+  showAllUsers() {
+    console.log('show all users')
+    this.showLocalsView();
+    this.props.selectUser(null);
+  }
 
   render() {
     let display;
-    this.state.displayLocals ?
+    const { selectedLocation, selectById, users, selectUser, filteredTags, selectedTags, clearAllAppliedTags, filterByTag } = this.props;
+    if (selectedLocation) {
+      display = <LocationDetailsDisplay
+        name={selectedLocation.name}
+        info={selectedLocation.long_description}
+        selectById={selectById} />
+    } else if (this.state.displayLocals) {
       display = <LocalsDisplay
-        users={this.props.users}
-        selectUser={this.props.selectUser} /> :
+        city={'Portland'}
+        users={users}
+        selectUser={selectUser} />
+    } else if (this.state.displayTags) {
       display = <TagsDisplay
-        tags={this.props.filteredTags}
-        selected={this.props.selectedTags}
-        clearAllAppliedTags={this.props.clearAllAppliedTags}
-        filterByTag={this.props.filterByTag} />
+        tags={filteredTags}
+        selected={selectedTags}
+        clearAllAppliedTags={clearAllAppliedTags}
+        filterByTag={filterByTag} />
+    }
+
     return (
       <div>
         <div>
-          <button onClick={this.showLocalsView.bind(this)}>The locals</button>
+          <button onClick={this.showAllUsers.bind(this)}>The locals</button>
           <button onClick={this.showTagsView.bind(this)}>{"What are you looking for?"}</button>
         </div>
         <br /><br />
-        <div>
-          {display}
-        </div>
+        <div>{display}</div>
       </div>
     )
   }
@@ -41,10 +57,9 @@ class NewSidebar extends React.Component {
 
 const mapStateToProps = (state) => ({
   users: state.users,
-  selected: state.selectedTags,
-  filteredTags: state.filteredTags,
   selectedTags: state.selectedTags,
-  locationTags: state.locationTags
+  filteredTags: state.filteredTags,
+  selectedLocation: state.selectedLocation
 });
 
 export default connect(mapStateToProps, syncActionCreators)(NewSidebar);

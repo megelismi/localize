@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+<<<<<<< HEAD
 import * as actionCreators from '../../actions/sync.js';
 import {
   Modal,
@@ -9,6 +10,8 @@ import {
   ModalBody,
   ModalFooter
 } from 'react-modal-bootstrap';
+=======
+>>>>>>> Click locals view to see all users' pins.
 
 
 // <Modal isOpen={this.state.isOpen} onRequestHide={props.selectById(null)}>

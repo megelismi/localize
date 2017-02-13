@@ -38,15 +38,22 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     });
 
     case sync_actions.SELECT_USER:
-      let filteredJoinArrayForUser = state.locationUserTags.filter((object) => {
-        return object.user_id === action.user.id
-      });
-
-      let selectedUserLocations = filteredJoinArrayForUser.map((object) => {
-        return state.filteredLocations.filter((location) => {
-          return location.id === object.location_id
+    // work here :)
+      let selectedUserLocations;
+      if (action.user) {
+        console.log('made it!', action.user)
+        let filteredJoinArrayForUser = state.locationUserTags.filter((object) => {
+          return object.user_id === action.user.id
         });
-      }).reduce((a, b) => a.concat(b)).filter((location) => location.user_id === action.user.id);
+
+        selectedUserLocations = filteredJoinArrayForUser.map((object) => {
+          return state.filteredLocations.filter((location) => {
+            return location.id === object.location_id
+          });
+        }).reduce((a, b) => a.concat(b)).filter((location) => location.user_id === action.user.id);
+      } else {
+        selectedUserLocations = null;
+      }
 
     return state = Object.assign({}, state, {
       selectedUserLocations,
