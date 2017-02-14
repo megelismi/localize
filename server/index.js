@@ -9,16 +9,13 @@
 
   const app = express();
 
-  // const knex = require('knex')({
-  //   client: 'pg',
-  //     connection: 'postgres://kxtoxtxg:fHkkP3KmbQHqeKYSq1wnMAETHsDBWjCN@babar.elephantsql.com:5432/kxtoxtxg'
-  // })
+  const localConnection = {
+    database: 'localize'
+  }
 
   const knex = require('knex')({
     client: 'pg',
-    connection: {
-      database: 'localize'
-    }
+    connection: process.env.DATABASE_URL || localConnection
   });
 
 
