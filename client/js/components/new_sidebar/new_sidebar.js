@@ -26,6 +26,7 @@ class NewSidebar extends React.Component {
 
   render() {
     let display;
+    let filterId; 
     const { selectedLocation, selectById, users, selectUser, filteredTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser } = this.props;
     if (selectedLocation) {
       display = <LocationDetailsDisplay
@@ -46,6 +47,8 @@ class NewSidebar extends React.Component {
       display = <LocalDetailsDisplay
         userInfo={selectedUser} />
     }
+    
+    selectedTags.length > 0 ? filterId = "filters-on" : filterId =  null; 
 
     return (
       <div className="sidebar">
@@ -53,7 +56,7 @@ class NewSidebar extends React.Component {
           <ul>
             <li> 
               <button className="sidebar-nav-button filter" onClick={this.showTagsView.bind(this)}>
-                <span className="filter-hover"><i className="fa fa-filter fa-2x" title="Filter tags" aria-hidden="true"></i></span>
+                <span className="filter-hover"><i className="fa fa-filter fa-2x" id={filterId} title="Filter tags" aria-hidden="true"></i></span>
                   <div className="hover-text">Filter</div>
               </button>
             </li>
