@@ -20,7 +20,6 @@ class MapDisplay extends React.Component {
     return (
       <div>
       	<Header />
-        <div><button>Filter by Tags</button></div>
         <Map />
         <NewSidebar />
         <Footer />
