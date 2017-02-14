@@ -109,7 +109,8 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       }
       // find all locations that match any tag in selected tags array
       if (newTagsArray.length === 0) {
-        selectedLocations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
+        selectedLocations = [];
+        // selectedLocations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
       } else {
         let locations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
         let filteredJoinArray = newTagsArray.map((id) => {
@@ -146,11 +147,13 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
         let filteredJoinArrayForUser = state.locationUserTagsHelper.filter((object) => {
           return object.user_id === action.user.id
         });
+        console.log(filteredJoinArrayForUser);
         selectedUserLocations = filteredJoinArrayForUser.map((object) => {
-          return state.filteredLocations.filter((location) => {
+          return state.allLocationsAndDescriptions.filter((location) => {
             return location.id === object.location_id
           });
         }).reduce((a, b) => a.concat(b)).filter((item, idx, ary) => ary.indexOf(item) === idx );
+        console.log(selectedUserLocations);
       } else {
         selectedUserLocations = state.allLocationsAndDescriptions;
       }
