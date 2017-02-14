@@ -35,17 +35,31 @@ $accent-color: #4ddcb1;
   }
 }
 
+
 .sidebar-nav-button {
   font-size: 18px !important;
   margin: 5px; 
   color: $charcoal !important;
+  position: relative; 
   &:hover {
     color: gray !important;
   }
 }
 
-
-.modal-location-title {
-  margin-top: 30px;
+.hover-text {
+  display: none;
+  font-size: 10px;
+  position: absolute;
+  color: black;
+  font-weight: bold;
 }
+
+.filter-hover:hover + .hover-text {
+  display: block; 
+}
+
+.users-hover:hover + .hover-text {
+  display: block; 
+}
+
 
