@@ -15,8 +15,10 @@ class NewSidebar extends React.Component {
   showTagsView() { this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }) }
 
   showLocalsView() {
-    this.setState({ displayLocals: true, displayTags: false, displayOneUser: false })
-    this.props.clearAllAppliedTags();
+    this.setState({ displayLocals: true, displayTags: false, displayOneUser: false });
+    console.log('showLocalsView')
+    this.props.clearAllAppliedTags(false);
+    this.props.selectUser(null);
   }
 
   selectLocalUser(user) {
@@ -38,6 +40,7 @@ class NewSidebar extends React.Component {
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
       display = <TagsDisplay
+        boolean={selectedUser ? true : false}
         tags={filteredTags}
         selected={selectedTags}
         clearAllAppliedTags={clearAllAppliedTags}

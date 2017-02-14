@@ -49,3 +49,18 @@ export const selectUserAndUpdateTags = user => (dispatch, getState) => {
     });
   }
 }
+
+// sync.filterTagsBySelectedLocations())
+// }).then(() => {
+// dispatch(sync.filterByTag())
+
+export const filterLocations = () => (dispatch, getState) => {
+  dispatch({
+    type: FILTER_TAGS_BY_SELECTED_LOCATIONS
+  });
+  if (getState().filteredTags) {
+    dispatch({
+      type: FILTER_BY_TAG
+    });
+  }
+}

@@ -5,6 +5,40 @@ import { combineReducers } from 'redux';
 const state = (state = { locationAndDescriptionMerge: [], selectedTags: [] }, action) => {
   switch (action.type) {
 
+    // DB CALL -- GET ALL USERS
+    case get_actions.GET_USERS_SUCCESS:
+    return state = Object.assign({}, state, {
+      users: action.users,
+      usersError: false
+    });
+    case get_actions.GET_USERS_ERROR:
+    return state = Object.assign({}, state, {
+      usersError: true
+    });
+
+    // CALLED IN CHAIN AFTER LOCATIONS & DESCRIPTIONS -- ASYNC CALL TO DB
+    case get_actions.GET_TAGS_SUCCESS:
+    return state = Object.assign({}, state, {
+      tagInfoHelper: action.tags,
+      tagsError: false
+    });
+
+    case get_actions.GET_TAGS_ERROR:
+    return state = Object.assign({}, state, {
+      tagsError: true
+    });
+
+    // DB CALL -- A JOIN TABLE USED TO FIGURE OUT ASSOCIATIONS BTWN LOCATIONS, USERS, AND TAGS
+    case get_actions.GET_LOCATION_USER_TAGS_HELPER_SUCCESS:
+    return state = Object.assign({}, state, {
+      locationUserTagsHelper: action.location_user_tags,
+      locationUserTagsHelperError: false
+    });
+    case get_actions.GET_LOCATION_USER_TAGS_HELPER_ERROR:
+    return state = Object.assign({}, state, {
+      locationTagsError: true
+    });
+
     // CALLED WHEN MAP_DISPLAY LOADS. ASYNC CALL TO DB.
     case get_actions.GET_LOCATIONS_SUCCESS:
     return state = Object.assign({}, state, {
@@ -39,30 +73,6 @@ const state = (state = { locationAndDescriptionMerge: [], selectedTags: [] }, ac
     case get_actions.GET_DESCRIPTIONS_ERROR:
     return state = Object.assign({}, state, {
       getDescriptionsError: true
-    });
-
-    // CALLED WHEN USER CLICKS ON A LOCAL.
-    // sets a selected user & identifies the pins they have mapped
-    // in map, if there is a selectedUserLocations, that is displayed instead of all locations
-    // Clicking 'the locals' link in sidebar header clears selectedUser & selectedUserLocations by passing in null instead of a user ID
-    case sync_actions.SELECT_USER:
-      let selectedUserLocations;
-      if (action.user) {
-        let filteredJoinArrayForUser = state.locationUserTagsHelper.filter((object) => {
-          return object.user_id === action.user.id
-        });
-        selectedUserLocations = filteredJoinArrayForUser.map((object) => {
-          return state.filteredLocations.filter((location) => {
-            return location.id === object.location_id
-          });
-        }).reduce((a, b) => a.concat(b)).filter((item, idx, ary) => ary.indexOf(item) === idx );
-      } else {
-        selectedUserLocations = null;
-      }
-    return state = Object.assign({}, state, {
-      filteredUserLocations: selectedUserLocations,
-      filteredLocations: selectedUserLocations,
-      selectedUser: action.user
     });
 
     // SYNC ACTION CALLED AT THE END OF A DB CALL FOR LOCATIONS & DESCRIPTIONS
@@ -103,32 +113,8 @@ const state = (state = { locationAndDescriptionMerge: [], selectedTags: [] }, ac
       }
     return state = Object.assign({}, state, {
       selectedTags: newTagsArray,
+      // allLocations: relevantLocations to take place of filteredLocations
       filteredLocations
-    });
-
-    // APPLIED WHEN USER CLICKS THE CLEAR TAGS BUTTON
-    case sync_actions.CLEAR_ALL_APPLIED_TAGS:
-    let filtered;
-      if (action.user_is_selected) {
-        filtered = state.filteredUserLocations
-      } else {
-        filtered = state.locationAndDescriptionMerge
-      }
-    return state = Object.assign({}, state, {
-      selectedTags: [],
-      filteredLocations: filtered
-    });
-
-    // CALLED IN CHAIN AFTER LOCATIONS & DESCRIPTIONS -- ASYNC CALL TO DB
-    case get_actions.GET_TAGS_SUCCESS:
-    return state = Object.assign({}, state, {
-      tagInfoHelper: action.tags,
-      tagsError: false
-    });
-
-    case get_actions.GET_TAGS_ERROR:
-    return state = Object.assign({}, state, {
-      tagsError: true
     });
 
     // CALLED AT END OF LONG ASYNC CHAIN WHEN PAGE FIRST LOADS
@@ -152,11 +138,55 @@ const state = (state = { locationAndDescriptionMerge: [], selectedTags: [] }, ac
         filteredTags = [];
       }
     return state = Object.assign({}, state, {
+      // allTags: relevantTags to take place of filteredTags
       filteredTags,
       tagsError: false
     });
 
+    // CALLED WHEN USER CLICKS ON A LOCAL.
+    // sets a selected user & identifies the pins they have mapped
+    // in map, if there is a selectedUserLocations, that is displayed instead of all locations
+    // Clicking 'the locals' link in sidebar header clears selectedUser & selectedUserLocations by passing in null instead of a user ID
+    case sync_actions.SELECT_USER:
+      let selectedUserLocations;
+      //GET RID OF ALL OF THIS
+      if (action.user) {
+        let filteredJoinArrayForUser = state.locationUserTagsHelper.filter((object) => {
+          return object.user_id === action.user.id
+        });
+        selectedUserLocations = filteredJoinArrayForUser.map((object) => {
+          return state.filteredLocations.filter((location) => {
+            return location.id === object.location_id
+          });
+        }).reduce((a, b) => a.concat(b)).filter((item, idx, ary) => ary.indexOf(item) === idx );
+      } else {
+        selectedUserLocations = state.locationAndDescriptionMerge;
+      }
+    return state = Object.assign({}, state, {
+      filteredUserLocations: selectedUserLocations, // get rid of this
+      filteredLocations: selectedUserLocations, // get rid of this
+      selectedUser: action.user
+    });
+
+    case sync_actions.FILTER_LOCATIONS_BY_USER:
+      if (action.user) {
+        let filteredJoinArrayForUser = state.locationUserTagsHelper.filter((object) => {
+          return object.user_id === action.user.id
+        });
+        selectedUserLocations = filteredJoinArrayForUser.map((object) => {
+          return state.filteredLocations.filter((location) => {
+            return location.id === object.location_id
+          });
+        }).reduce((a, b) => a.concat(b)).filter((item, idx, ary) => ary.indexOf(item) === idx );
+      } else {
+        selectedUserLocations = state.locationAndDescriptionMerge;
+      }
+    return state = Object.assign({}, state, {
+      locationsFilteredByUser: selectedUserLocations/
+    });
+
     // CALLED AFTER FILTER_TAGS_BY_SELECTED_LOCATIONS WHEN USER IS SELECTED
+    // change this so it is called after FILTER_LOCATIONS_BY_USER
     case sync_actions.FILTER_TAGS_BY_USER:
 
       let filteredLocationUserTags = state.locationUserTagsHelper.filter((object) => {
@@ -172,29 +202,23 @@ const state = (state = { locationAndDescriptionMerge: [], selectedTags: [] }, ac
       .filter((item, idx, ary) => ary.indexOf(item) === idx );
 
     return state = Object.assign({}, state, {
-      filteredTags: tagsFilteredByUser
+      filteredTags: tagsFilteredByUser // delete
+      // tagsFilteredByUser -- replace
     });
 
-    // DB CALL -- A JOIN TABLE USED TO FIGURE OUT ASSOCIATIONS BTWN LOCATIONS, USERS, AND TAGS
-    case get_actions.GET_LOCATION_USER_TAGS_HELPER_SUCCESS:
+    // APPLIED WHEN USER CLICKS THE CLEAR TAGS BUTTON
+    case sync_actions.CLEAR_ALL_APPLIED_TAGS:
+    console.log('CLEAR_ALL_APPLIED_TAGS', action.user_is_selected);
+    let filtered;
+      if (state.selectedUser) {
+        filtered = state.filteredUserLocations
+        //
+      } else {
+        filtered = state.locationAndDescriptionMerge
+      }
     return state = Object.assign({}, state, {
-      locationUserTagsHelper: action.location_user_tags,
-      locationUserTagsHelperError: false
-    });
-    case get_actions.GET_LOCATION_USER_TAGS_HELPER_ERROR:
-    return state = Object.assign({}, state, {
-      locationTagsError: true
-    });
-
-    // DB CALL -- GET ALL USERS
-    case get_actions.GET_USERS_SUCCESS:
-    return state = Object.assign({}, state, {
-      users: action.users,
-      usersError: false
-    });
-    case get_actions.GET_USERS_ERROR:
-    return state = Object.assign({}, state, {
-      usersError: true
+      selectedTags: [],
+      filteredLocations: filtered
     });
 
     // SYNC ACTION THAT FINDS A SPECIFIC LOCATION TO DISPLAY IN SIDEBAR
