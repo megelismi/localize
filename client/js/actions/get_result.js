@@ -22,15 +22,15 @@ export const getTagsError = error => ({
   error
 });
 
-export const GET_LOCATION_USER_TAGS_SUCCESS = 'GET_LOCATION_USER_TAGS_SUCCESS';
-export const getLocationUserTagsSuccess = location_user_tags => ({
-  type: GET_LOCATION_USER_TAGS_SUCCESS,
+export const GET_LOCATION_USER_TAGS_HELPER_SUCCESS = 'GET_LOCATION_USER_TAGS_HELPER_SUCCESS';
+export const getLocationUserTagsHelperSuccess = location_user_tags => ({
+  type: GET_LOCATION_USER_TAGS_HELPER_SUCCESS,
   location_user_tags
 });
 
-export const GET_LOCATION_USER_TAGS_ERROR = 'GET_LOCATION_USER_TAGS_ERROR';
-export const getLocationTagsError = error => ({
-  type: GET_LOCATION_USER_TAGS_ERROR,
+export const GET_LOCATION_USER_TAGS_HELPER_ERROR = 'GET_LOCATION_USER_TAGS_HELPER_ERROR';
+export const getLocationTagsHelperError = error => ({
+  type: GET_LOCATION_USER_TAGS_HELPER_ERROR,
   error
 });
 

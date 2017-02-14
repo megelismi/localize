@@ -54,9 +54,7 @@ export const getLocationsAndDescriptions = () => dispatch => {
       }).catch(err => {
         dispatch(get_result.getTagsError(err))
       }).then(() => {
-        dispatch(sync.filterByTag())
-      }).then(() => {
-        dispatch(sync.filterTagsBySelectedLocations())
+        dispatch(sync.filterLocations())
       });
     });
   });
@@ -70,8 +68,8 @@ export const getLocationTags = () => dispatch => {
     }
     return res.json();
   }).then(res => {
-    dispatch(get_result.getLocationUserTagsSuccess(res))
+    dispatch(get_result.getLocationUserTagsHelperSuccess(res))
   }).catch(err => {
-    dispatch(get_result.getLocationUserTagsError(err))
+    dispatch(get_result.getLocationUserTagsHelperError(err))
   });
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as syncActionCreators from '../../actions/sync.js';
+// import SidebarNav from './sidebar_nav';
 import LocalDetailsDisplay from './local_details_display';
 import LocationDetailsDisplay from './location_details_display';
 import LocalsDisplay from './locals_display';
@@ -15,36 +16,50 @@ class NewSidebar extends React.Component {
   showTagsView() { this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }) }
 
   showLocalsView() {
-    this.setState({ displayLocals: true, displayTags: false, displayOneUser: false })
-    this.props.selectUserAndUpdateTags(null);
+    this.props.selectedUser ?
+      this.setState({ displayLocals: false, displayTags: false, displayOneUser: true }) :
+      this.setState({ displayLocals: true, displayTags: false, displayOneUser: false })
+  }
+
+  clearSelectedUser() {
+    this.setState({ displayLocals: true, displayTags: false, displayOneUser: false });
+    this.props.deselectUser();
   }
 
   selectLocalUser(user) {
-    this.setState({ displayLocals: false, displayTags: false, displayOneUser: true })
-    this.props.selectUserAndUpdateTags(user);
+    this.setState({ displayLocals: false, displayTags: false, displayOneUser: true });
+    if (user) {
+      this.props.selectUserAndUpdateTags(user);
+    }
   }
 
   render() {
-    let display;
-    let filterId; 
-    const { selectedLocation, selectById, users, selectUser, filteredTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser } = this.props;
+    let display, navLocalsText, filterId;
+    const { selectedLocation, selectLocationById, users, selectUser, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
     if (selectedLocation) {
+      navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
       display = <LocationDetailsDisplay
         locationInfo={selectedLocation}
-        selectById={selectById} />
+        selectLocationById={selectLocationById} />
     } else if (this.state.displayLocals) {
+      navLocalsText = 'All users'
       display = <LocalsDisplay
         city={'Portland'}
         users={users}
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
+      navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
+      let tags = tagsFilteredByUser ? tagsFilteredByUser : allTags
       display = <TagsDisplay
-        tags={filteredTags}
+        boolean={selectedUser ? true : false}
+        tags={tags}
         selected={selectedTags}
         clearAllAppliedTags={clearAllAppliedTags}
         filterByTag={filterByTag} />
     } else if (this.state.displayOneUser) {
+      navLocalsText = selectedUser.first_name
       display = <LocalDetailsDisplay
+        clearSelectedUser={this.clearSelectedUser.bind(this)}
         userInfo={selectedUser} />
     }
     
@@ -82,18 +97,10 @@ class NewSidebar extends React.Component {
 const mapStateToProps = (state) => ({
   users: state.users,
   selectedTags: state.selectedTags,
-  filteredTags: state.filteredTags,
+  allTags: state.allTags,
   selectedLocation: state.selectedLocation,
-  selectedUser: state.selectedUser
+  selectedUser: state.selectedUser,
+  tagsFilteredByUser: state.tagsFilteredByUser
 });
 
 export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
-
-
-   //<div>
-          //<button onClick={this.showAllUsers.bind(this)}>The locals</button>
-          //<button onClick={this.showTagsView.bind(this)}>{"What are you looking for?"}</button>
-        //</div>
-
-
-//<div className="sidebar-inner-container">{display}</div>
