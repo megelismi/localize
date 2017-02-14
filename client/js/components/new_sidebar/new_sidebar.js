@@ -58,7 +58,7 @@ class NewSidebar extends React.Component {
             <li> <button className="sidebar-nav-button" onClick={this.showAllUsers.bind(this)}>{"Users"}</button></li>
           </ul>
         </div>
-        <div className="sidebar-inner-container">{display}</div>
+        {display}
       </div>
     )
   }
@@ -79,3 +79,6 @@ export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
           //<button onClick={this.showAllUsers.bind(this)}>The locals</button>
           //<button onClick={this.showTagsView.bind(this)}>{"What are you looking for?"}</button>
         //</div>
+
+
+//<div className="sidebar-inner-container">{display}</div>

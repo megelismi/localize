@@ -132,9 +132,13 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
         let locationsToFilter = state.selectedUserLocations || state.locationAndDescription
         let locationIDs = locationsToFilter.map((location) => location.id)
         .filter((item, idx, ary) => ary.indexOf(item) === idx );
-        let filteredJoinArrayForTags = locationIDs.map((id) => {
-          return state.locationUserTags.filter((object) => object.location_id === id)
-          .map((object) => object.tag_id) })
+
+        let filteredJoinArrayForTags = locationIDs
+          .map((id) => {
+            return state.locationUserTags
+              .filter((object) => object.location_id === id)
+              .map((object) => object.tag_id)
+          })
           .reduce((a, b) => a.concat(b))
           .filter((item, idx, ary) => ary.indexOf(item) === idx );
         filteredTags = filteredJoinArrayForTags.map((id) => {

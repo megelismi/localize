@@ -3,7 +3,7 @@ import React from 'react';
 const LocalDetailsDisplay = (props) => {
 
     return (
-      <div>
+      <div className="sidebar-inner-container">
         <ul>
           <li>{props.userInfo.first_name}</li>
           <img src={props.userInfo.image} />

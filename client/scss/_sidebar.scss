@@ -20,6 +20,7 @@ $accent-color: #4ddcb1;
   width: 100%; 
   height: 100%; 
   margin-left: 30px; 
+  padding-bottom: 40px; 
 }
 
 .sidebar-nav {
@@ -77,14 +78,14 @@ $accent-color: #4ddcb1;
   color: $charcoal; 
 }
 
-.tag-button-selected, .filter-button {
+.tag-button-selected, .filter-button, .add-location-to-favs-button {
   background-color: $accent-color;
   color: white !important;
   border: 1px solid $accent-color;
   margin: 5px; 
 }
 
-.tag-button, .tag-button-selected, .filter-button {
+.tag-button, .tag-button-selected, .filter-button, .add-location-to-favs-button {
   border-radius: 4px;
   &:focus {
     outline: none; 
@@ -101,7 +102,7 @@ $accent-color: #4ddcb1;
   text-align: left;  
 }
 
-.user-info-list:last-child {
+.user-image-and-description-container:last-child {
   border-bottom: none; 
 }
 
@@ -142,3 +143,24 @@ $accent-color: #4ddcb1;
 }
 
 
+.location-image {
+  width: 300px; 
+  margin: 10px; 
+}
+
+.selected-location-name {
+  font-weight: bold; 
+  font-size: 18px; 
+  margin-top: 30px; 
+  margin-bottom: 10px; 
+}
+
+.selected-location-info {
+  text-align: left; 
+  margin: 15px 0 20px 20px;
+}
+
+
+.add-location-to-favs-button {
+
+}
