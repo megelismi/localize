@@ -55,15 +55,20 @@ class NewSidebar extends React.Component {
         <div className="sidebar-nav">
           <ul>
             <li> 
-              <button className="sidebar-nav-button filter" onClick={this.showTagsView.bind(this)}>
+              <button className="sidebar-nav-button" onClick={this.showTagsView.bind(this)}>
                 <span className="filter-hover"><i className="fa fa-filter fa-2x" id={filterId} aria-hidden="true"></i></span>
                   <div className="hover-text">Filter</div>
               </button>
             </li>
             <li> 
-              <button className="sidebar-nav-button users" onClick={this.showLocalsView.bind(this)}>
+              <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>
                 <span className="users-hover"><i className="fa fa-users fa-2x" aria-hidden="true"></i></span>
                   <div className="hover-text">All users</div>
+              </button>
+
+              <button className="sidebar-nav-button">
+                <span className="user-hover"><i className="fa fa-user fa-2x" aria-hidden="true"></i></span>
+                  <div className="hover-text">User</div>
               </button>
             </li>
           </ul>

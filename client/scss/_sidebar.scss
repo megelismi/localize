@@ -62,6 +62,10 @@ $accent-color: #4ddcb1;
   display: block; 
 }
 
+.user-hover:hover + .hover-text {
+  display: block; 
+}
+
 #filters-on {
   color: $accent-color; 
   &:hover {
