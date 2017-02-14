@@ -35,6 +35,11 @@ export const filterTagsByUser = () => ({
 export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
 export const filterLocationsByUser = () => ({
   type: FILTER_LOCATIONS_BY_USER
+});
+
+export const DESELECT_USER = 'DESELECT_USER';
+export const deselectUser = () => ({
+  type: DESELECT_USER
 })
 
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {

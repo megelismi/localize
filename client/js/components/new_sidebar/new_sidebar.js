@@ -16,8 +16,7 @@ class NewSidebar extends React.Component {
 
   showLocalsView() {
     this.setState({ displayLocals: true, displayTags: false, displayOneUser: false });
-    this.props.clearAllAppliedTags(false);
-    this.props.selectUser(null);
+    this.props.deselectUser();
   }
 
   selectLocalUser(user) {
