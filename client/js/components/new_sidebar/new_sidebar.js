@@ -64,7 +64,7 @@ class NewSidebar extends React.Component {
     }
     
     if (selectedUser) {
-      userIcon = ( <button className="sidebar-nav-button">
+      userIcon = ( <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>
           <span className="user-hover"><i className="fa fa-user fa-2x" aria-hidden="true"></i></span>
           <div className="hover-text">User</div>
         </button> )
@@ -107,3 +107,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
+
+//onClick={this.selectLocalUser(selectedUser).bind(this)}
