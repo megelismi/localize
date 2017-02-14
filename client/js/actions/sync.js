@@ -5,8 +5,9 @@ export const filterByTag = tag => ({
 });
 
 export const CLEAR_ALL_APPLIED_TAGS = 'CLEAR_ALL_APPLIED_TAGS';
-export const clearAllAppliedTags = () => ({
-  type: CLEAR_ALL_APPLIED_TAGS
+export const clearAllAppliedTags = boolean => ({
+  type: CLEAR_ALL_APPLIED_TAGS,
+  user_is_selected: boolean
 });
 
 export const SELECT_USER = 'SELECT_USER';

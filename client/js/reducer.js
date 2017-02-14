@@ -60,6 +60,7 @@ const state = (state = { locationAndDescriptionMerge: [], selectedTags: [] }, ac
         selectedUserLocations = null;
       }
     return state = Object.assign({}, state, {
+      filteredUserLocations: selectedUserLocations,
       filteredLocations: selectedUserLocations,
       selectedUser: action.user
     });
@@ -107,9 +108,15 @@ const state = (state = { locationAndDescriptionMerge: [], selectedTags: [] }, ac
 
     // APPLIED WHEN USER CLICKS THE CLEAR TAGS BUTTON
     case sync_actions.CLEAR_ALL_APPLIED_TAGS:
+    let filtered;
+      if (action.user_is_selected) {
+        filtered = state.filteredUserLocations
+      } else {
+        filtered = state.locationAndDescriptionMerge
+      }
     return state = Object.assign({}, state, {
       selectedTags: [],
-      filteredLocations: state.locationAndDescriptionMerge
+      filteredLocations: filtered
     });
 
     // CALLED IN CHAIN AFTER LOCATIONS & DESCRIPTIONS -- ASYNC CALL TO DB
