@@ -1,6 +1,10 @@
 @import 'map';
 @import 'partials';
 @import 'sidebar';
+@import 'locals_display'; 
+@import 'tags_display'; 
+@import 'location_details_display';
+@import 'locals_details_display'; 
 
 @font-face {
     font-family: 'stokedregular';
