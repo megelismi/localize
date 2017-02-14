@@ -18,18 +18,11 @@ const knex = require('knex')({
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
-
-
-
-
-
-
-
-
-
-
-
-
+  const knex = require('knex')({
+    client: 'pg',
+      connection: 'postgres://kxtoxtxg:fHkkP3KmbQHqeKYSq1wnMAETHsDBWjCN@babar.elephantsql.com:5432/kxtoxtxg',
+      pool: { min: 0, max: 7 }
+  })
 
 // get all locations
 

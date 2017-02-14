@@ -34,9 +34,8 @@ class NewSidebar extends React.Component {
   }
 
   render() {
-    let display;
+    let display, navLocalsText, filterId;
     const { selectedLocation, selectLocationById, users, selectUser, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
-    let navLocalsText;
     if (selectedLocation) {
       navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
       display = <LocationDetailsDisplay
@@ -63,16 +62,33 @@ class NewSidebar extends React.Component {
         clearSelectedUser={this.clearSelectedUser.bind(this)}
         userInfo={selectedUser} />
     }
+    
+    selectedTags.length > 0 ? filterId = "filters-on" : filterId =  null; 
 
     return (
       <div className="sidebar">
         <div className="sidebar-nav">
           <ul>
-            <li> <button className="sidebar-nav-button" onClick={this.showTagsView.bind(this)}>Filter</button></li>
-            <li> <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>{navLocalsText}</button></li>
+            <li> 
+              <button className="sidebar-nav-button" onClick={this.showTagsView.bind(this)}>
+                <span className="filter-hover"><i className="fa fa-filter fa-2x" id={filterId} aria-hidden="true"></i></span>
+                  <div className="hover-text">Filter</div>
+              </button>
+            </li>
+            <li> 
+              <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>
+                <span className="users-hover"><i className="fa fa-users fa-2x" aria-hidden="true"></i></span>
+                  <div className="hover-text">All users</div>
+              </button>
+
+              <button className="sidebar-nav-button">
+                <span className="user-hover"><i className="fa fa-user fa-2x" aria-hidden="true"></i></span>
+                  <div className="hover-text">User</div>
+              </button>
+            </li>
           </ul>
         </div>
-        <div className="sidebar-inner-container">{display}</div>
+        {display}
       </div>
     )
   }
