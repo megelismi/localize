@@ -7,7 +7,7 @@ const LocalDetailsDisplay = (props) => {
         <ul>
           <li className="locals-details-name">{props.userInfo.first_name}</li>
           <img className="locals-details-image" src={props.userInfo.image} />
-          <li>{props.userInfo.bio}</li>
+          <li className="locals-details-bio">{props.userInfo.bio}</li>
         </ul>
       </div>
     )
