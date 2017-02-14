@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 
 const TagsDisplay = (props) => {
 
-  console.log('IS A USER SELECTED??????', props.boolean)
-  let tagClass = 'tag-button';
-
   return (
     <div>
       {props.tags.map((tag) => {

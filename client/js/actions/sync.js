@@ -32,33 +32,35 @@ export const filterTagsByUser = () => ({
   type: FILTER_TAGS_BY_USER
 });
 
+export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
+export const filterLocationsByUser = () => ({
+  type: FILTER_LOCATIONS_BY_USER
+})
+
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
-  let currentValue = getState().selectedUserLocations
+  let currentUser = getState().selectedUser
+  let currentUserLocations = getState().selectedUserLocations
   dispatch({
     type: SELECT_USER,
     user
   });
-  if (currentValue !== getState().selectedUserLocations) {
+  if (currentUser !== getState().selectedUser) {
     dispatch({
-      type: FILTER_TAGS_BY_SELECTED_LOCATIONS
+      type: FILTER_LOCATIONS_BY_USER
     });
   }
-  if (getState().selectedUser) {
+  if (currentUserLocations !== getState().locationsFilteredByUser) {
     dispatch({
       type: FILTER_TAGS_BY_USER
     });
   }
 }
 
-// sync.filterTagsBySelectedLocations())
-// }).then(() => {
-// dispatch(sync.filterByTag())
-
 export const filterLocations = () => (dispatch, getState) => {
   dispatch({
     type: FILTER_TAGS_BY_SELECTED_LOCATIONS
   });
-  if (getState().filteredTags) {
+  if (getState().allTags) {
     dispatch({
       type: FILTER_BY_TAG
     });

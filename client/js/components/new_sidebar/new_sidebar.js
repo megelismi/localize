@@ -16,7 +16,6 @@ class NewSidebar extends React.Component {
 
   showLocalsView() {
     this.setState({ displayLocals: true, displayTags: false, displayOneUser: false });
-    console.log('showLocalsView')
     this.props.clearAllAppliedTags(false);
     this.props.selectUser(null);
   }
@@ -28,7 +27,7 @@ class NewSidebar extends React.Component {
 
   render() {
     let display;
-    const { selectedLocation, selectLocationById, users, selectUser, filteredTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser } = this.props;
+    const { selectedLocation, selectLocationById, users, selectUser, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
     if (selectedLocation) {
       display = <LocationDetailsDisplay
         locationInfo={selectedLocation}
@@ -39,9 +38,10 @@ class NewSidebar extends React.Component {
         users={users}
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
+      let tags = tagsFilteredByUser ? tagsFilteredByUser : allTags
       display = <TagsDisplay
         boolean={selectedUser ? true : false}
-        tags={filteredTags}
+        tags={tags}
         selected={selectedTags}
         clearAllAppliedTags={clearAllAppliedTags}
         filterByTag={filterByTag} />
@@ -67,9 +67,10 @@ class NewSidebar extends React.Component {
 const mapStateToProps = (state) => ({
   users: state.users,
   selectedTags: state.selectedTags,
-  filteredTags: state.filteredTags,
+  allTags: state.allTags,
   selectedLocation: state.selectedLocation,
-  selectedUser: state.selectedUser
+  selectedUser: state.selectedUser,
+  tagsFilteredByUser: state.tagsFilteredByUser
 });
 
 export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
