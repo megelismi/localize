@@ -12,7 +12,8 @@
 
   const knex = require('knex')({
     client: 'pg',
-      connection: 'postgres://kxtoxtxg:fHkkP3KmbQHqeKYSq1wnMAETHsDBWjCN@babar.elephantsql.com:5432/kxtoxtxg'
+      connection: 'postgres://kxtoxtxg:fHkkP3KmbQHqeKYSq1wnMAETHsDBWjCN@babar.elephantsql.com:5432/kxtoxtxg',
+      pool: { min: 0, max: 7 }
   })
 
   app.use(express.static(process.env.CLIENT_PATH));

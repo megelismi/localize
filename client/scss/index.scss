@@ -1,6 +1,10 @@
 @import 'map';
 @import 'partials';
 @import 'sidebar';
+@import 'locals_display'; 
+@import 'tags_display'; 
+@import 'location_details_display';
+@import 'locals_details_display'; 
 
 @font-face {
     font-family: 'stokedregular';
@@ -105,53 +109,41 @@ table {
     float: none; 
     width: 100%; 
     margin-right: 0; 
-   }
-
-   .sidebar-inner-container {  
-    overflow-y: hidden; 
-    margin-left: 0; 
+    padding: 0;
     height: auto; 
-   }
-
-   .user-info-container {
-    display: flex; 
-    justify-content: center; 
-    flex-wrap: wrap; 
-    align-items: center; 
-   }
-
-   .user-info-list {
-    width: 30%;  
-    border-bottom: none;
-    margin: 10px;  
-   }
-
-   .user-image {
-    width: 130px; 
-   }
-
-  .user-bio {
-    font-size: 12px;
-    padding: 0px;
-    line-height: 15px;
-  }
-
-   .see-user-city, .see-user-profile {
-      float: left;  
-   }
-
-   .user-name {
-      font-size: 16px; 
    }
 
    .sidebar-nav {
       margin-left: 0; 
    }
 
-   .sidebar {
-      padding: 0;
-      height: auto;  
+   .sidebar-inner-container {  
+    overflow-y: hidden; 
+    margin-left: 0; 
+    height: auto; 
+    padding-bottom: 0; 
    }
+
+
+  .user-bio { 
+    margin-left: 10px; 
+    margin-bottom: 5px; 
+  }
+
+   .user-name {
+      font-size: 16px; 
+      margin-left: 96px;
+      margin-bottom: 5px;  
+   }
+
+  .see-user-city {
+    margin-left: 90px; 
+   }
+
+   .user-image {
+    margin: 0 10px; 
+   }
+
 }
 
  @media only screen and (max-width: 620px) {

@@ -3,12 +3,12 @@ import React from 'react';
 const LocationDetailsDisplay = (props) => {
 
   return (
-    <div>
+    <div className="sidebar-inner-container">
       <button className="close-button" onClick={() => {props.selectById(null)}}>X</button>
       <div className="selected-location-name">{props.locationInfo.name}</div>
-      <img src={props.locationInfo.image} />
+      <img className="location-image" src={props.locationInfo.image} />
       <div className="selected-location-info">{props.locationInfo.long_description}</div>
-      <button>Add to favorites</button>
+      <button className="add-location-to-favs-button">Add to favorites</button>
     </div>
   )
 }

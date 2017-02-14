@@ -20,6 +20,7 @@ $accent-color: #4ddcb1;
   width: 100%; 
   height: 100%; 
   margin-left: 30px; 
+  padding-bottom: 40px; 
 }
 
 .sidebar-nav {
@@ -47,98 +48,4 @@ $accent-color: #4ddcb1;
 .modal-location-title {
   margin-top: 30px;
 }
-
-.close-button {
-	float: left;
-  border: none; 
-  background-color: white; 
-}
-
-.close-button {
-  color: $accent-color !important;
-  font-size: 18px; 
-  &:hover {
-    color: #6DE2BF; 
-  }
-}
-
-.filter-button {
-  font-size: 16px;  
-  &:hover {
-    border: 1px solid #6DE2BF !important; 
-    background-color: #6DE2BF;
-  }
-}
-
-.tag-button, .filter-button {
-  margin: 4px;
-  background-color: white;
-  border: 1px solid gray;
-  color: $charcoal; 
-}
-
-.tag-button-selected, .filter-button {
-  background-color: $accent-color;
-  color: white !important;
-  border: 1px solid $accent-color;
-  margin: 5px; 
-}
-
-.tag-button, .tag-button-selected, .filter-button {
-  border-radius: 4px;
-  &:focus {
-    outline: none; 
-  }
-}
-
-.tag-button-container {
-  margin: 40px 0; 
-}
-
-.user-image-and-description-container {
-  border-bottom: 1px solid $border-color; 
-  padding-bottom: 10px;
-  text-align: left;  
-}
-
-.user-info-list:last-child {
-  border-bottom: none; 
-}
-
-.user-image {
-  border-radius: 4%;
-  width: 70px; 
-  float: left; 
-}
-
-.user-name {
-  font-weight: bold; 
-  font-size: 16px; 
-  color: $charcoal;
-  margin-left: 86px; 
-}
-
-.user-bio {
-  text-align: left;
-  font-size: 14px;
-  padding: 5px 0 5px 86px; 
-  line-height: 20px; 
-}
-
-.see-user-city, .see-user-profile, .sidebar-nav-button {
-  border: none;
-  outline: none; 
-  background-color: white;
-  font-size: 13px; 
-  color: $purple; 
-  &:hover {
-    color: $darkpurple; 
-    cursor: pointer;
-  }
-}
-
-.see-user-city {
-  margin-left: 81px; 
-}
-
 
