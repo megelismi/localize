@@ -34,7 +34,7 @@ class NewSidebar extends React.Component {
   }
 
   render() {
-    let display, navLocalsText, filterId;
+    let display, navLocalsText, filterId, userIcon; 
     const { selectedLocation, selectLocationById, users, selectUser, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
     if (selectedLocation) {
       navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
@@ -63,6 +63,17 @@ class NewSidebar extends React.Component {
         userInfo={selectedUser} />
     }
     
+    if (selectedUser) {
+      userIcon = ( <button className="sidebar-nav-button">
+          <span className="user-hover"><i className="fa fa-user fa-2x" aria-hidden="true"></i></span>
+          <div className="hover-text">User</div>
+        </button> )
+    } else {
+      userIcon= ( <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>
+        <span className="users-hover"><i className="fa fa-users fa-2x" aria-hidden="true"></i></span>
+        <div className="hover-text">All users</div>
+      </button> )
+    }
     selectedTags.length > 0 ? filterId = "filters-on" : filterId =  null; 
 
     return (
@@ -76,15 +87,7 @@ class NewSidebar extends React.Component {
               </button>
             </li>
             <li> 
-              <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>
-                <span className="users-hover"><i className="fa fa-users fa-2x" aria-hidden="true"></i></span>
-                  <div className="hover-text">All users</div>
-              </button>
-
-              <button className="sidebar-nav-button">
-                <span className="user-hover"><i className="fa fa-user fa-2x" aria-hidden="true"></i></span>
-                  <div className="hover-text">User</div>
-              </button>
+              {userIcon}
             </li>
           </ul>
         </div>
