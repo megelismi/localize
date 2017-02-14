@@ -33,8 +33,9 @@ export const filterTagsByUser = () => ({
 });
 
 export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
-export const filterLocationsByUser = () => ({
-  type: FILTER_LOCATIONS_BY_USER
+export const filterLocationsByUser = user => ({
+  type: FILTER_LOCATIONS_BY_USER,
+  user
 });
 
 export const DESELECT_USER = 'DESELECT_USER';
@@ -51,7 +52,8 @@ export const selectUserAndUpdateTags = user => (dispatch, getState) => {
   });
   if (currentUser !== getState().selectedUser) {
     dispatch({
-      type: FILTER_LOCATIONS_BY_USER
+      type: FILTER_LOCATIONS_BY_USER,
+      user
     });
   }
   if (currentUserLocations !== getState().locationsFilteredByUser) {
