@@ -1,7 +1,7 @@
 import React from 'react';
 
 const LocationDetailsDisplay = (props) => {
-  console.log('LocationDetailsDisplay', props);
+
   return (
     <div>
       <button className="close-button" onClick={() => {props.selectById(null)}}>X</button>

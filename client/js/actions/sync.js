@@ -27,15 +27,14 @@ export const filterTagsBySelectedLocations = () => ({
 })
 
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
+  let currentValue = getState().selectedUserLocations
   dispatch({
     type: SELECT_USER,
     user
   });
-  if (getState().selectedUserLocations) {
+  if (currentValue !== getState().selectedUserLocations) {
     dispatch({
       type: FILTER_TAGS_BY_SELECTED_LOCATIONS
     });
   }
-
-
 }

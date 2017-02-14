@@ -10,15 +10,13 @@ class NewSidebar extends React.Component {
   constructor() {
     super();
     this.state = { displayLocals: true, displayTags: false, displayOneUser: false }
-    this.showLocalsView = this.showLocalsView.bind(this);
   }
 
-  showLocalsView() { this.setState({ displayLocals: true, displayTags: false, displayOneUser: false }) }
   showTagsView() { this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }) }
 
-  showAllUsers() {
-    this.showLocalsView();
-    this.props.selectUser(null);
+  showLocalsView() {
+    this.setState({ displayLocals: true, displayTags: false, displayOneUser: false })
+    this.props.selectUserAndUpdateTags(null);
   }
 
   selectLocalUser(user) {
@@ -54,7 +52,7 @@ class NewSidebar extends React.Component {
         <div className="sidebar-nav">
           <ul>
             <li> <button className="sidebar-nav-button" onClick={this.showTagsView.bind(this)}>{"Filter"}</button></li>
-            <li> <button className="sidebar-nav-button" onClick={this.showAllUsers.bind(this)}>{"Users"}</button></li>
+            <li> <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>{"Users"}</button></li>
           </ul>
         </div>
         <div className="sidebar-inner-container">{display}</div>

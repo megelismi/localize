@@ -148,10 +148,6 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       tagsError: false
     });
 
-    // implementing this atm would require a different UI where you could see both tags & users at once
-    // case sync_action.FILTER_USERS_BY_SELECTED_TAGS:
-    // return state
-
     // DB CALL -- A JOIN TABLE USED TO FIGURE OUT ASSOCIATIONS BTWN LOCATIONS, USERS, AND TAGS
     case get_actions.GET_LOCATION_USER_TAGS_SUCCESS:
     return state = Object.assign({}, state, {
