@@ -2,7 +2,7 @@ import * as get_actions from './actions/get_result';
 import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
-const state = (state = { locationAndDescription: [], selectedTags: [] }, action) => {
+const state = (state = { locationAndDescriptionMerge: [], selectedTags: [] }, action) => {
   switch (action.type) {
 
     // CALLED WHEN MAP_DISPLAY LOADS. ASYNC CALL TO DB.
@@ -33,7 +33,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
         return merge;
       });
     return state = Object.assign({}, state, {
-      locationAndDescription: mergedLocations,
+      locationAndDescriptionMerge: mergedLocations,
       getDescriptionsError: false
     });
     case get_actions.GET_DESCRIPTIONS_ERROR:
@@ -48,7 +48,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     case sync_actions.SELECT_USER:
       let selectedUserLocations;
       if (action.user) {
-        let filteredJoinArrayForUser = state.locationUserTags.filter((object) => {
+        let filteredJoinArrayForUser = state.locationUserTagsHelper.filter((object) => {
           return object.user_id === action.user.id
         });
         selectedUserLocations = filteredJoinArrayForUser.map((object) => {
@@ -60,7 +60,7 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
         selectedUserLocations = null;
       }
     return state = Object.assign({}, state, {
-      selectedUserLocations,
+      filteredLocations: selectedUserLocations,
       selectedUser: action.user
     });
 
@@ -86,17 +86,18 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       }
       // find all locations that match any tag in selected tags array
       if (newTagsArray.length === 0) {
-        filteredLocations = state.locationAndDescription;
+        filteredLocations = state.filteredLocations || state.locationAndDescriptionMerge;
       } else {
+        let locations = state.filteredLocations || state.locationAndDescriptionMerge;
         let filteredJoinArray = newTagsArray.map((id) => {
-          return state.locationUserTags.filter((object) => {
+          return state.locationUserTagsHelper.filter((object) => {
             return object.tag_id === id
           })
           .map((object) => object.location_id) })
           .reduce((a, b) => a.concat(b))
           .filter((item, idx, ary) => ary.indexOf(item) === idx );
         filteredLocations = filteredJoinArray.map((locationID) => {
-          return state.locationAndDescription.filter((location) => location.id === locationID);
+          return locations.filter((location) => location.id === locationID);
         }).reduce((a, b) => a.concat(b));
       }
     return state = Object.assign({}, state, {
@@ -108,13 +109,13 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     case sync_actions.CLEAR_ALL_APPLIED_TAGS:
     return state = Object.assign({}, state, {
       selectedTags: [],
-      filteredLocations: state.locationAndDescription
+      filteredLocations: state.locationAndDescriptionMerge
     });
 
     // CALLED IN CHAIN AFTER LOCATIONS & DESCRIPTIONS -- ASYNC CALL TO DB
     case get_actions.GET_TAGS_SUCCESS:
     return state = Object.assign({}, state, {
-      tagInfo: action.tags,
+      tagInfoHelper: action.tags,
       tagsError: false
     });
 
@@ -128,17 +129,17 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
     // only display tags that are relevant to whatever locations are currently displayed on map
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
       let filteredTags;
-      if (state.locationAndDescription) {
-        let locationsToFilter = state.selectedUserLocations || state.locationAndDescription
+      if (state.locationAndDescriptionMerge) {
+        let locationsToFilter = state.selectedUserLocations || state.locationAndDescriptionMerge
         let locationIDs = locationsToFilter.map((location) => location.id)
         .filter((item, idx, ary) => ary.indexOf(item) === idx );
         let filteredJoinArrayForTags = locationIDs.map((id) => {
-          return state.locationUserTags.filter((object) => object.location_id === id)
+          return state.locationUserTagsHelper.filter((object) => object.location_id === id)
           .map((object) => object.tag_id) })
           .reduce((a, b) => a.concat(b))
           .filter((item, idx, ary) => ary.indexOf(item) === idx );
         filteredTags = filteredJoinArrayForTags.map((id) => {
-          return state.tagInfo.filter((tag) => tag.id === id)
+          return state.tagInfoHelper.filter((tag) => tag.id === id)
         }).reduce((a, b) => a.concat(b));
       } else {
         filteredTags = [];
@@ -148,13 +149,32 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
       tagsError: false
     });
 
-    // DB CALL -- A JOIN TABLE USED TO FIGURE OUT ASSOCIATIONS BTWN LOCATIONS, USERS, AND TAGS
-    case get_actions.GET_LOCATION_USER_TAGS_SUCCESS:
+    // CALLED AFTER FILTER_TAGS_BY_SELECTED_LOCATIONS WHEN USER IS SELECTED
+    case sync_actions.FILTER_TAGS_BY_USER:
+
+      let filteredLocationUserTags = state.locationUserTagsHelper.filter((object) => {
+        return object.user_id === state.selectedUser.id;
+      });
+
+      let tagsFilteredByUser = filteredLocationUserTags.map((object) => {
+        return state.filteredTags.filter((tag) => {
+          return tag.id === object.tag_id;
+        });
+      })
+      .reduce((a, b) => a.concat(b))
+      .filter((item, idx, ary) => ary.indexOf(item) === idx );
+
     return state = Object.assign({}, state, {
-      locationUserTags: action.location_user_tags,
-      locationUserTagsError: false
+      filteredTags: tagsFilteredByUser
     });
-    case get_actions.GET_LOCATION_USER_TAGS_ERROR:
+
+    // DB CALL -- A JOIN TABLE USED TO FIGURE OUT ASSOCIATIONS BTWN LOCATIONS, USERS, AND TAGS
+    case get_actions.GET_LOCATION_USER_TAGS_HELPER_SUCCESS:
+    return state = Object.assign({}, state, {
+      locationUserTagsHelper: action.location_user_tags,
+      locationUserTagsHelperError: false
+    });
+    case get_actions.GET_LOCATION_USER_TAGS_HELPER_ERROR:
     return state = Object.assign({}, state, {
       locationTagsError: true
     });
@@ -172,8 +192,8 @@ const state = (state = { locationAndDescription: [], selectedTags: [] }, action)
 
     // SYNC ACTION THAT FINDS A SPECIFIC LOCATION TO DISPLAY IN SIDEBAR
     // cleared by passing in 'null' when user X's out of detailed description view
-    case sync_actions.SELECT_BY_ID:
-    const selected = state.locationAndDescription.filter((location) => location.id === action.id);
+    case sync_actions.SELECT_LOCATION_BY_ID:
+    const selected = state.locationAndDescriptionMerge.filter((location) => location.id === action.id);
     return state = Object.assign({}, state, {
       selectedLocation: selected[0]
     });

@@ -4,7 +4,7 @@ const LocationDetailsDisplay = (props) => {
 
   return (
     <div>
-      <button className="close-button" onClick={() => {props.selectById(null)}}>X</button>
+      <button className="close-button" onClick={() => {props.selectLocationById(null)}}>X</button>
       <div className="selected-location-name">{props.locationInfo.name}</div>
       <img src={props.locationInfo.image} />
       <div className="selected-location-info">{props.locationInfo.long_description}</div>

@@ -15,16 +15,21 @@ export const selectUser = user => ({
   user
 });
 
-export const SELECT_BY_ID = 'SELECT_BY_ID';
-export const selectById = id => ({
-  type: SELECT_BY_ID,
+export const SELECT_LOCATION_BY_ID = 'SELECT_LOCATION_BY_ID';
+export const selectLocationById = id => ({
+  type: SELECT_LOCATION_BY_ID,
   id
 });
 
 export const FILTER_TAGS_BY_SELECTED_LOCATIONS = 'FILTER_TAGS_BY_SELECTED_LOCATIONS';
 export const filterTagsBySelectedLocations = () => ({
   type: FILTER_TAGS_BY_SELECTED_LOCATIONS
-})
+});
+
+export const FILTER_TAGS_BY_USER = 'FILTER_TAGS_BY_USER';
+export const filterTagsByUser = () => ({
+  type: FILTER_TAGS_BY_USER
+});
 
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
   let currentValue = getState().selectedUserLocations
@@ -35,6 +40,11 @@ export const selectUserAndUpdateTags = user => (dispatch, getState) => {
   if (currentValue !== getState().selectedUserLocations) {
     dispatch({
       type: FILTER_TAGS_BY_SELECTED_LOCATIONS
+    });
+  }
+  if (getState().selectedUser) {
+    dispatch({
+      type: FILTER_TAGS_BY_USER
     });
   }
 }
