@@ -56,7 +56,7 @@ class NewSidebar extends React.Component {
           <ul>
             <li> 
               <button className="sidebar-nav-button filter" onClick={this.showTagsView.bind(this)}>
-                <span className="filter-hover"><i className="fa fa-filter fa-2x" id={filterId} title="Filter tags" aria-hidden="true"></i></span>
+                <span className="filter-hover"><i className="fa fa-filter fa-2x" id={filterId} aria-hidden="true"></i></span>
                   <div className="hover-text">Filter</div>
               </button>
             </li>

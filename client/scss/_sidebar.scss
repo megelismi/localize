@@ -64,6 +64,11 @@ $accent-color: #4ddcb1;
 
 #filters-on {
   color: $accent-color; 
+  &:hover {
+    opacity: 0.6; 
+  }
 }
+
+
 
 
