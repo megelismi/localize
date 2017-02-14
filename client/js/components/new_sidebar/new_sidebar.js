@@ -36,20 +36,20 @@ class NewSidebar extends React.Component {
   render() {
     let display;
     const { selectedLocation, selectLocationById, users, selectUser, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
-    let navText;
+    let navLocalsText;
     if (selectedLocation) {
-      navText = selectedUser ? selectedUser.first_name : 'All users'
+      navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
       display = <LocationDetailsDisplay
         locationInfo={selectedLocation}
         selectLocationById={selectLocationById} />
     } else if (this.state.displayLocals) {
-      navText = 'All users'
+      navLocalsText = 'All users'
       display = <LocalsDisplay
         city={'Portland'}
         users={users}
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
-      navText = selectedUser ? selectedUser.first_name : 'All users'
+      navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
       let tags = tagsFilteredByUser ? tagsFilteredByUser : allTags
       display = <TagsDisplay
         boolean={selectedUser ? true : false}
@@ -58,7 +58,7 @@ class NewSidebar extends React.Component {
         clearAllAppliedTags={clearAllAppliedTags}
         filterByTag={filterByTag} />
     } else if (this.state.displayOneUser) {
-      navText = selectedUser.first_name
+      navLocalsText = selectedUser.first_name
       display = <LocalDetailsDisplay
         clearSelectedUser={this.clearSelectedUser.bind(this)}
         userInfo={selectedUser} />
@@ -68,8 +68,8 @@ class NewSidebar extends React.Component {
       <div className="sidebar">
         <div className="sidebar-nav">
           <ul>
-            <li> <button className="sidebar-nav-button" onClick={this.showTagsView.bind(this)}>{"Filter"}</button></li>
-            <li> <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>{navText}</button></li>
+            <li> <button className="sidebar-nav-button" onClick={this.showTagsView.bind(this)}>Filter</button></li>
+            <li> <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>{navLocalsText}</button></li>
           </ul>
         </div>
         <div className="sidebar-inner-container">{display}</div>

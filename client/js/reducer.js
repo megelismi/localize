@@ -5,7 +5,6 @@ import { combineReducers } from 'redux';
 const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, action) => {
   switch (action.type) {
 
-    // DB CALL -- GET ALL USERS
     case get_actions.GET_USERS_SUCCESS:
     return state = Object.assign({}, state, {
       users: action.users,
@@ -16,7 +15,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       usersError: true
     });
 
-    // CALLED IN CHAIN AFTER LOCATIONS & DESCRIPTIONS -- ASYNC CALL TO DB
     case get_actions.GET_TAGS_SUCCESS:
     return state = Object.assign({}, state, {
       tagInfoHelper: action.tags,
@@ -28,7 +26,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       tagsError: true
     });
 
-    // DB CALL -- A JOIN TABLE USED TO FIGURE OUT ASSOCIATIONS BTWN LOCATIONS, USERS, AND TAGS
     case get_actions.GET_LOCATION_USER_TAGS_HELPER_SUCCESS:
     return state = Object.assign({}, state, {
       locationUserTagsHelper: action.location_user_tags,
@@ -39,7 +36,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       locationTagsError: true
     });
 
-    // CALLED WHEN MAP_DISPLAY LOADS. ASYNC CALL TO DB.
     case get_actions.GET_LOCATIONS_SUCCESS:
     return state = Object.assign({}, state, {
       locations: action.locations,
@@ -50,8 +46,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       locationsError: true
     });
 
-    // CALLED WHEN MAP_DISPLAY LOADS. ASYNC CALL TO DB.
-    // called after locations, then locations & descriptions are merged — move this logic to back end
     case get_actions.GET_DESCRIPTIONS_SUCCESS:
       let mergedLocations = action.descriptions.map(description => {
         let merge = description;
@@ -75,9 +69,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       getDescriptionsError: true
     });
 
-    // CALLED AT END OF LONG ASYNC CHAIN WHEN PAGE FIRST LOADS
-    // CALLED WITH THUNK ALONG WITH SELECT_USER WHEN A USER IS SELECTED
-    // only display tags that are relevant to whatever locations are currently displayed on map
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
       let relevantTags;
       if (state.allLocationsAndDescriptions) {
@@ -100,13 +91,9 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       tagsError: false
     });
 
-    // SYNC ACTION CALLED AT THE END OF A DB CALL FOR LOCATIONS & DESCRIPTIONS
-    // if there are no selected tags, filtered locations displays all locations
-    // in tag cloud display, when a tag is clicked it is added to selected tags array or removed, depending on whether it was already in that array
-      // (this allows a user to select and deselect a tag)
-    // next, the selected tags array is looped through, and any objects from the location/user/tags array that match that tag ID are selected
-    // finally, FILTERED/location/user/tags array is used to filter the full list of locations. any locations that have a user
-      // id present in the FILTERED/location/user/tags array are kept as part of the filteredLocations state object
+    // FILTER_BY_TAG takes all city locations or, if a specific user is selected, it takes
+    // just that user's locations
+
     case sync_actions.FILTER_BY_TAG:
       let newTagsArray, selectedLocations;
       // modify an array of all currently selected tags
@@ -148,10 +135,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       tagsFilteredByUser: null
     });
 
-    // CALLED WHEN USER CLICKS ON A LOCAL.
-    // sets a selected user & identifies the pins they have mapped
-    // in map, if there is a selectedUserLocations, that is displayed instead of all locations
-    // Clicking 'the locals' link in sidebar header clears selectedUser & selectedUserLocations by passing in null instead of a user ID
     case sync_actions.SELECT_USER:
     return state = Object.assign({}, state, {
       selectedUser: action.user
@@ -175,8 +158,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       locationsFilteredByUser: selectedUserLocations
     });
 
-    // CALLED AFTER FILTER_TAGS_BY_SELECTED_LOCATIONS WHEN USER IS SELECTED
-    // change this so it is called after FILTER_LOCATIONS_BY_USER
     case sync_actions.FILTER_TAGS_BY_USER:
       let filteredLocationUserTags = state.locationUserTagsHelper.filter((object) => {
         return object.user_id === state.selectedUser.id;
@@ -192,15 +173,12 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
       tagsFilteredByUser
     });
 
-    // APPLIED WHEN USER CLICKS THE CLEAR TAGS BUTTON
     case sync_actions.CLEAR_ALL_APPLIED_TAGS:
     return state = Object.assign({}, state, {
       selectedTags: [],
       selectedLocations: []
     });
 
-    // SYNC ACTION THAT FINDS A SPECIFIC LOCATION TO DISPLAY IN SIDEBAR
-    // cleared by passing in 'null' when user X's out of detailed description view
     case sync_actions.SELECT_LOCATION_BY_ID:
     const selected = state.allLocationsAndDescriptions.filter((location) => location.id === action.id);
     return state = Object.assign({}, state, {

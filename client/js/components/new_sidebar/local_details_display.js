@@ -4,7 +4,7 @@ const LocalDetailsDisplay = (props) => {
 
     return (
       <div>
-        <button onClick={props.clearSelectedUser}>Show all users</button>
+        <button className="filter-button" onClick={props.clearSelectedUser}>Show all users</button>
         <ul>
           <li>{props.userInfo.first_name}</li>
           <img src={props.userInfo.image} />
