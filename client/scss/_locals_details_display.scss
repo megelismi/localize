@@ -14,3 +14,14 @@
     text-align: left;
     margin-left: 5px;
  }
+
+ .locals-details-button {
+ 	border: none; 
+ 	border-bottom: 1px solid $border-color !important;
+ 	background-color: white; 
+ 	font-weight: bold; 
+ 	color: $charcoal; 
+ 	&:hover {
+ 		color: gray;
+ 	}
+ }
