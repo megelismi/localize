@@ -7,6 +7,7 @@ import Map from '../map/map';
 import SidebarContainer from '../new_sidebar/sidebar_container';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
+import { StickyContainer, Sticky } from 'react-sticky';
 
 class MapDisplay extends React.Component {
 
@@ -19,7 +20,7 @@ class MapDisplay extends React.Component {
   render() {
     return (
       <div>
-      	<Header />
+        <Header />
         <Map />
         <SidebarContainer />
         <Footer />
