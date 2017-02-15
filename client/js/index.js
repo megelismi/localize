@@ -6,12 +6,12 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import MapDisplay from './components/pages/map_display';
-import GooglePlacesPractice from './components/google_places_practice';
+import NewMapDisplay from './components/pages/new_map_display';
 
 const routes = (
   <Provider store={store}>
 		<Router history={hashHistory}>
-			<Route path = '/' component={MapDisplay} />
+			<Route path = '/' component={NewMapDisplay} />
 		</Router>
   </Provider>
 );

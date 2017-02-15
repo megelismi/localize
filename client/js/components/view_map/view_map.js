@@ -7,7 +7,7 @@ import Tile from './tile_layer';
 import MarkerLayer from './marker_layer';
 L.Icon.Default.imagePath = '../assets/images/';
 
-class MapComponent extends React.Component {
+class ViewMap extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
@@ -39,4 +39,4 @@ const mapStateToProps = (state) => ({
   allLocationsAndDescriptions: state.allLocationsAndDescriptions
 });
 
-export default connect(mapStateToProps, syncActionCreators)(MapComponent);
+export default connect(mapStateToProps, syncActionCreators)(ViewMap);

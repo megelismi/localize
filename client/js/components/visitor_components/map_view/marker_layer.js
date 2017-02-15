@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../actions/sync.js';
+import * as actionCreators from '../../../actions/sync.js';
 import { LayerGroup, Marker, Popup } from 'react-leaflet';
 
 const MarkerLayer = (props) => {

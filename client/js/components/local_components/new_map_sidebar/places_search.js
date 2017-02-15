@@ -1,7 +1,7 @@
 import React from 'react';
 import Geosuggest from 'react-geosuggest';
 
-class GooglePlacesPractice extends React.Component {
+class PlacesSearch extends React.Component {
   constructor() {
     super();
     this.state = { location: '', error: '' }
@@ -39,4 +39,4 @@ class GooglePlacesPractice extends React.Component {
 
 }
 
-export default GooglePlacesPractice;
+export default PlacesSearch;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as syncActionCreators from '../../actions/sync.js';
+import * as syncActionCreators from '../../../actions/sync.js';
 import SidebarPresentation from './sidebar_presentation';
 import LocalDetailsDisplay from './local_details_display';
 import LocationDetailsDisplay from './location_details_display';

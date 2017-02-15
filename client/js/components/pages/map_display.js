@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as getActionCreators from '../../actions/get_request.js';
 import * as syncActionCreators from '../../actions/sync.js';
-import Map from '../map/map';
-import SidebarContainer from '../new_sidebar/sidebar_container';
+import Map from '../visitor_components/map_view/map';
+import SidebarContainer from '../visitor_components/map_view_sidebar/sidebar_container';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
 import { StickyContainer, Sticky } from 'react-sticky';
@@ -28,11 +28,6 @@ class MapDisplay extends React.Component {
     )
   }
 }
-
-
-const mapStateToProps = (state) => ({
-
-});
 
 const mapDispatchToProps = (dispatch) => {
   return {
