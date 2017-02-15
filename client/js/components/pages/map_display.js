@@ -1,19 +1,44 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as getActionCreators from '../../actions/get_request.js';
+import * as syncActionCreators from '../../actions/sync.js';
 import Map from '../map/map';
-import Sidebar from '../sidebar/sidebar';
+import SidebarContainer from '../new_sidebar/sidebar_container';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
+import { StickyContainer, Sticky } from 'react-sticky';
 
-const MapDisplay = () => {
+class MapDisplay extends React.Component {
 
+  componentDidMount() {
+    this.props.getActionCreators.getLocationTags();
+    this.props.getActionCreators.getUsers();
+    this.props.getActionCreators.getLocationsAndDescriptions();
+  }
+
+  render() {
     return (
       <div>
-      	<Header />
+        <Header />
         <Map />
-        <Sidebar />
+        <SidebarContainer />
         <Footer />
       </div>
     )
+  }
 }
 
-export default MapDisplay;
+
+const mapStateToProps = (state) => ({
+
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getActionCreators: bindActionCreators(getActionCreators, dispatch),
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(MapDisplay);

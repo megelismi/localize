@@ -22,15 +22,15 @@ export const getTagsError = error => ({
   error
 });
 
-export const GET_LOCATION_TAGS_SUCCESS = 'GET_LOCATION_TAGS_SUCCESS';
-export const getLocationTagsSuccess = location_tags => ({
-  type: GET_LOCATION_TAGS_SUCCESS,
-  location_tags
+export const GET_LOCATION_USER_TAGS_HELPER_SUCCESS = 'GET_LOCATION_USER_TAGS_HELPER_SUCCESS';
+export const getLocationUserTagsHelperSuccess = location_user_tags => ({
+  type: GET_LOCATION_USER_TAGS_HELPER_SUCCESS,
+  location_user_tags
 });
 
-export const GET_LOCATION_TAGS_ERROR = 'GET_LOCATION_TAGS_ERROR';
-export const getLocationTagsError = error => ({
-  type: GET_LOCATION_TAGS_ERROR,
+export const GET_LOCATION_USER_TAGS_HELPER_ERROR = 'GET_LOCATION_USER_TAGS_HELPER_ERROR';
+export const getLocationTagsHelperError = error => ({
+  type: GET_LOCATION_USER_TAGS_HELPER_ERROR,
   error
 });
 
@@ -43,5 +43,17 @@ export const getDescriptionsSuccess = descriptions => ({
 export const GET_DESCRIPTIONS_ERROR = 'GET_DESCRIPTIONS_ERROR';
 export const getDescriptionsError = error => ({
   type: GET_DESCRIPTIONS_ERROR,
+  error
+});
+
+export const GET_USERS_SUCCESS = 'GET_USERS_SUCCESS';
+export const getUsersSuccess = users => ({
+  type: GET_USERS_SUCCESS,
+  users
+});
+
+export const GET_USERS_ERROR = 'GET_USERS_ERROR';
+export const getUsersError = error => ({
+  type: GET_USERS_ERROR,
   error
 });

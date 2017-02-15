@@ -1,0 +1,49 @@
+$darkpurple: #4062BB; 
+$purple: #748CCD;
+$accent-color: #4ddcb1;
+$charcoal: #2D2D2D; 
+
+.filter-button {
+  font-size: 16px;
+  &:hover {
+    border: 1px solid #6DE2BF !important;
+    background-color: #6DE2BF;
+  }
+}
+
+.tag-button, .filter-button {
+  margin: 4px;
+  background-color: white;
+  border: 1px solid gray;
+  color: $charcoal;
+}
+
+.tag-button-selected, .add-location-to-favs-button {
+  background-color: $accent-color;
+  color: white !important;
+  border: 1px solid $accent-color;
+  margin: 5px;
+}
+
+.tag-button, .tag-button-selected, .filter-button, .add-location-to-favs-button, .close-button {
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.filter-button {
+  display: block; 
+  margin: 20px auto; 
+  color: white; 
+  background-color: $darkpurple; 
+  border: 1px solid $darkpurple; 
+  &:hover {
+    background-color: $purple; 
+    border: 1px solid $purple !important; 
+  }
+}
+
+.tag-button-container {
+  margin: 40px 0;
+}

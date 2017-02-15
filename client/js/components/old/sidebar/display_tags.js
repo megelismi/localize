@@ -1,13 +1,12 @@
 import React from 'react';
 
-const DefaultSidebar = (props) => {
+const DisplayTags = (props) => {
 
   return (
-    <div className="sidebar">
+    <div>
       <button onClick={() => {props.displayTags()}}>{"What are you looking for?"}</button>
-      <div></div>
     </div>
   )
 }
 
-export default DefaultSidebar;
+export default DisplayTags;

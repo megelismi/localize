@@ -1,6 +1,19 @@
 @import 'map';
 @import 'partials';
 @import 'sidebar';
+@import 'locals_display';
+@import 'tags_display';
+@import 'location_details_display';
+@import 'locals_details_display';
+
+@font-face {
+    font-family: 'stokedregular';
+    src: url('../assets/fonts/stoked-webfont.woff2') format('woff2'),
+         url('../assets/fonts/stoked-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+
+}
 
 $base-font: 'Lato', sans-serif;
 
@@ -8,8 +21,175 @@ $base-font: 'Lato', sans-serif;
   box-sizing: border-box;
 }
 
+:focus {
+  outline-color: transparent;
+  outline-style: none;
+}
+
 body {
   padding: 0;
   margin: 0;
-  font-family: $base-font;
+  font-family: $base-font !important;
+  color: #5F5F5F;
 }
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+
+@media only screen and (max-width: 1020px) {
+ .display-map {
+    width: 60%;
+ }
+
+ .sidebar {
+    width: 34%;
+ }
+}
+
+@media only screen and (max-width: 865px) {
+ .display-map {
+    width: 55%;
+    margin-left: 10px;
+ }
+
+ .sidebar {
+    margin-right: 70px
+ }
+
+}
+
+ @media only screen and (max-width: 768px) {
+
+   .display-map {
+      width: 90%;
+      float: none;
+      margin-left: auto !important;
+      margin-right: auto !important;
+   }
+
+   .sidebar {
+    float: none;
+    width: 100%;
+    margin-right: 0;
+    padding: 0;
+    height: auto;
+   }
+
+   .sidebar-nav {
+      margin-left: 0;
+   }
+
+   .sidebar-inner-container {
+    overflow-y: hidden;
+    margin-left: 0;
+    height: auto;
+    padding-bottom: 0;
+   }
+
+
+  .user-bio {
+    margin-left: 10px;
+    margin-bottom: 5px;
+  }
+
+   .user-name {
+      font-size: 16px;
+      margin-left: 96px;
+      margin-bottom: 5px;
+   }
+
+  .see-user-city {
+    margin-left: 90px;
+   }
+
+   .user-image {
+    margin: 0 10px;
+   }
+
+}
+
+ @media only screen and (max-width: 620px) {
+
+    .user-info-list {
+      width: 40%;
+      margin: 10px 20px;
+    }
+
+  }
+
+   @media only screen and (max-width: 460px) {
+
+    .user-info-list {
+      width: 100%;
+      margin: 10px;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .display-map {
+      margin-left: 0;
+    }
+
+    .user-name {
+      margin-bottom: 10px;
+    }
+
+    .tag-button-container {
+      margin: 20px 0;
+    }
+
+    .close-button {
+      margin-left: 15px;
+
+    }
+
+    .sidebar {
+      padding: 5px;
+    }
+
+  }

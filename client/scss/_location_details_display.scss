@@ -1,0 +1,40 @@
+
+.close-button {
+	float: left;
+  border: none;
+  background-color: white;
+}
+
+.close-button {
+  color: $purple !important;
+  margin: 0px 0px 0px 10px;
+  font-size: 30px;
+  &:hover {
+    color: $darkpurple !important;
+  }
+}
+
+.location-image {
+  width: 250px;
+  margin: 10px;
+}
+
+.selected-location-name {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 50px;
+  margin-bottom: 10px; 
+}
+
+.selected-location-info {
+  text-align: justify; 
+  margin: 20px;
+  justify-content: space-between;
+}
+
+
+.location-details-container {
+	box-shadow: 0 0 5px lightgray;
+	margin: 10px;
+  padding: 10px
+}

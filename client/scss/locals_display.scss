@@ -1,0 +1,45 @@
+.user-image-and-description-container {
+  border-bottom: 1px solid $border-color; 
+  padding-bottom: 10px;
+  text-align: left;  
+}
+
+.user-image-and-description-container:last-child {
+  border-bottom: none; 
+}
+
+.user-image {
+  border-radius: 4%;
+  width: 70px; 
+  float: left; 
+}
+
+.user-name {
+  font-weight: bold; 
+  font-size: 16px; 
+  color: $charcoal;
+  margin-left: 86px; 
+}
+
+.user-bio {
+  text-align: left;
+  font-size: 14px;
+  padding: 5px 0 5px 86px; 
+  line-height: 20px; 
+}
+
+.see-user-city, .see-user-profile, .sidebar-nav-button {
+  border: none;
+  outline: none; 
+  background-color: white;
+  font-size: 13px; 
+  color: $purple; 
+  &:hover {
+    color: $darkpurple; 
+    cursor: pointer;
+  }
+}
+
+.see-user-city {
+  margin-left: 81px; 
+}

@@ -1,8 +1,26 @@
 // refactor into middleware
 
-import * as get_result from './get_result.js';
+import { getServer } from './async_middleware';
 
-export const getLocations = () => dispatch => {
+import * as get_result from './get_result.js';
+import * as sync from './sync.js';
+
+export const getUsers = () => dispatch => {
+  return fetch('/users')
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    return res.json();
+  }).then(res => {
+    dispatch(get_result.getUsersSuccess(res))
+  }).catch(err => {
+    dispatch(get_result.getUsersError(err))
+  });
+}
+
+// move to server
+export const getLocationsAndDescriptions = () => dispatch => {
   return fetch('/locations')
   .then(res => {
     if (!res.ok) {
@@ -13,20 +31,32 @@ export const getLocations = () => dispatch => {
     dispatch(get_result.getLocationsSuccess(res))
   }).catch(err => {
     dispatch(get_result.getLocationsError(err))
-  });
-}
-
-export const getTags = () => dispatch => {
-  return fetch('/tags')
-  .then(res => {
-    if (!res.ok) {
-      throw new Error(res.statusText)
-    }
-    return res.json();
-  }).then(res => {
-    dispatch(get_result.getTagsSuccess(res))
-  }).catch(err => {
-    dispatch(get_result.getTagsError(err))
+  }).then(() => {
+    return fetch('/reviews')
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(res.statusText)
+      }
+      return res.json();
+    }).then(res => {
+      dispatch(get_result.getDescriptionsSuccess(res))
+    }).catch(err => {
+      dispatch(get_result.getDescriptionsSuccess(err))
+    }).then(() => {
+      return fetch('/tags')
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(res.statusText)
+        }
+        return res.json();
+      }).then(res => {
+        dispatch(get_result.getTagsSuccess(res))
+      }).catch(err => {
+        dispatch(get_result.getTagsError(err))
+      }).then(() => {
+        dispatch(sync.filterLocations())
+      });
+    });
   });
 }
 
@@ -38,22 +68,8 @@ export const getLocationTags = () => dispatch => {
     }
     return res.json();
   }).then(res => {
-    dispatch(get_result.getLocationTagsSuccess(res))
+    dispatch(get_result.getLocationUserTagsHelperSuccess(res))
   }).catch(err => {
-    dispatch(get_result.getLocationTagsError(err))
-  });
-}
-
-export const getDescriptions = () => dispatch => {
-  return fetch('/reviews')
-  .then(res => {
-    if (!res.ok) {
-      throw new Error(res.statusText)
-    }
-    return res.json();
-  }).then(res => {
-    dispatch(get_result.getDescriptionsSuccess(res))
-  }).catch(err => {
-    dispatch(get_result.getDescriptionsSuccess(err))
+    dispatch(get_result.getLocationUserTagsHelperError(err))
   });
 }
