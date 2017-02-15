@@ -15,7 +15,7 @@ class NewSidebar extends React.Component {
 
   showTagsView() { this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }) }
 
-  showLocalsView() {
+  showAllLocalsOrSingleLocal() {
     this.props.selectedUser ?
       this.setState({ displayLocals: false, displayTags: false, displayOneUser: true }) :
       this.setState({ displayLocals: true, displayTags: false, displayOneUser: false })
@@ -64,12 +64,12 @@ class NewSidebar extends React.Component {
     }
     
     if (selectedUser) {
-      userIcon = ( <button className="sidebar-nav-button">
+      userIcon = ( <button className="sidebar-nav-button" onClick={this.showAllLocalsOrSingleLocal.bind(this)}>
           <span className="user-hover"><i className="fa fa-user fa-2x" aria-hidden="true"></i></span>
-          <div className="hover-text">User</div>
+          <div className="hover-text">{selectedUser.first_name}</div>
         </button> )
     } else {
-      userIcon= ( <button className="sidebar-nav-button" onClick={this.showLocalsView.bind(this)}>
+      userIcon= ( <button className="sidebar-nav-button" onClick={this.showAllLocalsOrSingleLocal.bind(this)}>
         <span className="users-hover"><i className="fa fa-users fa-2x" aria-hidden="true"></i></span>
         <div className="hover-text">All users</div>
       </button> )
@@ -107,3 +107,4 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
+
