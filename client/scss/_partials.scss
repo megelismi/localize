@@ -2,8 +2,9 @@ $app-font: 'stokedregular';
 $border-color: lightgray; 
 $accent-color: #4ddcb1; 
 $charcoal: #2D2D2D; 
-$purple: #4062BB;
-$darkpurple: #748CCD;
+$purple: #748CCD;
+$darkpurple: #4062BB;
+
 
 //#51B2B2
 
@@ -74,9 +75,9 @@ $darkpurple: #748CCD;
 .right-link {
   font-size: 16px !important;
   a {
-     color: $purple !important;
+     color: $darkpurple !important;
      &:hover {
-        color: $darkpurple !important;  
+        color: $purple !important;  
      }
   } 
 }
