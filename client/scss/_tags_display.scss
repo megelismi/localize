@@ -1,3 +1,8 @@
+$darkpurple: #4062BB; 
+$purple: #748CCD;
+$accent-color: #4ddcb1;
+$charcoal: #2D2D2D; 
+
 .close-button {
 	float: left;
   border: none; 
@@ -27,7 +32,7 @@
   color: $charcoal; 
 }
 
-.tag-button-selected, .filter-button, .add-location-to-favs-button {
+.tag-button-selected, .add-location-to-favs-button {
   background-color: $accent-color;
   color: white !important;
   border: 1px solid $accent-color;
@@ -38,6 +43,17 @@
   border-radius: 4px;
   &:focus {
     outline: none; 
+  }
+}
+
+.clear-all-tags-button {
+  color: white; 
+  background-color: $darkpurple; 
+  border: 1px solid $darkpurple; 
+  border-radius: 4px; 
+  &:hover {
+    background-color: $purple; 
+    border: 1px solid $purple; 
   }
 }
 
