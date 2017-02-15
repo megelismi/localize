@@ -93,7 +93,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
 
     // FILTER_BY_TAG takes all city locations or, if a specific user is selected, it takes
     // just that user's locations
-
     case sync_actions.FILTER_BY_TAG:
       let newTagsArray, selectedLocations;
       // modify an array of all currently selected tags
