@@ -59,19 +59,11 @@ app.get('/tags', (req, res) => {
 
 // get all data from location_tags
 
-<<<<<<< HEAD
   app.get('/locations/tags', (req,res) => {
     knex('locations_users_tags').then((location_user_tags) => {
         return res.status(200).json(location_user_tags);
-    })
-  })
-=======
-app.get('/locations/tags', (req,res) => {
-  knex('locations_users_tags').then((location_tags) => {
-    return res.status(200).json(location_tags);
+    });
   });
-});
->>>>>>> list-local-users
 
 // get all locations with that tag
 
