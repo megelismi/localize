@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 
 import store from './store';
 import MapDisplay from './components/pages/map_display';
+import GooglePlacesPractice from './components/google_places_practice';
 
 const routes = (
   <Provider store={store}>
