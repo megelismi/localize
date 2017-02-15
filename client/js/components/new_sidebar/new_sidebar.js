@@ -108,4 +108,3 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
 
-//onClick={this.selectLocalUser(selectedUser).bind(this)}
