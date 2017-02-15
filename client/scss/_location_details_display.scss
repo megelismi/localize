@@ -15,7 +15,7 @@
 }
 
 .location-image {
-  width: 300px;
+  width: 250px;
   margin: 10px;
 }
 
@@ -30,4 +30,11 @@
   text-align: justify; 
   margin: 20px;
   justify-content: space-between;
+}
+
+
+.location-details-container {
+	box-shadow: 0 0 5px lightgray;
+	margin: 10px;
+  padding: 10px
 }
