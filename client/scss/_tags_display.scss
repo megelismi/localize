@@ -46,14 +46,15 @@ $charcoal: #2D2D2D;
   }
 }
 
-.clear-all-tags-button {
+.filter-button {
+  display: block; 
+  margin: 20px auto; 
   color: white; 
   background-color: $darkpurple; 
   border: 1px solid $darkpurple; 
-  border-radius: 4px; 
   &:hover {
     background-color: $purple; 
-    border: 1px solid $purple; 
+    border: 1px solid $purple !important; 
   }
 }
 
