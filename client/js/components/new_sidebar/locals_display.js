@@ -2,6 +2,11 @@ import React from 'react';
 
 const LocalsDisplay = (props) => {
 
+  const selectLocalAndClearTags = (user) => {
+    props.selectLocalUser(user);
+    props.clearAllAppliedTags();
+  }
+
   if (props.users) {
     return (
       <div className="sidebar-inner-container">
@@ -12,7 +17,7 @@ const LocalsDisplay = (props) => {
                   <img className="user-image" src={user.image} />
                   <li className="user-name">{user.first_name}</li>
                   <li className="user-bio">{user.bio}</li>
-                  <li><button className="see-user-city" onClick={() => {props.selectLocalUser(user)}}>{user.first_name}{'\'s '}{props.city}</button></li>
+                  <li><button className="see-user-city" onClick={() => {selectLocalAndClearTags(user)}}>{user.first_name}{'\'s '}{props.city}</button></li>
                 </ul>
               )
           })}

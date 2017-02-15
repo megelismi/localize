@@ -1,23 +1,33 @@
 
+.close-button {
+	float: left;
+  border: none;
+  background-color: white;
+}
+
+.close-button {
+  color: $purple !important;
+  margin: 0px 0px 0px 10px;
+  font-size: 30px;
+  &:hover {
+    color: $darkpurple !important;
+  }
+}
+
 .location-image {
-  width: 300px; 
-  margin: 10px; 
+  width: 300px;
+  margin: 10px;
 }
 
 .selected-location-name {
-  font-weight: bold; 
-  font-size: 18px; 
-  margin-top: 50px; 
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 50px;
   margin-bottom: 10px; 
 }
 
 .selected-location-info {
   text-align: justify; 
   margin: 20px;
-}
-
-.close-button {
-	font-size: 24px; 
-	font-weight: bold;
-	color: $charcoal !important;  
+  justify-content: space-between;
 }

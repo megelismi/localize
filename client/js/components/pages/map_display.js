@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import * as getActionCreators from '../../actions/get_request.js';
 import * as syncActionCreators from '../../actions/sync.js';
 import Map from '../map/map';
-import NewSidebar from '../new_sidebar/new_sidebar';
+import SidebarContainer from '../new_sidebar/sidebar_container';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
 import { StickyContainer, Sticky } from 'react-sticky';
@@ -22,7 +22,7 @@ class MapDisplay extends React.Component {
       <div>
         <Header />
         <Map />
-        <NewSidebar />
+        <SidebarContainer />
         <Footer />
       </div>
     )
