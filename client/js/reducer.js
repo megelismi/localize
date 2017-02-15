@@ -146,13 +146,11 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
         let filteredJoinArrayForUser = state.locationUserTagsHelper.filter((object) => {
           return object.user_id === action.user.id
         });
-        console.log(filteredJoinArrayForUser);
         selectedUserLocations = filteredJoinArrayForUser.map((object) => {
           return state.allLocationsAndDescriptions.filter((location) => {
             return location.id === object.location_id
           });
         }).reduce((a, b) => a.concat(b)).filter((item, idx, ary) => ary.indexOf(item) === idx );
-        console.log(selectedUserLocations);
       } else {
         selectedUserLocations = state.allLocationsAndDescriptions;
       }

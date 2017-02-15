@@ -18,13 +18,10 @@ class MapComponent extends React.Component {
       let locations;
       if (selectedLocations && selectedLocations.length > 0) {
         locations = selectedLocations
-        console.log('locations is selectedLocations', locations)
       } else if (locationsFilteredByUser) {
         locations = locationsFilteredByUser
-        console.log('locations is locationsFilteredByUser', locations)
       } else {
         locations = allLocationsAndDescriptions
-        console.log('locations is allLocationsAndDescriptions', locations)
       }
       return (
         <Map className="display-map" center={city} zoom={14}>
