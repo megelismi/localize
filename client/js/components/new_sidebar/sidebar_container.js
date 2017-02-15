@@ -35,29 +35,25 @@ class NewSidebar extends React.Component {
 
   render() {
     let display, navLocalsText, filterId, userIcon;
-    const { selectedLocation, selectLocationById, users, selectUser, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
+    const { selectedLocation, selectLocationById, users, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
     if (selectedLocation) {
-      navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
       display = <LocationDetailsDisplay
         locationInfo={selectedLocation}
         selectLocationById={selectLocationById} />
     } else if (this.state.displayLocals) {
-      navLocalsText = 'All users'
       display = <LocalsDisplay
         city={'Portland'}
         users={users}
+        clearAllAppliedTags={clearAllAppliedTags}
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
-      navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
       let tags = tagsFilteredByUser ? tagsFilteredByUser : allTags
       display = <TagsDisplay
-        boolean={selectedUser ? true : false}
         tags={tags}
         selected={selectedTags}
         clearAllAppliedTags={clearAllAppliedTags}
         filterByTag={filterByTag} />
     } else if (this.state.displayOneUser) {
-      navLocalsText = selectedUser.first_name
       display = <LocalDetailsDisplay
         clearSelectedUser={this.clearSelectedUser.bind(this)}
         userInfo={selectedUser} />
