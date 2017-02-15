@@ -1,7 +1,13 @@
 import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
-import mergeLocationAndDescription from './handlers/locations_handler'
+import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
+import validateUser from './handlers/user_handlers/userValidity';
+import passport from 'passport';
+import { BasicStrategy } from 'passport-http';
+import bcrypt from 'bcryptjs';
+
+const salt = bcrypt.genSaltSync(10);
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 8080;
@@ -21,6 +27,37 @@ const knex = require('knex')({
 
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
+//create new users
+
+app.post('/signup', (req, res) => {
+  const user = req; 
+  const { password } = req.body;
+
+  const passwordToSave = bcrypt.hashSync(password, salt)
+  const userValidity = validateUser(user)
+
+  if (userValidity.isInvalid) {
+    return res.status(userValidity.status).send({ message: userValidity.message });
+  }
+
+  knex.insert({
+     first_name: req.body.first_name, 
+     last_name: req.body.last_name,
+     email: req.body.email, 
+     username: req.body.username,
+     password: passwordToSave
+   }).into('users')
+  .then(() => {
+    knex('users').where('username', req.body.username)
+    .select('first_name', 'last_name', 'id', 'bio', 'image', 'username')
+    .then((user) => {
+      res.status(201).json(user);
+    })
+  }).catch(err => {
+     console.error(err); 
+     res.sendStatus(500); 
+  })
+});
 
 // get all locations
 
@@ -77,6 +114,17 @@ app.get('/locations/:tag', (req, res) => {
     });
   });
 });
+
+// app.get('/test/:username', (req, res) => {
+//   return res.status(200).json('ok');
+// }
+
+// app.get('/test/:username', (req, res) => {
+//   const { username } = req.params;
+//   knex('users').where({username}).then((data) => {
+//       return res.status(200).json(data);
+//     })
+//   }
 
 // get all users with that tag
 
