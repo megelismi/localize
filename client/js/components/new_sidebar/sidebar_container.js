@@ -28,9 +28,7 @@ class NewSidebar extends React.Component {
 
   selectLocalUser(user) {
     this.setState({ displayLocals: false, displayTags: false, displayOneUser: true });
-    if (user) {
-      this.props.selectUserAndUpdateTags(user);
-    }
+    this.props.selectUserAndUpdateTags(user);
   }
 
   render() {
@@ -47,9 +45,8 @@ class NewSidebar extends React.Component {
         clearAllAppliedTags={clearAllAppliedTags}
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
-      let tags = tagsFilteredByUser ? tagsFilteredByUser : allTags
       display = <TagsDisplay
-        tags={tags}
+        tags={tagsFilteredByUser ? tagsFilteredByUser : allTags}
         selected={selectedTags}
         clearAllAppliedTags={clearAllAppliedTags}
         filterByTag={filterByTag} />

@@ -1,21 +1,7 @@
-.close-button {
-	float: left;
-  border: none; 
-  background-color: white; 
-}
-
-.close-button {
-  color: $accent-color !important;
-  font-size: 18px; 
-  &:hover {
-    color: #6DE2BF; 
-  }
-}
-
 .filter-button {
-  font-size: 16px;  
+  font-size: 16px;
   &:hover {
-    border: 1px solid #6DE2BF !important; 
+    border: 1px solid #6DE2BF !important;
     background-color: #6DE2BF;
   }
 }
@@ -24,23 +10,23 @@
   margin: 4px;
   background-color: white;
   border: 1px solid gray;
-  color: $charcoal; 
+  color: $charcoal;
 }
 
 .tag-button-selected, .filter-button, .add-location-to-favs-button {
   background-color: $accent-color;
   color: white !important;
   border: 1px solid $accent-color;
-  margin: 5px; 
+  margin: 5px;
 }
 
 .tag-button, .tag-button-selected, .filter-button, .add-location-to-favs-button {
   border-radius: 4px;
   &:focus {
-    outline: none; 
+    outline: none;
   }
 }
 
 .tag-button-container {
-  margin: 40px 0; 
+  margin: 40px 0;
 }

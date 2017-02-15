@@ -2,8 +2,6 @@ import React from 'react';
 
 const SidebarPresentation = (props) => {
 
-        // navLocalsText = selectedUser ? selectedUser.first_name : 'All users'
-
   const { selectedTags, selectedUser, showAllOrSingle, showTags, display } = props;
   let filterId, userIcon, iconText;
 
