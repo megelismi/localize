@@ -4,9 +4,7 @@ import { combineReducers } from 'redux';
 
 
 const userState = (state = {currentUser: []}, action) => {
-
-// default: 
-// return state; 
+  return state;  
 };
 
 const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, action) => {

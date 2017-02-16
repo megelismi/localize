@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
+import SignUpForm from './components/auth/signup'; 
 
 import store from './store';
 import MapDisplay from './components/pages/map_display';
@@ -17,7 +18,7 @@ const routes = (
 
 document.addEventListener('DOMContentLoaded', () => {
 	return ReactDOM.render(
-		routes,
+		<SignUpForm />,
 		document.getElementById('root')
 	);
 });

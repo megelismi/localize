@@ -60,7 +60,6 @@ app.get('/signin', passport.authenticate('basic', {session: false}), (req, res) 
   res.status(200).json(checkedInUser); 
 })
 
-
 //sign up new users, encrypt their passwords
 
 app.post('/signup', (req, res) => {
