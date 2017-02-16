@@ -3,12 +3,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
 import validateUser from './handlers/user_handlers/userValidity';
+import verifyPassword from './handlers/user_handlers/verifyPassword';
 import passport from 'passport';
 import { BasicStrategy } from 'passport-http';
 import bcrypt from 'bcryptjs';
 
 const salt = bcrypt.genSaltSync(10);
-console.log(salt);
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 8080;
@@ -28,12 +28,6 @@ const knex = require('knex')({
 
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
-// app.use(passport.initialize());
-
-const verifyPassword = (candidatePassword, salt, encryptedPassword) => {
-  candidatePassword = bcrypt.hashSync(candidatePassword, salt)
-  return candidatePassword === encryptedPassword; 
-}
 
 passport.use(new BasicStrategy(
   function(email, password, done) {
@@ -43,16 +37,27 @@ passport.use(new BasicStrategy(
       return done(null, user);
     })
     .catch((err) => {
+      console.log(err); 
       done(err)
     })
   }
 ));
 
+
+//TODO: add error handling to /signin endpoint
 //sign in for existing users
 
 app.get('/signin', passport.authenticate('basic', {session: false}), (req, res) => {
-    console.log(req.user);
-    res.status(200).json(req.user); 
+  const { first_name, last_name, id, bio, image, username } = req.user[0]; 
+  const checkedInUser = {
+    first_name, 
+    last_name, 
+    id,
+    bio, 
+    image, 
+    username
+  }
+  res.status(200).json(checkedInUser); 
 })
 
 
