@@ -14,16 +14,18 @@ const userState = (state = {}, action) => {
     });
     case post_actions.CREATE_NEW_USER_ERROR:
     return state = Object.assign({}, state, {
-      userError: true
+      userError: true,
+      error: action.error
     });
-    case get_actions.SIGN_IN_USER_SUCCESS:
+    case post_actions.SIGN_IN_USER_SUCCESS:
     return state = Object.assign({}, state, {
       user: action.user, 
       userError: false
     })
-    case get_actions.SIGN_IN_USER_ERROR: 
+    case post_actions.SIGN_IN_USER_ERROR: 
     return state = Object.assign({}, state, {
-      userError: true
+      userError: true,
+      error: action.error
     })
 
     default: 

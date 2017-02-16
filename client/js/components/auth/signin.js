@@ -1,5 +1,5 @@
 import React from 'react';
-import * as get_actions from '../../actions/get_request.js'; 
+import * as post_actions from '../../actions/post_request.js'; 
 import {connect} from 'react-redux';
 
 class SignInForm extends React.Component {
@@ -14,10 +14,13 @@ class SignInForm extends React.Component {
 			emailOrUsername: this.emailOrUsername.value, 
 			password: this.password.value
 		}
-		this.props.dispatch(get_actions.signInUser(user));
+		this.props.dispatch(post_actions.signInUser(user));
 	}
-
+	
 	render () {
+		// if(this.props.error) {
+		// 	//render a div to the screen that displays the error
+		// }
 
 		return (
 			<div className="signin-form-container">
@@ -37,6 +40,9 @@ class SignInForm extends React.Component {
 	}
 
 }
+
+//map state to props
+	//error
 
 export default connect()(SignInForm);
 

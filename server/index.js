@@ -5,8 +5,11 @@ import mergeLocationAndDescription from './handlers/location_handlers/locations_
 import validateUser from './handlers/user_handlers/userValidity';
 import verifyPassword from './handlers/user_handlers/verifyPassword';
 import passport from 'passport';
-import { BasicStrategy } from 'passport-http';
+// import { BasicStrategy } from 'passport-http';
+// import { LocalStrategy } from 'passport-local';
+import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
+const secret = "localize";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -16,6 +19,7 @@ const PORT = process.env.PORT || 8080;
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
 const app = express();
+app.use(passport.initialize())
 
 const localConnection = {
   database: 'localize'
@@ -29,45 +33,113 @@ const knex = require('knex')({
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
-passport.use(new BasicStrategy(
-  function(emailOrUsername, password, done) {
-    knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
-      if (!user) { return done(null, false); }
-      if (verifyPassword(password, user.salt, user.password)) { return done(null, false); }
-      return done(null, user);
-    })
-    .catch((err) => {
-      console.log(err); 
-      done(err)
-    })
-  }
-));
+// passport.use(new Strategy(
+//   function(token, callback) {
+//     knex('user').where('token', token).then(() => {
+//       if (!user) { return callback(null, false); }
+//       return callback(null, user);
+//     }).catch(err) {
+//       console.log(err); 
+//       return callback(err);
+//     }
+//   });
+// }));
+
+// passport.use(new BasicStrategy(
+//   function(emailOrUsername, password, done) {
+//     knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
+//       if (!user) { return done(null, false); }
+//       if (verifyPassword(password, user.salt, user.password)) { return done(null, false); }
+//       return done(null, user);
+//     })
+//     .catch((err) => {
+//       console.log(err); 
+//       done(err)
+//     })
+//   }
+// ));
+
+// passport.use(new LocalStrategy(
+//   function(emailOrUsername, password, done) {
+//     knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
+//       if (err) { return done(err); }
+//       if (!user) {
+//         return done(false, { message: 'Incorrect username.' });
+//       }
+//       if (verifyPassword(password, user.salt, user.password)) {
+//         return done(false, { message: 'Incorrect password.' });
+//       }
+//       return done(user);
+//     });
+//   }
+// ));
 
 
 //TODO: add error handling to /signin endpoint
 //TODO: confirm that a user with the username does not already exist in the db
-//sign in for existing users
+//authenticate
 
-app.get('/signin', passport.authenticate('basic', {session: false}), (req, res) => {
-  const { first_name, last_name, id, bio, image, username } = req.user[0]; 
-  const checkedInUser = {
-    first_name, 
-    last_name, 
-    id,
-    bio, 
-    image, 
-    username
-  }
-  res.status(200).json(checkedInUser); 
+
+
+app.post('/signin', (req, res, next) => {
+  const { emailOrUsername, password } = req.body; 
+  knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
+    if(!user[0]) {return res.status(401).json({message: "User not found"})}
+    if (verifyPassword(password, user[0].salt, user[0].password)) {
+      const { first_name, last_name, id, bio, image, username, token } = user[0];
+      const checkedInUser = {
+        first_name, 
+        last_name, 
+        id, 
+        bio, 
+        image, 
+        username, 
+        token
+      }
+      console.log('checkedInUser', checkedInUser)
+        return res.status(200).json({checkedInUser});
+    }
+    else {
+      return res.status(401).json({message: 'Unauthorized'})
+    }
+  })
 })
+
+// app.get('/signin', passport.authenticate('basic', {session: false}), (req, res) => {
+//   const { first_name, last_name, id, bio, image, username } = req.user[0]; 
+//   const checkedInUser = {
+//     first_name, 
+//     last_name, 
+//     id,
+//     bio, 
+//     image, 
+//     username
+//   }
+//   res.status(200).json(checkedInUser); 
+// })
 
 //sign up new users, encrypt their passwords
 
+// var jwt = require('jwt-simple');
+// var payload = { foo: 'bar' };
+// var secret = 'xxx';
+
+// // HS256 secrets are typically 128-bit random strings, for example hex-encoded:
+// // var secret = Buffer.from('fe1a1915a379f3be5394b64d14794932', 'hex)
+
+// // encode
+// var token = jwt.encode(payload, secret);
+
+// // decode
+// var decoded = jwt.decode(token, secret);
+// console.log(decoded); //=> { foo: 'bar' }
+
 app.post('/signup', (req, res) => {
   const user = req; 
-  const { password } = req.body;
+  const { password, email } = req.body;
 
   const passwordToSave = bcrypt.hashSync(password, salt)
+  const token = bcrypt.hashSync(email);
   const userValidity = validateUser(user)
 
   if (userValidity.isInvalid) {
@@ -80,11 +152,12 @@ app.post('/signup', (req, res) => {
      email: req.body.email, 
      username: req.body.username,
      password: passwordToSave, 
-     salt: salt
+     salt: salt, 
+     token: token
    }).into('users')
   .then(() => {
     knex('users').where('username', req.body.username)
-    .select('first_name', 'last_name', 'id', 'bio', 'image', 'username')
+    .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token')
     .then((user) => {
       res.status(201).json(user);
     })
