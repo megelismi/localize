@@ -18,7 +18,9 @@ const routes = (
 
 document.addEventListener('DOMContentLoaded', () => {
 	return ReactDOM.render(
-		<SignUpForm />,
+		<Provider store={store}>
+			<SignUpForm />
+		</Provider>,
 		document.getElementById('root')
 	);
 });

@@ -45,6 +45,7 @@ passport.use(new BasicStrategy(
 
 
 //TODO: add error handling to /signin endpoint
+//TODO: confirm that a user with the username does not already exist in the db
 //sign in for existing users
 
 app.get('/signin', passport.authenticate('basic', {session: false}), (req, res) => {

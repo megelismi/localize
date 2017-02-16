@@ -1,10 +1,25 @@
 import * as get_actions from './actions/get_result';
+import * as post_actions from './actions/post_result'; 
 import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
 
-const userState = (state = {currentUser: []}, action) => {
-  return state;  
+const userState = (state = {}, action) => {
+  switch (action.type) {
+
+    case post_actions.CREATE_NEW_USER_SUCCESS:
+    return state = Object.assign({}, state, {
+      user: action.user, 
+      userError: false
+    });
+    case post_actions.CREATE_NEW_USER_ERROR:
+    return state = Object.assign({}, state, {
+      userError: true
+    });
+
+    default: 
+    return state;  
+  }
 };
 
 const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, action) => {
