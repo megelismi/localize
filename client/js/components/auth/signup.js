@@ -27,6 +27,7 @@ class SignUpForm extends React.Component {
 
 		return (
 			<div className="signup-form">
+				<h2>Sign Up</h2>
 				<form onSubmit={this.sendSignUpInfo.bind(this)}>
 		  			First Name:<br/>
 		  		<input type="text" name="firstname" placeholder="" ref={element =>  first_name = element}/>

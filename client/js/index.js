@@ -3,7 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
-import SignUpForm from './components/auth/signup'; 
+import SignUpForm from './components/auth/signup';
+import SignInForm from './components/auth/signin'; 
 
 import store from './store';
 import MapDisplay from './components/pages/map_display';
@@ -19,7 +20,7 @@ const routes = (
 document.addEventListener('DOMContentLoaded', () => {
 	return ReactDOM.render(
 		<Provider store={store}>
-			<SignUpForm />
+			<SignInForm />
 		</Provider>,
 		document.getElementById('root')
 	);

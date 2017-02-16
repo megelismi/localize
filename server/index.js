@@ -30,8 +30,8 @@ app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
 passport.use(new BasicStrategy(
-  function(email, password, done) {
-    knex('users').where('email', email).then((user) => {
+  function(emailOrUsername, password, done) {
+    knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
       if (!user) { return done(null, false); }
       if (verifyPassword(password, user.salt, user.password)) { return done(null, false); }
       return done(null, user);

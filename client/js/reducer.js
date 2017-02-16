@@ -16,6 +16,15 @@ const userState = (state = {}, action) => {
     return state = Object.assign({}, state, {
       userError: true
     });
+    case get_actions.SIGN_IN_USER_SUCCESS:
+    return state = Object.assign({}, state, {
+      user: action.user, 
+      userError: false
+    })
+    case get_actions.SIGN_IN_USER_ERROR: 
+    return state = Object.assign({}, state, {
+      userError: true
+    })
 
     default: 
     return state;  

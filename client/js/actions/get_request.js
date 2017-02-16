@@ -73,3 +73,41 @@ export const getLocationTags = () => dispatch => {
     dispatch(get_result.getLocationUserTagsHelperError(err))
   });
 }
+
+export const signInUser = (userNameOrEmail, password) => dispatch => {
+  return fetch('/signin',
+  {
+    headers: {
+      'Authorization': `Basic YmV0aDpwYXNzd29yZA==${userNameOrEmail}, ${password}`
+    }
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    return res.json();
+  }).then(user => {
+    dispatch(get_result.signInUserSuccess(user))
+  }).catch(err => {
+    dispatch(get_result.signInUserError(err))
+  });
+}
+
+// export const getUser = () => dispatch => {
+//   return fetch(users_url + `/${cookie.load('id')}`,
+//   {
+//     headers: {
+//       'Authorization': `Bearer ${cookie.load('accessToken')}`
+//     }
+//   }).then(res => {
+//       if (!res.ok) {
+//         throw new Error(res.status);
+//       }
+//       return res.json();
+//     }).then(res => {
+//       dispatch(getUserSuccess(res));
+//     }).catch(err => {
+//       dispatch(getError(err));
+//     });
+// }
+
+
