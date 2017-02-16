@@ -20,7 +20,7 @@ const routes = (
 document.addEventListener('DOMContentLoaded', () => {
 	return ReactDOM.render(
 		<Provider store={store}>
-			<SignInForm />
+			<SignUpForm />
 		</Provider>,
 		document.getElementById('root')
 	);

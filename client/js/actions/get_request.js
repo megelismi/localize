@@ -78,7 +78,7 @@ export const signInUser = (userNameOrEmail, password) => dispatch => {
   return fetch('/signin',
   {
     headers: {
-      'Authorization': `Basic YmV0aDpwYXNzd29yZA==${userNameOrEmail}, ${password}`
+      'Authorization': `Basic `
     }
   }).then(res => {
     if (!res.ok) {
