@@ -8,6 +8,7 @@ import { BasicStrategy } from 'passport-http';
 import bcrypt from 'bcryptjs';
 
 const salt = bcrypt.genSaltSync(10);
+console.log(salt);
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 8080;
@@ -27,7 +28,35 @@ const knex = require('knex')({
 
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
-//create new users
+// app.use(passport.initialize());
+
+const verifyPassword = (candidatePassword, salt, encryptedPassword) => {
+  candidatePassword = bcrypt.hashSync(candidatePassword, salt)
+  return candidatePassword === encryptedPassword; 
+}
+
+passport.use(new BasicStrategy(
+  function(email, password, done) {
+    knex('users').where('email', email).then((user) => {
+      if (!user) { return done(null, false); }
+      if (verifyPassword(password, user.salt, user.password)) { return done(null, false); }
+      return done(null, user);
+    })
+    .catch((err) => {
+      done(err)
+    })
+  }
+));
+
+//sign in for existing users
+
+app.get('/signin', passport.authenticate('basic', {session: false}), (req, res) => {
+    console.log(req.user);
+    res.status(200).json(req.user); 
+})
+
+
+//sign up new users, encrypt their passwords
 
 app.post('/signup', (req, res) => {
   const user = req; 
@@ -45,7 +74,8 @@ app.post('/signup', (req, res) => {
      last_name: req.body.last_name,
      email: req.body.email, 
      username: req.body.username,
-     password: passwordToSave
+     password: passwordToSave, 
+     salt: salt
    }).into('users')
   .then(() => {
     knex('users').where('username', req.body.username)

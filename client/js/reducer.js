@@ -2,6 +2,13 @@ import * as get_actions from './actions/get_result';
 import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
+
+const userState = (state = {currentUser: []}, action) => {
+
+// default: 
+// return state; 
+};
+
 const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, action) => {
   switch (action.type) {
 
@@ -190,4 +197,4 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
   }
 }
 
-export default state;
+export default combineReducers({userState, state});
