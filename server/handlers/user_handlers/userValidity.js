@@ -1,4 +1,4 @@
-const validateUser= (req) => {
+const userNameAndPasswordArePresent = (req) => {
 
   if (!req.body) {
     return {
@@ -85,5 +85,6 @@ const validateUser= (req) => {
   }
 }
 
+export default userNameAndPasswordArePresent;
 
-export default validateUser; 
+
