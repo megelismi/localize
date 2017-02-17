@@ -2,7 +2,9 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
-import signUpValidity from './handlers/user_handlers/signUpValidity';
+// import signUpValidity from './handlers/user_handlers/signUpValidity';
+// import allFormFieldsFilledIn from './handlers/user_handlers/signUpValidity';
+import * as userValidity from './handlers/user_handlers/signUpValidity';
 import verifyPassword from './handlers/user_handlers/verifyPassword';
 import passport from 'passport';
 import { Strategy } from 'passport-http-bearer';
@@ -45,25 +47,29 @@ passport.use(new Strategy(
 //sign in existing users
 
 app.post('/signin', (req, res, next) => {
-  const { emailOrUsername, password } = req.body; 
-  knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
-    if(!user[0]) {return res.status(401).json({message: "The email or username you entered is incorrect."})}
-    if (verifyPassword(password, user[0].salt, user[0].password)) {
-      const { first_name, last_name, id, bio, image, username, token } = user[0];
-      return res.status(200).json({
-        first_name, 
-        last_name, 
-        id, 
-        bio, 
-        image, 
-        username, 
-        token
-      });
+  const { emailOrUsername, password } = req.body;
+
+  if (!userValidity.allFormFieldsFilledIn(req.body)) {
+    return res.status(422).json({message: "All fields are required."})
+  } else {
+      knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
+        if(!user[0]) {return res.status(401).json({message: "The email or username you entered is incorrect."})}
+        if (verifyPassword(password, user[0].salt, user[0].password)) {
+          const { first_name, last_name, id, bio, image, username, token } = user[0];
+          return res.status(200).json({
+            first_name, 
+            last_name, 
+            id, 
+            bio, 
+            image, 
+            username, 
+            token
+          });
+        } else {
+          return res.status(401).json({message: "The password you entered is incorrect."})
+        }
+      })
     }
-    else {
-      return res.status(401).json({message: "The password you entered is incorrect."})
-    }
-  })
 })
 
 //sign up new users, encrypt their passwords
@@ -73,7 +79,7 @@ app.post('/signup', (req, res) => {
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
   const token = bcrypt.hashSync(email);
-  const userValidity = signUpValidity(user)
+  const userValidity = userValidity.signUpValidity(user)
 
   if (userValidity.isInvalid) {
     return res.status(userValidity.status).json({ message: userValidity.message });
@@ -83,7 +89,7 @@ app.post('/signup', (req, res) => {
 
   knex('users').where('email', email).then((user) => {
     if (user.length > 0) {
-       return res.status(409).json({message: "Oops! That email address is already on file. Try signing in."})
+       return res.status(409).json({message: "That email address is already on file. Try signing in."})
     } 
   });
 

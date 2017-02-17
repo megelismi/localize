@@ -3,7 +3,7 @@ const validEmail = email => {
     return re.test(email);
 }
 
-const allFormFieldsFilledIn = request => {
+export const allFormFieldsFilledIn = request => {
  for (let field in request) {
    if (request[field] === '') {
      return false; 
@@ -12,7 +12,7 @@ const allFormFieldsFilledIn = request => {
  return true; 
 };
 
-const passwordMeetsRequirements = password => {
+ const passwordMeetsRequirements = password => {
   let symbol = /[!@#$%^&*-_=+-{}\\?.()]/;
   let digit = /\d+/g;
   
@@ -29,8 +29,7 @@ const passwordMeetsRequirements = password => {
 }
 
 
-const signUpValidity = (req) => {
-  console.log(req.body)
+export const signUpValidity = (req) => {
   let { username, password, first_name, last_name, email, confirmed_password } = req.body;
   first_name = first_name.trim(); 
   last_name = last_name.trim();
@@ -197,6 +196,6 @@ const signUpValidity = (req) => {
   }
 }
 
-export default signUpValidity;
+
 
 
