@@ -3,6 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
+import SignUpForm from './components/auth/signup';
+import SignInForm from './components/auth/signin'; 
 
 import store from './store';
 import MapDisplay from './components/pages/map_display';
@@ -24,3 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
+
+// <Provider store={store}>
+// 			<SignUpForm />
+// 		</Provider>

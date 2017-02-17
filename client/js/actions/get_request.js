@@ -73,3 +73,4 @@ export const getLocationTags = () => dispatch => {
     dispatch(get_result.getLocationUserTagsHelperError(err))
   });
 }
+

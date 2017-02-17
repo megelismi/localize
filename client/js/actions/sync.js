@@ -60,7 +60,17 @@ export const filterLocationsByUser = user => ({
 export const DESELECT_USER = 'DESELECT_USER';
 export const deselectUser = () => ({
   type: DESELECT_USER
-})
+});
+
+export const SIGN_UP_MODAL = 'SIGN_UP_MODAL';
+export const signUpModal = () => ({
+  type: SIGN_UP_MODAL
+});
+
+export const SIGN_IN_MODAL = 'SIGN_IN_MODAL'; 
+export const signInModal = () => ({
+  type: SIGN_IN_MODAL
+});
 
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
   let currentUser = getState().selectedUser

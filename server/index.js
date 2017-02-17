@@ -1,7 +1,16 @@
 import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
-import mergeLocationAndDescription from './handlers/locations_handler'
+import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
+// import signUpValidity from './handlers/user_handlers/signUpValidity';
+// import allFormFieldsFilledIn from './handlers/user_handlers/signUpValidity';
+import * as userValidity from './handlers/user_handlers/signUpValidity';
+import verifyPassword from './handlers/user_handlers/verifyPassword';
+import passport from 'passport';
+import { Strategy } from 'passport-http-bearer';
+import bcrypt from 'bcryptjs';
+
+const salt = bcrypt.genSaltSync(10);
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 8080;
@@ -9,6 +18,7 @@ const PORT = process.env.PORT || 8080;
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
 const app = express();
+app.use(passport.initialize())
 
 const localConnection = {
   database: 'localize'
@@ -21,6 +31,95 @@ const knex = require('knex')({
 
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
+
+passport.use(new Strategy(
+  function(token, callback) {
+    knex('user').where('token', token).then(() => {
+      if (!user) { return callback(null, false); }
+      return callback(null, user);
+    }).catch((err) => {
+      console.log(err); 
+      return callback(err);
+    });
+  }
+));
+
+//sign in existing users
+
+app.post('/signin', (req, res, next) => {
+  const { emailOrUsername, password } = req.body;
+
+  if (!userValidity.allFormFieldsFilledIn(req.body)) {
+    return res.status(422).json({message: "All fields are required."})
+  } else {
+      knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
+        if(!user[0]) {return res.status(401).json({message: "The email or username you entered is incorrect."})}
+        if (verifyPassword(password, user[0].salt, user[0].password)) {
+          const { first_name, last_name, id, bio, image, username, token } = user[0];
+          return res.status(200).json({
+            first_name, 
+            last_name, 
+            id, 
+            bio, 
+            image, 
+            username, 
+            token
+          });
+        } else {
+          return res.status(401).json({message: "The password you entered is incorrect."})
+        }
+      })
+    }
+})
+
+//sign up new users, encrypt their passwords
+
+app.post('/signup', (req, res) => {
+  const user = req; 
+  const { password, email, username } = req.body;
+  const passwordToSave = bcrypt.hashSync(password, salt)
+  const token = bcrypt.hashSync(email);
+  const userValidityCheck = userValidity.signUpValidity(user)
+
+  if (userValidityCheck.isInvalid) {
+    return res.status(userValidityCheck.status).json({ message: userValidityCheck.message });
+  }
+
+  //check to see if username or email is already taken, if not create user
+
+  knex('users').where('email', email).then((user) => {
+    if (user.length > 0) {
+       return res.status(409).json({message: "That email address is already on file. Try signing in."})
+    } 
+  });
+
+  knex('users').where('username', username).then((user) => {
+    if (user.length > 0) {
+      return res.status(409).json({message: "Username is already taken."})
+    }
+    else {
+      knex.insert({
+        first_name: req.body.first_name, 
+        last_name: req.body.last_name,
+        email: req.body.email, 
+        username: req.body.username,
+        password: passwordToSave, 
+        salt: salt, 
+        token: token
+      }).into('users')
+      .then(() => {
+        knex('users').where('username', req.body.username)
+        .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token')
+        .then((user) => {
+          res.status(201).json(user);
+        })
+      }).catch(err => {
+          console.error(err); 
+          res.sendStatus(500); 
+      });
+    }
+  });
+});
 
 // get all locations
 
