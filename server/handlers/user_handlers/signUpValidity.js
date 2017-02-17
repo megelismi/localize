@@ -1,16 +1,40 @@
+const validEmail = email => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
+const allFormFieldsFilledIn = request => {
+ for (let field in request) {
+   if (request[field] === '') {
+     return false; 
+   }
+ }
+ return true; 
+};
+
 const signUpValidity = (req) => {
-  let {username, password, first_name, last_name, email} = req.body;
+  console.log(req.body)
+  let { username, password, first_name, last_name, email, confirmed_password } = req.body;
   first_name = first_name.trim(); 
   last_name = last_name.trim();
   username = username.trim();
   password = password.trim();
+  confirmed_password = confirmed_password.trim(); 
   email = email.trim();
 
   if (!req.body) {
     return {
       isInvalid: true, 
       status: 400,
-      message: "Request body is missing"
+      message: "Request body is missing."
+    }
+  }
+
+  if (!allFormFieldsFilledIn(req.body)) {
+     return {
+      isInvalid: true, 
+      status: 422,
+      message: "All fields are required before form can be submitted."
     }
   }
 
@@ -34,7 +58,7 @@ const signUpValidity = (req) => {
      return {
       isInvalid: true,
       status: 422, 
-      message: "First name is required"
+      message: "First name is required."
     }
   }
 
@@ -58,7 +82,7 @@ const signUpValidity = (req) => {
     return {
       isInvalid: true,
       status: 422, 
-      message: "Last name is required"
+      message: "Last name is required."
     }
   }
 
@@ -67,7 +91,7 @@ const signUpValidity = (req) => {
     return {
       isInvalid: true, 
       status: 422, 
-      message: "An email address is required"
+      message: "An email address is required."
     }
   }
 
@@ -75,7 +99,15 @@ const signUpValidity = (req) => {
     return {
       isInvalid: true, 
       status: 422, 
-      message: 'An email address is required'
+      message: 'An email address is required.'
+    }
+  }
+
+  if (!validEmail(email)) {
+    return {
+      isInvalid: true,
+      status: 422,
+      message: 'A valid email address is required.'
     }
   }
 
@@ -91,7 +123,7 @@ const signUpValidity = (req) => {
     return {
       isInvalid: true, 
       status: 422, 
-      message: "Incorrect field type: username"
+      message: "Incorrect field type: username."
     }
   }
 
@@ -99,7 +131,7 @@ const signUpValidity = (req) => {
     return {
       isInvalid: true,
       status: 422, 
-      message: "A username is required"
+      message: "A username is required."
     }
   }
 
@@ -107,7 +139,7 @@ const signUpValidity = (req) => {
     return {
       isInvalid: true,
       status: 422, 
-      message: "A password is required"
+      message: "A password is required."
     }
   }
 
@@ -124,6 +156,14 @@ const signUpValidity = (req) => {
       isInvalid: true, 
       status: 422, 
       message: 'A password is required'
+    }
+  }
+
+  if (password !== confirmed_password) {
+    return {
+      isInvalid: true, 
+      status: 422, 
+      message: 'Password does not match confirmed password.'
     }
   }
   
