@@ -10,15 +10,25 @@ import PlacesSearch from './places_search';
 L.Icon.Default.imagePath = '../assets/images/';
 
 class CreateMap extends React.Component {
+  constructor() {
+    super();
+    this.state = { content: '' }
+  }
+
+  changeState(e) {
+    e.preventDefault();
+    this.setState({ content: this.Input })
+  }
 
   render() {
     const city = [43.6615, -70.2553];
-    // let search = L.control.geocoder('mapzen-DyNizkF').addTo('?');
-
+    console.log(this.state);
     return (
       <div id="insert-search">
           <Map className="display-map" center={city} zoom={14}>
-            <PlacesSearch />
+            <form onChange={this.changeState}>
+              <PlacesSearch ref={input => this.Input = input}/>
+            </form>
             <Tile />
             <MarkerLayer />
           </Map>
