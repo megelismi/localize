@@ -16,7 +16,7 @@ const passwordMeetsRequirements = password => {
   let symbol = /[!@#$%^&*-_=+-{}\\?.()]/;
   let digit = /\d+/g;
   
-  if (password.length < 8) {
+  if (password.length < 6) {
     return false; 
   }
   else if (!password.match(digit)) {
@@ -188,7 +188,7 @@ const signUpValidity = (req) => {
      return {
       isInvalid: true, 
       status: 422, 
-      message: 'Passwords must contain 8 characters, including 1 number and 1 symbol.'
+      message: 'Passwords must contain 6 characters, including 1 number and 1 symbol.'
     }
   }
   

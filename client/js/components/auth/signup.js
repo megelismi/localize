@@ -31,29 +31,23 @@ export class SignUpForm extends React.Component {
 
 		return (
 			<div className="signup-form">
-				<h2>Sign Up</h2>
+				<h3>Sign Up</h3>
 				<form onSubmit={this.sendSignUpInfo.bind(this)}>
-		  			First Name *<br/>
-		  		<input type="text" name="firstname" placeholder="" ref={element =>  this.first_name = element}/>
-		  			<br/>
-		  			Last Name *<br />
-		  		<input type="text" name="lastname" placeholder="" ref={element => this.last_name = element}/>
-		  			<br/>
-		  			Email *<br />
-		  		<input type="text" name="email" placeholder="" ref={element => this.email = element}/>
-		  			<br/>
-		  			Username *<br />
-		  		<input type="text" name="username" placeholder="" ref={element => this.username = element}/>
-		  			<br/>
-		  			Password *<br />
-		  		<input type="password" name="password" placeholder="" ref={element => this.password = element}/>
-						<br />
-		  			Confirm Password *<br />
-		  		<input type="password" name="confirm_password" placeholder="" ref={element => this.confirmed_password = element}/>
+		  		<input type="text" name="firstname" placeholder="First name" ref={element =>  this.first_name = element}/>
+		  			<br/><br />
+		  		<input type="text" name="lastname" placeholder="Last name" ref={element => this.last_name = element}/>
+		  			<br/><br />
+		  		<input type="text" name="email" placeholder="Email" ref={element => this.email = element}/>
+		  			<br/><br />
+		  		<input type="text" name="username" placeholder="Username" ref={element => this.username = element}/>
+		  			<br/><br />
+		  		<input type="password" name="password" placeholder="Password" ref={element => this.password = element}/>
+						<br /><br />
+		  		<input type="password" name="confirm_password" placeholder="Confirm Password" ref={element => this.confirmed_password = element}/>
 		  			<br /><br />
 		  		<input type="submit" value="Sign Up" />
 				</form> 
-				<div className="sign-up-pw-req">Passwords must contain 8 characters, including 1 number and 1 symbol.</div>
+				<div className="sign-up-pw-req">Passwords must contain 6 characters, including 1 number and 1 symbol.</div>
 				{errorDisplay}
 			</div>
 		)

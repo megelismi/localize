@@ -24,7 +24,7 @@ class SignInForm extends React.Component {
 
 		return (
 			<div className="signin-form-container">
-				<h2>Sign In</h2>
+				<h3>Sign In</h3>
 				<form className="signin-form" onSubmit={this.sendSignInInfo.bind(this)}>
 		  			Email or Username:<br/>
 		  		<input type="text" name="emailOrUsername" placeholder="" ref={element =>  this.emailOrUsername = element}/>

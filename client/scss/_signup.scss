@@ -1,17 +1,16 @@
 .signup-form {
-	margin: 20px; 
-	display: flex; 
-	flex-direction: column; 
-	align-items: center; 
+ 	margin: 30px; 
 }
 
 .sign-up-error, .sign-in-error {
-	color: red; 
+	color: red;
+	margin-top: 10px; 
+	font-size: 13px; 
+	font-weight: bold;  
 }
 
 .sign-up-pw-req {
 	color: gray; 
 	font-size: 12px; 
-	margin-left: 210px; 
 	margin-top: 10px; 
 }
