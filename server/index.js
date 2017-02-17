@@ -104,9 +104,15 @@ app.post('/signup', (req, res) => {
 
   //check to see if username or email is already taken, if not create user
 
-  knex('users').where('email', email).orWhere('username', username).then((user) => {
+  knex('users').where('email', email).then((user) => {
     if (user.length > 0) {
-       return res.status(409).json({message: "Username or email is already taken"})
+       return res.status(409).json({message: "Oops! That email address is already on file. Try signing in."})
+    } 
+  });
+
+  knex('users').where('username', username).then((user) => {
+    if (user.length > 0) {
+      return res.status(409).json({message: "Username is already taken."})
     }
     else {
       knex.insert({

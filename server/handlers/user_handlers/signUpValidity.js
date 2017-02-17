@@ -12,6 +12,23 @@ const allFormFieldsFilledIn = request => {
  return true; 
 };
 
+const passwordMeetsRequirements = password => {
+  let symbol = /[!@#$%^&*-_=+-{}\\?.()]/;
+  let digit = /\d+/g;
+  
+  if (password.length < 8) {
+    return false; 
+  }
+  else if (!password.match(digit)) {
+    return false; 
+  } 
+  else if (!password.match(symbol)) {
+    return false; 
+  }
+  return true; 
+}
+
+
 const signUpValidity = (req) => {
   console.log(req.body)
   let { username, password, first_name, last_name, email, confirmed_password } = req.body;
@@ -34,7 +51,7 @@ const signUpValidity = (req) => {
      return {
       isInvalid: true, 
       status: 422,
-      message: "All fields are required before form can be submitted."
+      message: "All fields are required."
     }
   }
 
@@ -163,7 +180,15 @@ const signUpValidity = (req) => {
     return {
       isInvalid: true, 
       status: 422, 
-      message: 'Password does not match confirmed password.'
+      message: 'Passwords do not match.'
+    }
+  }
+
+  if (!passwordMeetsRequirements(password)) {
+     return {
+      isInvalid: true, 
+      status: 422, 
+      message: 'Passwords must contain 8 characters, including 1 number and 1 symbol.'
     }
   }
   

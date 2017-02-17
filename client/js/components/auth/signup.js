@@ -47,12 +47,13 @@ export class SignUpForm extends React.Component {
 		  			<br/>
 		  			Password *<br />
 		  		<input type="password" name="password" placeholder="" ref={element => this.password = element}/>
-		  			<br/>
+						<br />
 		  			Confirm Password *<br />
 		  		<input type="password" name="confirm_password" placeholder="" ref={element => this.confirmed_password = element}/>
 		  			<br /><br />
 		  		<input type="submit" value="Sign Up" />
 				</form> 
+				<div className="sign-up-pw-req">Passwords must contain 8 characters, including 1 number and 1 symbol.</div>
 				{errorDisplay}
 			</div>
 		)
