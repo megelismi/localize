@@ -26,9 +26,7 @@ class CreateMap extends React.Component {
     return (
       <div id="insert-search">
           <Map className="display-map" center={city} zoom={14}>
-            <form onChange={this.changeState}>
-              <PlacesSearch ref={input => this.Input = input}/>
-            </form>
+            <PlacesSearch />
             <Tile />
             <MarkerLayer />
           </Map>
