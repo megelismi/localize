@@ -57,3 +57,4 @@ export const getUsersError = error => ({
   type: GET_USERS_ERROR,
   error
 });
+

@@ -14,53 +14,53 @@ import {
 >>>>>>> Click locals view to see all users' pins.
 
 
-// <Modal isOpen={this.state.isOpen} onRequestHide={props.selectById(null)}>
-//   <ModalHeader>
-//     <ModalClose onClick={this.hideModal}/>
-//     <ModalTitle>Modal title</ModalTitle>
-//   </ModalHeader>
-//   <ModalBody>
-//     <p>Ab ea ipsam iure perferendis! Ad debitis dolore excepturi
-//       explicabo hic incidunt placeat quasi repellendus soluta,
-//       vero. Autem delectus est laborum minus modi molestias
-//       natus provident, quidem rerum sint, voluptas!</p>
-//   </ModalBody>
-//   <ModalFooter>
-//     <button className='btn btn-default' onClick={props.selectById(null)}>
-//       Close
-//     </button>
-//     <button className='btn btn-primary'>
-//       Save changes
-//     </button>
-//   </ModalFooter>
-// </Modal>
-// Styles
-// Default:
+<Modal isOpen={this.state.isOpen} onRequestHide={this.close}>
+  <ModalHeader>
+    <ModalClose onClick={this.hideModal}/>
+    <ModalTitle>Modal title</ModalTitle>
+  </ModalHeader>
+  <ModalBody>
+    <p>Ab ea ipsam iure perferendis! Ad debitis dolore excepturi
+      explicabo hic incidunt placeat quasi repellendus soluta,
+      vero. Autem delectus est laborum minus modi molestias
+      natus provident, quidem rerum sint, voluptas!</p>
+  </ModalBody>
+  <ModalFooter>
+    <button className='btn btn-default' onClick={props.selectById(null)}>
+      Close
+    </button>
+    <button className='btn btn-primary'>
+      Save changes
+    </button>
+  </ModalFooter>
+</Modal>
+Styles
+Default:
 
-// backdropStyles = {
-//   base: {
-//     background: 'rgba(0, 0, 0, .7)',
-//     opacity: 0,
-//     visibility: 'hidden',
-//     transition: 'all 0.4s',
-//     overflowX: 'hidden',
-//     overflowY: 'auto'
-//   },
-//   open: {
-//     opacity: 1,
-//     visibility: 'visible'
-//   }
-// };
+backdropStyles = {
+  base: {
+    background: 'rgba(0, 0, 0, .7)',
+    opacity: 0,
+    visibility: 'hidden',
+    transition: 'all 0.4s',
+    overflowX: 'hidden',
+    overflowY: 'auto'
+  },
+  open: {
+    opacity: 1,
+    visibility: 'visible'
+  }
+};
  
-// dialogStyles = {
-//   base: {
-//     top: -600,
-//     transition: 'top 0.4s'
-//   },
-//   open: {
-//     top: 0
-//   }
-// }
+dialogStyles = {
+  base: {
+    top: -600,
+    transition: 'top 0.4s'
+  },
+  open: {
+    top: 0
+  }
+}
 
 const ModalDisplay = (props) => { 
 	console.log('props', props)

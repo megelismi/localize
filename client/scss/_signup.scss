@@ -1,0 +1,47 @@
+.signup-form {
+ 	margin: 30px; 
+}
+
+.sign-up-error, .sign-in-error {
+	color: red;
+	margin-top: 10px; 
+	font-size: 13px; 
+	font-weight: bold;  
+}
+
+.sign-up-pw-req {
+	color: gray; 
+	font-size: 12px; 
+	margin-top: 10px;
+	text-align: center;  
+}
+
+.modal-footer {
+	text-align: left !important; 
+}
+
+.modal-backdrop.in {
+	opacity: 0.7 !important;
+}
+
+h4.modal-title {
+	font-size: 24px !important; 
+}
+
+// div.modal-header {
+// 	border: none !important; 
+// }
+
+.modal-content {
+	text-align: center; 
+}
+
+.signup-form {
+	input {
+		// border-radius: 4px; 
+		// border: 1px solid $border-color; 
+		padding: 5px; 
+		width: 75%; 
+		font-size: 18px; 
+	}
+}
