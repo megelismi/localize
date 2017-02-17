@@ -50,7 +50,8 @@ const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: []
     case post_actions.SIGN_IN_USER_SUCCESS:
     return state = Object.assign({}, state, {
       currentUser: action.user, 
-      signInUserError: false
+      signInUserError: false, 
+      signInModalOpen: false
     })
     case post_actions.SIGN_IN_USER_ERROR: 
     return state = Object.assign({}, state, {

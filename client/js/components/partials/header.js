@@ -12,6 +12,11 @@ class Header extends React.Component  {
   openSignUp () {
     this.props.dispatch(actionCreators.signUpModal());
   }
+
+  openSignIn () {
+    this.props.dispatch(actionCreators.signInModal());
+  }
+
   render () {
     return (
       <Navbar className="nav" inverse collapseOnSelect>
@@ -24,7 +29,7 @@ class Header extends React.Component  {
         <Navbar.Collapse>
           <Nav pullRight>
             <NavItem className="right-link" eventKey={1} href="#" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
-            <NavItem className="right-link" eventKey={2} href="#">Log In</NavItem>
+            <NavItem className="right-link" eventKey={2} href="#" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

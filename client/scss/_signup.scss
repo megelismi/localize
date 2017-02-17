@@ -14,3 +14,11 @@
 	font-size: 12px; 
 	margin-top: 10px; 
 }
+
+.modal-footer {
+	text-align: left !important; 
+}
+
+.modal-backdrop.in {
+	opacity: 0.7 !important;
+}

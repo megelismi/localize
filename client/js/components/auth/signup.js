@@ -73,7 +73,7 @@ export class SignUpForm extends React.Component {
 
 const mapStateToProps = state => ({
 	signUpUserError: state.signUpUserError,
-	signUpModalOpen: state.signUpModalOpen,
+	signUpModalOpen: state.signUpModalOpen
 })
 
 export default connect(mapStateToProps)(SignUpForm);
