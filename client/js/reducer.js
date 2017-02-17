@@ -14,7 +14,12 @@ const state = (state = {
     console.log('actions...', action.feature, action.latlong);
     return state = Object.assign({}, state,
       { localsMapLocations: [ ...state.localsMapLocations,
-        {feature: action.feature, lat_long: action.lat_long}] }
+        { feature: action.feature,
+          lat_long: action.lat_long,
+          short_description: action.short,
+          long_description: action.long,
+          image: action.image
+        }] }
     );
 
     case sync_actions.GET_SEARCH_RESULTS:

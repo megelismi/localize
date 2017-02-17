@@ -10,12 +10,13 @@ class PlacesSearch extends MapControl {
   }
 
   componentWillMount(props) {
-    let _this = this;
     const searchBox = L.control.geocoder('mapzen-DyNizkF');
-    this.leafletElement = searchBox;
-    searchBox.on('select', function (e) {
-      _this.props.getSearchResults(e.feature, e.latlng);
+
+    searchBox.on('select', e => {
+      this.props.getSearchResults(e.feature, e.latlng);
     });
+
+    this.leafletElement = searchBox;
   }
 
 }

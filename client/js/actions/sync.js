@@ -1,8 +1,11 @@
 export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
-export const addLocationToLocalsMap = (feature, lat_long) => ({
+export const addLocationToLocalsMap = (feature, lat_long, short, long, image = null) => ({
   type: ADD_LOCATION_TO_LOCALS_MAP,
   feature,
-  lat_long
+  lat_long,
+  short,
+  long,
+  image
 });
 
 export const GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS';
