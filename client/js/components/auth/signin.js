@@ -33,7 +33,7 @@ class SignInForm extends React.Component {
 		return (
 			<Modal show={signInModalOpen} onHide={this.close.bind(this)}>
     	<Modal.Header closeButton>
-      	<Modal.Title>Sign Up</Modal.Title>
+      	<Modal.Title>Sign In</Modal.Title>
     	</Modal.Header>
    		<Modal.Body>
 				<form className="signin-form" onSubmit={this.sendSignInInfo.bind(this)}>

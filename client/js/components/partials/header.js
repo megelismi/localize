@@ -18,6 +18,25 @@ class Header extends React.Component  {
   }
 
   render () {
+
+    const { currentUser } = this.props; 
+    let rightNavLinks; 
+    if (currentUser) {
+      rightNavLinks = (
+      <Nav pullRight>
+        <NavItem className="right-link" eventKey={1} href="#">My Account</NavItem>
+        <NavItem className="right-link" eventKey={2} href="#">Log Out</NavItem>
+      </Nav>
+      )
+    } else {
+      rightNavLinks = (
+      <Nav pullRight>
+        <NavItem className="right-link" eventKey={1} href="#" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
+        <NavItem className="right-link" eventKey={2} href="#" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
+      </Nav>
+      )
+    }
+
     return (
       <Navbar className="nav" inverse collapseOnSelect>
         <Navbar.Header>
@@ -27,16 +46,15 @@ class Header extends React.Component  {
           <Navbar.Toggle />
         </Navbar.Header>
         <Navbar.Collapse>
-          <Nav pullRight>
-            <NavItem className="right-link" eventKey={1} href="#" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
-            <NavItem className="right-link" eventKey={2} href="#" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
-          </Nav>
+          {rightNavLinks}
         </Navbar.Collapse>
       </Navbar>
     )
   }
 }
 
-
-export default connect()(Header);
+const mapStateToProps = state => ({
+  currentUser: state.currentUser
+})
+export default connect(mapStateToProps)(Header);
 

@@ -79,5 +79,8 @@ $darkpurple: #4062BB;
      &:hover {
         color: $purple !important;  
      }
+     &:focus {
+        outline: none; 
+     }
   } 
 }

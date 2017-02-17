@@ -45,7 +45,7 @@ export class SignUpForm extends React.Component {
       	<Modal.Title>Sign Up</Modal.Title>
     	</Modal.Header>
    		<Modal.Body>
- 				<form onSubmit={this.sendSignUpInfo.bind(this)}>
+ 				<form className ="signup-form" onSubmit={this.sendSignUpInfo.bind(this)}>
 	  			<input type="text" name="firstname" placeholder="First name" ref={element =>  this.first_name = element}/>
 	  			<br/><br />
 	  			<input type="text" name="lastname" placeholder="Last name" ref={element => this.last_name = element}/>
@@ -58,7 +58,7 @@ export class SignUpForm extends React.Component {
 					<br /><br />
 	  			<input type="password" name="confirm_password" placeholder="Confirm Password" ref={element => this.confirmed_password = element}/>
 	  			<br /><br />
-	  			<input type="submit" value="Sign Up" />
+	  			<input className= "accent-button" type="submit" value="Sign Up" />
 				</form> 
       </Modal.Body>
     	<Modal.Footer>
