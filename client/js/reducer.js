@@ -1,14 +1,15 @@
 import * as get_actions from './actions/get_result';
-import * as post_actions from './actions/post_result'; 
+import * as post_actions from './actions/post_result';
 import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
-<<<<<<< HEAD
 const state = (state = {
   allLocationsAndDescriptions: [],
   selectedTags: [],
   mapzenSelectedResults: [],
-  localsMapLocations: []
+  localsMapLocations: [],
+  signUpModalOpen: false,
+  signInModalOpen: false
   }, action) => {
   switch (action.type) {
 
@@ -30,45 +31,10 @@ const state = (state = {
         {feature: action.feature, lat_long: action.lat_long}] }
     );
 
-    //////////////////////////////////////////////////////////////////////////
-=======
-
-// const userReducer = (state = {}, action) => {
-//   switch (action.type) {
-
-//     case post_actions.CREATE_NEW_USER_SUCCESS:
-//     return state = Object.assign({}, state, {
-//       user: action.user, 
-//       userError: false
-//     });
-//     case post_actions.CREATE_NEW_USER_ERROR:
-//     return state = Object.assign({}, state, {
-//       userError: true,
-//       error: action.error
-//     });
-//     case post_actions.SIGN_IN_USER_SUCCESS:
-//     return state = Object.assign({}, state, {
-//       user: action.user, 
-//       userError: false
-//     })
-//     case post_actions.SIGN_IN_USER_ERROR: 
-//     return state = Object.assign({}, state, {
-//       userError: true,
-//       error: action.error
-//     })
-
-//     default: 
-//     return state;  
-//   }
-// };
-
-const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: [], signUpModalOpen: false, signInModalOpen: false }, action) => {
-  switch (action.type) {
-
     case post_actions.CREATE_NEW_USER_SUCCESS:
     return state = Object.assign({}, state, {
-      currentUser: action.user, 
-      signUpUserError: false, 
+      currentUser: action.user,
+      signUpUserError: false,
       signUpModalOpen: false
     });
     case post_actions.CREATE_NEW_USER_ERROR:
@@ -78,16 +44,15 @@ const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: []
     });
     case post_actions.SIGN_IN_USER_SUCCESS:
     return state = Object.assign({}, state, {
-      currentUser: action.user, 
-      signInUserError: false, 
+      currentUser: action.user,
+      signInUserError: false,
       signInModalOpen: false
     })
-    case post_actions.SIGN_IN_USER_ERROR: 
+    case post_actions.SIGN_IN_USER_ERROR:
     return state = Object.assign({}, state, {
       userError: true,
       signInUserError: action.error
     })
->>>>>>> ab33aa077608257a3c8fe6168c28b5745f2a3717
 
     case get_actions.GET_USERS_SUCCESS:
     return state = Object.assign({}, state, {
@@ -153,12 +118,12 @@ const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: []
       getDescriptionsError: true
     });
 
-    case sync_actions.SIGN_UP_MODAL: 
+    case sync_actions.SIGN_UP_MODAL:
       return Object.assign({}, state, {
         signUpModalOpen: !state.signUpModalOpen
       });
 
-    case sync_actions.SIGN_IN_MODAL: 
+    case sync_actions.SIGN_IN_MODAL:
       return Object.assign({}, state, {
         signInModalOpen: !state.signInModalOpen
       });
@@ -284,6 +249,4 @@ const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: []
   }
 }
 
-export default mainReducer; 
-
-// export default combineReducers({userState: userReducer, state: mainReducer});
+export default state;
