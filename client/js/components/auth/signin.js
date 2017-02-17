@@ -16,7 +16,7 @@ class SignInForm extends React.Component {
 		}
 		this.props.dispatch(post_actions.signInUser(user));
 	}
-
+	
 	render () {
 		let errorDisplay; 
 		const { signInUserError } = this.props;  

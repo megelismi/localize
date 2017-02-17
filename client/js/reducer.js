@@ -33,13 +33,14 @@ import { combineReducers } from 'redux';
 //   }
 // };
 
-const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, action) => {
+const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: [], signUpModalOpen: false, signInModalOpen: false }, action) => {
   switch (action.type) {
 
     case post_actions.CREATE_NEW_USER_SUCCESS:
     return state = Object.assign({}, state, {
       currentUser: action.user, 
-      signUpUserError: false
+      signUpUserError: false, 
+      signUpModalOpen: false
     });
     case post_actions.CREATE_NEW_USER_ERROR:
     return state = Object.assign({}, state, {
@@ -120,6 +121,16 @@ const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: []
     return state = Object.assign({}, state, {
       getDescriptionsError: true
     });
+
+    case sync_actions.SIGN_UP_MODAL: 
+      return Object.assign({}, state, {
+        signUpModalOpen: !state.signUpModalOpen
+      });
+
+    case sync_actions.SIGN_IN_MODAL: 
+      return Object.assign({}, state, {
+        signInModalOpen: !state.signInModalOpen
+      });
 
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
       let relevantTags;
