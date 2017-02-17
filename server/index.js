@@ -5,11 +5,8 @@ import mergeLocationAndDescription from './handlers/location_handlers/locations_
 import signUpValidity from './handlers/user_handlers/signUpValidity';
 import verifyPassword from './handlers/user_handlers/verifyPassword';
 import passport from 'passport';
-// import { BasicStrategy } from 'passport-http';
-// import { LocalStrategy } from 'passport-local';
 import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
-const secret = "localize";
 
 const salt = bcrypt.genSaltSync(10);
 
@@ -33,46 +30,27 @@ const knex = require('knex')({
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
-// passport.use(new Strategy(
-//   function(token, callback) {
-//     knex('user').where('token', token).then(() => {
-//       if (!user) { return callback(null, false); }
-//       return callback(null, user);
-//     }).catch(err) {
-//       console.log(err); 
-//       return callback(err);
-//     }
-//   });
-// }));
-
-// passport.use(new BasicStrategy(
-//   function(emailOrUsername, password, done) {
-//     knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
-//       if (!user) { return done(null, false); }
-//       if (verifyPassword(password, user.salt, user.password)) { return done(null, false); }
-//       return done(null, user);
-//     })
-//     .catch((err) => {
-//       console.log(err); 
-//       done(err)
-//     })
-//   }
-// ));
-
-
-//TODO: add error handling to /signin endpoint
-//TODO: confirm that a user with the username does not already exist in the db
-//authenticate
+passport.use(new Strategy(
+  function(token, callback) {
+    knex('user').where('token', token).then(() => {
+      if (!user) { return callback(null, false); }
+      return callback(null, user);
+    }).catch((err) => {
+      console.log(err); 
+      return callback(err);
+    });
+  }
+));
 
 //sign in existing users
 
 app.post('/signin', (req, res, next) => {
   const { emailOrUsername, password } = req.body; 
   knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
-    if(!user[0]) {return res.status(401).json({message: "User not found"})}
+    if(!user[0]) {return res.status(401).json({message: "The email or username you entered is incorrect."})}
     if (verifyPassword(password, user[0].salt, user[0].password)) {
       const { first_name, last_name, id, bio, image, username, token } = user[0];
-      const checkedInUser = {
+      return res.status(200).json({
         first_name, 
         last_name, 
         id, 
@@ -80,11 +58,10 @@ app.post('/signin', (req, res, next) => {
         image, 
         username, 
         token
-      }
-      return res.status(200).json({checkedInUser});
+      });
     }
     else {
-      return res.status(401).json({message: 'Unauthorized'})
+      return res.status(401).json({message: "The password you entered is incorrect."})
     }
   })
 })

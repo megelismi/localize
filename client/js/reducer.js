@@ -38,7 +38,7 @@ const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: []
 
     case post_actions.CREATE_NEW_USER_SUCCESS:
     return state = Object.assign({}, state, {
-      user: action.user, 
+      currentUser: action.user, 
       signUpUserError: false
     });
     case post_actions.CREATE_NEW_USER_ERROR:
@@ -48,7 +48,7 @@ const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: []
     });
     case post_actions.SIGN_IN_USER_SUCCESS:
     return state = Object.assign({}, state, {
-      user: action.user, 
+      currentUser: action.user, 
       signInUserError: false
     })
     case post_actions.SIGN_IN_USER_ERROR: 
