@@ -79,10 +79,10 @@ app.post('/signup', (req, res) => {
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
   const token = bcrypt.hashSync(email);
-  const userValidity = userValidity.signUpValidity(user)
+  const userValidityCheck = userValidity.signUpValidity(user)
 
-  if (userValidity.isInvalid) {
-    return res.status(userValidity.status).json({ message: userValidity.message });
+  if (userValidityCheck.isInvalid) {
+    return res.status(userValidityCheck.status).json({ message: userValidityCheck.message });
   }
 
   //check to see if username or email is already taken, if not create user

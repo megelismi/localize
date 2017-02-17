@@ -19,11 +19,13 @@ const routes = (
 
 document.addEventListener('DOMContentLoaded', () => {
 	return ReactDOM.render(
-		<Provider store={store}>
-			<SignInForm />
-		</Provider>,
+		routes,
 		document.getElementById('root')
 	);
 });
 
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
+
+// <Provider store={store}>
+// 			<SignUpForm />
+// 		</Provider>
