@@ -1,3 +1,10 @@
+export const GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS';
+export const getSearchResults = (feature, latlong) => ({
+  type: GET_SEARCH_RESULTS,
+  feature,
+  latlong
+});
+
 export const FILTER_BY_TAG = 'FILTER_BY_TAG';
 export const filterByTag = tag => ({
   type: FILTER_BY_TAG,

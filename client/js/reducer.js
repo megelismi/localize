@@ -2,8 +2,18 @@ import * as get_actions from './actions/get_result';
 import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
-const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, action) => {
+const state = (state = {
+  allLocationsAndDescriptions: [],
+  selectedTags: [],
+  mapzenSelectedResults: []
+  }, action) => {
   switch (action.type) {
+
+    case sync_actions.GET_SEARCH_RESULTS:
+    return state = Object.assign({}, state,
+      { mapzenSelectedResults: [ ...state.mapzenSelectedResults,
+        {feature: action.feature, latlong: action.latlong}] }
+    );
 
     case get_actions.GET_USERS_SUCCESS:
     return state = Object.assign({}, state, {

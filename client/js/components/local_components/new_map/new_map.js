@@ -22,7 +22,6 @@ class CreateMap extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
-    console.log(this.state);
     return (
       <div id="insert-search">
           <Map className="display-map" center={city} zoom={14}>
