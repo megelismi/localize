@@ -14,7 +14,6 @@ class PlacesSearch extends MapControl {
     const searchBox = L.control.geocoder('mapzen-DyNizkF');
     this.leafletElement = searchBox;
     searchBox.on('select', function (e) {
-      console.log('select', e);
       _this.props.getSearchResults(e.feature, e.latlng);
     });
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 import { Map, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet-geocoder-mapzen';
@@ -12,12 +13,6 @@ L.Icon.Default.imagePath = '../assets/images/';
 class CreateMap extends React.Component {
   constructor() {
     super();
-    this.state = { content: '' }
-  }
-
-  changeState(e) {
-    e.preventDefault();
-    this.setState({ content: this.Input })
   }
 
   render() {
@@ -27,11 +22,15 @@ class CreateMap extends React.Component {
           <Map className="display-map" center={city} zoom={14}>
             <PlacesSearch />
             <Tile />
-            <MarkerLayer />
+            <MarkerLayer locationInfo={this.props.localsMapLocations}/>
           </Map>
       </div>
     );
   }
 }
 
-export default CreateMap;
+const mapStateToProps = (state) => ({
+  localsMapLocations: state.localsMapLocations
+});
+
+export default connect(mapStateToProps)(CreateMap);

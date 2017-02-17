@@ -5,10 +5,12 @@ const MarkerLayer = (props) => {
 
   return (
     <LayerGroup>{
-        <Marker position={[43.6615, -70.2553]}>
+        props.locationInfo.map((location, index) => {
+          console.log(location);
+          return <Marker position={[location.lat_long.lat, location.lat_long.lng]} key={index}>
             <Popup>
               <span className="popup-info">
-                {"A spot"}
+                <p className="location-name">{location.feature.properties.name}</p>
               </span>
             </Popup>
           </Marker>

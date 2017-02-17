@@ -1,9 +1,18 @@
+export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
+export const addLocationToLocalsMap = (feature, lat_long) => ({
+  type: ADD_LOCATION_TO_LOCALS_MAP,
+  feature,
+  lat_long
+});
+
 export const GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS';
-export const getSearchResults = (feature, latlong) => ({
+export const getSearchResults = (feature, lat_long) => ({
   type: GET_SEARCH_RESULTS,
   feature,
-  latlong
+  lat_long
 });
+
+//////////////////////////////////////////////////////////////////////////
 
 export const FILTER_BY_TAG = 'FILTER_BY_TAG';
 export const filterByTag = tag => ({

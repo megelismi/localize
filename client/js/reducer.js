@@ -5,15 +5,25 @@ import { combineReducers } from 'redux';
 const state = (state = {
   allLocationsAndDescriptions: [],
   selectedTags: [],
-  mapzenSelectedResults: []
+  mapzenSelectedResults: [],
+  localsMapLocations: []
   }, action) => {
   switch (action.type) {
+
+    case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
+    console.log('actions...', action.feature, action.latlong);
+    return state = Object.assign({}, state,
+      { localsMapLocations: [ ...state.localsMapLocations,
+        {feature: action.feature, lat_long: action.lat_long}] }
+    );
 
     case sync_actions.GET_SEARCH_RESULTS:
     return state = Object.assign({}, state,
       { mapzenSelectedResults: [ ...state.mapzenSelectedResults,
-        {feature: action.feature, latlong: action.latlong}] }
+        {feature: action.feature, lat_long: action.lat_long}] }
     );
+
+    //////////////////////////////////////////////////////////////////////////
 
     case get_actions.GET_USERS_SUCCESS:
     return state = Object.assign({}, state, {
