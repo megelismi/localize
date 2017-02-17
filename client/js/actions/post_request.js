@@ -13,35 +13,38 @@ export const createNewUser = user => {
 		})
 		.then(response => {
 			if (!response.ok) {
-				const error = new Error(response.statusText)
-				error.response = response
-				throw error
+				return response.json()
+				.then(error => dispatch(post_result.createNewUserError(error.message)));
 			}
-			return response
-		})
-		.then(response => response.json())
-		.then(user => dispatch(post_result.createNewUserSuccess(user)))
-		.catch(error => dispatch(post_result.createNewUserError(error)))
+			else {
+				return response.json()
+				.then(user => dispatch(post_result.createNewUserSuccess(user))); 
+			}
+		});
 	}
 }
 
-export const signInUser = (emailOrUsername, password) => dispatch => {
+export const signInUser = (emailOrUsername, password) => {
+	return dispatch => {
   return fetch('/signin', {
     method: 'post', 
     headers: {
       'Content-type': "application/json; charset=utf-8"
     }, 
     body: JSON.stringify(emailOrUsername, password)
-    }).then(res => {
-    if (!res.ok) {
-      throw new Error(res.statusText)
-    }
-    return res.json();
-  }).then(user => {
-    dispatch(post_result.signInUserSuccess(user))
-  }).catch(err => {
-    dispatch(post_result.signInUserError(err))
-  });
+    })
+  	.then(response => {
+    	if (!response.ok) {
+	      const error = new Error(response.statusText)
+				error.response = response
+				throw error
+    	}
+    	return response;
+  	})
+	  .then(response => response.json())
+	  .then(user => dispatch(post_result.signInUserSuccess(user)))
+	 	.catch(error => dispatch(post_result.signInUserError(error.message)))
+	}
 }
 
 //   "Authorization": `Bearer ${token}`

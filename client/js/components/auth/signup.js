@@ -3,7 +3,7 @@ import * as post_actions from '../../actions/post_request.js';
 import {connect} from 'react-redux';
 
 
-class SignUpForm extends React.Component {
+export class SignUpForm extends React.Component {
 
 	constructor (props) {
 		super(props); 
@@ -22,6 +22,10 @@ class SignUpForm extends React.Component {
 	}
 
 	render () {
+		const { signUpUserError } = this.props;  
+		if (signUpUserError) {
+			console.log(signUpUserError)
+		}
 
 		return (
 			<div className="signup-form">
@@ -47,15 +51,17 @@ class SignUpForm extends React.Component {
 		  			<br /><br />
 		  		<input type="submit" value="Sign Up" />
 				</form> 
-
-
 			</div>
 		)
 	}
 
 }
 
-export default connect()(SignUpForm);
+const mapStateToProps = state => ({
+	error: state.signUpUserError
+})
+
+export default connect(mapStateToProps)(SignUpForm);
 
 
 	

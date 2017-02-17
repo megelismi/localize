@@ -8,7 +8,7 @@ class SignInForm extends React.Component {
 		super(props); 
 	}
 
-	sendSignUpInfo (event) {
+	sendSignInInfo (event) {
 		event.preventDefault(); 
 		let user = { 
 			emailOrUsername: this.emailOrUsername.value, 
@@ -16,7 +16,7 @@ class SignInForm extends React.Component {
 		}
 		this.props.dispatch(post_actions.signInUser(user));
 	}
-	
+
 	render () {
 		// if(this.props.error) {
 		// 	//render a div to the screen that displays the error
@@ -25,12 +25,12 @@ class SignInForm extends React.Component {
 		return (
 			<div className="signin-form-container">
 				<h2>Sign In</h2>
-				<form className="signin-form" onSubmit={this.sendSignUpInfo.bind(this)}>
+				<form className="signin-form" onSubmit={this.sendSignInInfo.bind(this)}>
 		  			Email or Username:<br/>
 		  		<input type="text" name="emailOrUsername" placeholder="" ref={element =>  this.emailOrUsername = element}/>
 		  			<br/>
 		  			Password:<br />
-		  		<input type="text" name="lastname" placeholder="" ref={element => this.password = element}/>
+		  		<input type="password" name="lastname" placeholder="" ref={element => this.password = element}/>
 		  			<br/>
 		  			<br />
 		  		<input type="submit" value="Sign In" />
@@ -41,10 +41,11 @@ class SignInForm extends React.Component {
 
 }
 
-//map state to props
-	//error
+const mapStateToProps = (state) => ({
+	signInUserError: state.signInUserError
+})
 
-export default connect()(SignInForm);
+export default connect(mapStateToProps)(SignInForm);
 
 
 

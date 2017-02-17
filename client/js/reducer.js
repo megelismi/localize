@@ -4,37 +4,58 @@ import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
 
-const userState = (state = {}, action) => {
+// const userReducer = (state = {}, action) => {
+//   switch (action.type) {
+
+//     case post_actions.CREATE_NEW_USER_SUCCESS:
+//     return state = Object.assign({}, state, {
+//       user: action.user, 
+//       userError: false
+//     });
+//     case post_actions.CREATE_NEW_USER_ERROR:
+//     return state = Object.assign({}, state, {
+//       userError: true,
+//       error: action.error
+//     });
+//     case post_actions.SIGN_IN_USER_SUCCESS:
+//     return state = Object.assign({}, state, {
+//       user: action.user, 
+//       userError: false
+//     })
+//     case post_actions.SIGN_IN_USER_ERROR: 
+//     return state = Object.assign({}, state, {
+//       userError: true,
+//       error: action.error
+//     })
+
+//     default: 
+//     return state;  
+//   }
+// };
+
+const mainReducer = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, action) => {
   switch (action.type) {
 
     case post_actions.CREATE_NEW_USER_SUCCESS:
     return state = Object.assign({}, state, {
       user: action.user, 
-      userError: false
+      signUpUserError: false
     });
     case post_actions.CREATE_NEW_USER_ERROR:
     return state = Object.assign({}, state, {
       userError: true,
-      error: action.error
+      signUpUserError: action.error
     });
     case post_actions.SIGN_IN_USER_SUCCESS:
     return state = Object.assign({}, state, {
       user: action.user, 
-      userError: false
+      signInUserError: false
     })
     case post_actions.SIGN_IN_USER_ERROR: 
     return state = Object.assign({}, state, {
       userError: true,
-      error: action.error
+      signInUserError: action.error
     })
-
-    default: 
-    return state;  
-  }
-};
-
-const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, action) => {
-  switch (action.type) {
 
     case get_actions.GET_USERS_SUCCESS:
     return state = Object.assign({}, state, {
@@ -221,4 +242,6 @@ const state = (state = { allLocationsAndDescriptions: [], selectedTags: [] }, ac
   }
 }
 
-export default combineReducers({userState, state});
+export default mainReducer; 
+
+// export default combineReducers({userState: userReducer, state: mainReducer});

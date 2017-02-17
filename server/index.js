@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
-import validateUser from './handlers/user_handlers/userValidity';
+import userNameAndPasswordArePresent from './handlers/user_handlers/userValidity';
 import verifyPassword from './handlers/user_handlers/verifyPassword';
 import passport from 'passport';
 // import { BasicStrategy } from 'passport-http';
@@ -59,27 +59,12 @@ app.use(bodyParser.json());
 //   }
 // ));
 
-// passport.use(new LocalStrategy(
-//   function(emailOrUsername, password, done) {
-//     knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
-//       if (err) { return done(err); }
-//       if (!user) {
-//         return done(false, { message: 'Incorrect username.' });
-//       }
-//       if (verifyPassword(password, user.salt, user.password)) {
-//         return done(false, { message: 'Incorrect password.' });
-//       }
-//       return done(user);
-//     });
-//   }
-// ));
-
 
 //TODO: add error handling to /signin endpoint
 //TODO: confirm that a user with the username does not already exist in the db
 //authenticate
 
-
+//sign in existing users
 
 app.post('/signin', (req, res, next) => {
   const { emailOrUsername, password } = req.body; 
@@ -96,8 +81,7 @@ app.post('/signin', (req, res, next) => {
         username, 
         token
       }
-      console.log('checkedInUser', checkedInUser)
-        return res.status(200).json({checkedInUser});
+      return res.status(200).json({checkedInUser});
     }
     else {
       return res.status(401).json({message: 'Unauthorized'})
@@ -105,66 +89,47 @@ app.post('/signin', (req, res, next) => {
   })
 })
 
-// app.get('/signin', passport.authenticate('basic', {session: false}), (req, res) => {
-//   const { first_name, last_name, id, bio, image, username } = req.user[0]; 
-//   const checkedInUser = {
-//     first_name, 
-//     last_name, 
-//     id,
-//     bio, 
-//     image, 
-//     username
-//   }
-//   res.status(200).json(checkedInUser); 
-// })
-
 //sign up new users, encrypt their passwords
-
-// var jwt = require('jwt-simple');
-// var payload = { foo: 'bar' };
-// var secret = 'xxx';
-
-// // HS256 secrets are typically 128-bit random strings, for example hex-encoded:
-// // var secret = Buffer.from('fe1a1915a379f3be5394b64d14794932', 'hex)
-
-// // encode
-// var token = jwt.encode(payload, secret);
-
-// // decode
-// var decoded = jwt.decode(token, secret);
-// console.log(decoded); //=> { foo: 'bar' }
 
 app.post('/signup', (req, res) => {
   const user = req; 
-  const { password, email } = req.body;
-
+  const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
   const token = bcrypt.hashSync(email);
-  const userValidity = validateUser(user)
+  const userNameAndPassword = userNameAndPasswordArePresent(user)
 
-  if (userValidity.isInvalid) {
-    return res.status(userValidity.status).send({ message: userValidity.message });
+  if (userNameAndPassword.isInvalid) {
+    return res.status(userNameAndPassword.status).json({ message: userNameAndPassword.message });
   }
 
-  knex.insert({
-     first_name: req.body.first_name, 
-     last_name: req.body.last_name,
-     email: req.body.email, 
-     username: req.body.username,
-     password: passwordToSave, 
-     salt: salt, 
-     token: token
-   }).into('users')
-  .then(() => {
-    knex('users').where('username', req.body.username)
-    .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token')
-    .then((user) => {
-      res.status(201).json(user);
-    })
-  }).catch(err => {
-     console.error(err); 
-     res.sendStatus(500); 
-  })
+  //check to see if username or email is already taken, if not create user
+
+  knex('users').where('email', email).orWhere('username', username).then((user) => {
+    if (user.length > 0) {
+       return res.status(409).json({message: "Username or email is already taken"})
+    }
+    else {
+      knex.insert({
+        first_name: req.body.first_name, 
+        last_name: req.body.last_name,
+        email: req.body.email, 
+        username: req.body.username,
+        password: passwordToSave, 
+        salt: salt, 
+        token: token
+      }).into('users')
+      .then(() => {
+        knex('users').where('username', req.body.username)
+        .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token')
+        .then((user) => {
+          res.status(201).json(user);
+        })
+      }).catch(err => {
+          console.error(err); 
+          res.sendStatus(500); 
+      });
+    }
+  });
 });
 
 // get all locations
@@ -222,17 +187,6 @@ app.get('/locations/:tag', (req, res) => {
     });
   });
 });
-
-// app.get('/test/:username', (req, res) => {
-//   return res.status(200).json('ok');
-// }
-
-// app.get('/test/:username', (req, res) => {
-//   const { username } = req.params;
-//   knex('users').where({username}).then((data) => {
-//       return res.status(200).json(data);
-//     })
-//   }
 
 // get all users with that tag
 
