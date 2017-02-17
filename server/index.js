@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
-import userNameAndPasswordArePresent from './handlers/user_handlers/userValidity';
+import signUpValidity from './handlers/user_handlers/signUpValidity';
 import verifyPassword from './handlers/user_handlers/verifyPassword';
 import passport from 'passport';
 // import { BasicStrategy } from 'passport-http';
@@ -96,10 +96,10 @@ app.post('/signup', (req, res) => {
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
   const token = bcrypt.hashSync(email);
-  const userNameAndPassword = userNameAndPasswordArePresent(user)
+  const userValidity = signUpValidity(user)
 
-  if (userNameAndPassword.isInvalid) {
-    return res.status(userNameAndPassword.status).json({ message: userNameAndPassword.message });
+  if (userValidity.isInvalid) {
+    return res.status(userValidity.status).json({ message: userValidity.message });
   }
 
   //check to see if username or email is already taken, if not create user

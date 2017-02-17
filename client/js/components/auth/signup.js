@@ -22,9 +22,10 @@ export class SignUpForm extends React.Component {
 	}
 
 	render () {
+		let errorDisplay; 
 		const { signUpUserError } = this.props;  
 		if (signUpUserError) {
-			console.log(signUpUserError)
+			errorDisplay = <div>{signUpUserError}</div>
 		}
 
 		return (
@@ -51,6 +52,7 @@ export class SignUpForm extends React.Component {
 		  			<br /><br />
 		  		<input type="submit" value="Sign Up" />
 				</form> 
+				{errorDisplay}
 			</div>
 		)
 	}
@@ -58,7 +60,7 @@ export class SignUpForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	error: state.signUpUserError
+	signUpUserError: state.signUpUserError
 })
 
 export default connect(mapStateToProps)(SignUpForm);
