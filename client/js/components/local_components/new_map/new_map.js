@@ -1,19 +1,28 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { Map, LayersControl } from 'react-leaflet';
 import L from 'leaflet';
+import 'leaflet-geocoder-mapzen';
+import Geocoder from 'react-select-geocoder'
 import Tile from './new_tile_layer';
 import MarkerLayer from './new_marker_layer';
+import PlacesSearch from './places_search';
 L.Icon.Default.imagePath = '../assets/images/';
 
 class CreateMap extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
+    // let search = L.control.geocoder('mapzen-DyNizkF').addTo('?');
+
     return (
-      <Map className="display-map" center={city} zoom={14}>
-        <Tile />
-        <MarkerLayer />
-      </Map>
+      <div id="insert-search">
+          <Map className="display-map" center={city} zoom={14}>
+            <PlacesSearch />
+            <Tile />
+            <MarkerLayer />
+          </Map>
+      </div>
     );
   }
 }
