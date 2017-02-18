@@ -21,9 +21,15 @@ const routes = (
 
 document.addEventListener('DOMContentLoaded', () => {
 	return ReactDOM.render(
-		routes,
+		<Provider store={store}>
+			<UserAccountPage />
+		</Provider>,
 		document.getElementById('root')
 	);
 });
 
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
+
+// <Provider store={store}>
+// 			<UserAccountPage />
+// 		</Provider>

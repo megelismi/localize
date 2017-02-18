@@ -25,12 +25,12 @@ class Header extends React.Component  {
   }
 
   routeToUserAccount () {
-   hashHistory.push('/account');
+    hashHistory.push('/account/');
   }
 
   render () {
     const { currentUser } = this.props; 
-    let rightNavLinks; 
+    let rightNavLinks;
     if (currentUser) {
       rightNavLinks = (
       <Nav pullRight>
@@ -46,6 +46,7 @@ class Header extends React.Component  {
       </Nav>
       )
     }
+
 
     return (
       <Navbar className="nav" inverse collapseOnSelect>

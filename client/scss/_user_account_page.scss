@@ -1,0 +1,23 @@
+.account-details-container {
+	display: flex; 
+	width: 30%; 
+	margin: 15px; 
+	justify-content: space-between;  
+	align-items: center; 
+}
+
+.user-edit { 
+	border: 1px solid $border-color;
+	border-radius: 2px; 
+	width: 55%;
+}
+
+.user-label {
+	margin-left: 45px; 
+	font-weight: bold;  	
+}
+
+.user-edit, .user-label {
+	padding: 4px;
+	font-size: 14px;  
+}

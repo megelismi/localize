@@ -56,5 +56,5 @@ export const logOut = (token) => dispatch => {
     }
   }).then(() => {
     dispatch(post_result.logOutSuccess())
-  }).catch(err => {console.log(err)});
+  }).catch(error => {console.log(error)});
 }
