@@ -41,7 +41,7 @@ class SignInForm extends React.Component {
 		  		<br/><br />
 		  		<input type="password" name="lastname" placeholder="Password" ref={element => this.password = element}/>
 		  		<br/><br/>
-		  		<input className="sign-in-button" type="submit" value="Sign In" />
+		  		<input className="accent-button" type="submit" value="Sign In" />
 				</form> 
 				</Modal.Body>
     		<Modal.Footer>
