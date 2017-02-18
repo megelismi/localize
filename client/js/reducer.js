@@ -37,28 +37,43 @@ const state = (state = {
       signUpUserError: false,
       signUpModalOpen: false
     });
+
     case post_actions.CREATE_NEW_USER_ERROR:
     return state = Object.assign({}, state, {
       userError: true,
       signUpUserError: action.error
     });
+
     case post_actions.SIGN_IN_USER_SUCCESS:
     return state = Object.assign({}, state, {
       currentUser: action.user,
       signInUserError: false,
       signInModalOpen: false
-    })
+    });
+
     case post_actions.SIGN_IN_USER_ERROR:
     return state = Object.assign({}, state, {
       userError: true,
       signInUserError: action.error
-    })
+    });
+
+    case post_actions.LOG_OUT_SUCCESS:
+    return Object.assign({}, state, {
+      currentUser: undefined, 
+      logOutError: false
+    }); 
+
+    case post_actions.LOG_OUT_ERROR: 
+    return Object.assign({}, state, {
+      logOutError: true
+    });
 
     case get_actions.GET_USERS_SUCCESS:
     return state = Object.assign({}, state, {
       users: action.users,
       usersError: false
     });
+
     case get_actions.GET_USERS_ERROR:
     return state = Object.assign({}, state, {
       usersError: true

@@ -74,3 +74,4 @@ export const getLocationTags = () => dispatch => {
   });
 }
 
+//   "Authorization": `Bearer ${token}`

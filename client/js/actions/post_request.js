@@ -44,4 +44,22 @@ export const signInUser = (emailOrUsername, password) => {
 	}
 }
 
+export const logOut = (token) => dispatch => {
+  return fetch ('/logout', {
+    method: 'post', 
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error (res.statusText)
+    }
+    return res.json(); 
+  }).then((res) => {
+    dispatch(post_result.logOutSuccess(res))
+  }).catch(err => {
+    dispatch(post_result.logOutError(err))
+  });
+}
+
 //   "Authorization": `Bearer ${token}`

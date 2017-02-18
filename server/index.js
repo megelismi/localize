@@ -2,8 +2,6 @@ import 'babel-polyfill';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
-// import signUpValidity from './handlers/user_handlers/signUpValidity';
-// import allFormFieldsFilledIn from './handlers/user_handlers/signUpValidity';
 import * as userValidity from './handlers/user_handlers/signUpValidity';
 import verifyPassword from './handlers/user_handlers/verifyPassword';
 import passport from 'passport';
@@ -34,7 +32,7 @@ app.use(bodyParser.json());
 
 passport.use(new Strategy(
   function(token, callback) {
-    knex('user').where('token', token).then(() => {
+    knex('users').where('token', token).then((user) => {
       if (!user) { return callback(null, false); }
       return callback(null, user);
     }).catch((err) => {
@@ -119,6 +117,12 @@ app.post('/signup', (req, res) => {
       });
     }
   });
+});
+
+//sign out a user 
+
+app.post('/logout', passport.authenticate('bearer', { session: false }), (req, res) => {
+  return res.status(200).json({});
 });
 
 // get all locations
