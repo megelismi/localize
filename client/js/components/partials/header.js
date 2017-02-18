@@ -2,6 +2,7 @@ import React from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Modal, OverlayTrigger, Popover, Tooltip, Button } from 'react-bootstrap';
 import * as actionCreators from '../../actions/sync.js';
 import * as post_actions from '../../actions/post_request.js'; 
+import { hashHistory } from 'react-router'; 
 
 import { connect } from 'react-redux';
 
@@ -23,13 +24,17 @@ class Header extends React.Component  {
     this.props.dispatch(post_actions.logOut(this.props.currentUser.token)); 
   }
 
+  routeToUserAccount () {
+   hashHistory.push('/account');
+  }
+
   render () {
     const { currentUser } = this.props; 
     let rightNavLinks; 
     if (currentUser) {
       rightNavLinks = (
       <Nav pullRight>
-        <NavItem className="right-link" eventKey={1} href="#">My Account</NavItem>
+        <NavItem className="right-link" eventKey={1} href="#" onClick={this.routeToUserAccount.bind(this)}>My Account</NavItem>
         <NavItem className="right-link" eventKey={2} href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
       </Nav>
       )
