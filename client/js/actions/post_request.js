@@ -54,12 +54,7 @@ export const logOut = (token) => dispatch => {
     if (!res.ok) {
       throw new Error (res.statusText)
     }
-    return res.json(); 
-  }).then((res) => {
-    dispatch(post_result.logOutSuccess(res))
-  }).catch(err => {
-    dispatch(post_result.logOutError(err))
-  });
+  }).then(() => {
+    dispatch(post_result.logOutSuccess())
+  }).catch(err => {console.log(err)});
 }
-
-//   "Authorization": `Bearer ${token}`

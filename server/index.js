@@ -122,7 +122,7 @@ app.post('/signup', (req, res) => {
 //sign out a user 
 
 app.post('/logout', passport.authenticate('bearer', { session: false }), (req, res) => {
-  return res.status(200).json({});
+  return res.sendStatus(200);
 });
 
 // get all locations
