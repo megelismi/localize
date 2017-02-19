@@ -10,6 +10,12 @@
 	width: 50%;
 }
 
+.user-edit-active {
+	border: 1px solid $accent-color !important;
+	width: 50%;
+	border-radius: 2px; 
+}
+
 .user-label {
 	margin-left: 45px; 
 	font-weight: bold; 
@@ -40,6 +46,6 @@
 	}
 }
 
-#actively-editing-first, #actively-editing-last {
-	border: 1px solid $accent-color !important; 
-}
+// #actively-editing-first, #actively-editing-last {
+// 	border: 1px solid $accent-color !important; 
+// }

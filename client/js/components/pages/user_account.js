@@ -11,11 +11,10 @@ export class UserAccountPage extends React.Component {
 	constructor (props) {
 		super (props)
 		this.state = {
-			contentEditable: false,
-			editFirstName: false,
-			borderFirstName: null, 
+			editFirstName: false, 
 			editLastName: false, 
-			borderLastName: null
+			FirstNameClass: "user-edit",
+			LastNameClass: "user-edit"
 		}
 	}
 
@@ -30,21 +29,30 @@ export class UserAccountPage extends React.Component {
 		})
 	}
 
-	editFirstName () {
-		console.log(this.first_name.innerText)
-		this.setState ({
-			editFirstName: true, 
-			borderFirstName: 'actively-editing-first' 
-		})
+	editFieldName(fieldName) {
+		let config = {}; 
+		config['edit'+ fieldName] = true
+		config[fieldName + 'Class'] = 'user-edit-active'
+		this.setState (
+			config
+		)
 	}
 
-	editLastName () {
-		console.log(this.last_name.innerText)
-		this.setState ({
-			editLastName: true, 
-			borderLastName: 'actively-editing-last' 
-		})
-	}
+	// editFirstName () {
+	// 	console.log(this.first_name.innerText)
+	// 	this.setState ({
+	// 		editFirstName: true, 
+	// 		borderFirstName: 'actively-editing-first' 
+	// 	})
+	// }
+
+	// editLastName () {
+	// 	console.log(this.last_name.innerText)
+	// 	this.setState ({
+	// 		editLastName: true, 
+	// 		borderLastName: 'actively-editing-last' 
+	// 	})
+	// }
 
 	saveAndSendDetails () {
 		console.log('saving and sending');
@@ -55,6 +63,7 @@ export class UserAccountPage extends React.Component {
 	}
 
 	render () {
+		console.log('state', this.state)
 		let { currentUserArray, editUserDetailsModalOpen } = this.props; 
 		let editDetails; 
 		if (!currentUserArray[0]) {
@@ -73,7 +82,7 @@ export class UserAccountPage extends React.Component {
 			)
 		} else {
 			firstNameButton = (
-				<button className="edit-account-details-button" onClick={this.editFirstName.bind(this)}><i className="fa fa-pencil" aria-hidden="true"></i></button>
+				<button className="edit-account-details-button" onClick={() => this.editFieldName('FirstName')}><i className="fa fa-pencil" aria-hidden="true"></i></button>
 			)
 		}
 		return (
@@ -83,13 +92,13 @@ export class UserAccountPage extends React.Component {
 				<button className="edit-user-content" onClick={this.open.bind(this)}>Edit</button>
 	 			<div className="account-details-container">
 					<div className="user-label first-name-label">First name:</div>
-					<div className="user-edit edit-first-name" contentEditable={this.state.editFirstName} id={this.state.borderFirstName} suppressContentEditableWarning={true} ref={element => this.first_name = element}>First name</div>
+					<div className={this.state.FirstNameClass} contentEditable={this.state.editFirstName} suppressContentEditableWarning={true} ref={element => this.first_name = element}>First name</div>
 					{firstNameButton}
 				</div>
 				<div className="account-details-container">
 					<div className="user-label last-name-label">Last name:</div>
-					<div className="user-edit edit-last-name" contentEditable={this.state.editLastName} id={this.state.borderLastName}suppressContentEditableWarning={true} ref={element => this.last_name = element}>Last name</div>
-					<button className="edit-account-details-button" onClick={this.editLastName.bind(this)}> <i className="fa fa-pencil" aria-hidden="true"></i></button>
+					<div className={this.state.LastNameClass} contentEditable={this.state.editLastName} suppressContentEditableWarning={true} ref={element => this.last_name = element}>Last name</div>
+					<button className="edit-account-details-button" onClick={() => this.editFieldName('LastName')}> <i className="fa fa-pencil" aria-hidden="true"></i></button>
 				</div>
 				<div className="account-details-container">
 					<div className="user-label username-label">Username:</div>
