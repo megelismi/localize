@@ -4,16 +4,19 @@
 	margin: 15px; 
 }
 
-.user-edit { 
+.user-edit, .user-edit-active { 
 	border: 1px solid $border-color;
 	border-radius: 2px; 
 	width: 50%;
 }
 
 .user-edit-active {
-	border: 1px solid $accent-color !important;
-	width: 50%;
-	border-radius: 2px; 
+	border: 1px solid $accent-color !important; 
+}
+
+.user-edit, .user-label, .user-edit-active {
+	padding: 4px;
+	font-size: 14px;  
 }
 
 .user-label {
@@ -21,11 +24,6 @@
 	font-weight: bold; 
 	width: 95px;
   margin-right: 20px; 	
-}
-
-.user-edit, .user-label {
-	padding: 4px;
-	font-size: 14px;  
 }
 
 .fa-pencil {
