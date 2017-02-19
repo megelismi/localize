@@ -1,3 +1,9 @@
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const showModal = (boolean) => ({
+  type: SHOW_MODAL,
+  boolean
+});
+
 export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
 export const addLocationToLocalsMap = (feature, lat_long, short, long, image = null) => ({
   type: ADD_LOCATION_TO_LOCALS_MAP,
@@ -67,7 +73,7 @@ export const signUpModal = () => ({
   type: SIGN_UP_MODAL
 });
 
-export const SIGN_IN_MODAL = 'SIGN_IN_MODAL'; 
+export const SIGN_IN_MODAL = 'SIGN_IN_MODAL';
 export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
