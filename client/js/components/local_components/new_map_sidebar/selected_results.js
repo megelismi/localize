@@ -24,7 +24,7 @@ class SelectedResults extends Component {
                 <li>
                   {location.feature.properties.name}
                   <i onClick={() => {this.editLocationInfo(location)}} className="fa fa-pencil" aria-hidden="true"></i>
-                  <i onClick={() => {console.log('Delete from map')}}className="fa fa-trash" aria-hidden="true"></i>
+                  <i onClick={() => {this.props.deleteLocationFromLocalsMap(location)}} className="fa fa-trash" aria-hidden="true"></i>
                 </li>
               </ul>
             )

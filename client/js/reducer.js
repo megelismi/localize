@@ -19,8 +19,8 @@ const state = (state = {
         return idx;
       }
     });
-    let newLocationsArray = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteAt + 1));
-    return state = Object.assign({}, state, {localsMapLocations: [...newLocationsArray, action.location]});
+    let newLocations = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteAt + 1));
+    return state = Object.assign({}, state, {localsMapLocations: [...newLocations, action.location]});
 
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
     let deleteLocationAt = state.localsMapLocations.map((elem, idx) => {
@@ -28,8 +28,8 @@ const state = (state = {
         return idx;
       }
     });
-    let newLocationsArray = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteAt + 1));
-    return state = Object.assign({}, state, {localsMapLocations: newLocationsArray});
+    let newDeleteLocations = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteLocationAt + 1));
+    return state = Object.assign({}, state, {localsMapLocations: newDeleteLocations});
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return state = Object.assign({}, state,
