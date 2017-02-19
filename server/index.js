@@ -53,14 +53,15 @@ app.post('/signin', (req, res, next) => {
       knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
         if(!user[0]) {return res.status(401).json({message: "The email or username you entered is incorrect."})}
         if (verifyPassword(password, user[0].salt, user[0].password)) {
-          const { first_name, last_name, id, bio, image, username, token } = user[0];
+          const { first_name, last_name, id, bio, image, username, token, email } = user[0];
           return res.status(200).json({
             first_name, 
             last_name, 
             id, 
             bio, 
             image, 
-            username, 
+            username,
+            email, 
             token
           });
         } else {

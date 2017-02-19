@@ -21,9 +21,7 @@ const routes = (
 
 document.addEventListener('DOMContentLoaded', () => {
 	return ReactDOM.render(
-		<Provider store={store}>
-			<UserAccountPage />
-		</Provider>,
+		routes,
 		document.getElementById('root')
 	);
 });

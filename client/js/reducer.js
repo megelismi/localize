@@ -9,7 +9,8 @@ const state = (state = {
   mapzenSelectedResults: [],
   localsMapLocations: [],
   signUpModalOpen: false,
-  signInModalOpen: false
+  signInModalOpen: false, 
+  editUserDetailsModalOpen: false
   }, action) => {
   switch (action.type) {
 
@@ -141,6 +142,11 @@ const state = (state = {
     case sync_actions.SIGN_IN_MODAL:
       return Object.assign({}, state, {
         signInModalOpen: !state.signInModalOpen
+      });
+
+    case sync_actions.EDIT_USER_DETAILS_MODAL:
+      return Object.assign({}, state, {
+        editUserDetailsModalOpen: !state.editUserDetailsModalOpen
       });
 
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:

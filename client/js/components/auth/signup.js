@@ -29,7 +29,6 @@ export class SignUpForm extends React.Component {
 	}
 
 	close () {
-		console.log('signupModalOpen', actionCreators.signUpModal);
 		this.props.dispatch(actionCreators.signUpModal());
 	}
 

@@ -72,6 +72,11 @@ export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
 
+export const EDIT_USER_DETAILS_MODAL = 'EDIT_USER_DETAILS_MODAL'; 
+export const editUserDetailsModal = () => ({
+  type: EDIT_USER_DETAILS_MODAL
+});
+
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
   let currentUser = getState().selectedUser
   let currentUserLocations = getState().selectedUserLocations
