@@ -1,6 +1,6 @@
-export const SHOW_MODAL = 'SHOW_MODAL';
-export const showModal = (boolean) => ({
-  type: SHOW_MODAL,
+export const SHOW_MODAL_FUNCTION = 'SHOW_MODAL_FUNCTION';
+export const showModalFunction = (boolean) => ({
+  type: SHOW_MODAL_FUNCTION,
   boolean
 });
 

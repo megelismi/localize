@@ -13,7 +13,7 @@ const state = (state = {
   }, action) => {
   switch (action.type) {
 
-    case sync_actions.SHOW_MODAL:
+    case sync_actions.SHOW_MODAL_FUNCTION:
     return state = Object.assign({}, state, { showModal: action.boolean });
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:

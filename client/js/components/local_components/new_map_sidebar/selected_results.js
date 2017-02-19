@@ -11,7 +11,7 @@ class SelectedResults extends Component {
 
   editLocationInfo(location) {
     this.setState({ selected: location });
-    this.props.showModal(true);
+    this.props.showModalFunction(true);
   }
 
   render() {
@@ -24,27 +24,17 @@ class SelectedResults extends Component {
                 <li>
                   {location.feature.properties.name}
                   <i onClick={() => {this.editLocationInfo(location)}} className="fa fa-pencil" aria-hidden="true"></i>
-                  <i onClick={console.log('Delete from map')}className="fa fa-trash" aria-hidden="true"></i>
+                  <i onClick={() => {console.log('Delete from map')}}className="fa fa-trash" aria-hidden="true"></i>
                 </li>
               </ul>
             )
           })}
-          <EditLocationInfoModal location={this.state.selected} />
+          <EditLocationInfoModal
+            location={this.state.selected}
+            showModalFunction={this.props.showModalFunction} />
       </div>
     )
   }
 }
 
 export default connect(null, syncActionCreators)(SelectedResults);
-
-
-// addLocationToMap(location) {
-//   this.props.addLocationToLocalsMap(
-//     location.feature,
-//     location.lat_long,
-//     this.shortDescription.value,
-//     this.longDescription.value
-//   );
-//   this.shortDescription.value = '';
-//   this.longDescription.value = '';
-// }
