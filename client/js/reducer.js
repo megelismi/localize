@@ -13,13 +13,23 @@ const state = (state = {
   }, action) => {
   switch (action.type) {
 
+    case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
+    let locationToUpdate = state.localsMapLocations.map((elem, idx) => {
+      if (elem.feature.properties.name === action.location.feature.properties.name) {
+        return idx;
+      }
+    });
+    let newLocationsArray = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteAt + 1));
+    return state = Object.assign({}, state, {localsMapLocations: [...newLocationsArray, action.location]});
+
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
-    let deleteLocationAt = state.localsMapLocations.findIndex(action.location);
+    let deleteLocationAt = state.localsMapLocations.map((elem, idx) => {
+      if (elem.feature.properties.name === action.location.feature.properties.name) {
+        return idx;
+      }
+    });
     let newLocationsArray = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteAt + 1));
     return state = Object.assign({}, state, {localsMapLocations: newLocationsArray});
-
-    case sync_actions.SHOW_MODAL_FUNCTION:
-    return state = Object.assign({}, state, { showModal: action.boolean });
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return state = Object.assign({}, state,
@@ -31,6 +41,9 @@ const state = (state = {
           image: action.image
         }] }
     );
+
+    case sync_actions.SHOW_MODAL_FUNCTION:
+    return state = Object.assign({}, state, { showModal: action.boolean });
 
     case post_actions.CREATE_NEW_USER_SUCCESS:
     return state = Object.assign({}, state, {
