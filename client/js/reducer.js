@@ -1,5 +1,6 @@
 import * as get_actions from './actions/get_result';
 import * as post_actions from './actions/post_result';
+import * as put_actions from './actions/put_result';
 import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
@@ -14,23 +15,16 @@ const state = (state = {
   }, action) => {
   switch (action.type) {
 
-    case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
-    console.log('actions...', action.feature, action.latlong);
-    return state = Object.assign({}, state,
-      { localsMapLocations: [ ...state.localsMapLocations,
-        { feature: action.feature,
-          lat_long: action.lat_long,
-          short_description: action.short,
-          long_description: action.long,
-          image: action.image
-        }] }
-    );
+    case put_actions.UPDATE_USER_DETAIL_SUCCESS: 
+    Object.assign({}, state, {
+      currentUser: action.user,
+      updateUserDetailError: false
+    }); 
 
-    case sync_actions.GET_SEARCH_RESULTS:
-    return state = Object.assign({}, state,
-      { mapzenSelectedResults: [ ...state.mapzenSelectedResults,
-        {feature: action.feature, lat_long: action.lat_long}] }
-    );
+    case put_actions.UPDATE_USER_DETAIL_ERROR: 
+    Object.assign({}, state, {
+      updateUserDetailError: true
+    })
 
     case post_actions.CREATE_NEW_USER_SUCCESS:
     return state = Object.assign({}, state, {
@@ -133,6 +127,24 @@ const state = (state = {
     return state = Object.assign({}, state, {
       getDescriptionsError: true
     });
+
+    case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
+    console.log('actions...', action.feature, action.latlong);
+    return state = Object.assign({}, state,
+      { localsMapLocations: [ ...state.localsMapLocations,
+        { feature: action.feature,
+          lat_long: action.lat_long,
+          short_description: action.short,
+          long_description: action.long,
+          image: action.image
+        }] }
+    );
+
+    case sync_actions.GET_SEARCH_RESULTS:
+    return state = Object.assign({}, state,
+      { mapzenSelectedResults: [ ...state.mapzenSelectedResults,
+        {feature: action.feature, lat_long: action.lat_long}] }
+    );
 
     case sync_actions.SIGN_UP_MODAL:
       return Object.assign({}, state, {

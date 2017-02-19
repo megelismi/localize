@@ -4,6 +4,7 @@ import Footer from '../partials/footer';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router'; 
 import * as actionCreators from '../../actions/sync.js';
+import * as put_actions from '../../actions/put_request.js'; 
 import EditUserDetails from '../modals/edit_user_details'; 
 
 export class UserAccountPage extends React.Component {
@@ -46,7 +47,19 @@ export class UserAccountPage extends React.Component {
 		this.setState (
 			config
 		) 
-		console.log('saving and sending');
+		let ref = this[fieldName];
+		let newDetail = ref.innerText; 
+
+		let updatedUserDetail = {}; 
+		updatedUserDetail[fieldName] = newDetail; 
+		let token = this.props.currentUser.token; 
+		let id = this.props.currentUser.id; 
+
+		console.log('detail object', updatedUserDetail);
+		console.log('token', this.props.currentUser.token);
+		console.log('id', this.props.currentUser.id); 
+
+		this.props.dispatch(put_actions.updateUserDetail(token, updatedUserDetail, id));
 	}
 
 	open () {

@@ -61,8 +61,8 @@ app.post('/signin', (req, res, next) => {
             bio, 
             image, 
             username,
-            email, 
-            token
+            token, 
+            email
           });
         } else {
           return res.status(401).json({message: "The password you entered is incorrect."})
@@ -108,13 +108,13 @@ app.post('/signup', (req, res) => {
       }).into('users')
       .then(() => {
         knex('users').where('username', req.body.username)
-        .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token')
+        .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token', 'email')
         .then((user) => {
-          res.status(201).json(user);
+          return res.status(201).json(user);
         })
       }).catch(err => {
           console.error(err); 
-          res.sendStatus(500); 
+          return res.sendStatus(500); 
       });
     }
   });
@@ -125,6 +125,47 @@ app.post('/signup', (req, res) => {
 app.post('/logout', passport.authenticate('bearer', { session: false }), (req, res) => {
   return res.sendStatus(200);
 });
+
+//update user account info
+
+app.put('/account/:userId/update', passport.authenticate('bearer', {session: false}), (req, res) => {
+  let { userId } = req.params; 
+
+  knex('users').where('id', userId)
+  .update(req.body)
+  .into('users').then(() => {
+    return knex('users').where('id', userId)
+    .then((user) => {
+      const { first_name, last_name, id, bio, image, username, token, email } = user[0];
+      return res.status(201).json({
+        first_name, 
+        last_name, 
+        id, 
+        bio, 
+        image, 
+        username,
+        token, 
+        email
+      });
+    })
+  }).catch(err => {
+    console.error(err); 
+    return res.status(500).json({err}); 
+  })
+}); 
+
+// app.put('/db-entries', (req, res) => {
+//   knex('entries').where({id: req.body.id})
+//   .update({
+//     text: req.body.text,
+//     mood: req.body.mood
+//   }).into('entries').then(() => {
+//     return res.status(201).json({})
+//   }).catch(e => {
+//     console.error(e);
+//     res.sendStatus(500);
+//   })
+// });
 
 // get all locations
 
