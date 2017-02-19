@@ -13,6 +13,11 @@ const state = (state = {
   }, action) => {
   switch (action.type) {
 
+    case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
+    let deleteLocationAt = state.localsMapLocations.findIndex(action.location);
+    let newLocationsArray = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteAt + 1));
+    return state = Object.assign({}, state, {localsMapLocations: newLocationsArray});
+
     case sync_actions.SHOW_MODAL_FUNCTION:
     return state = Object.assign({}, state, { showModal: action.boolean });
 
@@ -25,12 +30,6 @@ const state = (state = {
           long_description: action.long,
           image: action.image
         }] }
-    );
-
-    case sync_actions.GET_SEARCH_RESULTS:
-    return state = Object.assign({}, state,
-      { mapzenSelectedResults: [ ...state.mapzenSelectedResults,
-        {feature: action.feature, lat_long: action.lat_long}] }
     );
 
     case post_actions.CREATE_NEW_USER_SUCCESS:

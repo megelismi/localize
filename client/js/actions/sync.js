@@ -1,3 +1,9 @@
+export const DELETE_LOCATION_FROM_LOCALS_MAP = 'DELETE_LOCATION_FROM_LOCALS_MAP';
+export const deleteLocationFromLocalsMap = location => ({
+  type: DELETE_LOCATION_FROM_LOCALS_MAP,
+  location
+});
+
 export const SHOW_MODAL_FUNCTION = 'SHOW_MODAL_FUNCTION';
 export const showModalFunction = (boolean) => ({
   type: SHOW_MODAL_FUNCTION,
@@ -5,20 +11,13 @@ export const showModalFunction = (boolean) => ({
 });
 
 export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
-export const addLocationToLocalsMap = (feature, lat_long, short, long, image = null) => ({
+export const addLocationToLocalsMap = (feature, lat_long, short = null, long = null, image = null) => ({
   type: ADD_LOCATION_TO_LOCALS_MAP,
   feature,
   lat_long,
   short,
   long,
   image
-});
-
-export const GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS';
-export const getSearchResults = (feature, lat_long) => ({
-  type: GET_SEARCH_RESULTS,
-  feature,
-  lat_long
 });
 
 //////////////////////////////////////////////////////////////////////////

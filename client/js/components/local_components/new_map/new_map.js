@@ -22,7 +22,7 @@ class CreateMap extends React.Component {
           <Map className="display-map" center={city} zoom={14}>
             <PlacesSearch />
             <Tile />
-            <MarkerLayer selectedResults={this.props.mapzenSelectedResults}/>
+            <MarkerLayer selectedResults={this.props.localsMapLocations}/>
           </Map>
       </div>
     );
@@ -30,8 +30,7 @@ class CreateMap extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  localsMapLocations: state.localsMapLocations,
-  mapzenSelectedResults: state.mapzenSelectedResults
+  localsMapLocations: state.localsMapLocations
 });
 
 export default connect(mapStateToProps)(CreateMap);

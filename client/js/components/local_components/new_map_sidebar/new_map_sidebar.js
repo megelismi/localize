@@ -6,13 +6,13 @@ const NewMapSidebar = (props) => {
 
   return (
     <div className="sidebar">
-      <SelectedResults results={props.mapzenSelectedResults} />
+      <SelectedResults results={props.localsMapLocations} />
     </div>
   )
 }
 
 const mapStateToProps = (state) => ({
-  mapzenSelectedResults: state.mapzenSelectedResults
+  localsMapLocations: state.localsMapLocations
 });
 
 export default connect(mapStateToProps)(NewMapSidebar);
