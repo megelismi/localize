@@ -15,13 +15,19 @@ class SelectedResults extends Component {
   }
 
   render() {
+
     return (
       <div>
           {this.props.results.map((location, idx) => {
+            let { short_description, long_description, tag_array, image } = location;
+            let progressMarker = short_description && long_description && tag_array ?
+              <i className="fa fa-check location-text-element" aria-hidden="true"></i> :
+              null
             return (
               <ul className="location-listing" key={idx}>
                 <li className="location-text">
-                  <h5 className=" location-text-element">{location.feature.properties.name}</h5>
+                  {progressMarker}
+                  <h5 className="location-text-element">{location.feature.properties.name}</h5>
                   <i onClick={() => {this.editLocationInfo(location)}} className="fa fa-pencil location-text-element" aria-hidden="true"></i>
                   <i onClick={() => {this.props.deleteLocationFromLocalsMap(location)}} className="fa fa-trash location-text-element" aria-hidden="true"></i>
                 </li>

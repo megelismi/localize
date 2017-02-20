@@ -36,6 +36,7 @@ class EditLocationInfoModal extends Component {
                   type="text"
                   name="shortDescription"
                   placeholder="e.g. Brunch spot with amazing eggs benedict!"
+                  defaultValue={location.short_description || ''}
                   ref={input => this.shortDescription = input} />
                 <h4 className="info-text">{'Now, tell us more — what draws you to this place? When is the best time to go? What should someone see, try, or do at this place?'}</h4>
                 <textarea
@@ -43,6 +44,7 @@ class EditLocationInfoModal extends Component {
                   type="text"
                   name="longDescription"
                   placeholder="e.g. I've been going to this whole-in-the wall for Sunday brunch for years now — the eggs benedict and Bloody Marys are just too good to pass up. In the summer, ask to be seated in the fantastic patio out back. Be forewared, it's a little pricey (think $20 entrees), but if you have the cash, it's worth it."
+                  defaultValue={location.long_description || ''}
                   ref={input => this.longDescription = input} />
                 <button
                   className="upload-image">
@@ -54,8 +56,11 @@ class EditLocationInfoModal extends Component {
                   type="text"
                   name="tagField"
                   placeholder="e.g. restaurant, independantly owned, brunch"
+                  defaultValue={location.tag_array ? location.tag_array.join(', ') : ''}
                   ref={input => this.tagField = input} />
-                <button type="submit">Save</button>
+                <button type="submit">{
+                    location.short_description || location.long_description || location.tag_array ? 'Update' : 'Save'
+                  }</button>
               </form>
          		</Modal.Body>
             <Modal.Footer></Modal.Footer>
