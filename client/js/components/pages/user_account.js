@@ -46,11 +46,9 @@ export class UserAccountPage extends React.Component {
 					<UserDetailsTable name={currentUser.first_name + " " + currentUser.last_name} username ={currentUser.username} email={currentUser.email} bio={currentUser.bio} />
 					<button className="edit-user-details accent-button" onClick={this.open.bind(this)}>Edit Account</button>
 				</div>
-				<div className="user-map-details">
-					<UserMaps />
-				</div>
-			<Footer />
-		</div>
+				<UserMaps />
+				<Footer />
+			</div>
 		)
 	}
 }

@@ -14,7 +14,7 @@
 
 .user-edit, .user-label {
 	padding: 4px;
-	font-size: 16px;
+	font-size: 14px;
 	text-align: left;   
 }
 
@@ -23,23 +23,21 @@
 }
 
 .table-responsive {
-   margin-left: 40px;
    margin-top: 10px; 
 }
  
 .account-settings-header {
 	font-weight: bold;
-	margin-left: 40px; 
 	margin-bottom: 25px; 
 }
 
 .edit-user-details {
-	margin: 0 0 15px 40px !important; 
+	margin: 0 0 15px 0px !important; 
 }
 
 .save-user-details-button {
 	width: 70%;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 .edit-user-details-modal-body {
@@ -53,14 +51,27 @@
 
 .user-account-details {
 	float: left; 
-	width: 50%; 
+	width: 40%; 
+	margin-left: 40px; 
 }
 
-.user-map-details {
+.user-maps-container {
 	float: right;
-	width: 35%; 
+	width: 40%; 
+	margin-right: 40px; 
+	display: flex; 
+	flex-direction: column; 
+}
+
+.maps-list-container {
+  padding-top: 10px;
 }
 
 .user-maps-header {
 	font-weight: bold; 
+	margin-top: 0px; 
+}
+
+.create-map-button {
+	margin: 20px 0 !important; 
 }
