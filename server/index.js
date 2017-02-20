@@ -32,23 +32,11 @@ const knex = require('knex')({
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
-passport.use(new Strategy(
-  function(token, callback) {
-    knex('user').where('token', token).then(() => {
-      if (!user) { return callback(null, false); }
-      return callback(null, user);
-    }).catch((err) => {
-      console.log(err);
-      return callback(err);
-    });
-  }
-));
-
 // save new map
 
 app.post('/map', (req, res) => {
   const content = req.body[0];
-  let location_id;
+  let location_id, tag_ids = [];
   // find location if exists — search for name, if name matches, check for (almost) identical lat_long
     // if exists, get location id
     // if not exists, add to locations DB and get location_id
@@ -61,8 +49,35 @@ app.post('/map', (req, res) => {
       location_id = location[0].id;
     }
   });
+  content.tag_array.map(tag => {
+
+  });
+  content.tag_array.map(tag => {
+    knex('tags').where('tag', tag).then(selected => {
+      if (selected[0]) {
+        tag_ids.push(selected[0].id);
+      }
+      console.log('array', tag_ids);
+    })
+    knex('tags').insert('tag', tag).returning(id => {
+      tag_ids.push(id);
+      console.log('more ids', tag_ids)
+    });
+  });
   return res.status(201);
 });
+
+passport.use(new Strategy(
+  function(token, callback) {
+    knex('user').where('token', token).then(() => {
+      if (!user) { return callback(null, false); }
+      return callback(null, user);
+    }).catch((err) => {
+      console.log(err);
+      return callback(err);
+    });
+  }
+));
 
 //sign in existing users
 
