@@ -23,7 +23,6 @@
 }
 
 .table-responsive {
-	 width: 40%;
    margin-left: 40px;
    margin-top: 10px; 
 }
@@ -50,4 +49,18 @@
 .edit-bio {
 	max-height: 120px; 
 	overflow: auto; 
+}
+
+.user-account-details {
+	float: left; 
+	width: 50%; 
+}
+
+.user-map-details {
+	float: right;
+	width: 35%; 
+}
+
+.user-maps-header {
+	font-weight: bold; 
 }
