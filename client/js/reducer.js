@@ -18,8 +18,8 @@ const state = (state = {
       if (elem.feature.properties.name === action.feature.properties.name) {
         return idx;
       }
-    });
-    let newLocations = state.selectedTags.slice(0, locationToUpdate).concat(state.selectedTags.slice(locationToUpdate + 1));
+    }).filter((result) => result !== undefined);
+    let newLocations = state.localsMapLocations.slice(0, locationToUpdate[0]).concat(state.localsMapLocations.slice(locationToUpdate[0] + 1));
     return state = Object.assign({}, state, {localsMapLocations: [...newLocations, { feature: action.feature,
       lat_long: action.lat_long,
       short_description: action.short,
@@ -33,8 +33,8 @@ const state = (state = {
       if (elem.feature.properties.name === action.location.feature.properties.name) {
         return idx;
       }
-    });
-    let newDeleteLocations = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteLocationAt + 1));
+    }).filter((result) => result !== undefined);
+    let newDeleteLocations = state.localsMapLocations.slice(0, deleteLocationAt[0]).concat(state.localsMapLocations.slice(deleteLocationAt[0] + 1));
     return state = Object.assign({}, state, {localsMapLocations: newDeleteLocations});
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
