@@ -22,12 +22,15 @@ export class UserAccountPage extends React.Component {
 		hashHistory.push('/');
 	}
 
+	routeToCreateMap () {
+		hashHistory.push('/')
+	}
+
 	openUpdateUserDetailsModal () {
 		this.props.dispatch(actionCreators.updateUserDetailsModal())
 	}
 
 	openUpdateProfilePictureModal () {
-		// alert('opening profile picture modal');
 		this.props.dispatch(actionCreators.updateProfilePictureModal())
 	}
 

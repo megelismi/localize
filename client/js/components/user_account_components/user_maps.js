@@ -1,8 +1,8 @@
 import React from 'react'; 
-import { Link } from 'react-router'
+import { Link, hashHistory } from 'react-router'
+ 
 
 const UserMaps = (props) => {
-
 	
 	return (
 		<div className="user-maps-container">
@@ -13,7 +13,7 @@ const UserMaps = (props) => {
 				</ul>
 			</div>
 			<div className="create-map-container">
-				<button className="accent-button create-map-button" onClick={props.routeToCreateMaps}>Create Map</button>
+				<button className="accent-button create-map-button" onClick={() => {hashHistory.push('/newmap')}}>Create Map</button>
 			</div>
 		</div>
 	)
