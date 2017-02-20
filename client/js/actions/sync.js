@@ -1,11 +1,16 @@
+export const UPDATE_LOCATION_IMAGE = 'UPDATE_LOCATION_IMAGE';
+export const updateLocationImage = image => ({
+  type: UPDATE_LOCATION_IMAGE,
+  image
+});
+
 export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
-export const updateLocationInLocalsMap = (feature, lat_long, short = null, long = null, image = null, tag_array = null) => ({
+export const updateLocationInLocalsMap = (feature, lat_long, short = null, long = null, tag_array = null) => ({
   type: UPDATE_LOCATION_IN_LOCALS_MAP,
   feature,
   lat_long,
   short,
   long,
-  image,
   tag_array
 });
 
@@ -16,19 +21,24 @@ export const deleteLocationFromLocalsMap = location => ({
 });
 
 export const SHOW_MODAL_FUNCTION = 'SHOW_MODAL_FUNCTION';
-export const showModalFunction = (boolean) => ({
+export const showModalFunction = boolean => ({
   type: SHOW_MODAL_FUNCTION,
   boolean
 });
 
+export const SHOW_UPLOAD_MODAL_FUNCTION = 'SHOW_UPLOAD_MODAL_FUNCTION';
+export const showUploadModalFunction = boolean => ({
+  type: SHOW_UPLOAD_MODAL_FUNCTION,
+  boolean
+});
+
 export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
-export const addLocationToLocalsMap = (feature, lat_long, short = null, long = null, image = null, tag_array = null) => ({
+export const addLocationToLocalsMap = (feature, lat_long, short = null, long = null, tag_array = null) => ({
   type: ADD_LOCATION_TO_LOCALS_MAP,
   feature,
   lat_long,
   short,
   long,
-  image,
   tag_array
 });
 

@@ -70,13 +70,10 @@
     "babel-polyfill": "^6.13.0",
     "babel-preset-es2015": "^6.13.1",
     "babel-preset-react": "^6.11.1",
-    "browserify": "^14.1.0",
     "browserify": {
-      "transform": [ "browserify-shim" ]
-    },
-    "browserify-shim": "^3.8.13",
-    "browserify-shim": {
-      "./js/vendor/jquery.js": "$", "three": "global:THREE"
+      "transform": [
+        "browserify-shim"
+      ]
     },
     "browserify-shim": {
       "tangram": "global:Tangram"
@@ -113,6 +110,7 @@
     "react-chartjs": "^0.8.0",
     "react-cookie": "^1.0.4",
     "react-dom": "^15.4.2",
+    "react-dropzone": "^3.10.0",
     "react-geosuggest": "^2.1.0",
     "react-leaflet": "^1.1.0",
     "react-modal-bootstrap": "^1.1.0",

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as syncActionCreators from '../../../actions/sync.js';
 import { Modal } from 'react-bootstrap';
 
 class EditLocationInfoModal extends Component {
 
   updateLocationInfo(e) {
     let tagArray = this.tagField.value.split(', ');
-    console.log(tagArray);
     e.preventDefault();
     this.props.showModalFunction(false);
     this.props.updateLocationInLocalsMap(
@@ -14,7 +14,6 @@ class EditLocationInfoModal extends Component {
       this.props.location.lat_long,
       this.shortDescription.value,
       this.longDescription.value,
-      null,
       tagArray
     );
   }
@@ -47,8 +46,10 @@ class EditLocationInfoModal extends Component {
                   defaultValue={location.long_description || ''}
                   ref={input => this.longDescription = input} />
                 <button
-                  className="upload-image">
-                  Upload an image
+                  type="button"
+                  className="upload-image"
+                  onClick={() => {this.props.showUploadModalFunction(true)}}>
+                  Upload photo
                 </button>
                 <h4 className="info-text">{'Enter tags, separated by commas.'}</h4>
                 <input
@@ -77,4 +78,4 @@ const mapStateToProps = (state) => ({
   showModal: state.showModal
 });
 
-export default connect(mapStateToProps)(EditLocationInfoModal);
+export default connect(mapStateToProps, syncActionCreators)(EditLocationInfoModal);

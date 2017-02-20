@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as syncActionCreators from '../../../actions/sync.js';
 import EditLocationInfoModal from '../modals/edit_location_info_modal';
+import UploadLocationPhotoModal from '../modals/upload_location_photo_modal';
 
 class SelectedResults extends Component {
   constructor() {
@@ -37,6 +38,10 @@ class SelectedResults extends Component {
             location={this.state.selected}
             updateLocationInLocalsMap={this.props.updateLocationInLocalsMap}
             showModalFunction={this.props.showModalFunction} />
+          <UploadLocationPhotoModal
+            location={this.state.selected}
+            updateLocationInLocalsMap={this.props.updateLocationInLocalsMap}
+            showUploadModalFunction={this.props.showUploadModalFunction} />
       </div>
     )
   }

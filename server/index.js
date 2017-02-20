@@ -57,7 +57,7 @@ app.post('/map', (req, res) => {
       console.log('saved_location_id', saved_location_id);
       return saved_location_id;
     })
-    .then(location => {
+    .then(() => {
       content.tag_array.forEach(user_tag => {
         knex('tags').insert({ tag: user_tag }).then(tag => {
           console.log('Success — tag saved.');
@@ -65,17 +65,19 @@ app.post('/map', (req, res) => {
           console.error('Tag not saved. This tag already exists.');
         });
       });
+      return null;
+    }).then(() => {
       content.tag_array.map(tag => {
         knex('tags').where('tag', tag).then(selected => {
-          console.log('selected', selected, 'location', location);
           knex('locations_users_tags').insert({
-            location_id: location,
+            location_id: saved_location_id,
             tag_id: selected[0].id,
             user_id: content.user_id
           }).then(() => console.log('Relation saved.'))
           .catch(error => console.error('Error saving relation: ', error))
-        })
+        });
       });
+      return null;
     });
   return res.status(201);
 });
