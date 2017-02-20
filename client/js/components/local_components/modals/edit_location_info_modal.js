@@ -4,15 +4,14 @@ import { Modal } from 'react-bootstrap';
 
 class EditLocationInfoModal extends Component {
 
-  addLocationToMap(location) {
-    this.props.addLocationToLocalsMap(
-      location.feature,
-      location.lat_long,
+  updateLocationInfo(e) {
+    e.preventDefault();
+    this.props.updateLocationInLocalsMap(
+      this.props.location.feature,
+      this.props.location.lat_long,
       this.shortDescription.value,
       this.longDescription.value
     );
-    this.shortDescription.value = '';
-    this.longDescription.value = '';
   }
 
   render() {
@@ -25,7 +24,7 @@ class EditLocationInfoModal extends Component {
             	<Modal.Title>{location.feature.properties.name}</Modal.Title>
           	</Modal.Header>
          		<Modal.Body>
-              <form onSubmit={() => {addLocationToMap(location)}}>
+              <form onSubmit={this.updateLocationInfo.bind(this)}>
                 <input
                   type="text"
                   name="shortDescription"

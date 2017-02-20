@@ -1,19 +1,19 @@
 import React from 'react';
-import * as post_actions from '../../actions/post_request.js'; 
+import * as post_actions from '../../actions/post_request.js';
 import * as actionCreators from '../../actions/sync.js';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
 class SignInForm extends React.Component {
 
 	constructor (props) {
-		super(props); 
+		super(props);
 	}
 
 	sendSignInInfo (event) {
-		event.preventDefault(); 
-		let user = { 
-			emailOrUsername: this.emailOrUsername.value, 
+		event.preventDefault();
+		let user = {
+			emailOrUsername: this.emailOrUsername.value,
 			password: this.password.value
 		}
 		this.props.dispatch(post_actions.signInUser(user));
@@ -24,8 +24,8 @@ class SignInForm extends React.Component {
 	}
 
 	render () {
-		let errorDisplay; 
-		const { signInUserError, signInModalOpen } = this.props;  
+		let errorDisplay;
+		const { signInUserError, signInModalOpen } = this.props;
 		if (signInUserError) {
 			errorDisplay = <div className="sign-up-error">{signInUserError}</div>
 		}
@@ -42,7 +42,7 @@ class SignInForm extends React.Component {
 		  		<input type="password" name="lastname" placeholder="Password" ref={element => this.password = element}/>
 		  		<br/><br/>
 		  		<input className="sign-in-button" type="submit" value="Sign In" />
-				</form> 
+				</form>
 				</Modal.Body>
     		<Modal.Footer>
 				{errorDisplay}
@@ -54,12 +54,8 @@ class SignInForm extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-	signInUserError: state.signInUserError, 
+	signInUserError: state.signInUserError,
 	signInModalOpen: state.signInModalOpen
 })
 
 export default connect(mapStateToProps)(SignInForm);
-
-
-
-	

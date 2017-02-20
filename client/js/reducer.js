@@ -15,12 +15,18 @@ const state = (state = {
 
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
     let locationToUpdate = state.localsMapLocations.map((elem, idx) => {
-      if (elem.feature.properties.name === action.location.feature.properties.name) {
+      if (elem.feature.properties.name === action.feature.properties.name) {
         return idx;
       }
     });
-    let newLocations = state.selectedTags.slice(0, deleteLocationAt).concat(state.selectedTags.slice(deleteAt + 1));
-    return state = Object.assign({}, state, {localsMapLocations: [...newLocations, action.location]});
+    let newLocations = state.selectedTags.slice(0, locationToUpdate).concat(state.selectedTags.slice(locationToUpdate + 1));
+    return state = Object.assign({}, state, {localsMapLocations: [...newLocations, { feature: action.feature,
+      lat_long: action.lat_long,
+      short_description: action.short,
+      long_description: action.long,
+      image: action.image
+    }] }
+  );
 
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
     let deleteLocationAt = state.localsMapLocations.map((elem, idx) => {

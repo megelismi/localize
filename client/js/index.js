@@ -13,7 +13,7 @@ import NewMapDisplay from './components/pages/new_map_display';
 const routes = (
   <Provider store={store}>
 		<Router history={hashHistory}>
-			<Route path = '/' component={MapDisplay} />
+			<Route path = '/' component={NewMapDisplay} />
 		</Router>
   </Provider>
 );

@@ -1,3 +1,13 @@
+export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
+export const updateLocationInLocalsMap = (feature, lat_long, short = null, long = null, image = null) => ({
+  type: UPDATE_LOCATION_IN_LOCALS_MAP,
+  feature,
+  lat_long,
+  short,
+  long,
+  image
+});
+
 export const DELETE_LOCATION_FROM_LOCALS_MAP = 'DELETE_LOCATION_FROM_LOCALS_MAP';
 export const deleteLocationFromLocalsMap = location => ({
   type: DELETE_LOCATION_FROM_LOCALS_MAP,

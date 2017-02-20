@@ -31,6 +31,7 @@ class SelectedResults extends Component {
           })}
           <EditLocationInfoModal
             location={this.state.selected}
+            updateLocationInLocalsMap={this.props.updateLocationInLocalsMap}
             showModalFunction={this.props.showModalFunction} />
       </div>
     )
