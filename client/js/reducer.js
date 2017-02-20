@@ -20,11 +20,14 @@ const state = (state = {
       }
     }).filter((result) => result !== undefined);
     let newLocations = state.localsMapLocations.slice(0, locationToUpdate[0]).concat(state.localsMapLocations.slice(locationToUpdate[0] + 1));
-    return state = Object.assign({}, state, {localsMapLocations: [...newLocations, { feature: action.feature,
+    return state = Object.assign({}, state, {localsMapLocations: [...newLocations, {
+      user_id: 3,
+      feature: action.feature,
       lat_long: action.lat_long,
       short_description: action.short,
       long_description: action.long,
-      image: action.image
+      image: action.image,
+      tag_array: action.tag_array
     }] }
   );
 
@@ -39,13 +42,15 @@ const state = (state = {
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return state = Object.assign({}, state,
-      { localsMapLocations: [ ...state.localsMapLocations,
-        { feature: action.feature,
-          lat_long: action.lat_long,
-          short_description: action.short,
-          long_description: action.long,
-          image: action.image
-        }] }
+      { localsMapLocations: [ ...state.localsMapLocations, {
+        user_id: 3,
+        feature: action.feature,
+        lat_long: action.lat_long,
+        short_description: action.short,
+        long_description: action.long,
+        image: action.image,
+        tag_array: action.tag_array
+      }] }
     );
 
     case sync_actions.SHOW_MODAL_FUNCTION:

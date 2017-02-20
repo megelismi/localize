@@ -5,12 +5,17 @@ import { Modal } from 'react-bootstrap';
 class EditLocationInfoModal extends Component {
 
   updateLocationInfo(e) {
+    let tagArray = this.tagField.value.split(', ');
+    console.log(tagArray);
     e.preventDefault();
+    this.props.showModalFunction(false);
     this.props.updateLocationInLocalsMap(
       this.props.location.feature,
       this.props.location.lat_long,
       this.shortDescription.value,
-      this.longDescription.value
+      this.longDescription.value,
+      null,
+      tagArray
     );
   }
 
@@ -25,16 +30,31 @@ class EditLocationInfoModal extends Component {
           	</Modal.Header>
          		<Modal.Body>
               <form onSubmit={this.updateLocationInfo.bind(this)}>
+                <h4 className="info-text">{'Describe this location in a few words.'}</h4>
                 <input
+                  className="short-description"
                   type="text"
                   name="shortDescription"
-                  placeholder="Brunch spot with amazing eggs benedict!"
+                  placeholder="e.g. Brunch spot with amazing eggs benedict!"
                   ref={input => this.shortDescription = input} />
+                <h4 className="info-text">{'Now, tell us more — what draws you to this place? When is the best time to go? What should someone see, try, or do at this place?'}</h4>
                 <textarea
+                  className="long-description"
                   type="text"
                   name="longDescription"
-                  placeholder="I've been going to this whole-in-the wall for Sunday brunch for years now — it never gets old. In the summer it's the best place in town for brunch, hands down, thanks to the fantastic patio out back. But their eggs benedict and Bloody Marys are fire no matter the season. Be forewared, it's a little pricey (think $20 entrees), but if you have the cash, it's worth it."
+                  placeholder="e.g. I've been going to this whole-in-the wall for Sunday brunch for years now — the eggs benedict and Bloody Marys are just too good to pass up. In the summer, ask to be seated in the fantastic patio out back. Be forewared, it's a little pricey (think $20 entrees), but if you have the cash, it's worth it."
                   ref={input => this.longDescription = input} />
+                <button
+                  className="upload-image">
+                  Upload an image
+                </button>
+                <h4 className="info-text">{'Enter tags, separated by commas.'}</h4>
+                <input
+                  className="tag-field"
+                  type="text"
+                  name="tagField"
+                  placeholder="e.g. restaurant, independantly owned, brunch"
+                  ref={input => this.tagField = input} />
                 <button type="submit">Save</button>
               </form>
          		</Modal.Body>

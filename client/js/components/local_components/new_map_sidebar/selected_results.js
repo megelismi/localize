@@ -17,11 +17,10 @@ class SelectedResults extends Component {
   render() {
     return (
       <div>
-        <h4>Selected locations</h4>
           {this.props.results.map((location, idx) => {
             return (
-              <ul key={idx}>
-                <li>
+              <ul className="location-listing" key={idx}>
+                <li className="location-text">
                   {location.feature.properties.name}
                   <i onClick={() => {this.editLocationInfo(location)}} className="fa fa-pencil" aria-hidden="true"></i>
                   <i onClick={() => {this.props.deleteLocationFromLocalsMap(location)}} className="fa fa-trash" aria-hidden="true"></i>

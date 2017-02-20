@@ -1,11 +1,12 @@
 export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
-export const updateLocationInLocalsMap = (feature, lat_long, short = null, long = null, image = null) => ({
+export const updateLocationInLocalsMap = (feature, lat_long, short = null, long = null, image = null, tag_array = null) => ({
   type: UPDATE_LOCATION_IN_LOCALS_MAP,
   feature,
   lat_long,
   short,
   long,
-  image
+  image,
+  tag_array
 });
 
 export const DELETE_LOCATION_FROM_LOCALS_MAP = 'DELETE_LOCATION_FROM_LOCALS_MAP';
@@ -21,13 +22,14 @@ export const showModalFunction = (boolean) => ({
 });
 
 export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
-export const addLocationToLocalsMap = (feature, lat_long, short = null, long = null, image = null) => ({
+export const addLocationToLocalsMap = (feature, lat_long, short = null, long = null, image = null, tag_array = null) => ({
   type: ADD_LOCATION_TO_LOCALS_MAP,
   feature,
   lat_long,
   short,
   long,
-  image
+  image,
+  tag_array
 });
 
 //////////////////////////////////////////////////////////////////////////

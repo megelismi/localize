@@ -7,6 +7,7 @@
 @import 'locals_details_display';
 @import 'signin';
 @import 'signup';
+@import 'edit_location_info_modal';
 
 @font-face {
     font-family: 'stokedregular';
@@ -14,7 +15,6 @@
          url('../assets/fonts/stoked-webfont.woff') format('woff');
     font-weight: normal;
     font-style: normal;
-
 }
 
 $base-font: 'Lato', sans-serif;
