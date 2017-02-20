@@ -6,6 +6,7 @@ import * as put_actions from '../../actions/put_request.js';
 import EditUserDetails from '../user_account_components/modals/edit_user_details'; 
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
+import ProfilePicture from '../user_account_components/profile_picture';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
 
@@ -41,11 +42,7 @@ export class UserAccountPage extends React.Component {
 			<div>
 				<Header />
 				{editDetails}
-				<div className="user-account-details">
-					<h4 className="account-settings-header">General Account Settings</h4>
-					<UserDetailsTable name={currentUser.first_name + " " + currentUser.last_name} username ={currentUser.username} email={currentUser.email} bio={currentUser.bio} />
-					<button className="edit-user-details accent-button" onClick={this.open.bind(this)}>Edit Account</button>
-				</div>
+				<UserDetailsTable name={currentUser.first_name + " " + currentUser.last_name} username ={currentUser.username} email={currentUser.email} bio={currentUser.bio} openEditModal={this.open.bind(this)} />
 				<UserMaps />
 				<Footer />
 			</div>
