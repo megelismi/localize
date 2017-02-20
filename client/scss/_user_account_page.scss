@@ -81,3 +81,25 @@
   margin-left: 40px;
   margin-bottom: 20px;
 }
+
+.user-profile-picture-modal {
+	width: 150px; 
+	margin-bottom: 20px;
+}
+
+.profile-picture-container {
+	width: 40%; 
+}
+
+.change-profile-picture-button {
+	margin: 0 0 0 40px !important; 
+}
+
+.FileUpload {
+  border: 1px solid $border-color;
+  border-radius: 2px;
+  width: 40%;
+  margin: 0 auto;
+  font-size: 16px;
+  padding: 10px;
+}

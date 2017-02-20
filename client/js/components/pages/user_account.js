@@ -31,6 +31,10 @@ export class UserAccountPage extends React.Component {
 		this.props.dispatch(actionCreators.updateProfilePictureModal())
 	}
 
+	onImageDrop () {
+		console.log('image dropped')
+	}
+
 	render () {
 		let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props; 
 		let editDetails, updatePicture; 
@@ -44,7 +48,6 @@ export class UserAccountPage extends React.Component {
 		}
 
 		if (updateProfilePictureModalOpen) {
-			console.log('got into conditional on user account page component')
 			updatePicture = <UpdateProfilePicture />
 		}
 
@@ -53,7 +56,7 @@ export class UserAccountPage extends React.Component {
 				<Header />
 				{editDetails}
 				{updatePicture}
-				<ProfilePicture image={currentUser.image} updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)}/>
+				<ProfilePicture image={currentUser.image} updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)} onImageDrop={this.onImageDrop.bind(this)}/>
 				<UserDetailsTable name={currentUser.first_name + " " + currentUser.last_name} username ={currentUser.username} email={currentUser.email} bio={currentUser.bio} openUpdateUserDetailsModal={this.openUpdateUserDetailsModal.bind(this)} />
 				<UserMaps />
 				<Footer />
