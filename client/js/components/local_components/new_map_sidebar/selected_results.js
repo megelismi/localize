@@ -15,7 +15,6 @@ class SelectedResults extends Component {
   }
 
   render() {
-
     return (
       <div>
           {this.props.results.map((location, idx) => {

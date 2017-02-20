@@ -5,10 +5,18 @@ import SaveMap from './save_map';
 
 const NewMapSidebar = (props) => {
 
+  let saveable = props.localsMapLocations.filter((location) => {
+    return (
+      location.short_description &&
+      location.long_description &&
+      location.tag_array
+    )
+  });
+
   return (
     <div className="sidebar">
       <SelectedResults results={props.localsMapLocations} />
-      <SaveMap localsMapLocations={props.localsMapLocations} />
+      <SaveMap localsMapLocations={props.localsMapLocations} saveable={saveable} />
     </div>
   )
 }
