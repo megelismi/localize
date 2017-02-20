@@ -1,49 +1,53 @@
 .account-details-container {
-	display: flex; 
-	width: 40%; 
+	display: flex;
+	justify-content: space-between;  
+	width: 100%; 
 	margin: 15px; 
 }
 
-.user-edit, .user-edit-active { 
+.user-edit { 
 	border: 1px solid $border-color;
 	border-radius: 2px; 
-	width: 50%;
+	width: 60%;
+	margin-right: 75px; 
 }
 
-.user-edit-active {
-	border: 1px solid $accent-color !important; 
-}
-
-.user-edit, .user-label, .user-edit-active {
+.user-edit, .user-label {
 	padding: 4px;
-	font-size: 14px;  
+	font-size: 16px;
+	text-align: left;   
 }
 
 .user-label {
-	margin-left: 45px; 
 	font-weight: bold; 
-	width: 95px;
-  margin-right: 20px; 	
 }
 
-.fa-pencil {
-	margin: 5px; 
+.table-responsive {
+	 width: 40%;
+   margin-left: 40px;
+   margin-top: 10px; 
+}
+ 
+.account-settings-header {
+	font-weight: bold;
+	margin-left: 40px; 
+	margin-bottom: 25px; 
 }
 
-.edit-account-details-button {
-	background-color: white; 
-	border: none; 
-	width: 75px; 
-	margin-left: 10px; 
-	&:hover {
-		color: gray; 
-		// &:before {
-		// 	content: 'Edit';
-		// 	font-size: 12px; 
-		// }
-	}
+.edit-user-details {
+	margin: 0 0 15px 40px !important; 
 }
 
-// #actively-editing-first, #actively-editing-last {
-// 	border: 1px solid $accent-color !important; 
-// }
+.save-user-details-button {
+	width: 70%;
+  font-size: 16px;
+}
+
+.edit-user-details-modal-body {
+	margin-left: 30px !important; 
+}
+
+.edit-bio {
+	max-height: 120px; 
+	overflow: auto; 
+}

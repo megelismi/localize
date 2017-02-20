@@ -46,30 +46,30 @@ class EditUserDetails extends React.Component {
     	<Modal.Header closeButton>
       	<Modal.Title>Edit Account</Modal.Title>
     	</Modal.Header>
-   		<Modal.Body>
+   		<Modal.Body className="edit-user-details-modal-body">
 				<div className="account-details-container">
-					<div className="user-label first-name-label">First name:</div>
-					<div className="user-edit edit-first-name" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.first_name = element}>{currentUser.first_name}</div>
+					<div className="user-label">First Name</div>
+					<div className="user-edit" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.first_name = element}>{currentUser.first_name}</div>
 				</div>
 				<div className="account-details-container">
-					<div className="user-label last-name-label">Last name:</div>
-					<div className="user-edit edit-last-name" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.last_name = element}>{currentUser.last_name}</div>
+					<div className="user-label">Last Name</div>
+					<div className="user-edit" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.last_name = element}>{currentUser.last_name}</div>
 				</div>
 				<div className="account-details-container">
-					<div className="user-label username-label">Username:</div>
-					<div className="user-edit edit-username" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.username = element}>{currentUser.username}</div>
+					<div className="user-label">Username</div>
+					<div className="user-edit" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.username = element}>{currentUser.username}</div>
 				</div>
 				<div className="account-details-container">
-					<div className="user-label email-label">Email:</div>
-					<div className="user-edit edit-email" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.email = element}>{currentUser.email}</div>
+					<div className="user-label">Email</div>
+					<div className="user-edit" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.email = element}>{currentUser.email}</div>
 				</div>
 				<div className="account-details-container">
-					<div className="user-label bio-label">Bio:</div>
+					<div className="user-label">Bio</div>
 					<div className="user-edit edit-bio" contentEditable={true} suppressContentEditableWarning={true} ref={element => this.bio = element}>{currentUser.bio}</div>
 				</div>
 			</Modal.Body>
     	<Modal.Footer>
-			<button onClick={this.saveAndSendDetails.bind(this)}>Save</button>
+			<button className="accent-button save-user-details-button" onClick={this.saveAndSendDetails.bind(this)}>Save</button>
 			</Modal.Footer>
   		</Modal>
 		)
