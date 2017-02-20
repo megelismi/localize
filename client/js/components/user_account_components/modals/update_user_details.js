@@ -5,7 +5,7 @@ import * as actionCreators from '../../../actions/sync.js';
 import {connect} from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
-class EditUserDetails extends React.Component {
+class UpdateUserDetails extends React.Component {
 
 	constructor (props) {
 		super(props); 
@@ -16,8 +16,8 @@ class EditUserDetails extends React.Component {
 		console.log('sending'); 
 	}
 
-	close () {
-		this.props.dispatch(actionCreators.editUserDetailsModal())
+	closeModal () {
+		this.props.dispatch(actionCreators.updateUserDetailsModal())
 	}
 
 	saveAndSendDetails () {
@@ -34,15 +34,15 @@ class EditUserDetails extends React.Component {
 		let id = this.props.currentUser.id; 
 
 		this.props.dispatch(put_actions.updateUserDetails(token, updatedUserDetails, id));
-		this.props.dispatch(actionCreators.editUserDetailsModal());
+		this.props.dispatch(actionCreators.updateUserDetailsModal());
 	}
 
 	render () {
 
-		const { editUserDetailsModalOpen, currentUser } = this.props; 
+		const { updateUserDetailsModalOpen, currentUser } = this.props; 
 	
 		return (
-			<Modal show={editUserDetailsModalOpen} onHide={this.close.bind(this)}>
+			<Modal show={updateUserDetailsModalOpen} onHide={this.closeModal.bind(this)}>
     	<Modal.Header closeButton>
       	<Modal.Title>Edit Account</Modal.Title>
     	</Modal.Header>
@@ -78,8 +78,8 @@ class EditUserDetails extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	editUserDetailsModalOpen: state.editUserDetailsModalOpen, 
+	updateUserDetailsModalOpen: state.updateUserDetailsModalOpen, 
 	currentUser: state.currentUser
 })
 
-export default connect(mapStateToProps)(EditUserDetails);
+export default connect(mapStateToProps)(UpdateUserDetails);

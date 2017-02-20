@@ -72,9 +72,14 @@ export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
 
-export const EDIT_USER_DETAILS_MODAL = 'EDIT_USER_DETAILS_MODAL'; 
-export const editUserDetailsModal = () => ({
-  type: EDIT_USER_DETAILS_MODAL
+export const UPDATE_USER_DETAILS_MODAL = 'UPDATE_USER_DETAILS_MODAL'; 
+export const updateUserDetailsModal = () => ({
+  type: UPDATE_USER_DETAILS_MODAL
+});
+
+export const UPDATE_PROFILE_PICTURE_MODAL = 'UPDATE_PROFILE_PICTURE_MODAL';
+export const updateProfilePictureModal = () => ({
+  type: UPDATE_PROFILE_PICTURE_MODAL
 });
 
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {

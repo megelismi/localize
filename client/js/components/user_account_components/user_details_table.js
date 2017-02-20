@@ -26,7 +26,7 @@ import { Table } from 'react-bootstrap';
 		      </tr>
 		    </tbody>
 		  </Table>
-		 	<button className="edit-user-details accent-button" onClick={props.openEditModal}>Edit Account</button>
+		 	<button className="edit-user-details accent-button" onClick={props.openUpdateUserDetailsModal}>Edit Account</button>
 		</div>
 	)
 }

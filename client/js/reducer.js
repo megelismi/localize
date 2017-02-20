@@ -11,7 +11,8 @@ const state = (state = {
   localsMapLocations: [],
   signUpModalOpen: false,
   signInModalOpen: false, 
-  editUserDetailsModalOpen: false
+  updateUserDetailsModalOpen: false,
+  updateProfilePictureModalOpen: false
   }, action) => {
   switch (action.type) {
 
@@ -156,9 +157,14 @@ const state = (state = {
         signInModalOpen: !state.signInModalOpen
       });
 
-    case sync_actions.EDIT_USER_DETAILS_MODAL:
+    case sync_actions.UPDATE_USER_DETAILS_MODAL:
       return Object.assign({}, state, {
-        editUserDetailsModalOpen: !state.editUserDetailsModalOpen
+        updateUserDetailsModalOpen: !state.updateUserDetailsModalOpen
+      });
+
+    case sync_actions.UPDATE_PROFILE_PICTURE_MODAL: 
+      return Object.assign({}, state, {
+        updateProfilePictureModalOpen: !state.updateProfilePictureModalOpen
       });
 
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:

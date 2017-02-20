@@ -4,6 +4,7 @@ const ProfilePicture = (props) => {
 	return (
 		<div>
 			<img className="user-profile-picture" src={props.image} />
+			<button className="change-profile-picture-button accent-button" onClick={props.updateProfilePicture}>Update Picture</button>
 		</div>
 	)
 }

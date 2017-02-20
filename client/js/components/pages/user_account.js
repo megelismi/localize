@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router'; 
 import * as actionCreators from '../../actions/sync.js';
 import * as put_actions from '../../actions/put_request.js'; 
-import EditUserDetails from '../user_account_components/modals/edit_user_details'; 
+import UpdateUserDetails from '../user_account_components/modals/update_user_details'; 
+import UpdateProfilePicture from '../user_account_components/modals/update_profile_picture';
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
 import ProfilePicture from '../user_account_components/profile_picture';
@@ -21,28 +22,39 @@ export class UserAccountPage extends React.Component {
 		hashHistory.push('/');
 	}
 
-	open () {
-		this.props.dispatch(actionCreators.editUserDetailsModal())
+	openUpdateUserDetailsModal () {
+		this.props.dispatch(actionCreators.updateUserDetailsModal())
+	}
+
+	openUpdateProfilePictureModal () {
+		// alert('opening profile picture modal');
+		this.props.dispatch(actionCreators.updateProfilePictureModal())
 	}
 
 	render () {
-		console.log('state', this.state)
-		let { currentUser, editUserDetailsModalOpen } = this.props; 
-		let editDetails; 
+		let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props; 
+		let editDetails, updatePicture; 
 
 		if (!currentUser) {
 			this.routeToHomePage(); 
 		}
 
-		if (editUserDetailsModalOpen) {
-			editDetails = <EditUserDetails />
+		if (updateUserDetailsModalOpen) {
+			editDetails = <UpdateUserDetails />
+		}
+
+		if (updateProfilePictureModalOpen) {
+			console.log('got into conditional on user account page component')
+			updatePicture = <UpdateProfilePicture />
 		}
 
 		return (
 			<div>
 				<Header />
 				{editDetails}
-				<UserDetailsTable name={currentUser.first_name + " " + currentUser.last_name} username ={currentUser.username} email={currentUser.email} bio={currentUser.bio} openEditModal={this.open.bind(this)} />
+				{updatePicture}
+				<ProfilePicture image={currentUser.image} updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)}/>
+				<UserDetailsTable name={currentUser.first_name + " " + currentUser.last_name} username ={currentUser.username} email={currentUser.email} bio={currentUser.bio} openUpdateUserDetailsModal={this.openUpdateUserDetailsModal.bind(this)} />
 				<UserMaps />
 				<Footer />
 			</div>
@@ -50,10 +62,10 @@ export class UserAccountPage extends React.Component {
 	}
 }
 
-
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
-	editUserDetailsModalOpen: state.editUserDetailsModalOpen
+	updateUserDetailsModalOpen: state.updateUserDetailsModalOpen, 
+	updateProfilePictureModalOpen: state.updateProfilePictureModalOpen
 })
 
 export default connect(mapStateToProps)(UserAccountPage);
