@@ -1,6 +1,6 @@
 import * as put_result from './put_result.js';
 
-export const updateUserDetail = (token, detail, userId) => dispatch => {
+export const updateUserDetails = (token, detail, userId) => dispatch => {
   return fetch (`/account/${userId}/update`, {
     method: 'put', 
     headers: {
@@ -13,9 +13,9 @@ export const updateUserDetail = (token, detail, userId) => dispatch => {
       throw new Error (response.statusText)
     }
     return res.json(); 
-  }).then(res => {dispatch(put_result.updateUserDetailSuccess(res))
+  }).then(res => {dispatch(put_result.updateUserDetailsSuccess(res))
   }).catch(err => {
-    dispatch(put_result.updateUserDetailError(err))
+    dispatch(put_result.updateUserDetailsError(err))
   });
 }
 

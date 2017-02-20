@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router'; 
 import * as actionCreators from '../../actions/sync.js';
 import * as put_actions from '../../actions/put_request.js'; 
-import EditUserDetails from '../modals/edit_user_details'; 
+import EditUserDetails from '../user_account_components/modals/edit_user_details'; 
 
 export class UserAccountPage extends React.Component {
 

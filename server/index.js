@@ -129,7 +129,8 @@ app.post('/logout', passport.authenticate('bearer', { session: false }), (req, r
 //update user account info
 
 app.put('/account/:userId/update', passport.authenticate('bearer', {session: false}), (req, res) => {
-  let { userId } = req.params; 
+  let { userId } = req.params;
+  console.log('req body', req.body) 
 
   knex('users').where('id', userId)
   .update(req.body)
@@ -153,19 +154,6 @@ app.put('/account/:userId/update', passport.authenticate('bearer', {session: fal
     return res.status(500).json({err}); 
   })
 }); 
-
-// app.put('/db-entries', (req, res) => {
-//   knex('entries').where({id: req.body.id})
-//   .update({
-//     text: req.body.text,
-//     mood: req.body.mood
-//   }).into('entries').then(() => {
-//     return res.status(201).json({})
-//   }).catch(e => {
-//     console.error(e);
-//     res.sendStatus(500);
-//   })
-// });
 
 // get all locations
 
@@ -204,11 +192,11 @@ app.get('/tags', (req, res) => {
 
 // get all data from location_tags
 
-  app.get('/locations/tags', (req,res) => {
-    knex('locations_users_tags').then((location_user_tags) => {
-        return res.status(200).json(location_user_tags);
-    });
+app.get('/locations/tags', (req,res) => {
+  knex('locations_users_tags').then((location_user_tags) => {
+      return res.status(200).json(location_user_tags);
   });
+});
 
 // get all locations with that tag
 

@@ -15,15 +15,15 @@ const state = (state = {
   }, action) => {
   switch (action.type) {
 
-    case put_actions.UPDATE_USER_DETAIL_SUCCESS: 
+    case put_actions.UPDATE_USER_DETAILS_SUCCESS: 
     Object.assign({}, state, {
       currentUser: action.user,
-      updateUserDetailError: false
+      updateUserDetailsError: false
     }); 
 
-    case put_actions.UPDATE_USER_DETAIL_ERROR: 
+    case put_actions.UPDATE_USER_DETAILS_ERROR: 
     Object.assign({}, state, {
-      updateUserDetailError: true
+      updateUserDetailsError: true
     })
 
     case post_actions.CREATE_NEW_USER_SUCCESS:
