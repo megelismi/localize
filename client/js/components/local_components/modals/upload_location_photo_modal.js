@@ -15,7 +15,7 @@ class UploadLocationPhotoModal extends Component {
       <div>
         <Modal show={this.props.showUploadModal} onHide={() => {this.props.showUploadModalFunction(false)}}>
           <Modal.Header closeButton>
-          	<Modal.Title>Hello I am another modal WHAT IT DOOOOO</Modal.Title>
+          	<Modal.Title>Upload image</Modal.Title>
         	</Modal.Header>
        		<Modal.Body>
             <div className="FileUpload">
