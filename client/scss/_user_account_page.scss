@@ -5,7 +5,6 @@
 .user-edit { 
 	border: 1px solid $border-color;
 	border-radius: 2px; 
-	// margin-right: 75px; 
 }
 
 .user-edit, .user-label {
@@ -33,10 +32,6 @@
   font-size: 18px;
 }
 
-// .edit-user-details-modal-body {
-// 	margin-left: 30px !important; 
-// }
-
 .edit-bio {
 	max-height: 120px; 
 	overflow: auto; 
@@ -45,7 +40,6 @@
 .user-account-details {
   border-radius: 2px;
   padding: 15px; 
-  // background-color: lightgreen; 
 }
 
 .user-maps-container {
@@ -56,16 +50,23 @@
 
 .maps-list-container {
   padding-top: 10px;
+  ul {
+  	text-align: center; 
+  	margin-top: 10px; 
+  	font-size: 16px;
+  	li {
+  		a {
+  			color: $darkpurple;
+  			&:hover {
+  				color: $purple;
+  			}
+  		}
+  	}
+  }
 }
 
-.user-maps-header {
-	font-weight: bold; 
-	margin-top: 0px; 
-	font-size: 24px; 
-}
 
 .create-map-button {
-	margin: 20px 0 !important; 
 	width: 200px;
   height: 40px;
   font-size: 16px; 
@@ -107,20 +108,78 @@
   padding: 10px;
 }
 
-.user-central-info {
-	// background-color: lightpink;
+.user-table-label {
+	font-weight: bold; 
 }
 
-.user-details-table {
-	display: flex; 
-	flex-direction: column; 
-}
-
-.general-user-account-container {
+.general-user-account-container, .my-maps-header-container {
 	margin: 0 auto; 
 	text-align: center;
 	border-bottom: 1px solid $border-color;
 	h4 {
 		margin-top: 0px; 
+		font-weight: bold;
 	}
 }
+
+.create-map-container {
+	width: 100%;
+  padding: 0 15px 15px 15px;
+}
+
+
+@media screen and (min-width: 768px) {
+
+	.save-user-details-button {
+		width: 60%;
+	}
+
+	.image-upload-container {
+		width: 40%; 
+	}
+
+	.edit-user-details-body {
+		padding: 0 60px; 
+	}
+
+	.save-user-details-button {
+		width: 80%;
+	}
+
+	.profile-picture-container {
+		padding: 15px 0;
+	}
+
+	.create-map-button {
+		width: 375px;
+    font-size: 20px;
+	}
+
+	.user-central-info {
+		margin: 0 100px; 
+	}
+
+	.maps-list-container {
+		padding: 15px; 
+	}
+
+}
+
+
+@media screen and (min-width: 1200px) {
+	.user-central-info {
+		margin: 0 300px; 
+	}
+
+	.save-user-details-button {
+		width: 70%;
+	}
+
+	.user-edit, .user-label {
+		width: 70%; 
+		margin: 0 auto; 
+	}
+
+}
+
+

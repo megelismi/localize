@@ -11,7 +11,7 @@ import { Table } from 'react-bootstrap';
 				<button className="change-profile-picture-button" onClick={props.updateProfilePicture}>Update Picture</button>
 			</div>
 			<div className="user-details-table">
-			 	<Table responsive>
+			 	<Table>
 			    <tbody>
 			      <tr>
 			        <td className="user-table-label">Name</td>
