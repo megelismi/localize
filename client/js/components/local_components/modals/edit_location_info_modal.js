@@ -10,7 +10,7 @@ class EditLocationInfoModal extends Component {
     e.preventDefault();
     this.props.showModalFunction(false);
     this.props.updateLocationInLocalsMap(
-      this.props.currentUser.id,
+      3,
       this.props.location.feature,
       this.props.location.lat_long,
       this.shortDescription.value,

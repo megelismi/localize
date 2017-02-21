@@ -4,10 +4,6 @@ import * as postActionCreators from '../../../actions/post_request.js';
 
 const SaveMap = (props) => {
 
-  console.log('props.localsMapLocations.length', props.localsMapLocations.length);
-  console.log('props.localsMapLocations.length > props.saveable.length', props.localsMapLocations.length > props.saveable.length);
-  console.log('saveable', props.saveable)
-
   if (props.localsMapLocations.length === 0 || props.localsMapLocations.length > props.saveable.length) {
     return (
       <div>

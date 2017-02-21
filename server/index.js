@@ -48,26 +48,28 @@ app.post('/map', (req, res) => {
           name: feature.properties.name,
           address: null,
           lat_long: [lat_long.lat, lat_long.lng]
-        }).returning('id').then(id => {
+        }).returning('id')
+        .then(id => {
           console.log('New location saved with id ', id);
-          return saved_location_id = id;
-        }).catch(() => console.log('Error saving new location.'))
+          return saved_location_id = id[0];
+        })
+        .catch(() => console.log('Error saving new location.'))
       } else {
         console.log('Location found.')
         return saved_location_id = location[0].id;
       }
-      console.log('saved_location_id', saved_location_id);
-      return saved_location_id;
     })
-    .then(_location_id => {
+    .then(() => {
+      console.log('SAVED LOCATION ID', saved_location_id);
       knex('reviews').insert({
         user_id: content.user_id,
-        location_id: _location_id,
+        location_id: saved_location_id,
         short_description: content.short_description,
         long_description: content.long_description,
         image: content.image
-      }).then(() => console.log('Review saved.')).catch(() => console.error('Error saving review.'));
-      return _location_id;
+      })
+      .then(() => console.log('Review saved.'))
+      .catch(() => console.error('Error saving review.'));
     })
     .then(() => {
       content.tag_array.forEach(user_tag => {
@@ -85,7 +87,8 @@ app.post('/map', (req, res) => {
             location_id: saved_location_id,
             tag_id: selected[0].id,
             user_id: content.user_id
-          }).then(() => console.log('Relation saved.'))
+          })
+          .then(() => console.log('Relation saved.'))
           .catch(error => console.error('Error saving relation: ', error))
         });
       });
