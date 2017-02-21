@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import * as actionCreators from '../../actions/sync.js';
 import * as put_actions from '../../actions/put_request.js';
+import * as getActionCreators from '../../actions/get_request.js';
 import UpdateUserDetails from '../user_account_components/modals/update_user_details';
 import UpdateProfilePicture from '../user_account_components/modals/update_profile_picture';
 import UserDetailsTable from '../user_account_components/user_details_table';
@@ -17,6 +18,12 @@ export class UserAccountPage extends React.Component {
 		super (props)
 		this.state = {}
 	}
+
+  componentDidMount() {
+    this.props.dispatch(getActionCreators.getLocationTags());
+    this.props.dispatch(getActionCreators.getUsers());
+    this.props.dispatch(getActionCreators.getLocationsAndDescriptions());
+  }
 
 	routeToHomePage () {
 		hashHistory.push('/');
