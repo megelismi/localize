@@ -18,4 +18,3 @@ export const updateUserDetails = (token, detail, userId) => dispatch => {
     dispatch(put_result.updateUserDetailsError(err))
   });
 }
-
