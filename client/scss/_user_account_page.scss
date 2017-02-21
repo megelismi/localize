@@ -1,0 +1,105 @@
+.account-details-container {
+	display: flex;
+	justify-content: space-between;  
+	width: 100%; 
+	margin: 15px; 
+}
+
+.user-edit { 
+	border: 1px solid $border-color;
+	border-radius: 2px; 
+	width: 60%;
+	margin-right: 75px; 
+}
+
+.user-edit, .user-label {
+	padding: 4px;
+	font-size: 14px;
+	text-align: left;   
+}
+
+.user-label {
+	font-weight: bold; 
+}
+
+.table-responsive {
+   margin-top: 10px; 
+}
+ 
+.account-settings-header {
+	font-weight: bold;
+	margin-bottom: 25px; 
+}
+
+.edit-user-details {
+	margin: 0 0 15px 0px !important; 
+}
+
+.save-user-details-button {
+	width: 70%;
+  font-size: 18px;
+}
+
+.edit-user-details-modal-body {
+	margin-left: 30px !important; 
+}
+
+.edit-bio {
+	max-height: 120px; 
+	overflow: auto; 
+}
+
+.user-account-details {
+	float: left; 
+	width: 40%; 
+	margin-left: 40px; 
+}
+
+.user-maps-container {
+	float: right;
+	width: 40%; 
+	margin-right: 40px; 
+	display: flex; 
+	flex-direction: column; 
+}
+
+.maps-list-container {
+  padding-top: 10px;
+}
+
+.user-maps-header {
+	font-weight: bold; 
+	margin-top: 0px; 
+}
+
+.create-map-button {
+	margin: 20px 0 !important; 
+}
+
+.user-profile-picture {
+	width: 150px;
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+
+.user-profile-picture-modal {
+	width: 150px; 
+	margin-bottom: 20px;
+}
+
+.profile-picture-container {
+	width: 40%; 
+}
+
+.change-profile-picture-button {
+	margin: 0 0 0 40px !important; 
+}
+
+.image-upload-container {
+  border: 1px solid $border-color;
+  border-radius: 2px;
+  width: 40%;
+  margin: 0 auto;
+  font-size: 16px;
+  padding: 10px;
+}

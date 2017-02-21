@@ -18,4 +18,5 @@ class NewMapDisplay extends React.Component {
   }
 }
 
+//
 export default NewMapDisplay;

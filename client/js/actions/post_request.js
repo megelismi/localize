@@ -1,5 +1,24 @@
 import * as post_result from './post_result.js';
 
+export const saveMap = (localsMapLocations) => dispatch => {
+  console.log(localsMapLocations);
+  return fetch('/map', {
+    method: 'post',
+    headers: {
+      'Content-type': "application/json; charset=utf-8"
+    },
+    body: JSON.stringify(localsMapLocations)
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+  }).then(res => {
+    console.log('Success');
+  }).catch(err => {
+    console.log('Error');
+  });
+}
+
 export const createNewUser = user => {
 	return dispatch => {
 		const url = "/signup"
@@ -26,10 +45,10 @@ export const signInUser = (emailOrUsername, password) => {
 	return dispatch => {
 		const url ="/signin"
   return fetch(url, {
-    method: 'post', 
+    method: 'post',
     headers: {
       'Content-type': "application/json; charset=utf-8"
-    }, 
+    },
     body: JSON.stringify(emailOrUsername, password)
     })
   	.then(response => {
@@ -44,4 +63,17 @@ export const signInUser = (emailOrUsername, password) => {
 	}
 }
 
-//   "Authorization": `Bearer ${token}`
+export const logOut = (token) => dispatch => {
+  return fetch ('/logout', {
+    method: 'post', 
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error (res.statusText)
+    }
+  }).then(() => {
+    dispatch(post_result.logOutSuccess())
+  }).catch(error => {console.log(error)});
+}

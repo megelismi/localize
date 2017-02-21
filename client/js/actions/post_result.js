@@ -21,3 +21,14 @@ export const signInUserError = error => ({
   type: SIGN_IN_USER_ERROR,
   error
 });
+
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS'; 
+export const logOutSuccess = () => ({
+	type: LOG_OUT_SUCCESS
+});
+
+export const LOG_OUT_ERROR = 'LOG_OUT_ERROR'; 
+export const logOutError = error => ({
+	type: LOG_OUT_ERROR, 
+	error 
+});

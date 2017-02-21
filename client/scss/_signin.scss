@@ -13,3 +13,12 @@
 	}
 }
 
+.signin-form {
+	input {
+		border-radius: 2px; 
+		border: 1px solid $border-color; 
+		padding: 5px; 
+		width: 75%; 
+		font-size: 18px; 
+	}
+}

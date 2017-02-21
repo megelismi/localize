@@ -7,7 +7,7 @@ import 'leaflet-geocoder-mapzen';
 import Geocoder from 'react-select-geocoder'
 import Tile from './new_tile_layer';
 import MarkerLayer from './new_marker_layer';
-import PlacesSearch from './places_search';
+import PlacesSearch from './places_search'
 L.Icon.Default.imagePath = '../assets/images/';
 
 class CreateMap extends React.Component {
@@ -22,7 +22,7 @@ class CreateMap extends React.Component {
           <Map className="display-map" center={city} zoom={14}>
             <PlacesSearch />
             <Tile />
-            <MarkerLayer locationInfo={this.props.localsMapLocations}/>
+            <MarkerLayer selectedResults={this.props.localsMapLocations}/>
           </Map>
       </div>
     );

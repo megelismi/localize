@@ -1,18 +1,45 @@
+export const UPDATE_LOCATION_IMAGE = 'UPDATE_LOCATION_IMAGE';
+export const updateLocationImage = image => ({
+  type: UPDATE_LOCATION_IMAGE,
+  image
+});
+
+export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
+export const updateLocationInLocalsMap = (feature, lat_long, short = null, long = null, tag_array = null) => ({
+  type: UPDATE_LOCATION_IN_LOCALS_MAP,
+  feature,
+  lat_long,
+  short,
+  long,
+  tag_array
+});
+
+export const DELETE_LOCATION_FROM_LOCALS_MAP = 'DELETE_LOCATION_FROM_LOCALS_MAP';
+export const deleteLocationFromLocalsMap = location => ({
+  type: DELETE_LOCATION_FROM_LOCALS_MAP,
+  location
+});
+
+export const SHOW_MODAL_FUNCTION = 'SHOW_MODAL_FUNCTION';
+export const showModalFunction = boolean => ({
+  type: SHOW_MODAL_FUNCTION,
+  boolean
+});
+
+export const SHOW_UPLOAD_MODAL_FUNCTION = 'SHOW_UPLOAD_MODAL_FUNCTION';
+export const showUploadModalFunction = boolean => ({
+  type: SHOW_UPLOAD_MODAL_FUNCTION,
+  boolean
+});
+
 export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
-export const addLocationToLocalsMap = (feature, lat_long, short, long, image = null) => ({
+export const addLocationToLocalsMap = (feature, lat_long, short = null, long = null, tag_array = null) => ({
   type: ADD_LOCATION_TO_LOCALS_MAP,
   feature,
   lat_long,
   short,
   long,
-  image
-});
-
-export const GET_SEARCH_RESULTS = 'GET_SEARCH_RESULTS';
-export const getSearchResults = (feature, lat_long) => ({
-  type: GET_SEARCH_RESULTS,
-  feature,
-  lat_long
+  tag_array
 });
 
 //////////////////////////////////////////////////////////////////////////
@@ -67,9 +94,19 @@ export const signUpModal = () => ({
   type: SIGN_UP_MODAL
 });
 
-export const SIGN_IN_MODAL = 'SIGN_IN_MODAL'; 
+export const SIGN_IN_MODAL = 'SIGN_IN_MODAL';
 export const signInModal = () => ({
   type: SIGN_IN_MODAL
+});
+
+export const UPDATE_USER_DETAILS_MODAL = 'UPDATE_USER_DETAILS_MODAL'; 
+export const updateUserDetailsModal = () => ({
+  type: UPDATE_USER_DETAILS_MODAL
+});
+
+export const UPDATE_PROFILE_PICTURE_MODAL = 'UPDATE_PROFILE_PICTURE_MODAL';
+export const updateProfilePictureModal = () => ({
+  type: UPDATE_PROFILE_PICTURE_MODAL
 });
 
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
