@@ -19,6 +19,20 @@ export const getUsers = () => dispatch => {
   });
 }
 
+export const getOneUser = () => dispatch => {
+  return fetch('/users/' + id)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    return res.json();
+  }).then(res => {
+    dispatch(get_result.getOneUserSuccess(res))
+  }).catch(err => {
+    dispatch(get_result.getOneUserError(err))
+  });
+}
+
 // move to server
 export const getLocationsAndDescriptions = () => dispatch => {
   return fetch('/locations')
