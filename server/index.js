@@ -30,6 +30,31 @@ const knex = require('knex')({
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
+//keep users logged in 
+
+app.get('/find/cookie/:token', (req, res) => {
+  let { token } = req.params; 
+  knex('users')
+    .where('token', token)
+    .then (user => {
+      if (!user[0]) {
+        res.status(404).json({message: "User not found"})
+      } else {
+        const { first_name, last_name, id, bio, image, username, token, email } = user[0];
+          return res.status(200).json({
+            first_name, 
+            last_name, 
+            id, 
+            bio, 
+            image, 
+            username,
+            token, 
+            email
+        });
+      }
+    })
+})
+
 // save new map
 
 app.post('/map', (req, res) => {

@@ -17,10 +17,6 @@ export class UserAccountPage extends React.Component {
 		this.state = {}
 	}
 
-	routeToHomePage () {
-		hashHistory.push('/');
-	}
-
 	openUpdateUserDetailsModal () {
 		this.props.dispatch(actionCreators.updateUserDetailsModal())
 	}
@@ -33,9 +29,6 @@ export class UserAccountPage extends React.Component {
 		let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props; 
 		let editDetails, updatePicture; 
 
-		if (!currentUser) {
-			this.routeToHomePage(); 
-		}
 
 		if (updateUserDetailsModalOpen) {
 			editDetails = <UpdateUserDetails />
