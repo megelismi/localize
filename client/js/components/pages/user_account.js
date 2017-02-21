@@ -1,9 +1,9 @@
-import React from 'react'; 
+import React from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router'; 
+import { hashHistory } from 'react-router';
 import * as actionCreators from '../../actions/sync.js';
-import * as put_actions from '../../actions/put_request.js'; 
-import UpdateUserDetails from '../user_account_components/modals/update_user_details'; 
+import * as put_actions from '../../actions/put_request.js';
+import UpdateUserDetails from '../user_account_components/modals/update_user_details';
 import UpdateProfilePicture from '../user_account_components/modals/update_profile_picture';
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
@@ -39,11 +39,11 @@ export class UserAccountPage extends React.Component {
 	}
 
 	render () {
-		let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props; 
-		let editDetails, updatePicture; 
+		let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props;
+		let editDetails, updatePicture;
 
 		if (!currentUser) {
-			this.routeToHomePage(); 
+			this.routeToHomePage();
 		}
 
 		if (updateUserDetailsModalOpen) {
@@ -61,7 +61,7 @@ export class UserAccountPage extends React.Component {
 				{updatePicture}
 				<ProfilePicture image={currentUser.image} updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)} onImageDrop={this.onImageDrop.bind(this)}/>
 				<UserDetailsTable name={currentUser.first_name + " " + currentUser.last_name} username ={currentUser.username} email={currentUser.email} bio={currentUser.bio} openUpdateUserDetailsModal={this.openUpdateUserDetailsModal.bind(this)} />
-				<UserMaps />
+				<UserMaps currentUser={currentUser}/>
 				<Footer />
 			</div>
 		)
@@ -70,7 +70,7 @@ export class UserAccountPage extends React.Component {
 
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
-	updateUserDetailsModalOpen: state.updateUserDetailsModalOpen, 
+	updateUserDetailsModalOpen: state.updateUserDetailsModalOpen,
 	updateProfilePictureModalOpen: state.updateProfilePictureModalOpen
 })
 
