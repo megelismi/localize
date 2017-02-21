@@ -5,6 +5,7 @@ import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import SignUpForm from './components/auth/signup';
 import SignInForm from './components/auth/signin';
+import RequiresAuth from './components/auth/requires_auth';
 import MapDisplay from './components/pages/map_display';
 import NewMapDisplay from './components/pages/new_map_display';
 import UserAccountPage from './components/pages/user_account';
@@ -14,8 +15,8 @@ const routes = (
   <Provider store={store}>
 		<Router history={hashHistory}>
 			<Route path = '/' component={MapDisplay} />
-			<Route path = '/account' component={UserAccountPage} />
-			<Route path= '/newmap' component={NewMapDisplay} />
+			<Route path = '/account' component={RequiresAuth(UserAccountPage)} />
+			<Route path= '/newmap' component={RequiresAuth(NewMapDisplay)} />
 		</Router>
   </Provider>
 );

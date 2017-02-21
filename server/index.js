@@ -84,7 +84,7 @@ app.post('/map', (req, res) => {
 
 passport.use(new Strategy(
   function(token, callback) {
-    knex('users').where('token', token).then((user) => {
+    return knex('users').where('token', token).then((user) => {
       if (!user) { return callback(null, false); }
       return callback(null, user);
     }).catch((err) => {
@@ -159,7 +159,7 @@ app.post('/signup', (req, res) => {
         token: token
       }).into('users')
       .then(() => {
-        knex('users').where('username', req.body.username)
+        return knex('users').where('username', req.body.username)
         .then((user) => {
           const { first_name, last_name, id, bio, image, username, token, email } = user[0];
           return res.status(201).json({
