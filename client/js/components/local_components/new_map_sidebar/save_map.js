@@ -4,20 +4,24 @@ import * as postActionCreators from '../../../actions/post_request.js';
 
 const SaveMap = (props) => {
 
+  const saveUserLocationsToMap = () => {
+    props.localsMapLocations.forEach((location) => {
+      props.saveMap(location);
+    })
+  }
+
   if (props.localsMapLocations.length === 0 || props.localsMapLocations.length > props.saveable.length) {
     return (
       <div>
-        <button
-          onClick={() => {props.saveMap(props.localsMapLocations)}}
-          className="disabled save-map-button" disabled>Save map</button>
+        <button className="disabled save-map-button" disabled>Save map</button>
       </div>
     )
   } else {
     return (
       <div>
         <button
-          onClick={() => {props.saveMap(props.localsMapLocations)}}
-          className="disabled save-map-button">Save map</button>
+          onClick={saveUserLocationsToMap}
+          className="save-map-button">Save map</button>
       </div>
     )
   }
