@@ -74,7 +74,6 @@ app.post('/map', (req, res) => {
         return knex('tags')
         .where('tag', user_tag)
         .then(result => {
-          console.log('RESULT!!!!', result)
           if (!result[0]) {
             return knex('tags').insert({
               tag: user_tag
