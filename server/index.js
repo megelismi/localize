@@ -297,6 +297,14 @@ app.get('/users', (req, res) => {
   });
 });
 
+// get one users
+
+app.get('/users/:id', (req, res) => {
+  knex('users').then((users) => {
+    return res.status(200).json(users);
+  });
+});
+
 // get all location id/user ids/tag ids
 
 app.get('/locations/users/tags', (req, res) => {

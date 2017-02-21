@@ -24,7 +24,7 @@ class MapDisplay extends React.Component {
         <Header />
         {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
         <Map />
-        <SidebarContainer />
+        <SidebarContainer locals={true} oneLocal={false}/>
         <Footer />
       </div>
     )

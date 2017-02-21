@@ -8,9 +8,9 @@ import LocalsDisplay from './locals_display';
 import TagsDisplay from './tags_display';
 
 class NewSidebar extends React.Component {
-  constructor() {
-    super();
-    this.state = { displayLocals: true, displayTags: false, displayOneUser: false }
+  constructor(props) {
+    super(props);
+    this.state = { displayLocals: props.locals, displayTags: false, displayOneUser: props.oneLocal }
   }
 
   showTagsView() { this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }) }
