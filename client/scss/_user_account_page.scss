@@ -168,25 +168,28 @@
 	}
 
 	.user-central-info {
-		// box-shadow: 0 0 3px $border-color;
-		border: 1px solid $border-color;
-		border-radius: 2px; 
+		border: 1px solid $border-color; 
     display: flex;
     flex-direction: row-reverse;
     width: 90%;
-    margin: 0 auto 55px;
+    margin: 20px auto 50px;
 	}
 
-		.user-account-details, .maps-list-container {
+	.user-account-details, .maps-list-container {
 		width: 50%;
 	}
 
 	.user-account-details {
 		border-right: 1px solid $border-color;
+		padding: 15px 0;
 	}
 
 	.maps-list-container {
-		padding: 15px; 
+		padding: 15px 0; 
+	}
+
+	.user-details-table {
+		margin: 0 15px;
 	}
 
 }
