@@ -26,7 +26,7 @@ const state = (state = {
     }).filter((result) => result !== undefined);
     let newLocations = state.localsMapLocations.slice(0, locationToUpdate[0]).concat(state.localsMapLocations.slice(locationToUpdate[0] + 1));
     return state = Object.assign({}, state, {localsMapLocations: [...newLocations, {
-      user_id: 3,
+      user_id: action.user_id,
       feature: action.feature,
       lat_long: action.lat_long,
       short_description: action.short,
@@ -57,7 +57,7 @@ const state = (state = {
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return state = Object.assign({}, state,
       { localsMapLocations: [ ...state.localsMapLocations, {
-        user_id: 3,
+        user_id: action.user_id,
         feature: action.feature,
         lat_long: action.lat_long,
         short_description: action.short,
@@ -72,17 +72,17 @@ const state = (state = {
     case sync_actions.SHOW_UPLOAD_MODAL_FUNCTION:
     return state = Object.assign({}, state, { showUploadModal: action.boolean });
 
-    case put_actions.UPDATE_USER_DETAILS_SUCCESS: 
+    case put_actions.UPDATE_USER_DETAILS_SUCCESS:
     Object.assign({}, state, {
       currentUser: action.user,
       updateUserDetailsError: false
-    }); 
+    });
 
-    case put_actions.UPDATE_USER_DETAILS_ERROR: 
+    case put_actions.UPDATE_USER_DETAILS_ERROR:
     Object.assign({}, state, {
       updateUserDetailsError: true
     });
-      
+
     case post_actions.CREATE_NEW_USER_SUCCESS:
     return state = Object.assign({}, state, {
       currentUser: action.user,
@@ -111,11 +111,11 @@ const state = (state = {
 
     case post_actions.LOG_OUT_SUCCESS:
     return Object.assign({}, state, {
-      currentUser: undefined, 
+      currentUser: undefined,
       logOutError: false
-    }); 
+    });
 
-    case post_actions.LOG_OUT_ERROR: 
+    case post_actions.LOG_OUT_ERROR:
     return Object.assign({}, state, {
       logOutError: true
     });
@@ -218,7 +218,7 @@ const state = (state = {
         updateUserDetailsModalOpen: !state.updateUserDetailsModalOpen
       });
 
-    case sync_actions.UPDATE_PROFILE_PICTURE_MODAL: 
+    case sync_actions.UPDATE_PROFILE_PICTURE_MODAL:
       return Object.assign({}, state, {
         updateProfilePictureModalOpen: !state.updateProfilePictureModalOpen
       });

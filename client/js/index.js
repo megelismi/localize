@@ -8,6 +8,7 @@ import SignInForm from './components/auth/signin';
 import MapDisplay from './components/pages/map_display';
 import NewMapDisplay from './components/pages/new_map_display';
 import UserAccountPage from './components/pages/user_account';
+import UserMapDisplay from './components/pages/user_map_display';
 import store from './store';
 
 const routes = (
@@ -15,7 +16,8 @@ const routes = (
 		<Router history={hashHistory}>
 			<Route path = '/' component={MapDisplay} />
 			<Route path = '/account' component={UserAccountPage} />
-			<Route path= '/newmap' component={NewMapDisplay} />
+			<Route path= '/newmap/:id' component={NewMapDisplay} />
+      <Route path= '/usermap/:id' component={UserMapDisplay} />
 		</Router>
   </Provider>
 );
@@ -26,7 +28,3 @@ ReactDOM.render(
 );
 
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
-
-// <Provider store={store}>
-// 			<UserAccountPage />
-// 		</Provider>
