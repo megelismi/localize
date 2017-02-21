@@ -37,6 +37,8 @@ app.post('/map', (req, res) => {
   const { feature, lat_long } = content;
   let saved_location_id;
 
+  console.log('REQ.BODY', content);
+
   knex('locations')
     .where('name', content.feature.properties.name)
     .andWhere('lat_long', [content.lat_long.lat, content.lat_long.lng])
@@ -56,6 +58,16 @@ app.post('/map', (req, res) => {
       }
       console.log('saved_location_id', saved_location_id);
       return saved_location_id;
+    })
+    .then(_location_id => {
+      knex('reviews').insert({
+        user_id: content.user_id,
+        location_id: _location_id,
+        short_description: content.short_description,
+        long_description: content.long_description,
+        image: content.image
+      }).then(() => console.log('Review saved.')).catch(() => console.error('Error saving review.'));
+      return _location_id;
     })
     .then(() => {
       content.tag_array.forEach(user_tag => {
@@ -107,13 +119,13 @@ app.post('/signin', (req, res, next) => {
         if (verifyPassword(password, user[0].salt, user[0].password)) {
           const { first_name, last_name, id, bio, image, username, token, email } = user[0];
           return res.status(200).json({
-            first_name, 
-            last_name, 
-            id, 
-            bio, 
-            image, 
+            first_name,
+            last_name,
+            id,
+            bio,
+            image,
             username,
-            token, 
+            token,
             email
           });
         } else {
@@ -165,14 +177,14 @@ app.post('/signup', (req, res) => {
           return res.status(201).json(user);
         })
       }).catch(err => {
-          console.error(err); 
-          return res.sendStatus(500); 
+          console.error(err);
+          return res.sendStatus(500);
       });
     }
   });
 });
 
-//sign out a user 
+//sign out a user
 
 app.post('/logout', passport.authenticate('bearer', { session: false }), (req, res) => {
   return res.sendStatus(200);
@@ -182,7 +194,7 @@ app.post('/logout', passport.authenticate('bearer', { session: false }), (req, r
 
 app.put('/account/:userId/update', passport.authenticate('bearer', {session: false}), (req, res) => {
   let { userId } = req.params;
-  console.log('req body', req.body) 
+  console.log('req body', req.body)
 
   knex('users').where('id', userId)
   .update(req.body)
@@ -191,21 +203,21 @@ app.put('/account/:userId/update', passport.authenticate('bearer', {session: fal
     .then((user) => {
       const { first_name, last_name, id, bio, image, username, token, email } = user[0];
       return res.status(201).json({
-        first_name, 
-        last_name, 
-        id, 
-        bio, 
-        image, 
+        first_name,
+        last_name,
+        id,
+        bio,
+        image,
         username,
-        token, 
+        token,
         email
       });
     })
   }).catch(err => {
-    console.error(err); 
-    return res.status(500).json({err}); 
+    console.error(err);
+    return res.status(500).json({err});
   })
-}); 
+});
 
 // get all locations
 
