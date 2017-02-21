@@ -30,13 +30,65 @@ const knex = require('knex')({
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
+// save new map
+
+app.post('/map', (req, res) => {
+  const content = req.body[0];
+  const { feature, lat_long } = content;
+  let saved_location_id;
+
+  knex('locations')
+    .where('name', content.feature.properties.name)
+    .andWhere('lat_long', [content.lat_long.lat, content.lat_long.lng])
+    .then(location => {
+      if (!location[0]) {
+        knex('locations').insert({
+          name: feature.properties.name,
+          address: null,
+          lat_long: [lat_long.lat, lat_long.lng]
+        }).returning('id').then(id => {
+          console.log('New location saved with id ', id);
+          return saved_location_id = id;
+        }).catch(() => console.log('Error saving new location.'))
+      } else {
+        console.log('Location found.')
+        return saved_location_id = location[0].id;
+      }
+      console.log('saved_location_id', saved_location_id);
+      return saved_location_id;
+    })
+    .then(() => {
+      content.tag_array.forEach(user_tag => {
+        knex('tags').insert({ tag: user_tag }).then(tag => {
+          console.log('Success — tag saved.');
+        }).catch(() => {
+          console.error('Tag not saved. This tag already exists.');
+        });
+      });
+      return null;
+    }).then(() => {
+      content.tag_array.map(tag => {
+        knex('tags').where('tag', tag).then(selected => {
+          knex('locations_users_tags').insert({
+            location_id: saved_location_id,
+            tag_id: selected[0].id,
+            user_id: content.user_id
+          }).then(() => console.log('Relation saved.'))
+          .catch(error => console.error('Error saving relation: ', error))
+        });
+      });
+      return null;
+    });
+  return res.status(201);
+});
+
 passport.use(new Strategy(
   function(token, callback) {
     knex('users').where('token', token).then((user) => {
       if (!user) { return callback(null, false); }
       return callback(null, user);
     }).catch((err) => {
-      console.log(err); 
+      console.log(err);
       return callback(err);
     });
   }
@@ -74,7 +126,7 @@ app.post('/signin', (req, res, next) => {
 //sign up new users, encrypt their passwords
 
 app.post('/signup', (req, res) => {
-  const user = req; 
+  const user = req;
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
   const token = bcrypt.hashSync(email);
@@ -89,7 +141,7 @@ app.post('/signup', (req, res) => {
   knex('users').where('email', email).then((user) => {
     if (user.length > 0) {
        return res.status(409).json({message: "That email address is already on file. Try signing in."})
-    } 
+    }
   });
 
   knex('users').where('username', username).then((user) => {
@@ -98,12 +150,12 @@ app.post('/signup', (req, res) => {
     }
     else {
       knex.insert({
-        first_name: req.body.first_name, 
+        first_name: req.body.first_name,
         last_name: req.body.last_name,
-        email: req.body.email, 
+        email: req.body.email,
         username: req.body.username,
-        password: passwordToSave, 
-        salt: salt, 
+        password: passwordToSave,
+        salt: salt,
         token: token
       }).into('users')
       .then(() => {

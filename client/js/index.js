@@ -20,12 +20,10 @@ const routes = (
   </Provider>
 );
 
-document.addEventListener('DOMContentLoaded', () => {
-	return ReactDOM.render(
-		routes,
-		document.getElementById('root')
-	);
-});
+ReactDOM.render(
+	routes,
+	document.getElementById('root')
+);
 
 console.log(`Client running in ${process.env.NODE_ENV} mode`);
 
