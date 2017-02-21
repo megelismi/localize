@@ -22,8 +22,6 @@ class MapDisplay extends React.Component {
     let signUpModal, signInModal;
     const { signUpModalOpen, signInModalOpen } = this.props;
 
-    console.log('props', this.props)
-
     if (signUpModalOpen) {
       console.log('got into signUpModalOpen in main page')
       signUpModal = <SignUpForm />

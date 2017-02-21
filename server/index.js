@@ -84,7 +84,7 @@ app.post('/map', (req, res) => {
 
 passport.use(new Strategy(
   function(token, callback) {
-    knex('user').where('token', token).then(() => {
+    knex('users').where('token', token).then((user) => {
       if (!user) { return callback(null, false); }
       return callback(null, user);
     }).catch((err) => {
@@ -105,15 +105,16 @@ app.post('/signin', (req, res, next) => {
       knex('users').where('email', emailOrUsername).orWhere('username', emailOrUsername).then((user) => {
         if(!user[0]) {return res.status(401).json({message: "The email or username you entered is incorrect."})}
         if (verifyPassword(password, user[0].salt, user[0].password)) {
-          const { first_name, last_name, id, bio, image, username, token } = user[0];
+          const { first_name, last_name, id, bio, image, username, token, email } = user[0];
           return res.status(200).json({
-            first_name,
-            last_name,
-            id,
-            bio,
-            image,
+            first_name, 
+            last_name, 
+            id, 
+            bio, 
+            image, 
             username,
-            token
+            token, 
+            email
           });
         } else {
           return res.status(401).json({message: "The password you entered is incorrect."})
@@ -159,17 +160,52 @@ app.post('/signup', (req, res) => {
       }).into('users')
       .then(() => {
         knex('users').where('username', req.body.username)
-        .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token')
+        .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token', 'email')
         .then((user) => {
-          res.status(201).json(user);
+          return res.status(201).json(user);
         })
       }).catch(err => {
-          console.error(err);
-          res.sendStatus(500);
+          console.error(err); 
+          return res.sendStatus(500); 
       });
     }
   });
 });
+
+//sign out a user 
+
+app.post('/logout', passport.authenticate('bearer', { session: false }), (req, res) => {
+  return res.sendStatus(200);
+});
+
+//update user account info
+
+app.put('/account/:userId/update', passport.authenticate('bearer', {session: false}), (req, res) => {
+  let { userId } = req.params;
+  console.log('req body', req.body) 
+
+  knex('users').where('id', userId)
+  .update(req.body)
+  .into('users').then(() => {
+    return knex('users').where('id', userId)
+    .then((user) => {
+      const { first_name, last_name, id, bio, image, username, token, email } = user[0];
+      return res.status(201).json({
+        first_name, 
+        last_name, 
+        id, 
+        bio, 
+        image, 
+        username,
+        token, 
+        email
+      });
+    })
+  }).catch(err => {
+    console.error(err); 
+    return res.status(500).json({err}); 
+  })
+}); 
 
 // get all locations
 

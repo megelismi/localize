@@ -1,5 +1,6 @@
 import * as get_actions from './actions/get_result';
 import * as post_actions from './actions/post_result';
+import * as put_actions from './actions/put_result';
 import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
@@ -10,6 +11,8 @@ const state = (state = {
   localsMapLocations: [],
   signUpModalOpen: false,
   signInModalOpen: false,
+  updateUserDetailsModalOpen: false,
+  updateProfilePictureModalOpen: false,
   showModal: false,
   showUploadModal: false
 }, action) => {
@@ -69,34 +72,60 @@ const state = (state = {
     case sync_actions.SHOW_UPLOAD_MODAL_FUNCTION:
     return state = Object.assign({}, state, { showUploadModal: action.boolean });
 
+    case put_actions.UPDATE_USER_DETAILS_SUCCESS: 
+    Object.assign({}, state, {
+      currentUser: action.user,
+      updateUserDetailsError: false
+    }); 
+
+    case put_actions.UPDATE_USER_DETAILS_ERROR: 
+    Object.assign({}, state, {
+      updateUserDetailsError: true
+    });
+      
     case post_actions.CREATE_NEW_USER_SUCCESS:
     return state = Object.assign({}, state, {
       currentUser: action.user,
       signUpUserError: false,
       signUpModalOpen: false
     });
+
     case post_actions.CREATE_NEW_USER_ERROR:
     return state = Object.assign({}, state, {
       userError: true,
       signUpUserError: action.error
     });
+
     case post_actions.SIGN_IN_USER_SUCCESS:
     return state = Object.assign({}, state, {
       currentUser: action.user,
       signInUserError: false,
       signInModalOpen: false
-    })
+    });
+
     case post_actions.SIGN_IN_USER_ERROR:
     return state = Object.assign({}, state, {
       userError: true,
       signInUserError: action.error
-    })
+    });
+
+    case post_actions.LOG_OUT_SUCCESS:
+    return Object.assign({}, state, {
+      currentUser: undefined, 
+      logOutError: false
+    }); 
+
+    case post_actions.LOG_OUT_ERROR: 
+    return Object.assign({}, state, {
+      logOutError: true
+    });
 
     case get_actions.GET_USERS_SUCCESS:
     return state = Object.assign({}, state, {
       users: action.users,
       usersError: false
     });
+
     case get_actions.GET_USERS_ERROR:
     return state = Object.assign({}, state, {
       usersError: true
@@ -156,6 +185,24 @@ const state = (state = {
       getDescriptionsError: true
     });
 
+    case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
+    console.log('actions...', action.feature, action.latlong);
+    return state = Object.assign({}, state,
+      { localsMapLocations: [ ...state.localsMapLocations,
+        { feature: action.feature,
+          lat_long: action.lat_long,
+          short_description: action.short,
+          long_description: action.long,
+          image: action.image
+        }] }
+    );
+
+    case sync_actions.GET_SEARCH_RESULTS:
+    return state = Object.assign({}, state,
+      { mapzenSelectedResults: [ ...state.mapzenSelectedResults,
+        {feature: action.feature, lat_long: action.lat_long}] }
+    );
+
     case sync_actions.SIGN_UP_MODAL:
     return Object.assign({}, state, {
       signUpModalOpen: !state.signUpModalOpen
@@ -165,6 +212,16 @@ const state = (state = {
     return Object.assign({}, state, {
       signInModalOpen: !state.signInModalOpen
     });
+
+    case sync_actions.UPDATE_USER_DETAILS_MODAL:
+      return Object.assign({}, state, {
+        updateUserDetailsModalOpen: !state.updateUserDetailsModalOpen
+      });
+
+    case sync_actions.UPDATE_PROFILE_PICTURE_MODAL: 
+      return Object.assign({}, state, {
+        updateProfilePictureModalOpen: !state.updateProfilePictureModalOpen
+      });
 
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
     let relevantTags;
