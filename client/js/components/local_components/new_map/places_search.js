@@ -16,7 +16,7 @@ class PlacesSearch extends MapControl {
     };
     const searchBox = L.control.geocoder('mapzen-DyNizkF', options);
     searchBox.on('select', e => {
-      this.props.addLocationToLocalsMap(3, e.feature, e.latlng);
+      this.props.addLocationToLocalsMap(this.props.currentUser.id, e.feature, e.latlng);
     });
     searchBox.on('error', e => console.error('An error occured with the search:', e.errorMessage));
     this.leafletElement = searchBox;
