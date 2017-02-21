@@ -15,7 +15,7 @@ const routes = (
 		<Router history={hashHistory}>
 			<Route path = '/' component={MapDisplay} />
 			<Route path = '/account' component={UserAccountPage} />
-			<Route path= '/newmap' component={NewMapDisplay} />
+			<Route path= '/newmap/42' component={NewMapDisplay} />
 		</Router>
   </Provider>
 );
