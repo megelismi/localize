@@ -168,7 +168,7 @@
 
 @media screen and (min-width: 1200px) {
 	.user-central-info {
-		margin: 0 300px; 
+		margin: 0 250px; 
 	}
 
 	.save-user-details-button {
@@ -178,6 +178,10 @@
 	.user-edit, .user-label {
 		width: 70%; 
 		margin: 0 auto; 
+	}
+
+	.general-user-account-container h4, .my-maps-header-container h4 {
+		font-size: 20px; 
 	}
 
 }
