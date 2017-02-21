@@ -38,7 +38,6 @@
 }
 
 .user-account-details {
-  border-radius: 2px;
   padding: 15px; 
 }
 
@@ -119,6 +118,7 @@
 	h4 {
 		margin-top: 0px; 
 		font-weight: bold;
+		color: $charcoal; 
 	}
 }
 
@@ -127,6 +127,19 @@
   padding: 0 15px 15px 15px;
 }
 
+
+.table {
+	color: $charcoal;
+}
+
+@media screen and (min-width: 460px) {
+
+	.user-edit, .user-label {
+		width: 70%; 
+		margin: 0 auto; 
+	}
+
+}
 
 @media screen and (min-width: 768px) {
 
@@ -151,12 +164,25 @@
 	}
 
 	.create-map-button {
-		width: 375px;
     font-size: 20px;
 	}
 
 	.user-central-info {
-		margin: 0 100px; 
+		// box-shadow: 0 0 3px $border-color;
+		border: 1px solid $border-color;
+		border-radius: 2px; 
+    display: flex;
+    flex-direction: row-reverse;
+    width: 90%;
+    margin: 0 auto 55px;
+	}
+
+		.user-account-details, .maps-list-container {
+		width: 50%;
+	}
+
+	.user-account-details {
+		border-right: 1px solid $border-color;
 	}
 
 	.maps-list-container {
@@ -167,17 +193,9 @@
 
 
 @media screen and (min-width: 1200px) {
-	.user-central-info {
-		margin: 0 250px; 
-	}
 
 	.save-user-details-button {
 		width: 70%;
-	}
-
-	.user-edit, .user-label {
-		width: 70%; 
-		margin: 0 auto; 
 	}
 
 	.general-user-account-container h4, .my-maps-header-container h4 {

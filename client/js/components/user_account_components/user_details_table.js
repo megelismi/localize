@@ -37,6 +37,4 @@ import { Table } from 'react-bootstrap';
 	)
 }
 
-
-//<button className="change-profile-picture-button accent-button" onClick={props.updateProfilePicture}>Update Picture</button>
 export default UserDetailsTable; 

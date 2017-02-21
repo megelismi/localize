@@ -99,6 +99,11 @@ export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
 
+export const SIGN_UP_FOLLOW_UP_MODAL = 'SIGN_UP_FOLLOW_UP_MODAL'; 
+export const signUpFollowUpModal = () => ({
+  type: SIGN_UP_FOLLOW_UP_MODAL
+})
+
 export const UPDATE_USER_DETAILS_MODAL = 'UPDATE_USER_DETAILS_MODAL'; 
 export const updateUserDetailsModal = () => ({
   type: UPDATE_USER_DETAILS_MODAL

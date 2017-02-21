@@ -9,6 +9,7 @@ import Header from '../partials/header';
 import Footer from '../partials/footer';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
+import FollowUpModal from '../auth/signup_followup';
 
 class MapDisplay extends React.Component {
 
@@ -19,11 +20,10 @@ class MapDisplay extends React.Component {
   }
 
   render() {
-    let signUpModal, signInModal;
-    const { signUpModalOpen, signInModalOpen } = this.props;
+    let signUpModal, signInModal, followUpModal;
+    const { signUpModalOpen, signInModalOpen, followUpModalOpen } = this.props;
 
     if (signUpModalOpen) {
-      console.log('got into signUpModalOpen in main page')
       signUpModal = <SignUpForm />
     }
 
@@ -31,11 +31,17 @@ class MapDisplay extends React.Component {
       signInModal = <SignInForm />
     }
 
+    if(followUpModalOpen) {
+      console.log('got into follow up modal conditional')
+      followUpModal = <FollowUpModal />
+    }
+
     return (
       <div>
         <Header />
         {signUpModal}
         {signInModal}
+        {followUpModal}
         <Map />
         <SidebarContainer />
         <Footer />
@@ -47,7 +53,8 @@ class MapDisplay extends React.Component {
 const mapStateToProps = (state) => {
   return {
     signUpModalOpen: state.signUpModalOpen,
-    signInModalOpen: state.signInModalOpen
+    signInModalOpen: state.signInModalOpen, 
+    followUpModalOpen: state.followUpModalOpen
   }
 };
 
