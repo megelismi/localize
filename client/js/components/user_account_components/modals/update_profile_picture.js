@@ -7,6 +7,7 @@ import { Modal } from 'react-bootstrap';
 import ImageUpload from '../../local_components/pictures/image_upload';
 import request from 'superagent';
 import Dropzone from 'react-dropzone';
+import resizeImage from '../image_manipulation/resize_image';
 
 const CLOUDINARY_UPLOAD_PRESET = 'lbvileyb';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/megelismi/upload';
@@ -25,22 +26,27 @@ class UpdateProfilePicture extends React.Component {
 	}
 
 	saveAndSendDetails () {
-		console.log('saving and sending');
+		if (this.state.uploadedFileCloudinaryUrl !== '') {
+			let token = this.props.currentUser.token; 
+			let detail = {
+				image: this.state.uploadedFileCloudinaryUrl
+			}
+			let userId = this.props.currentUser.id; 
+			this.props.dispatch(put_actions.updateUserDetails(token, detail, userId));
+		}
+
 		this.props.dispatch(actionCreators.updateProfilePictureModal());
 	}
 
 	 onImageDrop(files) {
-	 	console.log('got to onImageDrop')
 	  this.setState({
 	    uploadedFile: files[0]
 	  });
 
-	  console.log(files[0]);
 	  this.handleImageUpload(files[0]);
 	}
 
 	handleImageUpload(file) {
-		console.log('got to handleImageUpload');
 		let upload = request.post(CLOUDINARY_UPLOAD_URL)
 												.field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
 												.field('file', file)
@@ -51,19 +57,20 @@ class UpdateProfilePicture extends React.Component {
 			}
 
 			if (response.body.secure_url !== '') {
+				let resizedImage = resizeImage(response.body.secure_url)
 				this.setState({
-					uploadedFileCloudinaryUrl: response.body.secure_url
+					uploadedFileCloudinaryUrl: resizedImage
 				})
-				// this.props.dispatch(actions.postImage(response.body.secure_url))
-				// .then(() => { this.props.dispatch(actions.getImages()) })
-				// .then(() => {console.log(this.props.images)})
 			}
 		});
 	}
 
 	render () {
 		console.log('state', this.state)
+		let image; 
 		const { updateProfilePictureModalOpen, currentUser } = this.props; 
+
+		this.state.uploadedFileCloudinaryUrl === '' ? image = currentUser.image : image = this.state.uploadedFileCloudinaryUrl;
 
 		return (
 			<Modal show={updateProfilePictureModalOpen} onHide={this.closeModal.bind(this)}>
@@ -71,7 +78,7 @@ class UpdateProfilePicture extends React.Component {
 	      	<Modal.Title>Update Profile Picture</Modal.Title>
 	    	</Modal.Header>
 	   		<Modal.Body>
-	   			<img className="user-profile-picture-modal" src={currentUser.image} />
+	   			<img className="user-profile-picture-modal" src={image} />
    			 	<ImageUpload onDrop={this.onImageDrop.bind(this)} />
 				</Modal.Body>
 	    	<Modal.Footer>

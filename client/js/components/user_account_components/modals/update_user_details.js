@@ -11,11 +11,6 @@ class UpdateUserDetails extends React.Component {
 		super(props); 
 	}
 
-	sendUpdatedInfo (event) {
-		event.preventDefault(); 
-		console.log('sending'); 
-	}
-
 	closeModal () {
 		this.props.dispatch(actionCreators.updateUserDetailsModal())
 	}
