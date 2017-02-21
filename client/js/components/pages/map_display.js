@@ -32,7 +32,6 @@ class MapDisplay extends React.Component {
     }
 
     if(followUpModalOpen) {
-      console.log('got into follow up modal conditional')
       followUpModal = <FollowUpModal />
     }
 
@@ -41,7 +40,6 @@ class MapDisplay extends React.Component {
         <Header />
         {signUpModal}
         {signInModal}
-        {followUpModal}
         <Map />
         <SidebarContainer />
         <Footer />

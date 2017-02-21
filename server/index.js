@@ -160,9 +160,18 @@ app.post('/signup', (req, res) => {
       }).into('users')
       .then(() => {
         knex('users').where('username', req.body.username)
-        .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token', 'email')
         .then((user) => {
-          return res.status(201).json(user);
+          const { first_name, last_name, id, bio, image, username, token, email } = user[0];
+          return res.status(201).json({
+            first_name, 
+            last_name, 
+            id, 
+            bio, 
+            image, 
+            username,
+            token, 
+            email
+          });
         })
       }).catch(err => {
           console.error(err); 
