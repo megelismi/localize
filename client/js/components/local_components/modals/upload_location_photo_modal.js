@@ -5,7 +5,7 @@ import request from 'superagent';
 import ImageUpload from '../../image/image_upload';
 import Dropzone from 'react-dropzone';
 import { Modal } from 'react-bootstrap';
-import resizeImage from '../../image_manipulation/resize_image';
+// import resizeImage from '../../image_manipulation/resize_image';
 
 class UploadLocationPhotoModal extends Component {
   constructor (props) {
@@ -57,11 +57,6 @@ class UploadLocationPhotoModal extends Component {
           	<Modal.Title>Upload image</Modal.Title>
         	</Modal.Header>
        		<Modal.Body>
-            // {
-            //   uploadedFileCloudinaryUrl === '' ?
-            //   (uploading ? <h4>Loading...</h4> : <img className="user-profile-picture-modal" src={currentUser.image} />) :
-            //   <img className="user-profile-picture-modal" src={uploadedFileCloudinaryUrl} />
-            // }
             <div className="FileUpload">
               <ImageUpload onDrop={this.onImageDrop.bind(this)} />
             </div>

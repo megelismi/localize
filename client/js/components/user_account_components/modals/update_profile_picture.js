@@ -68,7 +68,15 @@ class UpdateProfilePicture extends React.Component {
           <ImageUpload onDrop={this.onImageDrop.bind(this)} />
         </Modal.Body>
         <Modal.Footer>
-          <button className="accent-button save-user-details-button" onClick={this.saveAndSendDetails.bind(this)}>Save</button>
+          {
+            uploading ?
+              <button
+                className="accent-button save-user-details-button"
+                onClick={this.saveAndSendDetails.bind(this)} disabled>Save</button> :
+              <button
+                className="accent-button save-user-details-button"
+                onClick={this.saveAndSendDetails.bind(this)}>Save</button>
+          }
         </Modal.Footer>
       </Modal>
     )
