@@ -62,7 +62,6 @@ class UploadLocationPhotoModal extends Component {
             </div>
        		</Modal.Body>
           <Modal.Footer>
-            <button className="accent-button save-user-details-button" onClick={this.saveAndSendDetails.bind(this)}>Save</button>
           </Modal.Footer>
     		</Modal>
       </div>
