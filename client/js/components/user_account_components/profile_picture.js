@@ -10,3 +10,5 @@ const ProfilePicture = (props) => {
 }
 
 export default ProfilePicture; 
+
+//<button className="change-profile-picture-button accent-button" onClick={props.updateProfilePicture}>Update Picture</button>

@@ -10,6 +10,7 @@
 @import 'edit_location_info_modal';
 @import 'selected_results';
 @import 'user_account_page';
+@import 'landing_page';
 
 @font-face {
     font-family: 'stokedregular';
@@ -108,7 +109,8 @@ table {
  @media only screen and (max-width: 768px) {
 
    .display-map {
-      width: 90%;
+      width: 80%;
+      height: 60vh;
       float: none;
       margin-left: auto !important;
       margin-right: auto !important;

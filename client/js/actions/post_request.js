@@ -1,4 +1,6 @@
 import * as post_result from './post_result.js';
+import Cookies from 'js-cookie';
+import { hashHistory } from 'react-router';
 
 export const saveMap = (localsMapLocations) => dispatch => {
   console.log(localsMapLocations);
@@ -41,6 +43,8 @@ export const createNewUser = user => {
 	}
 }
 
+
+//Cookies.set('name', 'value');
 export const signInUser = (emailOrUsername, password) => {
 	return dispatch => {
 		const url ="/signin"
@@ -57,7 +61,10 @@ export const signInUser = (emailOrUsername, password) => {
 	     	.then(error => dispatch(post_result.signInUserError(error.message)));
     	} else {
     		return response.json()
-    		.then(user => dispatch(post_result.signInUserSuccess(user)));
+    		.then(user => {
+          Cookies.set('localize_token', user.token)
+          dispatch(post_result.signInUserSuccess(user))
+        });
     	}
   	});
 	}
@@ -74,6 +81,8 @@ export const logOut = (token) => dispatch => {
       throw new Error (res.statusText)
     }
   }).then(() => {
+    Cookies.remove('localize_token');
+    hashHistory.push('/');
     dispatch(post_result.logOutSuccess())
   }).catch(error => {console.log(error)});
 }

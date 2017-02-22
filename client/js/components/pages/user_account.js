@@ -8,7 +8,6 @@ import UpdateUserDetails from '../user_account_components/modals/update_user_det
 import UpdateProfilePicture from '../user_account_components/modals/update_profile_picture';
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
-import ProfilePicture from '../user_account_components/profile_picture';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
 
@@ -25,14 +24,6 @@ export class UserAccountPage extends React.Component {
     this.props.dispatch(getActionCreators.getLocationsAndDescriptions());
   }
 
-	routeToHomePage () {
-		hashHistory.push('/');
-	}
-
-	routeToCreateMap () {
-		hashHistory.push('/')
-	}
-
 	openUpdateUserDetailsModal () {
 		this.props.dispatch(actionCreators.updateUserDetailsModal())
 	}
@@ -41,17 +32,9 @@ export class UserAccountPage extends React.Component {
 		this.props.dispatch(actionCreators.updateProfilePictureModal())
 	}
 
-	onImageDrop () {
-		console.log('image dropped')
-	}
-
 	render () {
 		let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props;
 		let editDetails, updatePicture;
-
-		if (!currentUser) {
-			this.routeToHomePage();
-		}
 
 		if (updateUserDetailsModalOpen) {
 			editDetails = <UpdateUserDetails />
@@ -66,9 +49,18 @@ export class UserAccountPage extends React.Component {
 				<Header />
 				{editDetails}
 				{updatePicture}
-				<ProfilePicture image={currentUser.image} updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)} onImageDrop={this.onImageDrop.bind(this)}/>
-				<UserDetailsTable name={currentUser.first_name + " " + currentUser.last_name} username ={currentUser.username} email={currentUser.email} bio={currentUser.bio} openUpdateUserDetailsModal={this.openUpdateUserDetailsModal.bind(this)} />
-				<UserMaps currentUser={currentUser}/>
+				<button className="accent-button create-map-button" onClick={() => {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</button>
+				<div className="user-central-info">
+					<UserMaps />
+					<UserDetailsTable 
+						updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)} 
+						image={currentUser.image} 
+						name={currentUser.first_name + " " + currentUser.last_name} 
+						username ={currentUser.username} 
+						email={currentUser.email} 
+						bio={currentUser.bio} 
+						openUpdateUserDetailsModal={this.openUpdateUserDetailsModal.bind(this)} />
+				</div>
 				<Footer />
 			</div>
 		)
@@ -82,3 +74,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(UserAccountPage);
+
+
+//<ProfilePicture image={currentUser.image} updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)} onImageDrop={this.onImageDrop.bind(this)}/>

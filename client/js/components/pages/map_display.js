@@ -9,6 +9,7 @@ import Header from '../partials/header';
 import Footer from '../partials/footer';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
+import FollowUpModal from '../auth/signup_followup';
 
 class MapDisplay extends React.Component {
 
@@ -19,6 +20,7 @@ class MapDisplay extends React.Component {
   }
 
   render() {
+
     return (
       <div>
         <Header />
@@ -34,7 +36,8 @@ class MapDisplay extends React.Component {
 const mapStateToProps = (state) => {
   return {
     signUpModalOpen: state.signUpModalOpen,
-    signInModalOpen: state.signInModalOpen
+    signInModalOpen: state.signInModalOpen, 
+    followUpModalOpen: state.followUpModalOpen
   }
 };
 

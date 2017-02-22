@@ -10,6 +10,7 @@ const state = (state = {
   mapzenSelectedResults: [],
   localsMapLocations: [],
   signUpModalOpen: false,
+  followUpModalOpen: false,
   signInModalOpen: false,
   updateUserDetailsModalOpen: false,
   updateProfilePictureModalOpen: false,
@@ -87,7 +88,8 @@ const state = (state = {
     return state = Object.assign({}, state, {
       currentUser: action.user,
       signUpUserError: false,
-      signUpModalOpen: false
+      signUpModalOpen: false,
+      followUpModalOpen: true
     });
 
     case post_actions.CREATE_NEW_USER_ERROR:
@@ -212,6 +214,11 @@ const state = (state = {
     return Object.assign({}, state, {
       signInModalOpen: !state.signInModalOpen
     });
+
+    case sync_actions.SIGN_UP_FOLLOW_UP_MODAL:
+    return Object.assign({}, state, {
+      followUpModalOpen: !state.followUpModalOpen
+    })
 
     case sync_actions.UPDATE_USER_DETAILS_MODAL:
       return Object.assign({}, state, {

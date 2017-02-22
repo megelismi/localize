@@ -1,4 +1,5 @@
 import 'babel-polyfill';
+import 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
@@ -29,6 +30,31 @@ const knex = require('knex')({
 
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
+
+//keep users logged in 
+
+app.get('/find/cookie/:token', (req, res) => {
+  let { token } = req.params; 
+  knex('users')
+    .where('token', token)
+    .then (user => {
+      if (!user[0]) {
+        res.status(404).json({message: "User not found"})
+      } else {
+        const { first_name, last_name, id, bio, image, username, token, email } = user[0];
+          return res.status(200).json({
+            first_name, 
+            last_name, 
+            id, 
+            bio, 
+            image, 
+            username,
+            token, 
+            email
+        });
+      }
+    })
+})
 
 // save new map
 
@@ -105,7 +131,7 @@ app.post('/map', (req, res) => {
 
 passport.use(new Strategy(
   function(token, callback) {
-    knex('users').where('token', token).then((user) => {
+    return knex('users').where('token', token).then((user) => {
       if (!user) { return callback(null, false); }
       return callback(null, user);
     }).catch((err) => {
@@ -150,7 +176,7 @@ app.post('/signup', (req, res) => {
   const user = req;
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
-  const token = bcrypt.hashSync(email);
+  const token = bcrypt.hashSync(email + process.env.TOKEN_SECRET);
   const userValidityCheck = userValidity.signUpValidity(user)
 
   if (userValidityCheck.isInvalid) {
@@ -180,10 +206,19 @@ app.post('/signup', (req, res) => {
         token: token
       }).into('users')
       .then(() => {
-        knex('users').where('username', req.body.username)
-        .select('first_name', 'last_name', 'id', 'bio', 'image', 'username', 'token', 'email')
+        return knex('users').where('username', req.body.username)
         .then((user) => {
-          return res.status(201).json(user);
+          const { first_name, last_name, id, bio, image, username, token, email } = user[0];
+          return res.status(201).json({
+            first_name, 
+            last_name, 
+            id, 
+            bio, 
+            image, 
+            username,
+            token, 
+            email
+          });
         })
       }).catch(err => {
           console.error(err);
