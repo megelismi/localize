@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
 import * as actionCreators from '../../actions/sync.js';
+import * as post_actions from '../../actions/post_request.js'; 
+import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 
 class LandingPage extends React.Component {
 
@@ -24,11 +26,33 @@ class LandingPage extends React.Component {
     this.props.dispatch(actionCreators.signInModal());
   }
 
+  logOut () {
+    this.props.dispatch(post_actions.logOut(this.props.currentUser.token)); 
+  }
+
 	render () {
-		
+		const { currentUser } = this.props; 
+		let rightNavLinks; 
+		if (!currentUser) {
+			rightNavLinks = (
+				<Nav pullRight>
+					<NavItem className="landing-header-links" onClick={this.openSignIn.bind(this)} eventKey={1} href="#">Sign In</NavItem>
+	        <NavItem className="landing-header-links" onClick={this.openSignUp.bind(this)} eventKey={2} href="#">Sign Up</NavItem>
+	      </Nav>
+			)
+		} else {
+			rightNavLinks = (
+				<Nav pullRight>
+	      	<Navbar.Text className="nav-text-header">Signed in as: </Navbar.Text> <NavItem className="right-link-header" onClick={()=> {hashHistory.push('/account')}}>Megan</NavItem>
+	        <NavItem className="right-link-header" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
+	        <NavItem className="right-link-header" href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
+	      </Nav>
+	     )
+		}
+
 		return (
 			<div className="landingpage-container">
-				<LandingHeader signUp={this.openSignUp.bind(this)} signIn={this.openSignIn.bind(this)} />
+				<LandingHeader rightNavLinks={rightNavLinks}/>
 				{this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
 				<div className="landingpage-details-container">
 					<h1 className="welcome-header">Localize</h1>

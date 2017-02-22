@@ -9,10 +9,13 @@ $darkpurple: #4062BB;
 //#51B2B2
 
 
-
 .welcome-header {
   font: $app-font;
   color: white;
+}
+
+.app-name {
+  cursor: pointer; 
 }
 
 .header, .footer {

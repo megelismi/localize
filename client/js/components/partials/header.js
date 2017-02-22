@@ -6,7 +6,6 @@ import { hashHistory } from 'react-router';
 
 import { connect } from 'react-redux';
 
-
 class Header extends React.Component  {
   constructor (props) {
     super(props); 
@@ -30,16 +29,16 @@ class Header extends React.Component  {
     if (currentUser) {
       rightNavLinks = (
       <Nav pullRight>
-        <Navbar.Text>Signed in as: </Navbar.Text> <NavItem className="right-link" href="#" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}</NavItem>
-        <NavItem className="right-link" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
-        <NavItem className="right-link" href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
+        <Navbar.Text>Signed in as: </Navbar.Text> <NavItem className="right-link" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}</NavItem>
+        <NavItem className="right-link" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
+        <NavItem className="right-link" onClick={this.logOut.bind(this)}>Log Out</NavItem>
       </Nav>
       )
     } else {
       rightNavLinks = (
       <Nav pullRight>
-        <NavItem className="right-link" href="#" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
-        <NavItem className="right-link" href="#" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
+        <NavItem className="right-link" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
+        <NavItem className="right-link" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
       </Nav>
       )
     }
@@ -48,7 +47,7 @@ class Header extends React.Component  {
       <Navbar className="nav" inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a className="app-name" href="#">Localize</a>
+            <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
@@ -64,6 +63,4 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser
 })
 export default connect(mapStateToProps)(Header);
-
-        //<Navbar.Text className="right-link">Signed in as: <Navbar.Link className="right-link" href="#" onClick={this.routeToUserAccount.bind(this)}>{currentUser.first_name}</Navbar.Link></Navbar.Text>
 
