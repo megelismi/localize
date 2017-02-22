@@ -10,6 +10,7 @@ class NewMapDisplay extends React.Component {
     return (
       <div>
       	<Header />
+        {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
         <NewMap />
         <NewMapSidebar />
         <Footer />
@@ -17,5 +18,6 @@ class NewMapDisplay extends React.Component {
     )
   }
 }
+
 
 export default NewMapDisplay;

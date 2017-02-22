@@ -1,6 +1,15 @@
 .landingpage-container {
 	height: 100%; 
 	width: 100%;
+	position: relative;
+}
+
+.landingpage-details-container {
+	position: absolute;
+	margin: 0 auto;  
+	left: 0; 
+	right: 0;  
+	top: 200px;
 }
 
 .welcome-header {
@@ -14,9 +23,11 @@
 	margin: 0 auto; 
   display: block;
   background-color: transparent;
-  border: 1px solid #4ddcb1;
+  border: 3px solid $accent-color;
   border-radius: 2px;
   color: white;
+  font-size: 16px;
+  padding: 10px;
 }
 
 .landing-header {
@@ -52,4 +63,8 @@
 .app-description-landing {
 	color: white !important; 
 	text-align: center; 
+}
+
+@media screen and (min-width: 460px) {
+	
 }
