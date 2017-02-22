@@ -45,7 +45,7 @@
 	a {
 		color: white !important;
 		&:hover {
-			color: $accent-color !important; 
+			opacity: 0.8 !important;
 		}
 	 	&:focus {
       outline: none; 
