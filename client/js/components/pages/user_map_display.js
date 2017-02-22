@@ -9,37 +9,31 @@ import Header from '../partials/header';
 import Footer from '../partials/footer';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
-import FollowUpModal from '../auth/signup_followup';
 
-class MapDisplay extends React.Component {
+class UserMapDisplay extends React.Component {
 
-  componentDidMount() {
-    this.props.getActionCreators.getLocationTags();
-    this.props.getActionCreators.getUsers();
-    this.props.getActionCreators.getLocationsAndDescriptions();
+  componentWillMount() {
+    this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
   }
 
   render() {
-
     return (
       <div>
         <Header />
         {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
         <Map />
-        <SidebarContainer locals={true} oneLocal={false}/>
+        <SidebarContainer locals={false} oneLocal={true}/>
         <Footer />
       </div>
     )
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    signUpModalOpen: state.signUpModalOpen,
-    signInModalOpen: state.signInModalOpen, 
-    followUpModalOpen: state.followUpModalOpen
-  }
-};
+const mapStateToProps = (state) => ({
+  signUpModalOpen: state.signUpModalOpen,
+  signInModalOpen: state.signInModalOpen,
+  currentUser: state.currentUser
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -48,4 +42,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MapDisplay);
+export default connect(mapStateToProps, mapDispatchToProps)(UserMapDisplay);

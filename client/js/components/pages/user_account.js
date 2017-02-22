@@ -1,9 +1,10 @@
-import React from 'react'; 
+import React from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router'; 
+import { hashHistory } from 'react-router';
 import * as actionCreators from '../../actions/sync.js';
-import * as put_actions from '../../actions/put_request.js'; 
-import UpdateUserDetails from '../user_account_components/modals/update_user_details'; 
+import * as put_actions from '../../actions/put_request.js';
+import * as getActionCreators from '../../actions/get_request.js';
+import UpdateUserDetails from '../user_account_components/modals/update_user_details';
 import UpdateProfilePicture from '../user_account_components/modals/update_profile_picture';
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
@@ -17,6 +18,12 @@ export class UserAccountPage extends React.Component {
 		this.state = {}
 	}
 
+  componentDidMount() {
+    this.props.dispatch(getActionCreators.getLocationTags());
+    this.props.dispatch(getActionCreators.getUsers());
+    this.props.dispatch(getActionCreators.getLocationsAndDescriptions());
+  }
+
 	openUpdateUserDetailsModal () {
 		this.props.dispatch(actionCreators.updateUserDetailsModal())
 	}
@@ -26,9 +33,8 @@ export class UserAccountPage extends React.Component {
 	}
 
 	render () {
-		let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props; 
-		let editDetails, updatePicture; 
-
+		let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props;
+		let editDetails, updatePicture;
 
 		if (updateUserDetailsModalOpen) {
 			editDetails = <UpdateUserDetails />
@@ -43,7 +49,7 @@ export class UserAccountPage extends React.Component {
 				<Header />
 				{editDetails}
 				{updatePicture}
-				<button className="accent-button create-map-button" onClick={() => {hashHistory.push('/newmap')}}>Create A Map</button>
+				<button className="accent-button create-map-button" onClick={() => {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</button>
 				<div className="user-central-info">
 					<UserMaps />
 					<UserDetailsTable 
@@ -63,7 +69,7 @@ export class UserAccountPage extends React.Component {
 
 const mapStateToProps = state => ({
 	currentUser: state.currentUser,
-	updateUserDetailsModalOpen: state.updateUserDetailsModalOpen, 
+	updateUserDetailsModalOpen: state.updateUserDetailsModalOpen,
 	updateProfilePictureModalOpen: state.updateProfilePictureModalOpen
 })
 
