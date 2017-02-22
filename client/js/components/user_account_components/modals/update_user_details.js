@@ -1,14 +1,14 @@
 import React from 'react';
-import * as post_actions from '../../../actions/post_request.js'; 
-import * as put_actions from '../../../actions/put_request.js'; 
+import * as post_actions from '../../../actions/post_request.js';
+import * as put_actions from '../../../actions/put_request.js';
 import * as actionCreators from '../../../actions/sync.js';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
 class UpdateUserDetails extends React.Component {
 
 	constructor (props) {
-		super(props); 
+		super(props);
 	}
 
 	closeModal () {
@@ -23,10 +23,10 @@ class UpdateUserDetails extends React.Component {
 			username: this.username.innerText,
 			email: this.email.innerText,
 			bio: this.bio.innerText
-		}; 
+		};
 
-		let token = this.props.currentUser.token; 
-		let id = this.props.currentUser.id; 
+		let token = this.props.currentUser.token;
+		let id = this.props.currentUser.id;
 
 		this.props.dispatch(put_actions.updateUserDetails(token, updatedUserDetails, id));
 		this.props.dispatch(actionCreators.updateUserDetailsModal());
@@ -34,8 +34,8 @@ class UpdateUserDetails extends React.Component {
 
 	render () {
 
-		const { updateUserDetailsModalOpen, currentUser } = this.props; 
-	
+		const { updateUserDetailsModalOpen, currentUser } = this.props;
+
 		return (
 			<Modal show={updateUserDetailsModalOpen} onHide={this.closeModal.bind(this)}>
     	<Modal.Header closeButton>
@@ -73,7 +73,7 @@ class UpdateUserDetails extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	updateUserDetailsModalOpen: state.updateUserDetailsModalOpen, 
+	updateUserDetailsModalOpen: state.updateUserDetailsModalOpen,
 	currentUser: state.currentUser
 })
 
