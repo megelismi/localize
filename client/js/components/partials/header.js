@@ -24,29 +24,25 @@ class Header extends React.Component  {
     this.props.dispatch(post_actions.logOut(this.props.currentUser.token)); 
   }
 
-  routeToUserAccount () {
-    hashHistory.push('/account/');
-  }
-
   render () {
     const { currentUser } = this.props; 
     let rightNavLinks;
     if (currentUser) {
       rightNavLinks = (
       <Nav pullRight>
-        <NavItem className="right-link" eventKey={1} href="#" onClick={this.routeToUserAccount.bind(this)}>My Account</NavItem>
-        <NavItem className="right-link" eventKey={2} href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
+        <Navbar.Text>Signed in as: </Navbar.Text> <NavItem className="right-link" href="#" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}</NavItem>
+        <NavItem className="right-link" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
+        <NavItem className="right-link" href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
       </Nav>
       )
     } else {
       rightNavLinks = (
       <Nav pullRight>
-        <NavItem className="right-link" eventKey={2} href="#" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
-        <NavItem className="right-link" eventKey={1} href="#" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
+        <NavItem className="right-link" href="#" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
+        <NavItem className="right-link" href="#" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
       </Nav>
       )
     }
-
 
     return (
       <Navbar className="nav" inverse collapseOnSelect>
@@ -68,4 +64,6 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser
 })
 export default connect(mapStateToProps)(Header);
+
+        //<Navbar.Text className="right-link">Signed in as: <Navbar.Link className="right-link" href="#" onClick={this.routeToUserAccount.bind(this)}>{currentUser.first_name}</Navbar.Link></Navbar.Text>
 

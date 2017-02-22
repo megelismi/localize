@@ -176,7 +176,7 @@ app.post('/signup', (req, res) => {
   const user = req;
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
-  const token = bcrypt.hashSync(email + process.env.TOKEN_SECRET);
+  const token = bcrypt.hashSync(email);
   const userValidityCheck = userValidity.signUpValidity(user)
 
   if (userValidityCheck.isInvalid) {
