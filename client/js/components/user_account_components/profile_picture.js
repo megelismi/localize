@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 
 const ProfilePicture = (props) => {
 	return (
@@ -9,6 +9,4 @@ const ProfilePicture = (props) => {
 	)
 }
 
-export default ProfilePicture; 
-
-//<button className="change-profile-picture-button accent-button" onClick={props.updateProfilePicture}>Update Picture</button>
+export default ProfilePicture;

@@ -1,24 +1,28 @@
 .signin-form-container {
-	margin: 30px; 
+	margin: 30px;
 }
 
 .signin-title {
-	margin-bottom: 20px; 
+	margin-bottom: 20px;
 }
 
 .signin-form {
 	input {
-		width: 75%; 
-		font-size: 18px; 
+		width: 75%;
+		font-size: 18px;
 	}
 }
 
 .signin-form {
 	input {
-		border-radius: 2px; 
-		border: 1px solid $border-color; 
-		padding: 5px; 
-		width: 75%; 
-		font-size: 18px; 
+		border-radius: 2px;
+		border: 1px solid $border-color;
+		padding: 5px;
+		width: 75%;
+		font-size: 18px;
 	}
+}
+
+.sign-in-up-modal-input {
+  margin-bottom: 20px;
 }
