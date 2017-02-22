@@ -23,7 +23,7 @@ export default function(Component) {
       if (this.props.currentUser) {
         return <Component {...this.props} />
       } else {
-        return <div>No user.</div>
+        return <div></div>
       }
     }
   }
