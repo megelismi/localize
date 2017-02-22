@@ -27,17 +27,17 @@ class SignInForm extends React.Component {
         <Modal.Body>
           <form className="signin-form" onSubmit={this.sendSignInInfo.bind(this)}>
             <input
+              className="sign-in-up-modal-input"
               type="text"
               name="emailOrUsername"
               placeholder="Email or Username"
               ref={element => this.emailOrUsername = element}/>
-            <br/><br/> {/* TODO: Change <br>s to CSS */}
             <input
+              className="sign-in-up-modal-input"
               type="password"
               name="lastname"
               placeholder="Password"
               ref={element => this.password = element}/>
-            <br/><br/>
             <input
               className="accent-button"
               type="submit"
