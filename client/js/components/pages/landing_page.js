@@ -16,7 +16,7 @@ class LandingPage extends React.Component {
 		document.body.style.backgroundImage = null;
 	}
 
-	 openSignUp () {
+	openSignUp () {
     this.props.dispatch(actionCreators.signUpModal());
   }
 
@@ -25,7 +25,7 @@ class LandingPage extends React.Component {
   }
 
 	render () {
-	
+		
 		return (
 			<div className="landingpage-container">
 				<LandingHeader signUp={this.openSignUp.bind(this)} signIn={this.openSignIn.bind(this)} />
@@ -43,7 +43,8 @@ class LandingPage extends React.Component {
 const mapStateToProps = state => {
   return {
     signUpModalOpen: state.signUpModalOpen,
-    signInModalOpen: state.signInModalOpen, 
+    signInModalOpen: state.signInModalOpen,
+    currentUser: state.currentUser 
   }
 };
 
