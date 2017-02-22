@@ -3,3 +3,53 @@
 	width: 100%;
 }
 
+.welcome-header {
+	font-family: $app-font;
+	color: white;
+	text-align: center;
+}
+
+.enter-app-button {
+	display: block;
+	margin: 0 auto; 
+  display: block;
+  background-color: transparent;
+  border: 1px solid #4ddcb1;
+  border-radius: 2px;
+  color: white;
+}
+
+.landing-header {
+	background-color: transparent !important;
+	border: none !important; 
+	span {
+		color: white !important; 
+	}
+}
+
+
+.landing-header-links {
+	a {
+		color: white !important;
+		&:hover {
+			color: $accent-color !important; 
+		}
+	}
+}
+
+.landing-page-header-toggle {
+	background-color:transparent !important;
+	border-color: white !important; 
+	span {
+		background-color: white !important;
+	}
+}
+
+.landing-page-header-toggle.icon-bar {
+	background-color: white !important;
+}
+
+.app-description-landing {
+	color: white !important; 
+	text-align: center; 
+}

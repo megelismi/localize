@@ -1,4 +1,5 @@
 import React from 'react'; 
+import LandingHeader from '../landing_page_components/landing_header';
 import { hashHistory } from 'react-router';
 
 
@@ -19,8 +20,10 @@ class LandingPage extends React.Component {
 	
 		return (
 			<div className="landingpage-container">
-
-				<button onClick={() => {hashHistory.push('/map/portland')}}>get started with Portland, Maine</button>
+				<LandingHeader />
+				<h1 className="welcome-header">Localize</h1>
+				<h4 className="app-description-landing">explore a city with local recommendations</h4>
+				<button className="enter-app-button" onClick={() => {hashHistory.push('/map/portland')}}>get started with Portland, Maine</button>
 			</div>
 		)
 	}
