@@ -9,6 +9,12 @@ import request from 'superagent';
 import Dropzone from 'react-dropzone';
 import resizeImage from '../image_manipulation/resize_image';
 
+class Loading extends React.Component {
+	render() {
+		return <div>Loading...</div>
+	}
+}
+
 const CLOUDINARY_UPLOAD_PRESET = 'lbvileyb';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/megelismi/upload';
 
@@ -51,6 +57,8 @@ class UpdateProfilePicture extends React.Component {
 												.field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
 												.field('file', file)
 
+		this.setState({uploading: true});
+
 		upload.end((err, response) => {
 			if (err) {
 				console.log(err); 
@@ -59,7 +67,8 @@ class UpdateProfilePicture extends React.Component {
 			if (response.body.secure_url !== '') {
 				let resizedImage = resizeImage(response.body.secure_url)
 				this.setState({
-					uploadedFileCloudinaryUrl: resizedImage
+					uploadedFileCloudinaryUrl: resizedImage, 
+					uploading: false
 				})
 			}
 		});
@@ -67,6 +76,9 @@ class UpdateProfilePicture extends React.Component {
 
 	render () {
 		console.log('state', this.state)
+		if (this.state.uploading === true) {
+			return <Loading />;
+		}
 		let image; 
 		const { updateProfilePictureModalOpen, currentUser } = this.props; 
 
