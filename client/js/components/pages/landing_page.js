@@ -9,7 +9,7 @@ import * as actionCreators from '../../actions/sync.js';
 class LandingPage extends React.Component {
 
 	componentWillMount() {
-		document.body.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url(assets/images/city.jpg)";
+		document.body.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(assets/images/city.jpg)";
 	}
 
 	componentWillUnmount () {
