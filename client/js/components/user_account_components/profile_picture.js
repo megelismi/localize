@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 
 const ProfilePicture = (props) => {
 	return (
@@ -9,4 +9,4 @@ const ProfilePicture = (props) => {
 	)
 }
 
-export default ProfilePicture; 
+export default ProfilePicture;

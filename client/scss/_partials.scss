@@ -8,6 +8,13 @@ $darkpurple: #4062BB;
 
 //#51B2B2
 
+
+
+.welcome-header {
+  font: $app-font;
+  color: white;
+}
+
 .header, .footer {
   margin: 0 5px 30px 5px;
   width: 100%;

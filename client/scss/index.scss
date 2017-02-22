@@ -10,6 +10,7 @@
 @import 'edit_location_info_modal';
 @import 'selected_results';
 @import 'user_account_page';
+@import 'landing_page';
 
 @font-face {
     font-family: 'stokedregular';
@@ -35,6 +36,13 @@ body {
   margin: 0;
   font-family: $base-font !important;
   color: #5F5F5F;
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-position: center center;
+}
+
+html {
+  height: 100%;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -108,7 +116,8 @@ table {
  @media only screen and (max-width: 768px) {
 
    .display-map {
-      width: 90%;
+      width: 80%;
+      height: 60vh;
       float: none;
       margin-left: auto !important;
       margin-right: auto !important;

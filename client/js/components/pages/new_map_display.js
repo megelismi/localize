@@ -4,19 +4,17 @@ import NewMapSidebar from '../local_components/new_map_sidebar/new_map_sidebar';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
 
-class NewMapDisplay extends React.Component {
+const NewMapDisplay = (props) => {
 
-  render() {
-    return (
-      <div>
-      	<Header />
-        <NewMap />
-        <NewMapSidebar />
-        <Footer />
-      </div>
-    )
-  }
+  return (
+    <div>
+      <Header />
+      <NewMap />
+      <NewMapSidebar />
+      <Footer />
+    </div>
+  )
 }
 
-//
+
 export default NewMapDisplay;

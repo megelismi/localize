@@ -1,21 +1,17 @@
 .account-details-container {
-	display: flex;
-	justify-content: space-between;  
-	width: 100%; 
 	margin: 15px; 
 }
 
 .user-edit { 
 	border: 1px solid $border-color;
 	border-radius: 2px; 
-	width: 60%;
-	margin-right: 75px; 
 }
 
 .user-edit, .user-label {
 	padding: 4px;
 	font-size: 14px;
-	text-align: left;   
+	text-align: left; 
+	width: 100%;  
 }
 
 .user-label {
@@ -31,17 +27,9 @@
 	margin-bottom: 25px; 
 }
 
-.edit-user-details {
-	margin: 0 0 15px 0px !important; 
-}
-
 .save-user-details-button {
-	width: 70%;
+	width: 75%;
   font-size: 18px;
-}
-
-.edit-user-details-modal-body {
-	margin-left: 30px !important; 
 }
 
 .edit-bio {
@@ -50,36 +38,42 @@
 }
 
 .user-account-details {
-	float: left; 
-	width: 40%; 
-	margin-left: 40px; 
+  padding: 15px; 
 }
 
 .user-maps-container {
-	float: right;
-	width: 40%; 
-	margin-right: 40px; 
-	display: flex; 
-	flex-direction: column; 
+	display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .maps-list-container {
   padding-top: 10px;
+  ul {
+  	text-align: center; 
+  	margin-top: 10px; 
+  	font-size: 16px;
+  	li {
+  		a {
+  			color: $darkpurple;
+  			&:hover {
+  				color: $purple;
+  			}
+  		}
+  	}
+  }
 }
 
-.user-maps-header {
-	font-weight: bold; 
-	margin-top: 0px; 
-}
 
 .create-map-button {
-	margin: 20px 0 !important; 
+	width: 200px;
+  height: 40px;
+  font-size: 16px; 
 }
 
 .user-profile-picture {
 	width: 150px;
-  margin-left: 40px;
-  margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 .user-profile-picture-modal {
@@ -88,18 +82,129 @@
 }
 
 .profile-picture-container {
-	width: 40%; 
+	text-align: center;
+	padding: 15px; 
 }
 
-.change-profile-picture-button {
-	margin: 0 0 0 40px !important; 
+.change-profile-picture-button, .edit-user-details-button {
+	display: block;
+	margin: 0 auto;
+	background-color: white;
+  border: none;
+  font-size: 16px; 
+  color: $darkpurple;
+  &:hover {
+  	color: $purple;
+  }
 }
 
 .image-upload-container {
   border: 1px solid $border-color;
   border-radius: 2px;
-  width: 40%;
+  width: 75%;
   margin: 0 auto;
   font-size: 16px;
   padding: 10px;
 }
+
+.user-table-label {
+	font-weight: bold; 
+}
+
+.general-user-account-container, .my-maps-header-container {
+	margin: 0 auto; 
+	text-align: center;
+	border-bottom: 1px solid $border-color;
+	h4 {
+		margin-top: 0px; 
+		font-weight: bold;
+		color: $charcoal; 
+	}
+}
+
+.create-map-container {
+	width: 100%;
+  padding: 0 15px 15px 15px;
+}
+
+
+.table {
+	color: $charcoal;
+}
+
+@media screen and (min-width: 460px) {
+
+	.user-edit, .user-label {
+		width: 70%; 
+		margin: 0 auto; 
+	}
+
+}
+
+@media screen and (min-width: 768px) {
+
+	.save-user-details-button {
+		width: 60%;
+	}
+
+	.image-upload-container {
+		width: 40%; 
+	}
+
+	.edit-user-details-body {
+		padding: 0 60px; 
+	}
+
+	.save-user-details-button {
+		width: 80%;
+	}
+
+	.profile-picture-container {
+		padding: 15px 0;
+	}
+
+	.create-map-button {
+    font-size: 20px;
+	}
+
+	.user-central-info {
+		border: 1px solid $border-color; 
+    display: flex;
+    flex-direction: row-reverse;
+    width: 90%;
+    margin: 20px auto 50px;
+	}
+
+	.user-account-details, .maps-list-container {
+		width: 50%;
+	}
+
+	.user-account-details {
+		border-right: 1px solid $border-color;
+		padding: 15px 0;
+	}
+
+	.maps-list-container {
+		padding: 15px 0; 
+	}
+
+	.user-details-table {
+		margin: 0 15px;
+	}
+
+}
+
+
+@media screen and (min-width: 1200px) {
+
+	.save-user-details-button {
+		width: 70%;
+	}
+
+	.general-user-account-container h4, .my-maps-header-container h4 {
+		font-size: 20px; 
+	}
+
+}
+
+

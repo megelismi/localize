@@ -3,6 +3,7 @@
 import { getServer } from './async_middleware';
 
 import * as get_result from './get_result.js';
+import * as post_result from './post_result.js';
 import * as sync from './sync.js';
 
 export const getUsers = () => dispatch => {
@@ -16,6 +17,20 @@ export const getUsers = () => dispatch => {
     dispatch(get_result.getUsersSuccess(res))
   }).catch(err => {
     dispatch(get_result.getUsersError(err))
+  });
+}
+
+export const getOneUser = () => dispatch => {
+  return fetch('/users/' + id)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    return res.json();
+  }).then(res => {
+    dispatch(get_result.getOneUserSuccess(res))
+  }).catch(err => {
+    dispatch(get_result.getOneUserError(err))
   });
 }
 
@@ -71,5 +86,19 @@ export const getLocationTags = () => dispatch => {
     dispatch(get_result.getLocationUserTagsHelperSuccess(res))
   }).catch(err => {
     dispatch(get_result.getLocationUserTagsHelperError(err))
+  });
+}
+
+export const findUserFromCookie = token => dispatch => {
+  return fetch(`/find/cookie/${token}`)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    return res.json();
+  }).then(res => {
+    dispatch(post_result.signInUserSuccess(res))
+  }).catch(err => {
+    dispatch(post_result.signInUserError(err))
   });
 }

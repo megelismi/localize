@@ -5,8 +5,9 @@ export const updateLocationImage = image => ({
 });
 
 export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
-export const updateLocationInLocalsMap = (feature, lat_long, short = null, long = null, tag_array = null) => ({
+export const updateLocationInLocalsMap = (user_id = 3, feature, lat_long, short = null, long = null, tag_array = null) => ({
   type: UPDATE_LOCATION_IN_LOCALS_MAP,
+  user_id,
   feature,
   lat_long,
   short,
@@ -33,8 +34,9 @@ export const showUploadModalFunction = boolean => ({
 });
 
 export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
-export const addLocationToLocalsMap = (feature, lat_long, short = null, long = null, tag_array = null) => ({
+export const addLocationToLocalsMap = (user_id, feature, lat_long, short = null, long = null, tag_array = null) => ({
   type: ADD_LOCATION_TO_LOCALS_MAP,
+  user_id,
   feature,
   lat_long,
   short,
@@ -98,6 +100,12 @@ export const SIGN_IN_MODAL = 'SIGN_IN_MODAL';
 export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
+
+
+export const SIGN_UP_FOLLOW_UP_MODAL = 'SIGN_UP_FOLLOW_UP_MODAL'; 
+export const signUpFollowUpModal = () => ({
+  type: SIGN_UP_FOLLOW_UP_MODAL
+})
 
 export const UPDATE_USER_DETAILS_MODAL = 'UPDATE_USER_DETAILS_MODAL'; 
 export const updateUserDetailsModal = () => ({
