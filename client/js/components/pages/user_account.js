@@ -51,14 +51,14 @@ export class UserAccountPage extends React.Component {
 				{updatePicture}
 				<button className="accent-button create-map-button" onClick={() => {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</button>
 				<div className="user-central-info">
-					<UserMaps />
-					<UserDetailsTable 
-						updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)} 
-						image={currentUser.image} 
-						name={currentUser.first_name + " " + currentUser.last_name} 
-						username ={currentUser.username} 
-						email={currentUser.email} 
-						bio={currentUser.bio} 
+					<UserMaps currentUser={currentUser}/>
+					<UserDetailsTable
+						updateProfilePicture={this.openUpdateProfilePictureModal.bind(this)}
+						image={currentUser.image}
+						name={currentUser.first_name + " " + currentUser.last_name}
+						username ={currentUser.username}
+						email={currentUser.email}
+						bio={currentUser.bio}
 						openUpdateUserDetailsModal={this.openUpdateUserDetailsModal.bind(this)} />
 				</div>
 				<Footer />
