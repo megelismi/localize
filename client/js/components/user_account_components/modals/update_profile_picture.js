@@ -3,10 +3,10 @@ import * as putActionCreators from '../../../actions/put_request.js';
 import * as actionCreators from '../../../actions/sync.js';
 import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
-import ImageUpload from '../../local_components/pictures/image_upload';
+import ImageUpload from '../../image/image_upload';
 import request from 'superagent';
 import Dropzone from 'react-dropzone';
-import resizeImage from '../image_manipulation/resize_image';
+import resizeImage from '../../image/resize_image';
 
 class UpdateProfilePicture extends React.Component {
   constructor (props) {
