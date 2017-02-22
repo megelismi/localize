@@ -36,6 +36,12 @@ body {
   margin: 0;
   font-family: $base-font !important;
   color: #5F5F5F;
+  background-repeat: no-repeat;
+  background-size: 100%; 
+}
+
+html {
+  height: 100%;
 }
 
 html, body, div, span, applet, object, iframe,
