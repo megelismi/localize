@@ -1,6 +1,6 @@
-import React from 'react'; 
-import * as post_actions from '../../../actions/post_request.js'; 
-import * as put_actions from '../../../actions/put_request.js'; 
+import React from 'react';
+import * as post_actions from '../../../actions/post_request.js';
+import * as put_actions from '../../../actions/put_request.js';
 import * as actionCreators from '../../../actions/sync.js';
 import {connect} from 'react-redux';
 import { Modal } from 'react-bootstrap';
@@ -19,7 +19,7 @@ const CLOUDINARY_UPLOAD_PRESET = 'lbvileyb';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/megelismi/upload';
 
 class UpdateProfilePicture extends React.Component {
-	
+
 	constructor (props) {
 		super(props)
 		this.state = {
@@ -33,11 +33,11 @@ class UpdateProfilePicture extends React.Component {
 
 	saveAndSendDetails () {
 		if (this.state.uploadedFileCloudinaryUrl !== '') {
-			let token = this.props.currentUser.token; 
+			let token = this.props.currentUser.token;
 			let detail = {
 				image: this.state.uploadedFileCloudinaryUrl
 			}
-			let userId = this.props.currentUser.id; 
+			let userId = this.props.currentUser.id;
 			this.props.dispatch(put_actions.updateUserDetails(token, detail, userId));
 		}
 
@@ -57,17 +57,17 @@ class UpdateProfilePicture extends React.Component {
 												.field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
 												.field('file', file)
 
-		this.setState({uploading: true});
+		// this.setState({uploading: true});
 
 		upload.end((err, response) => {
 			if (err) {
-				console.log(err); 
+				console.log(err);
 			}
 
 			if (response.body.secure_url !== '') {
 				let resizedImage = resizeImage(response.body.secure_url)
 				this.setState({
-					uploadedFileCloudinaryUrl: resizedImage, 
+					uploadedFileCloudinaryUrl: resizedImage,
 					uploading: false
 				})
 			}
@@ -79,8 +79,8 @@ class UpdateProfilePicture extends React.Component {
 		if (this.state.uploading === true) {
 			return <Loading />;
 		}
-		let image; 
-		const { updateProfilePictureModalOpen, currentUser } = this.props; 
+		let image;
+		const { updateProfilePictureModalOpen, currentUser } = this.props;
 
 		this.state.uploadedFileCloudinaryUrl === '' ? image = currentUser.image : image = this.state.uploadedFileCloudinaryUrl;
 
@@ -102,11 +102,8 @@ class UpdateProfilePicture extends React.Component {
 }
 
 const mapStateToProps = state => ({
-	updateProfilePictureModalOpen: state.updateProfilePictureModalOpen, 
+	updateProfilePictureModalOpen: state.updateProfilePictureModalOpen,
 	currentUser: state.currentUser
 })
 
 export default connect(mapStateToProps)(UpdateProfilePicture);
-
-
-
