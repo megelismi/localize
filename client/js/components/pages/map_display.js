@@ -14,8 +14,8 @@ import FollowUpModal from '../auth/signup_followup';
 class MapDisplay extends React.Component {
 
   componentDidMount() {
-    this.props.getActionCreators.getLocationTags();
-    this.props.getActionCreators.getUsers();
+    // this.props.getActionCreators.getLocationTags();
+    this.props.getActionCreators.getSelectedUsers();
     this.props.getActionCreators.getLocationsAndDescriptions();
   }
 
@@ -36,7 +36,7 @@ class MapDisplay extends React.Component {
 const mapStateToProps = (state) => {
   return {
     signUpModalOpen: state.signUpModalOpen,
-    signInModalOpen: state.signInModalOpen, 
+    signInModalOpen: state.signInModalOpen,
     followUpModalOpen: state.followUpModalOpen
   }
 };

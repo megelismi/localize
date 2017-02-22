@@ -33,15 +33,16 @@ class NewSidebar extends React.Component {
 
   render() {
     let display, navLocalsText, filterId, userIcon;
-    const { selectedLocation, selectLocationById, users, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
+    const { selectedLocation, selectLocationById, relevantUsers, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser } = this.props;
     if (selectedLocation) {
       display = <LocationDetailsDisplay
         locationInfo={selectedLocation}
         selectLocationById={selectLocationById} />
     } else if (this.state.displayLocals) {
+      console.log('relevantUsers in react', relevantUsers)
       display = <LocalsDisplay
         city={'Portland'}
-        users={users}
+        users={relevantUsers}
         clearAllAppliedTags={clearAllAppliedTags}
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
@@ -68,7 +69,7 @@ class NewSidebar extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.users,
+  relevantUsers: state.relevantUsers,
   selectedTags: state.selectedTags,
   allTags: state.allTags,
   selectedLocation: state.selectedLocation,
