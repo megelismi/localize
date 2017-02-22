@@ -16,4 +16,5 @@ const NewMapDisplay = (props) => {
   )
 }
 
+
 export default NewMapDisplay;

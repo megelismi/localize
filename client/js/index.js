@@ -17,11 +17,11 @@ const routes = (
   <Provider store={store}>
 		<Router history={hashHistory}>
 
-			<Route path = '/' component={MapDisplay} />
+			<Route path = '/map/portland' component={MapDisplay} />
 			<Route path= '/newmap/:id' component={RequiresAuth(NewMapDisplay)} />
       <Route path= '/usermap/:id' component={RequiresAuth(UserMapDisplay)} />
       <Route path = '/account' component={RequiresAuth(UserAccountPage)} />
-			<Route path = '/landing' component={LandingPage} />
+			<Route path = '/' component={LandingPage} />
 
 		</Router>
   </Provider>

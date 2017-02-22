@@ -1,45 +1,50 @@
 import React from 'react'; 
+import LandingHeader from '../landing_page_components/landing_header';
 import { hashHistory } from 'react-router';
-import Video from 'react-html5video';
-import ReactPlayer from 'react-player';
-import DriveIn from 'react-drive-in';
+import { connect } from 'react-redux';
+import SignUpForm from '../auth/signup';
+import SignInForm from '../auth/signin';
+import * as actionCreators from '../../actions/sync.js';
 
 class LandingPage extends React.Component {
+
+	componentWillMount() {
+		document.body.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(assets/images/city.jpg)";
+	}
+
+	componentWillUnmount () {
+		document.body.style.backgroundImage = null;
+	}
+
+	 openSignUp () {
+    this.props.dispatch(actionCreators.signUpModal());
+  }
+
+  openSignIn () {
+    this.props.dispatch(actionCreators.signInModal());
+  }
+
 	render () {
-		 let playlist = [
-        [
-            'https://res.cloudinary.com/megelismi/video/upload/v1487715834/Pad-Thai_ilphlo.mp4',
-        ],
-        [
-            'http://res.cloudinary.com/megelismi/video/upload/v1487717643/559551522_djptrh.mp4',
-        ]
-    ];
-
-    let onTimeFrequency = 50;
-
+	
 		return (
-			<div>
-				<button onClick={() => {hashHistory.push('/map/portland')}}>get started with Portland, Maine</button>
-				 <DriveIn
-        showPlaylist={playlist}
-        onTimeFrequency = {onTimeFrequency}
-        />
+			<div className="landingpage-container">
+				<LandingHeader signUp={this.openSignUp.bind(this)} signIn={this.openSignIn.bind(this)} />
+				{this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
+				<div className="landingpage-details-container">
+					<h1 className="welcome-header">Localize</h1>
+					<h4 className="app-description-landing">explore a city with local recommendations</h4>
+					<button className="enter-app-button" onClick={() => {hashHistory.push('/map/portland')}}>get started with Portland, Maine</button>
+				</div>
 			</div>
 		)
 	}
 }
 
-export default LandingPage;
+const mapStateToProps = state => {
+  return {
+    signUpModalOpen: state.signUpModalOpen,
+    signInModalOpen: state.signInModalOpen, 
+  }
+};
 
-//http://res.cloudinary.com/megelismi/video/upload/v1487717320/Healthy-Life_gehvzt.mp4 
-
-	//<ReactPlayer url='../../assets/videos/Pad-Thai/WEBM/Pad-Thai.webm' playing />
-
-			// <Video autoPlay loop muted
-   //          onCanPlayThrough={() => {
-   //              console.log('stuff')
-   //          }}>
-   //          <source src="http://res.cloudinary.com/megelismi/video/upload/v1487715834/Pad-Thai_ilphlo.mp4" type="video/mp4" />
-   //      </Video>
-
-   //<ReactPlayer loop={true} url='http://res.cloudinary.com/megelismi/video/upload/v1487715834/Pad-Thai_ilphlo.mp4' playing />
+export default connect(mapStateToProps)(LandingPage);
