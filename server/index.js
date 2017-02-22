@@ -31,10 +31,10 @@ const knex = require('knex')({
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
-//keep users logged in 
+//keep users logged in
 
 app.get('/find/cookie/:token', (req, res) => {
-  let { token } = req.params; 
+  let { token } = req.params;
   knex('users')
     .where('token', token)
     .then (user => {
@@ -43,13 +43,13 @@ app.get('/find/cookie/:token', (req, res) => {
       } else {
         const { first_name, last_name, id, bio, image, username, token, email } = user[0];
           return res.status(200).json({
-            first_name, 
-            last_name, 
-            id, 
-            bio, 
-            image, 
+            first_name,
+            last_name,
+            id,
+            bio,
+            image,
             username,
-            token, 
+            token,
             email
         });
       }
@@ -176,7 +176,7 @@ app.post('/signup', (req, res) => {
   const user = req;
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
-  const token = bcrypt.hashSync(email + process.env.TOKEN_SECRET);
+  const token = bcrypt.hashSync(email);
   const userValidityCheck = userValidity.signUpValidity(user)
 
   if (userValidityCheck.isInvalid) {
@@ -210,13 +210,13 @@ app.post('/signup', (req, res) => {
         .then((user) => {
           const { first_name, last_name, id, bio, image, username, token, email } = user[0];
           return res.status(201).json({
-            first_name, 
-            last_name, 
-            id, 
-            bio, 
-            image, 
+            first_name,
+            last_name,
+            id,
+            bio,
+            image,
             username,
-            token, 
+            token,
             email
           });
         })
