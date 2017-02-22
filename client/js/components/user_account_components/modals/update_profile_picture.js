@@ -7,7 +7,6 @@ import ImageUpload from '../../local_components/pictures/image_upload';
 import request from 'superagent';
 import Dropzone from 'react-dropzone';
 import resizeImage from '../image_manipulation/resize_image';
-import LoadingModal from './loading_modal';
 
 class UpdateProfilePicture extends React.Component {
   constructor (props) {
