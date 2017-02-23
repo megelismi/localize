@@ -51,7 +51,7 @@ class LandingPage extends React.Component {
 		} else {
 			rightNavLinks = (
 				<Nav pullRight>
-	      	<Navbar.Text className="nav-text-header">Signed in as: </Navbar.Text> <NavItem className="right-link-header" onClick={()=> {hashHistory.push('/account')}}>Megan</NavItem>
+	      	<NavItem className="right-link-header" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}'s Profile</NavItem>
 	        <NavItem className="right-link-header" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
 	        <NavItem className="right-link-header" href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
 	        <NavItem className="landing-header-links" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
