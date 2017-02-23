@@ -4,6 +4,10 @@ import * as syncActionCreators from '../../../actions/sync.js';
 import { Modal } from 'react-bootstrap';
 
 class EditLocationInfoModal extends Component {
+  constructor() {
+    super();
+    this.deleteAndClose = this.deleteAndClose.bind(this)
+  }
 
   updateLocationInfo(e) {
     let tagArray = this.tagField.value.split(', ');
@@ -17,6 +21,11 @@ class EditLocationInfoModal extends Component {
       this.longDescription.value,
       tagArray
     );
+  }
+
+  deleteAndClose(location) {
+    this.props.deleteLocationFromLocalsMap(location);
+    this.props.showModalFunction(false);
   }
 
   render() {
@@ -63,6 +72,9 @@ class EditLocationInfoModal extends Component {
                 <button type="submit">{
                     location.short_description || location.long_description || location.tag_array ? 'Update' : 'Save'
                   }</button>
+                <i onClick={() => {this.deleteAndClose(location)}}
+                  className="fa fa-trash location-text-icon fa-lg"
+                  aria-hidden="true"></i>
               </form>
          		</Modal.Body>
             <Modal.Footer></Modal.Footer>

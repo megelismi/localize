@@ -38,9 +38,6 @@ class SelectedResults extends Component {
                   <i onClick={() => {this.editLocationInfo(location)}}
                     className="fa fa-pencil location-text-icon fa-lg"
                     aria-hidden="true"></i>
-                  <i onClick={() => {this.props.deleteLocationFromLocalsMap(location)}}
-                    className="fa fa-trash location-text-icon fa-lg"
-                    aria-hidden="true"></i>
                 </li>
               </ul>
             )
