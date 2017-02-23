@@ -9,6 +9,7 @@ import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
+import Tutorial from '../tutorial_modal/tutorial';
 
 export class UserAccountPage extends React.Component {
 
@@ -19,11 +20,12 @@ export class UserAccountPage extends React.Component {
   }
 
   render () {
-    let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen } = this.props;
+    let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen, tutorialModalOpen } = this.props;
 
     return (
       <div>
         <Header />
+        {tutorialModalOpen ? <Tutorial /> : null}
         {updateUserDetailsModalOpen ? <UpdateUserDetails /> : null}
         {updateProfilePictureModalOpen ? <UpdateProfilePicture /> : null}
         <div className="user-central-info">
@@ -46,7 +48,8 @@ export class UserAccountPage extends React.Component {
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
   updateUserDetailsModalOpen: state.updateUserDetailsModalOpen,
-  updateProfilePictureModalOpen: state.updateProfilePictureModalOpen
+  updateProfilePictureModalOpen: state.updateProfilePictureModalOpen,
+  tutorialModalOpen: state.tutorialModalOpen,
 })
 
 export default connect(mapStateToProps)(UserAccountPage);

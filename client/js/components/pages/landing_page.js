@@ -4,6 +4,7 @@ import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
+import Tutorial from '../tutorial_modal/tutorial';
 import * as actionCreators from '../../actions/sync.js';
 import * as post_actions from '../../actions/post_request.js'; 
 import * as sync_actions from '../../actions/sync.js';
@@ -32,7 +33,7 @@ class LandingPage extends React.Component {
   }
 
   openTutorial () {
-  	this.props.dispatch(sync_actions.logOut(this.props.currentUser.token)); 
+  	this.props.dispatch(sync_actions.tutorialModal()); 
   }
 
 	render () {
@@ -62,6 +63,7 @@ class LandingPage extends React.Component {
 			<div className="landingpage-container">
 				<LandingHeader rightNavLinks={rightNavLinks}/>
 				{this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
+				{this.props.tutorialModalOpen ? <Tutorial /> : null}
 				<div className="landingpage-details-container">
 					<h1 className="welcome-header">Localize</h1>
 					<h4 className="app-description-landing">explore a city with local recommendations</h4>
@@ -76,6 +78,7 @@ const mapStateToProps = state => {
   return {
     signUpModalOpen: state.signUpModalOpen,
     signInModalOpen: state.signInModalOpen, 
+    tutorialModalOpen: state.tutorialModalOpen,
     currentUser: state.currentUser
   }
 };
