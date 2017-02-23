@@ -55,12 +55,6 @@ class EditLocationInfoModal extends Component {
                   placeholder="e.g. I've been going to this whole-in-the wall for Sunday brunch for years now — the eggs benedict and Bloody Marys are just too good to pass up. In the summer, ask to be seated in the fantastic patio out back. Be forewared, it's a little pricey (think $20 entrees), but if you have the cash, it's worth it."
                   defaultValue={location.long_description || ''}
                   ref={input => this.longDescription = input} />
-                <button
-                  type="button"
-                  className="upload-image"
-                  onClick={() => {this.props.showUploadModalFunction(true)}}>
-                  Upload photo
-                </button>
                 <h4 className="info-text">{'Enter tags, separated by commas.'}</h4>
                 <input
                   className="tag-field"

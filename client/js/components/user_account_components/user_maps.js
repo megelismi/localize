@@ -16,7 +16,7 @@ const UserMaps = (props) => {
       <ul>
         {
           userHasMap.length === 0 ?
-            <button onClick={() => {hashHistory.push(`/usermap/${props.currentUser.id}`)}} disabled>My Portland</button> :
+            <p>No maps yet!</p> :
             <button onClick={() => {hashHistory.push(`/usermap/${props.currentUser.id}`)}}>My Portland</button>
         }
       </ul>
