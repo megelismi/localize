@@ -32,11 +32,13 @@ class EditLocationInfoModal extends Component {
     const { showModal, showModalFunction, location } = this.props;
     if (location) {
       return (
-        <div>
+        <div className="new-location-modal">
           <Modal show={showModal} onHide={() => {showModalFunction(false)}}>
-            <Modal.Header closeButton>
-            	<Modal.Title>{location.feature.properties.name}</Modal.Title>
-          	</Modal.Header>
+            <div className="modal-container">
+              <Modal.Header className="add-location-modal-header" closeButton>
+              	<Modal.Title>{location.feature.properties.name}</Modal.Title>
+            	</Modal.Header>
+            </div>
          		<Modal.Body>
               <form onSubmit={this.updateLocationInfo.bind(this)}>
                 <h4 className="info-text">{'Describe this location in a few words.'}</h4>
@@ -63,7 +65,7 @@ class EditLocationInfoModal extends Component {
                   placeholder="e.g. restaurant, independantly owned, brunch"
                   defaultValue={location.tag_array ? location.tag_array.join(', ') : ''}
                   ref={input => this.tagField = input} />
-                <button type="submit">{
+                <button className="new-location-details-save" type="submit">{
                     location.short_description || location.long_description || location.tag_array ? 'Update' : 'Save'
                   }</button>
                 <i onClick={() => {this.deleteAndClose(location)}}

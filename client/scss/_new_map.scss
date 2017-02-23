@@ -42,7 +42,7 @@
 
 .location-text {
   color: $charcoal;
-  border: 2px solid $purple;
+  border: 2px solid $accent-color;
   width: 200px;
   margin: 0 auto;
   padding: 6px;
@@ -52,3 +52,65 @@
 .complete {
   color: $accent-color;
 }
+
+.new-location-details-save {
+  width: 100px;
+  margin: 5px;
+  background-color: white;
+  border: 2px solid $accent-color;
+  color: $charcoal;
+  &:hover {
+    background-color: $accent-color;
+    color: white !important;
+    border: 2px solid $accent-color;
+    margin: 5px;
+  }
+}
+
+.modal-container .modal-header {
+  color: white;
+  background-color: $accent-color;
+}
+
+.short-description, .tag-field {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  width: 400px;
+  border: 10px solid $accent-color !important;
+}
+
+.long-description {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  width: 400px;
+  height: 200px;
+  outline: none;
+	resize: none;
+  border: 10px solid $accent-color !important;
+}
+
+.upload-image {
+  margin-bottom: 25px;
+}
+
+.info-text {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  width: 350px;
+  line-height: 1.5;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+//
