@@ -12,8 +12,8 @@ export class Tutorial extends React.Component {
 
     return (
       <Modal show={tutorialModalOpen} onHide={() => {this.props.syncActionCreators.tutorialModal()}}>
-        <Modal.Header closeButton>
-          <Modal.Title>Tutorial</Modal.Title>
+        <Modal.Header className="tutorial-modal-header" closeButton>
+          <Modal.Title>Getting Started</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <TutorialCarousel />

@@ -117,15 +117,30 @@ $darkpurple: #4062BB;
   position: static !important;
   background-color: white;
   opacity: 0.8;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   h3, p {
     color: $charcoal !important; 
     text-shadow: none !important;
   }
+  p {
+    text-align: justify !important;
+  }
+  h3 {
+    text-align: center !important; 
+  }
+}
+
+.tutorial-modal-header {
+  color: $charcoal !important; 
 }
 
 .carousel-indicators {
   display: none !important;
+  // li {
+  //   background-color: transparent !important; 
+  //   border: 1px solid $accent-color !important;
+  // }
 }
 
 .carousel-control.left, .carousel-control.right {
@@ -143,7 +158,7 @@ $darkpurple: #4062BB;
   text-shadow: none !important;
   font-size: 20px !important;
   line-height: 0 !important; 
-  font-weight: 100 !important;
+  // display: none !important;
 }
 
 .glyphicon-chevron-left {
