@@ -1,0 +1,55 @@
+.carousel-caption {
+  position: static !important;
+  background-color: white;
+  opacity: 0.8;
+  width: 100%;
+  margin: 0 auto;
+  h3, p {
+    color: $charcoal !important; 
+    text-shadow: none !important;
+  }
+  p {
+    text-align: justify !important;
+  }
+  h3 {
+    text-align: center !important; 
+  }
+}
+
+.tutorial-modal-header {
+  color: white !important; 
+}
+
+.carousel-indicators {
+  display: none !important;
+}
+
+.carousel-control.left, .carousel-control.right {
+   background-image:none !important;
+   filter:none !important;
+   opacity: 1 !important;
+   &:hover {
+    opacity: 0.7 !important; 
+   }
+}
+
+.glyphicon-chevron-left, .glyphicon-chevron-right {
+  color: $charcoal !important; 
+  top: 100% !important;
+  text-shadow: none !important;
+  font-size: 20px !important;
+  line-height: 0 !important; 
+}
+
+.glyphicon-chevron-left {
+  left: 25% !important; 
+}
+
+.glyphicon-chevron-right {
+  right: 25% !important;
+}
+
+
+.tutorial-footer {
+  border-top: none !important; 
+}

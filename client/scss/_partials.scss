@@ -1,18 +1,17 @@
 $app-font: 'stokedregular';
-$border-color: lightgray; 
-$accent-color: #4ddcb1; 
-$charcoal: #2D2D2D; 
+$border-color: lightgray;
+$accent-color: #4ddcb1;
+$charcoal: #2D2D2D;
 $purple: #748CCD;
 $darkpurple: #4062BB;
-
-
-//#51B2B2
-
-
 
 .welcome-header {
   font: $app-font;
   color: white;
+}
+
+.app-name {
+  cursor: pointer; 
 }
 
 .header, .footer {
@@ -54,16 +53,26 @@ $darkpurple: #4062BB;
   }
 }
 
+.help-button {
+  border: none; 
+  background-color: transparent;
+  color: $charcoal;
+  font-size: 16px; 
+  &:hover {
+    opacity: 0.5; 
+  }
+}
+
 .navbar-brand {
   font-family: $app-font;
-  color: $accent-color !important; 
-  font-size: 32px !important; 
+  color: $accent-color !important;
+  font-size: 32px !important;
 }
 
 .navbar-inverse {
   background-color: white !important;
-  border-color: white !important; 
-  border-bottom: 1px solid $border-color !important; 
+  border-color: white !important;
+  border-bottom: 1px solid $border-color !important;
 }
 
 .navbar-toggle {
@@ -72,11 +81,11 @@ $darkpurple: #4062BB;
 }
 
 .navbar-collapse {
-  border-color: $border-color !important;   
+  border-color: $border-color !important;
 }
 
 .icon-bar {
-  background-color: $accent-color !important; 
+  background-color: $accent-color !important;
 }
 
 .right-link {
@@ -84,10 +93,10 @@ $darkpurple: #4062BB;
   a {
      color: $darkpurple !important;
      &:hover {
-        color: $purple !important;  
+        color: $purple !important;
      }
      &:focus {
-        outline: none; 
+        outline: none;
      }
-  } 
+  }
 }

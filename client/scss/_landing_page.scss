@@ -72,6 +72,17 @@
   margin-bottom: 20px;
 }
 
+.right-link-header {
+	a {
+		color: white !important;
+		font-size: 16px !important; 
+	}
+}
+
+.nav-text-header {
+	color: white !important; 
+}
+
 @media screen and (min-width: 768px) {
 	.welcome-header {
 		font-size: 48px; 

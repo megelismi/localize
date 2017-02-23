@@ -15,9 +15,16 @@ const state = (state = {
   updateUserDetailsModalOpen: false,
   updateProfilePictureModalOpen: false,
   showModal: false,
-  showUploadModal: false
+  showUploadModal: false, 
+  tutorialModalOpen: false
 }, action) => {
   switch (action.type) {
+
+    case post_actions.SAVE_MAP_SUCCESS:
+    return state = Object.assign({}, state, { saveMapSuccess: true });
+
+    case post_actions.SAVE_MAP_ERROR:
+    return state = Object.assign({}, state, { saveMapSuccess: false });
 
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
     let locationToUpdate = state.localsMapLocations.map((elem, idx) => {
@@ -128,6 +135,24 @@ const state = (state = {
       usersError: false
     });
 
+    case sync_actions.SHOW_RELEVANT_USERS_ONLY:
+    let selectedUsers;
+    if (state.locationUserTagsHelper && state.users) {
+      let idsToSelect = state.locationUserTagsHelper.map((relation) => {
+        return relation.user_id
+      }).filter((item, idx, ary) => ary.indexOf(item) === idx);
+      selectedUsers = idsToSelect.map((id) => {
+        return state.users.filter((user) => {
+          return user.id === id;
+        });
+      }).reduce((a, b) => a.concat(b));
+    } else {
+      selectedUsers = state.users || [];
+    }
+    return state = Object.assign({}, state, {
+      relevantUsers: selectedUsers
+    });
+
     case get_actions.GET_USERS_ERROR:
     return state = Object.assign({}, state, {
       usersError: true
@@ -228,6 +253,11 @@ const state = (state = {
     case sync_actions.UPDATE_PROFILE_PICTURE_MODAL:
       return Object.assign({}, state, {
         updateProfilePictureModalOpen: !state.updateProfilePictureModalOpen
+      });
+
+    case sync_actions.TUTORIAL_MODAL:
+      return Object.assign({}, state, {
+        tutorialModalOpen: !state.tutorialModalOpen
       });
 
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
