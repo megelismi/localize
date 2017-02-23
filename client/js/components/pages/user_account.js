@@ -20,24 +20,27 @@ export class UserAccountPage extends React.Component {
   }
 
   render () {
-    let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen, tutorialModalOpen } = this.props;
-
-    return (
-      <div>
-        <Header />
-        {tutorialModalOpen ? <Tutorial /> : null}
-        {updateUserDetailsModalOpen ? <UpdateUserDetails /> : null}
-        {updateProfilePictureModalOpen ? <UpdateProfilePicture /> : null}
-        <div className="user-central-info">
-          <UserMaps currentUser={currentUser}/>
-          <UserDetailsTable
-            updateProfilePicture={() => {this.props.dispatch(actionCreators.updateProfilePictureModal())}}
-            image={currentUser.image}
-            name={currentUser.first_name + " " + currentUser.last_name}
-            username ={currentUser.username}
-            email={currentUser.email}
-            bio={currentUser.bio}
-            openUpdateUserDetailsModal={() => {this.props.dispatch(actionCreators.updateUserDetailsModal())}} />
+    let { currentUser, updateUserDetailsModalOpen, updateProfilePictureModalOpen, tutorialModalOpen, relevantUsers } = this.props;
+    if (relevantUsers) {
+      return (
+     <div>
+          <Header />
+          {tutorialModalOpen ? <Tutorial /> : null}
+          {updateUserDetailsModalOpen ? <UpdateUserDetails /> : null}
+          {updateProfilePictureModalOpen ? <UpdateProfilePicture /> : null}
+          <CreateMap id={currentUser.id}/>
+          <div className="user-central-info">
+            <UserMaps currentUser={currentUser} relevantUsers={relevantUsers} />
+            <UserDetailsTable
+              updateProfilePicture={() => {this.props.dispatch(actionCreators.updateProfilePictureModal())}}
+              image={currentUser.image}
+              name={currentUser.first_name + " " + currentUser.last_name}
+              username ={currentUser.username}
+              email={currentUser.email}
+              bio={currentUser.bio}
+              openUpdateUserDetailsModal={() => {this.props.dispatch(actionCreators.updateUserDetailsModal())}} />
+          </div>
+          <Footer />
         </div>
       )
     } else {
@@ -52,6 +55,7 @@ const mapStateToProps = state => ({
   updateUserDetailsModalOpen: state.updateUserDetailsModalOpen,
   updateProfilePictureModalOpen: state.updateProfilePictureModalOpen,
   tutorialModalOpen: state.tutorialModalOpen,
+  relevantUsers: state.relevantUsers
 })
 
 export default connect(mapStateToProps)(UserAccountPage);
