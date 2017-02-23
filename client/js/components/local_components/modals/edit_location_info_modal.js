@@ -69,7 +69,7 @@ class EditLocationInfoModal extends Component {
                     location.short_description || location.long_description || location.tag_array ? 'Update' : 'Save'
                   }</button>
                 <i onClick={() => {this.deleteAndClose(location)}}
-                  className="fa fa-trash location-text-icon fa-lg"
+                  className="fa fa-trash location-text-icon fa-2x"
                   aria-hidden="true"></i>
               </form>
          		</Modal.Body>
