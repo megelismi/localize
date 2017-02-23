@@ -123,6 +123,7 @@
     "redux-logger": "^2.8.1",
     "redux-thunk": "^2.2.0",
     "superagent": "^3.4.4",
-    "thunk": "0.0.1"
+    "thunk": "0.0.1",
+    "uuid": "^3.0.1"
   }
 }

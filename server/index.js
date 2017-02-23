@@ -10,6 +10,7 @@ import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
 
 const salt = bcrypt.genSaltSync(10);
+const uuidV1 = require('uuid/v1');
 
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 8080;
@@ -182,7 +183,7 @@ app.post('/signup', (req, res) => {
   const user = req;
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
-  const token = bcrypt.hashSync(email);
+  const token = uuidV1(); 
   const userValidityCheck = userValidity.signUpValidity(user)
 
   if (userValidityCheck.isInvalid) {
