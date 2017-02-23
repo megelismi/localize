@@ -18,7 +18,7 @@ export class Tutorial extends React.Component {
         <Modal.Body>
           <TutorialCarousel />
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer  className="tutorial-footer">
         </Modal.Footer>
       </Modal>
     )
