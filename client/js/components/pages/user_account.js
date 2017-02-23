@@ -26,11 +26,6 @@ export class UserAccountPage extends React.Component {
         <Header />
         {updateUserDetailsModalOpen ? <UpdateUserDetails /> : null}
         {updateProfilePictureModalOpen ? <UpdateProfilePicture /> : null}
-        <button
-          className="accent-button create-map-button"
-          onClick={() => {hashHistory.push(`/newmap/${currentUser.id}`)}}>
-          {'Create Map'}
-        </button>
         <div className="user-central-info">
           <UserMaps currentUser={currentUser}/>
           <UserDetailsTable
@@ -55,3 +50,5 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps)(UserAccountPage);
+
+//<button className="accent-button create-map-button" onClick={() => {hashHistory.push(`/newmap/${currentUser.id}`)}}>{'Create Map'}</button>

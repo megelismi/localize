@@ -33,6 +33,7 @@ class LandingPage extends React.Component {
 	render () {
 		const { currentUser } = this.props; 
 		let rightNavLinks; 
+	
 		if (!currentUser) {
 			rightNavLinks = (
 				<Nav pullRight>
@@ -67,8 +68,8 @@ class LandingPage extends React.Component {
 const mapStateToProps = state => {
   return {
     signUpModalOpen: state.signUpModalOpen,
-    signInModalOpen: state.signInModalOpen,
-    currentUser: state.currentUser 
+    signInModalOpen: state.signInModalOpen, 
+    currentUser: state.currentUser
   }
 };
 
