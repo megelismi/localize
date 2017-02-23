@@ -37,7 +37,10 @@ export const createNewUser = user => {
 				.then(error => dispatch(post_result.createNewUserError(error.message)));
 			} else {
 				return response.json()
-				.then(user => dispatch(post_result.createNewUserSuccess(user)));
+				.then(user => {
+          hashHistory.push('/map/portland');
+          dispatch(post_result.createNewUserSuccess(user))
+        });
 			}
 		});
 	}
@@ -63,6 +66,7 @@ export const signInUser = (emailOrUsername, password) => {
     		return response.json()
     		.then(user => {
           Cookies.set('localize_token', user.token)
+          hashHistory.push('/map/portland');
           dispatch(post_result.signInUserSuccess(user))
         });
     	}

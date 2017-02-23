@@ -25,14 +25,14 @@ $charcoal: #2D2D2D;
 }
 
 .accent-button {
-  display: block;
-  margin: 20px auto;
-  color: white;
-  background-color: $darkpurple;
-  border: 1px solid $darkpurple;
+  display: block; 
+  margin: 20px auto; 
+  color: $accent-color; 
+  font-weight: bold;
+  background-color: white; 
+  border: 2px solid $accent-color !important; 
   &:hover {
-    background-color: $purple;
-    border: 1px solid $purple !important;
+    opacity: 0.5;
   }
 }
 

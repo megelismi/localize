@@ -6,7 +6,6 @@ import { hashHistory } from 'react-router';
 
 import { connect } from 'react-redux';
 
-
 class Header extends React.Component  {
   constructor (props) {
     super(props); 
@@ -24,8 +23,8 @@ class Header extends React.Component  {
     this.props.dispatch(post_actions.logOut(this.props.currentUser.token)); 
   }
 
-  routeToUserAccount () {
-    hashHistory.push('/account/');
+  openTutorial () {
+    this.props.dispatch(actionCreators.tutorialModal());
   }
 
   render () {
@@ -34,25 +33,27 @@ class Header extends React.Component  {
     if (currentUser) {
       rightNavLinks = (
       <Nav pullRight>
-        <NavItem className="right-link" eventKey={1} href="#" onClick={this.routeToUserAccount.bind(this)}>My Account</NavItem>
-        <NavItem className="right-link" eventKey={2} href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
+        <Navbar.Text>Signed in as: </Navbar.Text> <NavItem className="right-link" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}</NavItem>
+        <NavItem className="right-link" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
+        <NavItem className="right-link" onClick={this.logOut.bind(this)}>Log Out</NavItem>
+        <NavItem className="right-link" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
       </Nav>
       )
     } else {
       rightNavLinks = (
       <Nav pullRight>
-        <NavItem className="right-link" eventKey={2} href="#" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
-        <NavItem className="right-link" eventKey={1} href="#" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
+        <NavItem className="right-link" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
+        <NavItem className="right-link" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
+        <NavItem className="right-link" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
       </Nav>
       )
     }
-
 
     return (
       <Navbar className="nav" inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a className="app-name" href="#">Localize</a>
+            <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize</a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>

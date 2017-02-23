@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Footer = () => {
+const Footer = (props) => {
 
   return (
     <div className="footer-wrapper">
@@ -8,8 +8,6 @@ const Footer = () => {
         <div className="footer">
           <nav>
             <ul>
-              <li><a href="#">Terms & Privacy</a></li>
-              <li><a href="#">Site Map</a></li>
             </ul>
           </nav>
         </div>

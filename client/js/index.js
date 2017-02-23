@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import SignUpForm from './components/auth/signup';
 import SignInForm from './components/auth/signin';
 import RequiresAuth from './components/auth/requires_auth';
+import RememberUser from './components/auth/remember_user';
 import MapDisplay from './components/pages/map_display';
 import NewMapDisplay from './components/pages/new_map_display';
 import UserAccountPage from './components/pages/user_account';
@@ -17,11 +18,11 @@ const routes = (
   <Provider store={store}>
 		<Router history={hashHistory}>
 
-			<Route path = '/map/portland' component={MapDisplay} />
+			<Route path = '/map/portland' component={RememberUser(MapDisplay)} />
 			<Route path= '/newmap/:id' component={RequiresAuth(NewMapDisplay)} />
       <Route path= '/usermap/:id' component={RequiresAuth(UserMapDisplay)} />
       <Route path = '/account' component={RequiresAuth(UserAccountPage)} />
-			<Route path = '/' component={LandingPage} />
+			<Route path = '/' component={RememberUser(LandingPage)} />
 
 		</Router>
   </Provider>

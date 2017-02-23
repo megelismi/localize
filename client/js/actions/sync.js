@@ -107,7 +107,6 @@ export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
 
-
 export const SIGN_UP_FOLLOW_UP_MODAL = 'SIGN_UP_FOLLOW_UP_MODAL';
 export const signUpFollowUpModal = () => ({
   type: SIGN_UP_FOLLOW_UP_MODAL
@@ -121,6 +120,11 @@ export const updateUserDetailsModal = () => ({
 export const UPDATE_PROFILE_PICTURE_MODAL = 'UPDATE_PROFILE_PICTURE_MODAL';
 export const updateProfilePictureModal = () => ({
   type: UPDATE_PROFILE_PICTURE_MODAL
+});
+
+export const TUTORIAL_MODAL = 'TUTORIAL_MODAL';
+export const tutorialModal = () => ({
+  type: TUTORIAL_MODAL
 });
 
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {

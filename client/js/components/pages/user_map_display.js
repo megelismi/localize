@@ -9,6 +9,7 @@ import Header from '../partials/header';
 import Footer from '../partials/footer';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
+import Tutorial from '../tutorial_modal/tutorial';
 
 class UserMapDisplay extends React.Component {
 
@@ -21,6 +22,7 @@ class UserMapDisplay extends React.Component {
       <div>
         <Header />
         {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
+        {this.props.tutorialModalOpen ? <Tutorial /> : null}
         <Map />
         <SidebarContainer locals={false} oneLocal={true}/>
         <Footer />
@@ -32,6 +34,7 @@ class UserMapDisplay extends React.Component {
 const mapStateToProps = (state) => ({
   signUpModalOpen: state.signUpModalOpen,
   signInModalOpen: state.signInModalOpen,
+  tutorialModalOpen: state.tutorialModalOpen,
   currentUser: state.currentUser
 });
 
