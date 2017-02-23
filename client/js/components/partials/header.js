@@ -23,6 +23,10 @@ class Header extends React.Component  {
     this.props.dispatch(post_actions.logOut(this.props.currentUser.token)); 
   }
 
+  openTutorial () {
+    this.props.dispatch(actionCreators.tutorialModal());
+  }
+
   render () {
     const { currentUser } = this.props; 
     let rightNavLinks;
@@ -32,6 +36,7 @@ class Header extends React.Component  {
         <Navbar.Text>Signed in as: </Navbar.Text> <NavItem className="right-link" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}</NavItem>
         <NavItem className="right-link" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
         <NavItem className="right-link" onClick={this.logOut.bind(this)}>Log Out</NavItem>
+        <NavItem className="right-link" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
       </Nav>
       )
     } else {
@@ -39,6 +44,7 @@ class Header extends React.Component  {
       <Nav pullRight>
         <NavItem className="right-link" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
         <NavItem className="right-link" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
+        <NavItem className="right-link" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
       </Nav>
       )
     }

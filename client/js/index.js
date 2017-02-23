@@ -22,7 +22,7 @@ const routes = (
 			<Route path= '/newmap/:id' component={RequiresAuth(NewMapDisplay)} />
       <Route path= '/usermap/:id' component={RequiresAuth(UserMapDisplay)} />
       <Route path = '/account' component={RequiresAuth(UserAccountPage)} />
-			<Route path = '/' component={LandingPage} />
+			<Route path = '/' component={RememberUser(LandingPage)} />
 
 		</Router>
   </Provider>

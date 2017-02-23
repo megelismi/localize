@@ -57,6 +57,16 @@ $darkpurple: #4062BB;
   }
 }
 
+.help-button {
+  border: none; 
+  background-color: transparent;
+  color: $charcoal;
+  font-size: 16px; 
+  &:hover {
+    opacity: 0.5; 
+  }
+}
+
 .navbar-brand {
   font-family: $app-font;
   color: $accent-color !important; 

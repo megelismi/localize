@@ -4,7 +4,6 @@ import * as actionCreators from '../../actions/sync.js';
 import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 
-
 export class SignUpForm extends React.Component {
 
   sendSignUpInfo (event) {

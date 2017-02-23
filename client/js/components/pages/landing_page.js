@@ -6,6 +6,7 @@ import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
 import * as actionCreators from '../../actions/sync.js';
 import * as post_actions from '../../actions/post_request.js'; 
+import * as sync_actions from '../../actions/sync.js';
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 
 class LandingPage extends React.Component {
@@ -30,15 +31,20 @@ class LandingPage extends React.Component {
     this.props.dispatch(post_actions.logOut(this.props.currentUser.token)); 
   }
 
+  openTutorial () {
+  	this.props.dispatch(sync_actions.logOut(this.props.currentUser.token)); 
+  }
+
 	render () {
 		const { currentUser } = this.props; 
 		let rightNavLinks; 
-	
+
 		if (!currentUser) {
 			rightNavLinks = (
 				<Nav pullRight>
-					<NavItem className="landing-header-links" onClick={this.openSignIn.bind(this)} eventKey={1} href="#">Sign In</NavItem>
-	        <NavItem className="landing-header-links" onClick={this.openSignUp.bind(this)} eventKey={2} href="#">Sign Up</NavItem>
+					<NavItem className="landing-header-links" onClick={this.openSignIn.bind(this)} href="#">Sign In</NavItem>
+	        <NavItem className="landing-header-links" onClick={this.openSignUp.bind(this)} href="#">Sign Up</NavItem>
+	        <NavItem className="landing-header-links" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
 	      </Nav>
 			)
 		} else {
@@ -47,6 +53,7 @@ class LandingPage extends React.Component {
 	      	<Navbar.Text className="nav-text-header">Signed in as: </Navbar.Text> <NavItem className="right-link-header" onClick={()=> {hashHistory.push('/account')}}>Megan</NavItem>
 	        <NavItem className="right-link-header" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
 	        <NavItem className="right-link-header" href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
+	        <NavItem className="landing-header-links" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
 	      </Nav>
 	     )
 		}
