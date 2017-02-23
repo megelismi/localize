@@ -78,7 +78,10 @@ app.post('/map', (req, res) => {
           console.log('New location saved with id ', id);
           return saved_location_id = id[0];
         })
-        .catch(() => console.log('Error saving new location.'))
+        .catch(err => {
+          res.sendStatus(400);
+          console.log('Error saving new location:', err)
+        })
       } else {
         console.log('Location found.')
         return saved_location_id = location[0].id;
@@ -93,7 +96,10 @@ app.post('/map', (req, res) => {
         image: content.image
       })
       .then(() => console.log('Review saved.'))
-      .catch(() => console.error('Error saving review.'));
+      .catch(err => {
+        res.sendStatus(400);
+        console.error('Error saving review:', err)
+      });
     })
     .then(() => {
       content.tag_array.forEach(user_tag => {
@@ -126,7 +132,7 @@ app.post('/map', (req, res) => {
         });
       });
     });
-  return res.status(201);
+  return res.sendStatus(201);
 });
 
 passport.use(new Strategy(

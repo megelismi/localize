@@ -67,7 +67,12 @@
   }
 }
 
-.modal-container .modal-header {
+.modal-header {
+  color: white;
+  background-color: $accent-color;
+}
+
+.modal-footer {
   color: white;
   background-color: $accent-color;
 }
@@ -77,7 +82,8 @@
   margin: 0 auto;
   margin-bottom: 25px;
   width: 400px;
-  border: 10px solid $accent-color !important;
+  border: 1px solid $accent-color !important;
+  padding: 5px;
 }
 
 .long-description {
@@ -88,7 +94,8 @@
   height: 200px;
   outline: none;
 	resize: none;
-  border: 10px solid $accent-color !important;
+  border: 1px solid $accent-color !important;
+  padding: 5px;
 }
 
 .upload-image {
@@ -101,16 +108,3 @@
   width: 350px;
   line-height: 1.5;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//

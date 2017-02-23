@@ -15,9 +15,9 @@ export const saveMap = (localsMapLocations) => dispatch => {
       throw new Error(res.statusText)
     }
   }).then(res => {
-    console.log('Success');
+    dispatch(post_result.saveMapSuccess())
   }).catch(err => {
-    console.log('Error');
+    dispatch(post_result.saveMapError())
   });
 }
 
@@ -72,7 +72,7 @@ export const signInUser = (emailOrUsername, password) => {
 
 export const logOut = (token) => dispatch => {
   return fetch ('/logout', {
-    method: 'post', 
+    method: 'post',
     headers: {
       'Authorization': `Bearer ${token}`
     }

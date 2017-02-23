@@ -23,7 +23,8 @@ const NewMapSidebar = (props) => {
 
 const mapStateToProps = (state) => ({
   localsMapLocations: state.localsMapLocations,
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  saveMapSuccess: state.saveMapSuccess
 });
 
 export default connect(mapStateToProps)(NewMapSidebar);

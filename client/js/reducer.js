@@ -19,6 +19,12 @@ const state = (state = {
 }, action) => {
   switch (action.type) {
 
+    case post_actions.SAVE_MAP_SUCCESS:
+    return state = Object.assign({}, state, { saveMapSuccess: true });
+
+    case post_actions.SAVE_MAP_ERROR:
+    return state = Object.assign({}, state, { saveMapSuccess: false });
+
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
     let locationToUpdate = state.localsMapLocations.map((elem, idx) => {
       if (elem.feature.properties.name === action.feature.properties.name) {

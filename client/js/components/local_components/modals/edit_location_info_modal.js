@@ -73,7 +73,9 @@ class EditLocationInfoModal extends Component {
                   aria-hidden="true"></i>
               </form>
          		</Modal.Body>
-            <Modal.Footer></Modal.Footer>
+            <div className="modal-container">
+              <Modal.Footer></Modal.Footer>
+            </div>
       		</Modal>
         </div>
       )

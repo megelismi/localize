@@ -6,9 +6,8 @@ const SaveMap = (props) => {
 
   const saveUserLocationsToMap = () => {
     props.localsMapLocations.forEach((location) => {
-      console.log(location);
       props.saveMap(location);
-    })
+    });
   }
 
   let saveButton = (props.localsMapLocations.length === 0 || props.localsMapLocations.length > props.saveable.length) ?
