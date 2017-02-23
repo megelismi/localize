@@ -51,7 +51,11 @@ class UpdateProfilePicture extends React.Component {
   render () {
     const { updateProfilePictureModalOpen, currentUser } = this.props;
     const { uploadedFileCloudinaryUrl, uploading } = this.state;
-
+    let loadingIcon = (
+      <div className="loading-icon-container">
+        <img className="loading-icon" src="http://res.cloudinary.com/megelismi/image/upload/v1487879746/ring_kttcio.gif" />
+      </div>
+    )
     return (
       <Modal
         show={updateProfilePictureModalOpen}
@@ -60,17 +64,17 @@ class UpdateProfilePicture extends React.Component {
           <Modal.Title>Update Profile Picture</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          {
-            uploadedFileCloudinaryUrl === '' ?
-            (uploading ? <h4>Loading...</h4> : <img className="user-profile-picture-modal" src={currentUser.image} />) :
-            <img className="user-profile-picture-modal" src={uploadedFileCloudinaryUrl} />
-          }
+        <div className="updating-picture-container">
+          { uploadedFileCloudinaryUrl === '' ?
+              (uploading ? <img className="loading-icon" src="http://res.cloudinary.com/megelismi/image/upload/v1487879746/ring_kttcio.gif" /> : <img className="user-profile-picture-modal" src={currentUser.image} />) 
+              : <img className="user-profile-picture-modal" src={uploadedFileCloudinaryUrl} /> }
+          </div>
           <ImageUpload onDrop={this.onImageDrop.bind(this)} />
         </Modal.Body>
           {
             uploading ?
               <button
-                className="accent-button save-user-details-button disabled"
+                className="accent-button save-user-details-button"
                 onClick={this.saveAndSendDetails.bind(this)} disabled>Save</button> :
               <button
                 className="accent-button save-user-details-button"
