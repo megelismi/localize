@@ -4,7 +4,7 @@
 
 .sign-up-error, .sign-in-error {
 	color: red;
-	margin-top: 10px; 
+	margin: 10px; 
 	font-size: 13px; 
 	font-weight: bold;
 	text-align: center;   
@@ -13,8 +13,8 @@
 .sign-up-pw-req {
 	color: gray; 
 	font-size: 12px; 
-	margin-top: 10px;
 	text-align: center;  
+	margin: 10px; 
 }
 
 .modal-footer {
@@ -41,4 +41,8 @@ h4.modal-title {
 		width: 75%; 
 		font-size: 18px; 
 	}
+}
+
+.auth-modal-body {
+	padding: 15px 15px 0 15px !important; 
 }

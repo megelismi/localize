@@ -128,15 +128,11 @@ $darkpurple: #4062BB;
 }
 
 .tutorial-modal-header {
-  color: $charcoal !important; 
+  color: white !important; 
 }
 
 .carousel-indicators {
   display: none !important;
-  // li {
-  //   background-color: transparent !important; 
-  //   border: 1px solid $accent-color !important;
-  // }
 }
 
 .carousel-control.left, .carousel-control.right {
@@ -154,7 +150,6 @@ $darkpurple: #4062BB;
   text-shadow: none !important;
   font-size: 20px !important;
   line-height: 0 !important; 
-  // display: none !important;
 }
 
 .glyphicon-chevron-left {

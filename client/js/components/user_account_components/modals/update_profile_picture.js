@@ -67,7 +67,6 @@ class UpdateProfilePicture extends React.Component {
           }
           <ImageUpload onDrop={this.onImageDrop.bind(this)} />
         </Modal.Body>
-        <Modal.Footer>
           {
             uploading ?
               <button
@@ -77,6 +76,7 @@ class UpdateProfilePicture extends React.Component {
                 className="accent-button save-user-details-button"
                 onClick={this.saveAndSendDetails.bind(this)}>Save</button>
           }
+        <Modal.Footer>
         </Modal.Footer>
       </Modal>
     )

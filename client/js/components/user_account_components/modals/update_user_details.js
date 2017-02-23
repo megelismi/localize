@@ -70,8 +70,8 @@ class UpdateUserDetails extends React.Component {
               ref={element => this.bio = element}>{currentUser.bio}</div>
           </div>
         </Modal.Body>
+         <button className="accent-button save-user-details-button" onClick={this.saveAndSendDetails.bind(this)}>Save</button>
         <Modal.Footer>
-          <button className="accent-button save-user-details-button" onClick={this.saveAndSendDetails.bind(this)}>Save</button>
         </Modal.Footer>
       </Modal>
     )
