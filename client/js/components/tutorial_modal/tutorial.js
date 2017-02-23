@@ -3,6 +3,7 @@ import * as syncActionCreators from '../../actions/sync.js';
 import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import { bindActionCreators } from 'redux';
+import TutorialCarousel from './tutorial_carousel';
 
 export class Tutorial extends React.Component {
 
@@ -15,7 +16,7 @@ export class Tutorial extends React.Component {
           <Modal.Title>Tutorial</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>I'm the tutorial.</p>
+          <TutorialCarousel />
         </Modal.Body>
         <Modal.Footer>
         </Modal.Footer>
