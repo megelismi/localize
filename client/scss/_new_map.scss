@@ -1,26 +1,26 @@
-.save-map-button {
-  width: 200px;
-  height: 40px;
-  background-color: $darkpurple;
-  border: 1px solid $darkpurple;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
-  font-size: 18px;
-  color: white;
+.disabled {
+  opacity: 0.5;
+  background-color: gray !important;
+  border: 1px solid gray !important;
+  color: black !important;
   &:hover {
-    background-color: $purple;
-    border: 1px solid $purple !important;
+    opacity: 0.5 !important;
   }
 }
 
-.disabled {
-  background-color: gray;
-  border: 1px solid gray;
-  color: $charcoal;
+.save-map-button {
+  width: 200px;
+  height: 40px;
+  background-color: $accent-color;
+  border: 1px solid $accent-color;
+  border-radius: 2px; 
+  font-size: 18px;
+  color: white;
   &:hover {
-    background-color: gray;
-    border: 1px solid gray !important;
+    opacity: 0.7;
   }
 }
+
 
 .location-listing {
   display: block;
@@ -43,10 +43,10 @@
 .location-text {
   color: $charcoal;
   border: 2px solid $accent-color;
+  border-radius: 2px; 
   width: 200px;
   margin: 0 auto;
   padding: 6px;
-  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
 }
 
 .complete {
@@ -54,17 +54,8 @@
 }
 
 .new-location-details-save {
-  width: 100px;
-  margin: 5px;
-  background-color: white;
-  border: 2px solid $accent-color;
-  color: $charcoal;
-  &:hover {
-    background-color: $accent-color;
-    color: white !important;
-    border: 2px solid $accent-color;
-    margin: 5px;
-  }
+  width: 70%;
+  font-size: 18px; 
 }
 
 .modal-header {

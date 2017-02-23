@@ -65,7 +65,7 @@ class EditLocationInfoModal extends Component {
                   placeholder="e.g. restaurant, independantly owned, brunch"
                   defaultValue={location.tag_array ? location.tag_array.join(', ') : ''}
                   ref={input => this.tagField = input} />
-                <button className="new-location-details-save" type="submit">{
+                <button className="accent-button new-location-details-save" type="submit">{
                     location.short_description || location.long_description || location.tag_array ? 'Update' : 'Save'
                   }</button>
                 <i onClick={() => {this.deleteAndClose(location)}}
@@ -84,6 +84,8 @@ class EditLocationInfoModal extends Component {
     }
   }
 }
+
+//new-location-details-save
 
 const mapStateToProps = (state) => ({
   showModal: state.showModal
