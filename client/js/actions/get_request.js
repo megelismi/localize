@@ -6,6 +6,34 @@ import * as get_result from './get_result.js';
 import * as post_result from './post_result.js';
 import * as sync from './sync.js';
 
+export const getSelectedUsers = () => (dispatch, getState) => {
+  return fetch('/users')
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    return res.json();
+  }).then(res => {
+    dispatch(get_result.getUsersSuccess(res))
+  }).catch(err => {
+    dispatch(get_result.getUsersError(err))
+  }).then(() => {
+    return fetch('/locations/tags')
+    .then(res => {
+      if (!res.ok) {
+        throw new Error(res.statusText)
+      }
+      return res.json();
+    }).then(res => {
+      dispatch(get_result.getLocationUserTagsHelperSuccess(res))
+    }).catch(err => {
+      dispatch(get_result.getLocationUserTagsHelperError(err))
+    }).then(() => {
+      dispatch(sync.showRelevantUsersOnly());
+    });
+  });
+}
+
 export const getUsers = () => dispatch => {
   return fetch('/users')
   .then(res => {

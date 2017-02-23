@@ -1,3 +1,9 @@
+
+export const SHOW_RELEVANT_USERS_ONLY = 'SHOW_RELEVANT_USERS_ONLY';
+export const showRelevantUsersOnly = () => ({
+  type: SHOW_RELEVANT_USERS_ONLY
+})
+
 export const UPDATE_LOCATION_IMAGE = 'UPDATE_LOCATION_IMAGE';
 export const updateLocationImage = image => ({
   type: UPDATE_LOCATION_IMAGE,
@@ -101,12 +107,12 @@ export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
 
-export const SIGN_UP_FOLLOW_UP_MODAL = 'SIGN_UP_FOLLOW_UP_MODAL'; 
+export const SIGN_UP_FOLLOW_UP_MODAL = 'SIGN_UP_FOLLOW_UP_MODAL';
 export const signUpFollowUpModal = () => ({
   type: SIGN_UP_FOLLOW_UP_MODAL
 })
 
-export const UPDATE_USER_DETAILS_MODAL = 'UPDATE_USER_DETAILS_MODAL'; 
+export const UPDATE_USER_DETAILS_MODAL = 'UPDATE_USER_DETAILS_MODAL';
 export const updateUserDetailsModal = () => ({
   type: UPDATE_USER_DETAILS_MODAL
 });

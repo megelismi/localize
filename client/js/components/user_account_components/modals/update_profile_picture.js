@@ -71,7 +71,7 @@ class UpdateProfilePicture extends React.Component {
           {
             uploading ?
               <button
-                className="accent-button save-user-details-button"
+                className="accent-button save-user-details-button disabled"
                 onClick={this.saveAndSendDetails.bind(this)} disabled>Save</button> :
               <button
                 className="accent-button save-user-details-button"

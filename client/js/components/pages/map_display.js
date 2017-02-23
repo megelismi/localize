@@ -15,8 +15,7 @@ import FollowUpModal from '../auth/signup_followup';
 class MapDisplay extends React.Component {
 
   componentDidMount() {
-    this.props.getActionCreators.getLocationTags();
-    this.props.getActionCreators.getUsers();
+    this.props.getActionCreators.getSelectedUsers();
     this.props.getActionCreators.getLocationsAndDescriptions();
   }
 

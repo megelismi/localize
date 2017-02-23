@@ -1,8 +1,7 @@
-$darkpurple: #4062BB; 
+$darkpurple: #4062BB;
 $purple: #748CCD;
 $accent-color: #4ddcb1;
 $charcoal: #2D2D2D; 
-
 
 .tag-button, .accent-button {
   margin: 4px;
@@ -34,8 +33,6 @@ $charcoal: #2D2D2D;
   border: 2px solid $accent-color !important; 
   &:hover {
     opacity: 0.5;
-    // background-color: $purple; 
-    // border: 1px solid $purple !important; 
   }
 }
 

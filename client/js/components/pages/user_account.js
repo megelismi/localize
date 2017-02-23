@@ -7,6 +7,7 @@ import UpdateUserDetails from '../user_account_components/modals/update_user_det
 import UpdateProfilePicture from '../user_account_components/modals/update_profile_picture';
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
+import CreateMap from '../user_account_components/create_map';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
 import Tutorial from '../tutorial_modal/tutorial';
@@ -14,8 +15,7 @@ import Tutorial from '../tutorial_modal/tutorial';
 export class UserAccountPage extends React.Component {
 
   componentDidMount() {
-    this.props.dispatch(getActionCreators.getLocationTags());
-    this.props.dispatch(getActionCreators.getUsers());
+    this.props.dispatch(getActionCreators.getSelectedUsers());
     this.props.dispatch(getActionCreators.getLocationsAndDescriptions());
   }
 
@@ -39,14 +39,16 @@ export class UserAccountPage extends React.Component {
             bio={currentUser.bio}
             openUpdateUserDetailsModal={() => {this.props.dispatch(actionCreators.updateUserDetailsModal())}} />
         </div>
-        <Footer />
-      </div>
-    )
+      )
+    } else {
+      return ( <div></div> )
+    }
   }
 }
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
+  relevantUsers: state.relevantUsers,
   updateUserDetailsModalOpen: state.updateUserDetailsModalOpen,
   updateProfilePictureModalOpen: state.updateProfilePictureModalOpen,
   tutorialModalOpen: state.tutorialModalOpen,

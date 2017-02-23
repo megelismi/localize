@@ -20,6 +20,12 @@ const state = (state = {
 }, action) => {
   switch (action.type) {
 
+    case post_actions.SAVE_MAP_SUCCESS:
+    return state = Object.assign({}, state, { saveMapSuccess: true });
+
+    case post_actions.SAVE_MAP_ERROR:
+    return state = Object.assign({}, state, { saveMapSuccess: false });
+
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
     let locationToUpdate = state.localsMapLocations.map((elem, idx) => {
       if (elem.feature.properties.name === action.feature.properties.name) {
@@ -127,6 +133,24 @@ const state = (state = {
     return state = Object.assign({}, state, {
       users: action.users,
       usersError: false
+    });
+
+    case sync_actions.SHOW_RELEVANT_USERS_ONLY:
+    let selectedUsers;
+    if (state.locationUserTagsHelper && state.users) {
+      let idsToSelect = state.locationUserTagsHelper.map((relation) => {
+        return relation.user_id
+      }).filter((item, idx, ary) => ary.indexOf(item) === idx);
+      selectedUsers = idsToSelect.map((id) => {
+        return state.users.filter((user) => {
+          return user.id === id;
+        });
+      }).reduce((a, b) => a.concat(b));
+    } else {
+      selectedUsers = state.users || [];
+    }
+    return state = Object.assign({}, state, {
+      relevantUsers: selectedUsers
     });
 
     case get_actions.GET_USERS_ERROR:

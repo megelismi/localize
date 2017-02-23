@@ -1,0 +1,110 @@
+.save-map-button {
+  width: 200px;
+  height: 40px;
+  background-color: $darkpurple;
+  border: 1px solid $darkpurple;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+  color: white;
+  &:hover {
+    background-color: $purple;
+    border: 1px solid $purple !important;
+  }
+}
+
+.disabled {
+  background-color: gray;
+  border: 1px solid gray;
+  color: $charcoal;
+  &:hover {
+    background-color: gray;
+    border: 1px solid gray !important;
+  }
+}
+
+.location-listing {
+  display: block;
+  text-align: center;
+  margin: 15px;
+}
+
+.location-text-element {
+  font-weight: bold;
+  text-align: center;
+}
+
+.location-text-icon {
+  margin: 8px;
+  &:hover {
+    color: gray;
+  }
+}
+
+.location-text {
+  color: $charcoal;
+  border: 2px solid $accent-color;
+  width: 200px;
+  margin: 0 auto;
+  padding: 6px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.complete {
+  color: $accent-color;
+}
+
+.new-location-details-save {
+  width: 100px;
+  margin: 5px;
+  background-color: white;
+  border: 2px solid $accent-color;
+  color: $charcoal;
+  &:hover {
+    background-color: $accent-color;
+    color: white !important;
+    border: 2px solid $accent-color;
+    margin: 5px;
+  }
+}
+
+.modal-header {
+  color: white;
+  background-color: $accent-color;
+}
+
+.modal-footer {
+  color: white;
+  background-color: $accent-color;
+}
+
+.short-description, .tag-field {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  width: 400px;
+  border: 1px solid $accent-color !important;
+  padding: 5px;
+}
+
+.long-description {
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 25px;
+  width: 400px;
+  height: 200px;
+  outline: none;
+	resize: none;
+  border: 1px solid $accent-color !important;
+  padding: 5px;
+}
+
+.upload-image {
+  margin-bottom: 25px;
+}
+
+.info-text {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  width: 350px;
+  line-height: 1.5;
+}
