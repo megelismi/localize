@@ -15,8 +15,8 @@ const NewMapSidebar = (props) => {
 
   return (
     <div className="sidebar">
-      <SelectedResults results={props.localsMapLocations} currentUser={props.currentUser} />
       <SaveMap localsMapLocations={props.localsMapLocations} saveable={saveable} />
+      <SelectedResults results={props.localsMapLocations} currentUser={props.currentUser} />
     </div>
   )
 }

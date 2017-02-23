@@ -1,0 +1,55 @@
+.save-map-button {
+  width: 200px;
+  height: 40px;
+  background-color: $darkpurple;
+  border: 1px solid $darkpurple;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  font-size: 18px;
+  color: white;
+  &:hover {
+    background-color: $purple;
+    border: 1px solid $purple !important;
+  }
+}
+
+.disabled {
+  background-color: gray;
+  border: 1px solid gray;
+  font-size: 18px;
+  color: $charcoal;
+  &:hover {
+    background-color: gray;
+    border: 1px solid gray !important;
+  }
+}
+
+.location-listing {
+  display: block;
+  text-align: center;
+  margin: 15px;
+}
+
+.location-text-element {
+  font-weight: bold;
+  text-align: center;
+}
+
+.location-text-icon {
+  margin: 8px;
+  &:hover {
+    color: gray;
+  }
+}
+
+.location-text {
+  color: $charcoal;
+  border: 2px solid $purple;
+  width: 200px;
+  margin: 0 auto;
+  padding: 6px;
+  box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.complete {
+  color: $accent-color;
+}

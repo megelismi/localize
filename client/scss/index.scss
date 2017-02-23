@@ -11,6 +11,7 @@
 @import 'selected_results';
 @import 'user_account_page';
 @import 'landing_page';
+@import 'new_map';
 
 @font-face {
     font-family: 'stokedregular';
@@ -37,7 +38,7 @@ body {
   font-family: $base-font !important;
   color: #5F5F5F;
   background-repeat: no-repeat;
-  background-size: cover; 
+  background-size: cover;
   background-position: center center;
 }
 

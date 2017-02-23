@@ -11,21 +11,15 @@ const SaveMap = (props) => {
     })
   }
 
-  if (props.localsMapLocations.length === 0 || props.localsMapLocations.length > props.saveable.length) {
-    return (
-      <div>
-        <button className="disabled save-map-button" disabled>Save map</button>
-      </div>
-    )
-  } else {
-    return (
-      <div>
-        <button
-          onClick={saveUserLocationsToMap}
-          className="save-map-button">Save map</button>
-      </div>
-    )
-  }
+  let saveButton = (props.localsMapLocations.length === 0 || props.localsMapLocations.length > props.saveable.length) ?
+    <button className="disabled save-map-button" disabled>Save map</button> :
+    <button onClick={saveUserLocationsToMap} className="save-map-button">Save map</button>
+
+  return (
+    <div>
+      {saveButton}
+    </div>
+  )
 }
 
 export default connect(null, postActionCreators)(SaveMap);
