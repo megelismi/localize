@@ -26,7 +26,7 @@ export class SignUpForm extends React.Component {
         <Modal.Header closeButton>
           <Modal.Title>Sign Up</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className= "auth-modal-body">
           <form className ="signup-form" onSubmit={this.sendSignUpInfo.bind(this)}>
             <input
               className="sign-in-up-modal-input"
@@ -67,9 +67,9 @@ export class SignUpForm extends React.Component {
             <input className= "accent-button" type="submit" value="Sign Up" />
           </form>
         </Modal.Body>
+        <div className="sign-up-pw-req">Passwords must contain 6 characters, including 1 number and 1 symbol.</div>
+        {signUpUserError ? <div className="sign-up-error">{signUpUserError}</div> : <div></div>}
         <Modal.Footer>
-          <div className="sign-up-pw-req">Passwords must contain 6 characters, including 1 number and 1 symbol.</div>
-          {signUpUserError ? <div className="sign-up-error">{signUpUserError}</div> : <div></div>}
         </Modal.Footer>
       </Modal>
     )

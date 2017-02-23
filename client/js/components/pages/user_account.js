@@ -7,7 +7,6 @@ import UpdateUserDetails from '../user_account_components/modals/update_user_det
 import UpdateProfilePicture from '../user_account_components/modals/update_profile_picture';
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
-import CreateMap from '../user_account_components/create_map';
 import Header from '../partials/header';
 import Footer from '../partials/footer';
 import Tutorial from '../tutorial_modal/tutorial';
@@ -28,7 +27,6 @@ export class UserAccountPage extends React.Component {
           {tutorialModalOpen ? <Tutorial /> : null}
           {updateUserDetailsModalOpen ? <UpdateUserDetails /> : null}
           {updateProfilePictureModalOpen ? <UpdateProfilePicture /> : null}
-          <CreateMap id={currentUser.id}/>
           <div className="user-central-info">
             <UserMaps currentUser={currentUser} relevantUsers={relevantUsers} />
             <UserDetailsTable
@@ -60,4 +58,5 @@ const mapStateToProps = state => ({
 
 export default connect(mapStateToProps)(UserAccountPage);
 
-//<button className="accent-button create-map-button" onClick={() => {hashHistory.push(`/newmap/${currentUser.id}`)}}>{'Create Map'}</button>
+
+

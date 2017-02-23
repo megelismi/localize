@@ -33,7 +33,7 @@ class Header extends React.Component  {
     if (currentUser) {
       rightNavLinks = (
       <Nav pullRight>
-        <Navbar.Text>Signed in as: </Navbar.Text> <NavItem className="right-link" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}</NavItem>
+        <NavItem className="right-link" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}'s Profile</NavItem>
         <NavItem className="right-link" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
         <NavItem className="right-link" onClick={this.logOut.bind(this)}>Log Out</NavItem>
         <NavItem className="right-link" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
