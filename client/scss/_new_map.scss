@@ -83,7 +83,7 @@
   display: block;
   margin: 0 auto;
   margin-bottom: 25px;
-  width: 400px;
+  width: 90%;
   border: 1px solid $accent-color !important;
   padding: 5px;
 }
@@ -92,7 +92,7 @@
   display: block;
   margin: 0 auto;
   margin-bottom: 25px;
-  width: 400px;
+  width: 90%;
   height: 200px;
   outline: none;
 	resize: none;
@@ -107,6 +107,19 @@
 .info-text {
   margin: 0 auto;
   margin-bottom: 15px;
-  width: 350px;
+  width: 90%;
   line-height: 1.5;
 }
+
+@media screen and (max-width: 460px) {
+
+ .info-text {
+  font-size: 14px;
+ }
+
+ .long-description {
+  height: 90%; 
+ }
+
+}
+
