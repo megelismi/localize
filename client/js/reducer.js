@@ -121,7 +121,8 @@ const state = (state = {
     case post_actions.LOG_OUT_SUCCESS:
     return Object.assign({}, state, {
       currentUser: undefined,
-      logOutError: false
+      logOutError: false,
+      localsMapLocations: []
     });
 
     case post_actions.LOG_OUT_ERROR:

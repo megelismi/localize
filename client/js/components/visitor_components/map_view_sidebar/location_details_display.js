@@ -9,7 +9,7 @@ const LocationDetailsDisplay = (props) => {
 	        <i className="fa fa-window-close" aria-hidden="true"></i>
 	      </button>
 	      <div className="selected-location-name">{props.locationInfo.name}</div>
-	      <img className="location-image" src={props.locationInfo.image} />
+	      { props.locationInfo.image ? <img className="location-image" src={props.locationInfo.image} /> : null }
 	      <div className="selected-location-info">{props.locationInfo.long_description}</div>
 	      <button className="add-location-to-favs-button">Add to favorites</button>
 	     </div>
