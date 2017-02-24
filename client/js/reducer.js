@@ -122,7 +122,9 @@ const state = (state = {
     return Object.assign({}, state, {
       currentUser: undefined,
       logOutError: false,
-      localsMapLocations: []
+      localsMapLocations: [],
+      selectedUser: null,
+      locationsFilteredByUser: []
     });
 
     case post_actions.LOG_OUT_ERROR:

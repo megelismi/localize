@@ -181,16 +181,15 @@
 		border: 1px solid $border-color; 
     display: flex;
     flex-direction: row-reverse;
-    width: 90%;
+    width: 50%;
     margin: 50px auto;
 	}
 
-	.user-account-details, .maps-list-container {
-		width: 50%;
+	.user-account-details {
+		width: 100%;
 	}
 
 	.user-account-details {
-		border-right: 1px solid $border-color;
 		padding: 15px 0;
 	}
 
