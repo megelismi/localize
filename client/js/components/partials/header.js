@@ -49,11 +49,13 @@ class Header extends React.Component  {
       )
     }
 
+    let logo = (<img className="logo" src="/assets/images/logo-map-pin.png" />)
+
     return (
       <Navbar className="nav" inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize</a>
+            <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span>{logo}</span></a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
