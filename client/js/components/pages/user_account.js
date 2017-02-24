@@ -28,7 +28,7 @@ export class UserAccountPage extends React.Component {
           {updateUserDetailsModalOpen ? <UpdateUserDetails /> : null}
           {updateProfilePictureModalOpen ? <UpdateProfilePicture /> : null}
           <div className="user-central-info">
-            <UserMaps currentUser={currentUser} relevantUsers={relevantUsers} />
+            <UserMaps id={currentUser.id} relevantUsers={relevantUsers} />
             <UserDetailsTable
               updateProfilePicture={() => {this.props.dispatch(actionCreators.updateProfilePictureModal())}}
               image={currentUser.image}
