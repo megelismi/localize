@@ -3,7 +3,7 @@ import React from 'react';
 const LocalDetailsDisplay = (props) => {
 
     return (
-      <div className="sidebar-inner-container">
+    <div>
        <button className="locals-details-button" onClick={props.clearSelectedUser}>Show all users</button>
         <ul>
           <li className="locals-details-name">{props.userInfo.first_name}</li>

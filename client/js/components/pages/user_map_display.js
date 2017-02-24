@@ -14,24 +14,36 @@ import Tutorial from '../tutorial_modal/tutorial';
 class UserMapDisplay extends React.Component {
 
   componentWillMount() {
-    this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
+    this.props.dispatch(getActionCreators.getSelectedUsers())
+    .then(() => {
+       this.props.dispatch(getActionCreators.getLocationsAndDescriptions())})
+    .then(() => {
+      this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
+    }).catch((err) => {
+      console.log(err); 
+    })
   }
 
   render() {
-    return (
-      <div>
-        <Header />
-        {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
-        {this.props.tutorialModalOpen ? <Tutorial /> : null}
-        <Map />
-        <SidebarContainer locals={false} oneLocal={true}/>
-        <Footer />
-      </div>
-    )
+    if (this.props.selectedUser) {
+      return (
+        <div>
+          <Header />
+          {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
+          {this.props.tutorialModalOpen ? <Tutorial /> : null}
+          <Map />
+          <SidebarContainer locals={false} oneLocal={true}/>
+          <Footer />
+        </div>
+      )
+    } else {
+      return <div></div>
+    }  
   }
 }
 
 const mapStateToProps = (state) => ({
+  selectedUser: state.selectedUser,
   signUpModalOpen: state.signUpModalOpen,
   signInModalOpen: state.signInModalOpen,
   tutorialModalOpen: state.tutorialModalOpen,

@@ -18,7 +18,7 @@ class MapComponent extends React.Component {
       let locations;
       if (selectedLocations && selectedLocations.length > 0) {
         locations = selectedLocations
-      } else if (locationsFilteredByUser) {
+      } else if (locationsFilteredByUser && locationsFilteredByUser.length > 0) {
         locations = locationsFilteredByUser
       } else {
         locations = allLocationsAndDescriptions

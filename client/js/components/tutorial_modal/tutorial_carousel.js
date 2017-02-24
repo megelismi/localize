@@ -23,7 +23,7 @@ const TutorialCarousel = (props) => {
 	      <img width={900} height={500} alt="900x500" src="assets/images/local-view.png"/>
 	      <Carousel.Caption>
 	        <h3>Find Out More</h3>
-	        <p>In the individual view, you will see the map and filters change to be specific to the locations that the selected user has pinned.</p>
+	        <p>In the individual view, you will see the map and filters change to be specific to the locations the selected user has pinned.</p>
 	      </Carousel.Caption>
 	    </Carousel.Item>
 	    <Carousel.Item>

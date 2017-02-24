@@ -14,19 +14,17 @@ const LocalsDisplay = (props) => {
 
   if (props.users) {
     return (
-      <div className="sidebar-inner-container">
-        <div className="user-info">
-          {props.users.map((user) => {
-            return (
-                <ul className ="user-image-and-description-container" key={user.id}>
-                  <img className="user-image" src={user.image} />
-                  <li className="user-name"><button className="see-user-city" onClick={() => {selectLocalAndClearTags(user)}}>{user.first_name}</button></li>
-                  <li className="user-bio">{reduceBio(user.bio)}</li>
-                </ul>
-              )
-          })}
-        </div>
-    </div>
+      <div className="user-info">
+        {props.users.map((user) => {
+          return (
+              <ul className ="user-image-and-description-container" key={user.id}>
+                <img className="user-image" src={user.image} />
+                <li className="user-name"><button className="see-user-city" onClick={() => {selectLocalAndClearTags(user)}}>{user.first_name}</button></li>
+                <li className="user-bio">{reduceBio(user.bio)}</li>
+              </ul>
+            )
+        })}
+      </div>
     )
   } else {
     return <div></div>

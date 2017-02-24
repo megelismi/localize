@@ -35,7 +35,9 @@ const SidebarPresentation = (props) => {
           </li>
         </ul>
       </div>
-      {display}
+       <div className="sidebar-inner-container">
+        {display}
+      </div>
     </div>
   )
 }

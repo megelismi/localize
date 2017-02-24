@@ -24,7 +24,7 @@ class SignInForm extends React.Component {
         <Modal.Header closeButton>
           <Modal.Title>Sign In</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="auth-modal-body">
+        <Modal.Body>
           <form className="signin-form" onSubmit={this.sendSignInInfo.bind(this)}>
             <input
               className="sign-in-up-modal-input"
@@ -44,8 +44,8 @@ class SignInForm extends React.Component {
               value="Sign In" />
           </form>
         </Modal.Body>
-        {signInUserError ? <div className="sign-up-error">{signInUserError}</div> : <div></div>}
         <Modal.Footer>
+          {signInUserError ? <div className="sign-up-error">{signInUserError}</div> : <div></div>}
         </Modal.Footer>
       </Modal>
     )
