@@ -67,6 +67,8 @@ $darkpurple: #4062BB;
   font-family: $app-font;
   color: $accent-color !important;
   font-size: 32px !important;
+  padding: 15px 5px !important;
+  position: relative; 
 }
 
 .navbar-inverse {
@@ -107,4 +109,10 @@ $darkpurple: #4062BB;
 
 .logo {
   width: 28px;
+}
+
+.logo-container {
+  position: absolute;
+  top: 9px; 
+  left: 180px; 
 }

@@ -55,7 +55,7 @@ class Header extends React.Component  {
       <Navbar className="nav" inverse collapseOnSelect>
         <Navbar.Header>
           <Navbar.Brand>
-            <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span>{logo}</span></a>
+            <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span className="logo-container">{logo}</span></a>
           </Navbar.Brand>
           <Navbar.Toggle />
         </Navbar.Header>
