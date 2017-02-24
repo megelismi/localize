@@ -7,6 +7,7 @@ const UserMaps = (props) => {
   const userHasMap = props.relevantUsers.filter((user) => {
     return user.id === props.id;
   });
+  console.log('props', props)
 
   return (
     <div className="maps-list-container">
@@ -17,7 +18,7 @@ const UserMaps = (props) => {
         {
           userHasMap.length === 0 ?
             <p>No maps yet!</p> :
-            <button onClick={() => {hashHistory.push(`/usermap/${props.currentUser.id}`)}}>My Portland</button>
+            <button className="view-my-map" onClick={() => {hashHistory.push(`/usermap/${props.id}`)}}>My Portland</button>
         }
       </ul>
     </div>
