@@ -1,6 +1,49 @@
-# Thinkful Full Stack Template
+# Localize
 
-A template for developing and deploying full stack JavaScript apps.  Supports ES2015 on the client and server-side.
+## Built by Hannah McCain & Megan Smith
+
+### About Localize
+
+Localize is an app for travelers. It allows people to get recommendations on where to go & what to do from the folks who know a town best — the locals. Locals can pin locations to a map, then add tags and a description, so that visitors can find the perfect restaurant, museum, bar, park, or shop.
+
+### How to use Localize
+
+You can use Localize with or without an account. If you simply want to view the map and pinned locations, you do not need an account. If you would like to pin locations to the map, you will need to sign up for an account.
+
+* To view a pin and its details, click the pin
+
+[ screenshot ]
+
+* To filter pins by tag, click the filter icon and select the tags you would like to apply
+
+[ screenshot ]
+
+* To view a specific user's pinned locations, click that user
+
+[ screenshot ]
+
+* To add your own pinned location...
+
+** Log in or create an account, then click "create map" in the header bar
+
+[ screenshot ]
+
+** Next, search for a location to add to your map
+
+[ screenshot ]
+
+** Then, add tags and a description
+
+[ screenshot ]
+
+** Finally, click "save map" to save your location to the map!
+
+### The code
+
+* Frontend: React, Redux
+* Backend: Node.js with Express
+* Database: PostgreSQL with Knex
+* Localize was built using starter files compiled by @oampo.
 
 ## Getting started
 
@@ -10,9 +53,6 @@ A template for developing and deploying full stack JavaScript apps.  Supports ES
 * Clone this repository: `git clone https://github.com/oampo/thinkful-full-stack-template YOUR_PROJECT_NAME`
 * Move into the project directory: `cd YOUR_PROJECT_NAME`
 * Install the dependencies: `npm install`
-* Create a new repo on GitHub: https://github.com/new
-    * Make sure the "Initialize this repository with a README" option is left **un**checked
-* Update the remote to point to your GitHub repository: `git remote set-url origin https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY_NAME`
 
 ### Working on the project
 
@@ -34,41 +74,3 @@ A template for developing and deploying full stack JavaScript apps.  Supports ES
     ├── client  Client tests
     └── server  Server tests
 ```
-
-## Deployment
-
-Requires the [Heroku CLI client](https://devcenter.heroku.com/articles/heroku-command-line).
-
-### Setting up the project on Heroku
-
-* Move into the project directory: `cd ~/YOUR_PROJECTS_DIRECTORY/YOUR_PROJECT_NAME`
-* Create the Heroku app: `heroku create PROJECT_NAME`
-* Instruct Heroku to install the development dependencies: `heroku config:set NPM_CONFIG_PRODUCTION=false`
-
-### Deploying to Heroku
-
-* Push your code to Heroku: `git push heroku master`
-
-## Continuous Integration
-
-* Add your repository to [Travis CI](https://travis-ci.org/)
-
-## Continuous Deployment
-
-Requires the [Travis CLI client](https://github.com/travis-ci/travis.rb).
-
-### Setting up CD
-
-* Add the following configuration to `.travis.yml`:
-
-    ```
-    deploy:
-      provider: heroku
-      app: YOUR_HEROKU_APP_NAME
-    ```
-* Add your Heroku API key: `travis encrypt $(heroku auth:token) --add deploy.api_key`
-
-### Deploying using CD
-
-* Push your code to GitHub: `git push origin master`
-
