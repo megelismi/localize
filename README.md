@@ -24,19 +24,19 @@ You can use Localize with or without an account. If you simply want to view the 
 
 * To add your own pinned location...
 
-** Log in or create an account, then click "create map" in the header bar
+   * Log in or create an account, then click "create map" in the header bar
 
 [ screenshot ]
 
-** Next, search for a location to add to your map
+   * Next, search for a location to add to your map
 
 [ screenshot ]
 
-** Then, add tags and a description
+   * Then, add tags and a description
 
 [ screenshot ]
 
-** Finally, click "save map" to save your location to the map!
+   * Finally, click "save map" to save your location to the map!
 
 ### The code
 
