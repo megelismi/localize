@@ -127,23 +127,37 @@ export const tutorialModal = () => ({
   type: TUTORIAL_MODAL
 });
 
+export const SET_LOCALS_MAP_LOCATIONS = 'SET_LOCALS_MAP_LOCATIONS';
+export const setLocalsMapLocations = locations => ({
+  type: SET_LOCALS_MAP_LOCATIONS,
+  locations
+})
+
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
-  let currentUser = getState().selectedUser
-  let currentUserLocations = getState().selectedUserLocations
+  let selectedUser = getState().selectedUser;
+  let currentUser = getState().currentUser;
+  let selectedUserLocations = getState().selectedUserLocations;
   dispatch({
     type: SELECT_USER,
     user
   });
-  if (currentUser !== getState().selectedUser) {
+  if (selectedUser !== getState().selectedUser) {
     dispatch({
       type: FILTER_LOCATIONS_BY_USER,
       user
     });
   }
-  if (currentUserLocations !== getState().locationsFilteredByUser) {
+  if (selectedUserLocations !== getState().locationsFilteredByUser) {
     dispatch({
       type: FILTER_TAGS_BY_USER
     });
+  }
+  if (currentUser && getState().locationsFilteredByUser) {
+    let locations = getState().locationsFilteredByUser;
+    dispatch({
+      type: SET_LOCALS_MAP_LOCATIONS,
+      locations
+    })
   }
 }
 
