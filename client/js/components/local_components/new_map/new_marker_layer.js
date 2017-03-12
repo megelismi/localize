@@ -9,7 +9,7 @@ const MarkerLayer = (props) => {
           return <Marker position={[location.lat_long.lat, location.lat_long.lng]} key={index}>
             <Popup>
               <span className="popup-info">
-                <p className="location-name">{location.feature.properties.name}</p>
+                <p className="location-name">{location.name}</p>
               </span>
             </Popup>
           </Marker>

@@ -11,10 +11,10 @@ export const updateLocationImage = image => ({
 });
 
 export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
-export const updateLocationInLocalsMap = (user_id = 3, feature, lat_long, short = null, long = null, tag_array = null) => ({
+export const updateLocationInLocalsMap = (user_id = 3, name, lat_long, short = null, long = null, tag_array = null) => ({
   type: UPDATE_LOCATION_IN_LOCALS_MAP,
   user_id,
-  feature,
+  name,
   lat_long,
   short,
   long,

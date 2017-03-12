@@ -61,16 +61,16 @@ app.get('/find/cookie/:token', (req, res) => {
 
 app.post('/map', (req, res) => {
   const content = req.body;
-  const { feature, lat_long } = content;
+  const { name, lat_long } = content;
   let saved_location_id;
 
   knex('locations')
-    .where('name', content.feature.properties.name)
+    .where('name', content.name)
     .andWhere('lat_long', [content.lat_long.lat, content.lat_long.lng])
     .then(location => {
       if (!location[0]) {
         return knex('locations').insert({
-          name: feature.properties.name,
+          name: name,
           address: null,
           lat_long: [lat_long.lat, lat_long.lng]
         })
@@ -112,7 +112,7 @@ app.post('/map', (req, res) => {
             short_description: content.short_description,
             long_description: content.long_description
           })
-          .then(() => console.log('Review updated!'))        
+          .then(() => console.log('Review updated!'))
         }
       })
     })

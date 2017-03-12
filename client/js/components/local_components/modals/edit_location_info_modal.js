@@ -15,7 +15,7 @@ class EditLocationInfoModal extends Component {
     this.props.showModalFunction(false);
     this.props.updateLocationInLocalsMap(
       this.props.currentUser.id,
-      this.props.location.feature,
+      this.props.location.name,
       this.props.location.lat_long,
       this.shortDescription.value,
       this.longDescription.value,
@@ -24,6 +24,7 @@ class EditLocationInfoModal extends Component {
   }
 
   deleteAndClose(location) {
+    console.log('location to be deleted', location);
     this.props.deleteLocationFromLocalsMap(location);
     this.props.showModalFunction(false);
   }
@@ -36,7 +37,7 @@ class EditLocationInfoModal extends Component {
           <Modal show={showModal} onHide={() => {showModalFunction(false)}}>
             <div className="modal-container">
               <Modal.Header className="add-location-modal-header" closeButton>
-              	<Modal.Title>{location.feature.properties.name}</Modal.Title>
+              	<Modal.Title>{location.name}</Modal.Title>
             	</Modal.Header>
             </div>
          		<Modal.Body>

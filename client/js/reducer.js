@@ -15,7 +15,7 @@ const state = (state = {
   updateUserDetailsModalOpen: false,
   updateProfilePictureModalOpen: false,
   showModal: false,
-  showUploadModal: false, 
+  showUploadModal: false,
   tutorialModalOpen: false
 }, action) => {
   switch (action.type) {
@@ -28,14 +28,14 @@ const state = (state = {
 
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
     let locationToUpdate = state.localsMapLocations.map((elem, idx) => {
-      if (elem.feature.properties.name === action.feature.properties.name) {
+      if (elem.name === action.name) {
         return idx;
       }
     }).filter((result) => result !== undefined);
     let newLocations = state.localsMapLocations.slice(0, locationToUpdate[0]).concat(state.localsMapLocations.slice(locationToUpdate[0] + 1));
     return state = Object.assign({}, state, {localsMapLocations: [...newLocations, {
       user_id: action.user_id,
-      feature: action.feature,
+      name: action.name,
       lat_long: action.lat_long,
       short_description: action.short,
       long_description: action.long,
@@ -55,7 +55,7 @@ const state = (state = {
 
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
     let deleteLocationAt = state.localsMapLocations.map((elem, idx) => {
-      if (elem.feature.properties.name === action.location.feature.properties.name) {
+      if (elem.name === action.location.name) {
         return idx;
       }
     }).filter((result) => result !== undefined);
@@ -66,7 +66,7 @@ const state = (state = {
     return state = Object.assign({}, state,
       { localsMapLocations: [ ...state.localsMapLocations, {
         user_id: action.user_id,
-        feature: action.feature,
+        name: action.feature.properties.name,
         lat_long: action.lat_long,
         short_description: action.short,
         long_description: action.long,
