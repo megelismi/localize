@@ -89,18 +89,32 @@ app.post('/map', (req, res) => {
       }
     })
     .then(() => {
-      return knex('reviews').insert({
-        user_id: content.user_id,
-        location_id: saved_location_id,
-        short_description: content.short_description,
-        long_description: content.long_description,
-        image: content.image
+      knex('reviews')
+      .where('location_id', saved_location_id)
+      .then(review => {
+        if (!review[0]) {
+          return knex('reviews').insert({
+            user_id: content.user_id,
+            location_id: saved_location_id,
+            short_description: content.short_description,
+            long_description: content.long_description,
+            image: content.image
+          })
+          .then(() => console.log('Review saved.'))
+          .catch(err => {
+            res.sendStatus(400);
+            console.error('Error saving review:', err)
+          });
+        } else {
+          knex('reviews')
+          .where('location_id', saved_location_id)
+          .update({
+            short_description: content.short_description,
+            long_description: content.long_description
+          })
+          .then(() => console.log('Review updated!'))        
+        }
       })
-      .then(() => console.log('Review saved.'))
-      .catch(err => {
-        res.sendStatus(400);
-        console.error('Error saving review:', err)
-      });
     })
     .then(() => {
       content.tag_array.forEach(user_tag => {
@@ -183,7 +197,7 @@ app.post('/signup', (req, res) => {
   const user = req;
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
-  const token = uuidV1(); 
+  const token = uuidV1();
   const userValidityCheck = userValidity.signUpValidity(user)
 
   if (userValidityCheck.isInvalid) {
