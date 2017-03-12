@@ -1,14 +1,14 @@
 import React from 'react';
 import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Modal, OverlayTrigger, Popover, Tooltip, Button } from 'react-bootstrap';
 import * as actionCreators from '../../actions/sync.js';
-import * as post_actions from '../../actions/post_request.js'; 
-import { hashHistory } from 'react-router'; 
+import * as post_actions from '../../actions/post_request.js';
+import { hashHistory } from 'react-router';
 
 import { connect } from 'react-redux';
 
 class Header extends React.Component  {
   constructor (props) {
-    super(props); 
+    super(props);
   }
 
   openSignUp () {
@@ -20,7 +20,7 @@ class Header extends React.Component  {
   }
 
   logOut () {
-    this.props.dispatch(post_actions.logOut(this.props.currentUser.token)); 
+    this.props.dispatch(post_actions.logOut(this.props.currentUser.token));
   }
 
   openTutorial () {
@@ -28,13 +28,13 @@ class Header extends React.Component  {
   }
 
   render () {
-    const { currentUser } = this.props; 
+    const { currentUser } = this.props;
     let rightNavLinks;
     if (currentUser) {
       rightNavLinks = (
       <Nav pullRight>
-        <NavItem className="right-link" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}'s Profile</NavItem>
-        <NavItem className="right-link" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
+        <NavItem className="right-link" onClick={()=> {hashHistory.push('/account')}}>Your Profile</NavItem>
+        <NavItem className="right-link" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Your Map</NavItem>
         <NavItem className="right-link" onClick={this.logOut.bind(this)}>Log Out</NavItem>
         <NavItem className="right-link" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
       </Nav>
@@ -71,4 +71,3 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser
 })
 export default connect(mapStateToProps)(Header);
-
