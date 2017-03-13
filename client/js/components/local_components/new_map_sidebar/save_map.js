@@ -24,13 +24,14 @@ class SaveMap extends React.Component {
   }
 
   render() {
+    let newLocations = this.props.localsMapLocations.filter(location => !location.saved);
     return (
       <div>
         <h5 className={this.state.textClass}><span className="save-map-span">
           {this.state.infoText}
         </span></h5>
         {
-          (this.props.localsMapLocations.length === 0 || this.props.localsMapLocations.length > this.props.saveable.length) ?
+          (newLocations.length === 0 || this.props.localsMapLocations.length > this.props.saveable.length) ?
             <button
               onClick={this.setInfoText.bind(this)}
               className="no-click save-map-button">Publish</button> :
