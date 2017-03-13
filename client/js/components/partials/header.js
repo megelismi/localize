@@ -28,7 +28,7 @@ class Header extends React.Component  {
   }
 
   openMap() {
-    this.props.dispatch(actionCreators.selectUserAndUpdateTags(this.props.currentUser));
+    // this.props.dispatch(actionCreators.selectUserAndUpdateTags(this.props.currentUser));
     hashHistory.push(`/newmap/${this.props.currentUser.id}`);
   }
 

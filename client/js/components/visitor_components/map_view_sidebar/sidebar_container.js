@@ -13,6 +13,10 @@ class NewSidebar extends React.Component {
     this.state = { displayLocals: props.locals, displayTags: false, displayOneUser: props.oneLocal }
   }
 
+  componentWillMount() {
+    this.props.deselectUser();
+  }
+
   showTagsView() { this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }) }
 
   showAllLocalsOrSingleLocal() {
