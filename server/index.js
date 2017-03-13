@@ -100,7 +100,8 @@ app.post('/map', (req, res) => {
             short_description: content.short_description,
             long_description: content.long_description,
             image: content.image,
-            show: content.show
+            show: content.show,
+            saved: true
           })
           .then(() => console.log('Review saved.'))
           .catch(err => {
@@ -110,10 +111,12 @@ app.post('/map', (req, res) => {
         } else {
           knex('reviews')
           .where('location_id', saved_location_id)
+          .andWhere('user_id', content.user_id)
           .update({
             short_description: content.short_description,
             long_description: content.long_description,
-            show: content.show
+            show: content.show,
+            saved: true
           })
           .then(() => console.log('Review updated!'))
         }

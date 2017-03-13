@@ -22,7 +22,10 @@ class SelectedResults extends Component {
           {this.props.results.map((location, idx) => {
             let { short_description, long_description, tag_array, image } = location;
             let progressMarker, complete;
-            if (short_description && long_description && tag_array) {
+            if (location.saved) {
+              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true"></i>
+              complete = "location-text saved-location"
+            } else if (short_description && long_description && tag_array) {
               progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true"></i>
               complete = "location-text complete"
             } else {

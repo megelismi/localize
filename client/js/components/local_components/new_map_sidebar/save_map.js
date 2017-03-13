@@ -32,8 +32,8 @@ class SaveMap extends React.Component {
           (this.props.localsMapLocations.length === 0 || this.props.localsMapLocations.length > this.props.saveable.length) ?
             <button
               onClick={this.setInfoText.bind(this)}
-              className="no-click save-map-button">Save map</button> :
-            <button onClick={this.saveUserLocationsToMap.bind(this)} className="save-map-button">Save map</button>
+              className="no-click save-map-button">Publish</button> :
+            <button onClick={this.saveUserLocationsToMap.bind(this)} className="save-map-button">Publish</button>
         }
       </div>
     )

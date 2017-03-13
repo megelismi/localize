@@ -76,7 +76,7 @@ const state = (state = {
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return state = Object.assign({}, state,
-      { localsMapLocations: [ ...state.localsMapLocations, {
+      { localsMapLocations: [{
         user_id: action.user_id,
         name: action.feature.properties.name,
         lat_long: action.lat_long,
@@ -84,20 +84,8 @@ const state = (state = {
         long_description: action.long,
         tag_array: action.tag_array,
         show: 'yes'
-      }] }
+      }, ...state.localsMapLocations] }
     );
-
-    // case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
-    // console.log('actions...', action.feature, action.latlong);
-    // return state = Object.assign({}, state,
-    //   { localsMapLocations: [ ...state.localsMapLocations,
-    //     { feature: action.feature,
-    //       lat_long: action.lat_long,
-    //       short_description: action.short,
-    //       long_description: action.long,
-    //       image: action.image
-    //     }] }
-    // );
 
     case sync_actions.SHOW_MODAL_FUNCTION:
     return state = Object.assign({}, state, { showModal: action.boolean });
@@ -227,6 +215,7 @@ const state = (state = {
           long_description: merge.long_description,
           image: merge.image,
           user_id: merge.user_id,
+          saved: merge.saved,
           show: merge.show || 'yes'
         });
       });
