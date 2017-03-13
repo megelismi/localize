@@ -232,8 +232,11 @@ const state = (state = {
       });
       return merge;
     });
+    let locationsToInclude = mergedLocations.filter(location => {
+      return location.show === 'yes';
+    });
     return state = Object.assign({}, state, {
-      allLocationsAndDescriptions: mergedLocations,
+      allLocationsAndDescriptions: locationsToInclude,
       getDescriptionsError: false
     });
     case get_actions.GET_DESCRIPTIONS_ERROR:
