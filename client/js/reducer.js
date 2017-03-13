@@ -42,7 +42,8 @@ const state = (state = {
       lat_long: action.lat_long,
       short_description: action.short,
       long_description: action.long,
-      tag_array: action.tag_array
+      tag_array: action.tag_array,
+      show: true
     }] }
   );
 
@@ -57,13 +58,21 @@ const state = (state = {
   );
 
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
-    let deleteLocationAt = state.localsMapLocations.map((elem, idx) => {
+    let deleteLocationAt, deleteLocation;
+    state.localsMapLocations.map((elem, idx) => {
       if (elem.name === action.location.name) {
-        return idx;
+        deleteLocation = elem;
+        deleteLocationAt = idx;
       }
     }).filter((result) => result !== undefined);
-    let newDeleteLocations = state.localsMapLocations.slice(0, deleteLocationAt[0]).concat(state.localsMapLocations.slice(deleteLocationAt[0] + 1));
-    return state = Object.assign({}, state, {localsMapLocations: newDeleteLocations});
+
+    let newLocalsObject = Object.assign({}, deleteLocation, { show: false });
+
+    console.log('DELETE LOCATION AT NEW OBJECT', newLocalsObject, 'DELETE LOCATION AT INDEX', deleteLocationAt);
+
+    let newDeleteLocations = state.localsMapLocations.slice(0, deleteLocationAt).concat(state.localsMapLocations.slice(deleteLocationAt + 1));
+
+    return state = Object.assign({}, state, {localsMapLocations: [...newDeleteLocations, newLocalsObject]});
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return state = Object.assign({}, state,
@@ -73,9 +82,22 @@ const state = (state = {
         lat_long: action.lat_long,
         short_description: action.short,
         long_description: action.long,
-        tag_array: action.tag_array
+        tag_array: action.tag_array,
+        show: true
       }] }
     );
+
+    // case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
+    // console.log('actions...', action.feature, action.latlong);
+    // return state = Object.assign({}, state,
+    //   { localsMapLocations: [ ...state.localsMapLocations,
+    //     { feature: action.feature,
+    //       lat_long: action.lat_long,
+    //       short_description: action.short,
+    //       long_description: action.long,
+    //       image: action.image
+    //     }] }
+    // );
 
     case sync_actions.SHOW_MODAL_FUNCTION:
     return state = Object.assign({}, state, { showModal: action.boolean });
@@ -217,18 +239,6 @@ const state = (state = {
     return state = Object.assign({}, state, {
       getDescriptionsError: true
     });
-
-    case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
-    console.log('actions...', action.feature, action.latlong);
-    return state = Object.assign({}, state,
-      { localsMapLocations: [ ...state.localsMapLocations,
-        { feature: action.feature,
-          lat_long: action.lat_long,
-          short_description: action.short,
-          long_description: action.long,
-          image: action.image
-        }] }
-    );
 
     case sync_actions.GET_SEARCH_RESULTS:
     return state = Object.assign({}, state,

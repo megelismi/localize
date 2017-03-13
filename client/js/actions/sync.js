@@ -1,4 +1,3 @@
-
 export const SHOW_RELEVANT_USERS_ONLY = 'SHOW_RELEVANT_USERS_ONLY';
 export const showRelevantUsersOnly = () => ({
   type: SHOW_RELEVANT_USERS_ONLY
