@@ -43,7 +43,7 @@ const state = (state = {
       short_description: action.short,
       long_description: action.long,
       tag_array: action.tag_array,
-      show: true
+      show: 'yes'
     }] }
   );
 
@@ -66,7 +66,7 @@ const state = (state = {
       }
     }).filter((result) => result !== undefined);
 
-    let newLocalsObject = Object.assign({}, deleteLocation, { show: false });
+    let newLocalsObject = Object.assign({}, deleteLocation, { show: 'no' });
 
     console.log('DELETE LOCATION AT NEW OBJECT', newLocalsObject, 'DELETE LOCATION AT INDEX', deleteLocationAt);
 
@@ -83,7 +83,7 @@ const state = (state = {
         short_description: action.short,
         long_description: action.long,
         tag_array: action.tag_array,
-        show: true
+        show: 'yes'
       }] }
     );
 
@@ -226,7 +226,8 @@ const state = (state = {
           short_description: merge.short_description,
           long_description: merge.long_description,
           image: merge.image,
-          user_id: merge.user_id
+          user_id: merge.user_id,
+          show: merge.show || 'yes'
         });
       });
       return merge;

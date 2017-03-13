@@ -66,7 +66,7 @@ app.post('/map', (req, res) => {
 
   knex('locations')
     .where('name', content.name)
-    .andWhere('lat_long', [content.lat_long.lat, content.lat_long.lng])
+    .andWhere('lat_long', [content.lat_long.lat || content.lat_long[0], content.lat_long.lng || content.lat_long[1]])
     .then(location => {
       if (!location[0]) {
         return knex('locations').insert({
@@ -98,7 +98,8 @@ app.post('/map', (req, res) => {
             location_id: saved_location_id,
             short_description: content.short_description,
             long_description: content.long_description,
-            image: content.image
+            image: content.image,
+            show: content.show
           })
           .then(() => console.log('Review saved.'))
           .catch(err => {
@@ -110,42 +111,47 @@ app.post('/map', (req, res) => {
           .where('location_id', saved_location_id)
           .update({
             short_description: content.short_description,
-            long_description: content.long_description
+            long_description: content.long_description,
+            show: content.show
           })
           .then(() => console.log('Review updated!'))
         }
       })
     })
     .then(() => {
-      content.tag_array.forEach(user_tag => {
-        return knex('tags')
-        .where('tag', user_tag)
-        .then(result => {
-          if (!result[0]) {
-            return knex('tags').insert({
-              tag: user_tag
-            })
-            .returning('id')
-            .then(id => {
+      if (content.tag_array) {
+        content.tag_array.forEach(user_tag => {
+          return knex('tags')
+          .where('tag', user_tag)
+          .then(result => {
+            if (!result[0]) {
+              return knex('tags').insert({
+                tag: user_tag
+              })
+              .returning('id')
+              .then(id => {
+                return knex('locations_users_tags').insert({
+                  location_id: saved_location_id,
+                  tag_id: id[0],
+                  user_id: content.user_id
+                })
+                .then(() => console.log('Relation saved.'))
+                .catch(error => console.error('Error saving relation: ', error))
+              })
+            } else {
               return knex('locations_users_tags').insert({
                 location_id: saved_location_id,
-                tag_id: id[0],
+                tag_id: result[0].id,
                 user_id: content.user_id
               })
               .then(() => console.log('Relation saved.'))
               .catch(error => console.error('Error saving relation: ', error))
-            })
-          } else {
-            return knex('locations_users_tags').insert({
-              location_id: saved_location_id,
-              tag_id: result[0].id,
-              user_id: content.user_id
-            })
-            .then(() => console.log('Relation saved.'))
-            .catch(error => console.error('Error saving relation: ', error))
-          }
+            }
+          });
         });
-      });
+      } else {
+        return;
+      }
     });
   return res.sendStatus(201);
 });
