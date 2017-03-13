@@ -14,7 +14,7 @@ class NewMapDisplay extends React.Component {
   componentWillMount() {
     return this.props.dispatch(getActionCreators.getSelectedUsers())
     .then(() => {
-       return this.props.dispatch(getActionCreators.getLocationsAndDescriptions())})
+      return this.props.dispatch(getActionCreators.getLocationsAndDescriptions())})
     .then(() => {
       return this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
     }).catch((err) => {

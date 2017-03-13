@@ -66,7 +66,7 @@ const state = (state = {
       }
     }).filter((result) => result !== undefined);
 
-    let newLocalsObject = Object.assign({}, deleteLocation, { show: 'no' });
+    let newLocalsObject = Object.assign({}, deleteLocation, { show: 'no', saved: false });
 
     console.log('DELETE LOCATION AT NEW OBJECT', newLocalsObject, 'DELETE LOCATION AT INDEX', deleteLocationAt);
 

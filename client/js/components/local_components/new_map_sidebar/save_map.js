@@ -1,7 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
+import { bindActionCreators } from 'redux';
+import * as syncActionCreators from '../../../actions/sync.js';
 import * as postActionCreators from '../../../actions/post_request.js';
+import * as getActionCreators from '../../../actions/get_request.js';
 
 class SaveMap extends React.Component {
   constructor() {
@@ -13,10 +16,10 @@ class SaveMap extends React.Component {
   }
 
   saveUserLocationsToMap() {
+    this.setState({ infoText: "Yay! Your map locations have been updated!", textClass: "save-map-text purple" });
     this.props.localsMapLocations.forEach((location) => {
-      this.props.saveMap(location);
+      this.props.postActionCreators.saveMap(location);
     });
-    this.setState({ infoText: "Yay! Your map locations have been published!", textClass: "save-map-text purple" })
   }
 
   setInfoText() {
@@ -40,7 +43,18 @@ class SaveMap extends React.Component {
       </div>
     )
   }
-
 }
 
-export default connect(null, postActionCreators)(SaveMap);
+const mapStateToProps = (state) => ({
+  allLocationsAndDescriptions: state.allLocationsAndDescriptions
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postActionCreators: bindActionCreators(postActionCreators, dispatch),
+    getActionCreators: bindActionCreators(getActionCreators, dispatch),
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SaveMap);
