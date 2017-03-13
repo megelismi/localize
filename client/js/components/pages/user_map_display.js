@@ -20,7 +20,7 @@ class UserMapDisplay extends React.Component {
     .then(() => {
       this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
     }).catch((err) => {
-      console.log(err); 
+      console.log(err);
     })
   }
 
@@ -38,7 +38,7 @@ class UserMapDisplay extends React.Component {
       )
     } else {
       return <div></div>
-    }  
+    }
   }
 }
 
@@ -58,5 +58,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMapDisplay);
-
-// dumb comment

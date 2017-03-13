@@ -288,42 +288,42 @@ const state = (state = {
         tagsError: false
       });
 
-        // FILTER_BY_TAG takes all city locations or, if a specific user is selected, it takes
-        // just that user's locations
-        case sync_actions.FILTER_BY_TAG:
-        let newTagsArray, selectedLocations;
-        // modify an array of all currently selected tags
-        if (state.selectedTags.indexOf(action.tag) === -1) {
-          !action.tag ?
-          newTagsArray = [] :
-          newTagsArray = [ ...state.selectedTags, action.tag ]
-        } else if (state.selectedTags.indexOf(action.tag) !== -1) {
-          let deleteAt = state.selectedTags.findIndex((elem) => elem === action.tag);
-          newTagsArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
-        } else {
-          newTagsArray = [];
-        }
-        // find all locations that match any tag in selected tags array
-        if (newTagsArray.length === 0) {
-          selectedLocations = [];
-          // selectedLocations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
-        } else {
-          let locations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
-          let filteredJoinArray = newTagsArray.map((id) => {
-            return state.locationUserTagsHelper.filter((object) => {
-              return object.tag_id === id
-            })
-            .map((object) => object.location_id) })
-            .reduce((a, b) => a.concat(b))
-            .filter((item, idx, ary) => ary.indexOf(item) === idx );
-            selectedLocations = filteredJoinArray.map((locationID) => {
-              return locations.filter((location) => location.id === locationID);
-            }).reduce((a, b) => a.concat(b));
-          }
-          return state = Object.assign({}, state, {
-            selectedTags: newTagsArray,
-            selectedLocations: selectedLocations
-          });
+    // FILTER_BY_TAG takes all city locations or, if a specific user is selected, it takes
+    // just that user's locations
+    case sync_actions.FILTER_BY_TAG:
+    let newTagsArray, selectedLocations;
+    // modify an array of all currently selected tags
+    if (state.selectedTags.indexOf(action.tag) === -1) {
+      !action.tag ?
+      newTagsArray = [] :
+      newTagsArray = [ ...state.selectedTags, action.tag ]
+    } else if (state.selectedTags.indexOf(action.tag) !== -1) {
+      let deleteAt = state.selectedTags.findIndex((elem) => elem === action.tag);
+      newTagsArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
+    } else {
+      newTagsArray = [];
+    }
+    // find all locations that match any tag in selected tags array
+    if (newTagsArray.length === 0) {
+      selectedLocations = [];
+      // selectedLocations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
+    } else {
+      let locations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
+      let filteredJoinArray = newTagsArray.map((id) => {
+        return state.locationUserTagsHelper.filter((object) => {
+          return object.tag_id === id
+        })
+        .map((object) => object.location_id) })
+        .reduce((a, b) => a.concat(b))
+        .filter((item, idx, ary) => ary.indexOf(item) === idx );
+        selectedLocations = filteredJoinArray.map((locationID) => {
+          return locations.filter((location) => location.id === locationID);
+        }).reduce((a, b) => a.concat(b));
+      }
+      return state = Object.assign({}, state, {
+        selectedTags: newTagsArray,
+        selectedLocations: selectedLocations
+      });
 
     case sync_actions.DESELECT_USER:
     return state = Object.assign({}, state, {

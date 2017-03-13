@@ -8,8 +8,7 @@ const NewMapSidebar = (props) => {
   let saveable = props.localsMapLocations.filter((location) => {
     return (
       location.short_description &&
-      location.long_description &&
-      location.tag_array
+      location.long_description
     )
   });
 
