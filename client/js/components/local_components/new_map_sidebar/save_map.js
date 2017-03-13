@@ -7,7 +7,8 @@ class SaveMap extends React.Component {
   constructor() {
     super();
     this.state = {
-      infoText: `Search for locations to pin them to your map, then click the edit icon to add personalized descriptions.`
+      infoText: `Search for locations to pin them to your map, then click the edit icon to add personalized descriptions.`,
+      textClass: 'save-map-text'
     }
   }
 
@@ -15,7 +16,7 @@ class SaveMap extends React.Component {
     this.props.localsMapLocations.forEach((location) => {
       this.props.saveMap(location);
     });
-    this.setState({ infoText: "Yay! Your map locations have been published!" })
+    this.setState({ infoText: "Yay! Your map locations have been published!", textClass: "save-map-text purple" })
   }
 
   setInfoText() {
@@ -25,7 +26,7 @@ class SaveMap extends React.Component {
   render() {
     return (
       <div>
-        <h5 className="save-map-text"><span className="save-map-span">
+        <h5 className={this.state.textClass}><span className="save-map-span">
           {this.state.infoText}
         </span></h5>
         {
