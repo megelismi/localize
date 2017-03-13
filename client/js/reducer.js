@@ -361,7 +361,11 @@ const state = (state = {
         return state.allLocationsAndDescriptions.filter((location) => {
           return location.id === object.location_id
         });
-      }).reduce((a, b) => a.concat(b)).filter((item, idx, ary) => ary.indexOf(item) === idx );
+      }).reduce((a, b) => a.concat(b))
+      .filter((item, idx, ary) => ary.indexOf(item) === idx )
+      .filter(item => {
+        return item.user_id === action.user.id;
+      });
     } else {
       selectedUserLocations = state.allLocationsAndDescriptions;
     }

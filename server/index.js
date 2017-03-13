@@ -91,6 +91,7 @@ app.post('/map', (req, res) => {
     .then(() => {
       knex('reviews')
       .where('location_id', saved_location_id)
+      .andWhere('user_id', content.user_id)
       .then(review => {
         if (!review[0]) {
           return knex('reviews').insert({
