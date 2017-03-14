@@ -17,6 +17,10 @@
   margin: 0 auto;
 }
 
+.purple {
+  color: $purple;
+}
+
 .save-map-span {
   display: inline-block;
   vertical-align: middle;
@@ -25,12 +29,12 @@
 }
 
 .save-map-button {
-  margin-top: 10px; 
+  margin-top: 10px;
   width: 200px;
   height: 40px;
   background-color: $accent-color;
   border: 1px solid $accent-color;
-  border-radius: 2px; 
+  border-radius: 2px;
   font-size: 18px;
   color: white;
   &:hover {
@@ -59,7 +63,7 @@
 .location-text {
   color: $charcoal;
   border: 2px solid $accent-color;
-  border-radius: 2px; 
+  border-radius: 2px;
   width: 200px;
   margin: 0 auto;
   padding: 6px;
@@ -69,9 +73,14 @@
   color: $accent-color;
 }
 
+.saved-location {
+  color: $purple;
+  border: 2px solid $purple;
+}
+
 .new-location-details-save {
   width: 70%;
-  font-size: 18px; 
+  font-size: 18px;
 }
 
 .modal-header {
@@ -132,8 +141,7 @@
  }
 
  .long-description {
-  height: 90%; 
+  height: 90%;
  }
 
 }
-

@@ -11,9 +11,6 @@ import PlacesSearch from './places_search'
 L.Icon.Default.imagePath = '../assets/images/';
 
 class CreateMap extends React.Component {
-  constructor() {
-    super();
-  }
 
   render() {
     const city = [43.6615, -70.2553];

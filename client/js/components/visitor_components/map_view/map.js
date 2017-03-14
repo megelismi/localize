@@ -23,6 +23,9 @@ class MapComponent extends React.Component {
       } else {
         locations = allLocationsAndDescriptions
       }
+      locations = locations.filter(location => {
+        return location.show === 'yes'
+      });
       return (
         <Map className="display-map" center={city} zoom={14}>
           <Tile />

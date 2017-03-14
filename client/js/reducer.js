@@ -15,8 +15,9 @@ const state = (state = {
   updateUserDetailsModalOpen: false,
   updateProfilePictureModalOpen: false,
   showModal: false,
-  showUploadModal: false, 
-  tutorialModalOpen: false
+  showUploadModal: false,
+  tutorialModalOpen: false, 
+  locationsSavedModalOpen: false
 }, action) => {
   switch (action.type) {
 
@@ -26,20 +27,24 @@ const state = (state = {
     case post_actions.SAVE_MAP_ERROR:
     return state = Object.assign({}, state, { saveMapSuccess: false });
 
+    case sync_actions.SET_LOCALS_MAP_LOCATIONS:
+    return state = Object.assign({}, state, { localsMapLocations: action.locations });
+
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
     let locationToUpdate = state.localsMapLocations.map((elem, idx) => {
-      if (elem.feature.properties.name === action.feature.properties.name) {
+      if (elem.name === action.name) {
         return idx;
       }
     }).filter((result) => result !== undefined);
     let newLocations = state.localsMapLocations.slice(0, locationToUpdate[0]).concat(state.localsMapLocations.slice(locationToUpdate[0] + 1));
     return state = Object.assign({}, state, {localsMapLocations: [...newLocations, {
       user_id: action.user_id,
-      feature: action.feature,
+      name: action.name,
       lat_long: action.lat_long,
       short_description: action.short,
       long_description: action.long,
-      tag_array: action.tag_array
+      tag_array: action.tag_array,
+      show: 'yes'
     }] }
   );
 
@@ -54,24 +59,33 @@ const state = (state = {
   );
 
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
-    let deleteLocationAt = state.localsMapLocations.map((elem, idx) => {
-      if (elem.feature.properties.name === action.location.feature.properties.name) {
-        return idx;
+    let deleteLocationAt, deleteLocation;
+    state.localsMapLocations.map((elem, idx) => {
+      if (elem.name === action.location.name) {
+        deleteLocation = elem;
+        deleteLocationAt = idx;
       }
     }).filter((result) => result !== undefined);
-    let newDeleteLocations = state.localsMapLocations.slice(0, deleteLocationAt[0]).concat(state.localsMapLocations.slice(deleteLocationAt[0] + 1));
-    return state = Object.assign({}, state, {localsMapLocations: newDeleteLocations});
+
+    let newLocalsObject = Object.assign({}, deleteLocation, { show: 'no', saved: false });
+
+    console.log('DELETE LOCATION AT NEW OBJECT', newLocalsObject, 'DELETE LOCATION AT INDEX', deleteLocationAt);
+
+    let newDeleteLocations = state.localsMapLocations.slice(0, deleteLocationAt).concat(state.localsMapLocations.slice(deleteLocationAt + 1));
+
+    return state = Object.assign({}, state, {localsMapLocations: [...newDeleteLocations, newLocalsObject]});
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return state = Object.assign({}, state,
-      { localsMapLocations: [ ...state.localsMapLocations, {
+      { localsMapLocations: [{
         user_id: action.user_id,
-        feature: action.feature,
+        name: action.feature.properties.name,
         lat_long: action.lat_long,
         short_description: action.short,
         long_description: action.long,
-        tag_array: action.tag_array
-      }] }
+        tag_array: action.tag_array,
+        show: 'yes'
+      }, ...state.localsMapLocations] }
     );
 
     case sync_actions.SHOW_MODAL_FUNCTION:
@@ -201,31 +215,24 @@ const state = (state = {
           short_description: merge.short_description,
           long_description: merge.long_description,
           image: merge.image,
-          user_id: merge.user_id
+          user_id: merge.user_id,
+          saved: merge.saved,
+          show: merge.show || 'yes'
         });
       });
       return merge;
     });
+    let locationsToInclude = mergedLocations.filter(location => {
+      return location.show === 'yes';
+    });
     return state = Object.assign({}, state, {
-      allLocationsAndDescriptions: mergedLocations,
+      allLocationsAndDescriptions: locationsToInclude,
       getDescriptionsError: false
     });
     case get_actions.GET_DESCRIPTIONS_ERROR:
     return state = Object.assign({}, state, {
       getDescriptionsError: true
     });
-
-    case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
-    console.log('actions...', action.feature, action.latlong);
-    return state = Object.assign({}, state,
-      { localsMapLocations: [ ...state.localsMapLocations,
-        { feature: action.feature,
-          lat_long: action.lat_long,
-          short_description: action.short,
-          long_description: action.long,
-          image: action.image
-        }] }
-    );
 
     case sync_actions.GET_SEARCH_RESULTS:
     return state = Object.assign({}, state,
@@ -263,6 +270,11 @@ const state = (state = {
         tutorialModalOpen: !state.tutorialModalOpen
       });
 
+    case sync_actions.LOCATIONS_SAVED_MODAL:
+      return Object.assign({}, state, {
+        locationsSavedModalOpen: !state.locationsSavedModalOpen
+      });
+
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
     let relevantTags;
     if (state.allLocationsAndDescriptions) {
@@ -285,42 +297,42 @@ const state = (state = {
         tagsError: false
       });
 
-        // FILTER_BY_TAG takes all city locations or, if a specific user is selected, it takes
-        // just that user's locations
-        case sync_actions.FILTER_BY_TAG:
-        let newTagsArray, selectedLocations;
-        // modify an array of all currently selected tags
-        if (state.selectedTags.indexOf(action.tag) === -1) {
-          !action.tag ?
-          newTagsArray = [] :
-          newTagsArray = [ ...state.selectedTags, action.tag ]
-        } else if (state.selectedTags.indexOf(action.tag) !== -1) {
-          let deleteAt = state.selectedTags.findIndex((elem) => elem === action.tag);
-          newTagsArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
-        } else {
-          newTagsArray = [];
-        }
-        // find all locations that match any tag in selected tags array
-        if (newTagsArray.length === 0) {
-          selectedLocations = [];
-          // selectedLocations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
-        } else {
-          let locations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
-          let filteredJoinArray = newTagsArray.map((id) => {
-            return state.locationUserTagsHelper.filter((object) => {
-              return object.tag_id === id
-            })
-            .map((object) => object.location_id) })
-            .reduce((a, b) => a.concat(b))
-            .filter((item, idx, ary) => ary.indexOf(item) === idx );
-            selectedLocations = filteredJoinArray.map((locationID) => {
-              return locations.filter((location) => location.id === locationID);
-            }).reduce((a, b) => a.concat(b));
-          }
-          return state = Object.assign({}, state, {
-            selectedTags: newTagsArray,
-            selectedLocations: selectedLocations
-          });
+    // FILTER_BY_TAG takes all city locations or, if a specific user is selected, it takes
+    // just that user's locations
+    case sync_actions.FILTER_BY_TAG:
+    let newTagsArray, selectedLocations;
+    // modify an array of all currently selected tags
+    if (state.selectedTags.indexOf(action.tag) === -1) {
+      !action.tag ?
+      newTagsArray = [] :
+      newTagsArray = [ ...state.selectedTags, action.tag ]
+    } else if (state.selectedTags.indexOf(action.tag) !== -1) {
+      let deleteAt = state.selectedTags.findIndex((elem) => elem === action.tag);
+      newTagsArray = state.selectedTags.slice(0, deleteAt).concat(state.selectedTags.slice(deleteAt + 1))
+    } else {
+      newTagsArray = [];
+    }
+    // find all locations that match any tag in selected tags array
+    if (newTagsArray.length === 0) {
+      selectedLocations = [];
+      // selectedLocations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
+    } else {
+      let locations = state.locationsFilteredByUser || state.allLocationsAndDescriptions;
+      let filteredJoinArray = newTagsArray.map((id) => {
+        return state.locationUserTagsHelper.filter((object) => {
+          return object.tag_id === id
+        })
+        .map((object) => object.location_id) })
+        .reduce((a, b) => a.concat(b))
+        .filter((item, idx, ary) => ary.indexOf(item) === idx );
+        selectedLocations = filteredJoinArray.map((locationID) => {
+          return locations.filter((location) => location.id === locationID);
+        }).reduce((a, b) => a.concat(b));
+      }
+      return state = Object.assign({}, state, {
+        selectedTags: newTagsArray,
+        selectedLocations: selectedLocations
+      });
 
     case sync_actions.DESELECT_USER:
     return state = Object.assign({}, state, {
@@ -344,7 +356,11 @@ const state = (state = {
         return state.allLocationsAndDescriptions.filter((location) => {
           return location.id === object.location_id
         });
-      }).reduce((a, b) => a.concat(b)).filter((item, idx, ary) => ary.indexOf(item) === idx );
+      }).reduce((a, b) => a.concat(b))
+      .filter((item, idx, ary) => ary.indexOf(item) === idx )
+      .filter(item => {
+        return item.user_id === action.user.id;
+      });
     } else {
       selectedUserLocations = state.allLocationsAndDescriptions;
     }

@@ -1,4 +1,3 @@
-
 export const SHOW_RELEVANT_USERS_ONLY = 'SHOW_RELEVANT_USERS_ONLY';
 export const showRelevantUsersOnly = () => ({
   type: SHOW_RELEVANT_USERS_ONLY
@@ -11,10 +10,10 @@ export const updateLocationImage = image => ({
 });
 
 export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
-export const updateLocationInLocalsMap = (user_id = 3, feature, lat_long, short = null, long = null, tag_array = null) => ({
+export const updateLocationInLocalsMap = (user_id = 3, name, lat_long, short = null, long = null, tag_array = null) => ({
   type: UPDATE_LOCATION_IN_LOCALS_MAP,
   user_id,
-  feature,
+  name,
   lat_long,
   short,
   long,
@@ -107,6 +106,11 @@ export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
 
+export const LOCATIONS_SAVED_MODAL = 'LOCATIONS_SAVED_MODAL';
+export const locationsSavedModal = () => ({
+  type: LOCATIONS_SAVED_MODAL
+})
+
 export const SIGN_UP_FOLLOW_UP_MODAL = 'SIGN_UP_FOLLOW_UP_MODAL';
 export const signUpFollowUpModal = () => ({
   type: SIGN_UP_FOLLOW_UP_MODAL
@@ -127,23 +131,37 @@ export const tutorialModal = () => ({
   type: TUTORIAL_MODAL
 });
 
+export const SET_LOCALS_MAP_LOCATIONS = 'SET_LOCALS_MAP_LOCATIONS';
+export const setLocalsMapLocations = locations => ({
+  type: SET_LOCALS_MAP_LOCATIONS,
+  locations
+})
+
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
-  let currentUser = getState().selectedUser
-  let currentUserLocations = getState().selectedUserLocations
+  let selectedUser = getState().selectedUser;
+  let currentUser = getState().currentUser;
+  let selectedUserLocations = getState().selectedUserLocations;
   dispatch({
     type: SELECT_USER,
     user
   });
-  if (currentUser !== getState().selectedUser) {
+  if (selectedUser !== getState().selectedUser) {
     dispatch({
       type: FILTER_LOCATIONS_BY_USER,
       user
     });
   }
-  if (currentUserLocations !== getState().locationsFilteredByUser) {
+  if (selectedUserLocations !== getState().locationsFilteredByUser) {
     dispatch({
       type: FILTER_TAGS_BY_USER
     });
+  }
+  if (currentUser && getState().locationsFilteredByUser) {
+    let locations = getState().locationsFilteredByUser;
+    dispatch({
+      type: SET_LOCALS_MAP_LOCATIONS,
+      locations
+    })
   }
 }
 

@@ -14,13 +14,13 @@ import Tutorial from '../tutorial_modal/tutorial';
 class UserMapDisplay extends React.Component {
 
   componentWillMount() {
-    this.props.dispatch(getActionCreators.getSelectedUsers())
+    return this.props.dispatch(getActionCreators.getSelectedUsers())
     .then(() => {
-       this.props.dispatch(getActionCreators.getLocationsAndDescriptions())})
+       return this.props.dispatch(getActionCreators.getLocationsAndDescriptions())})
     .then(() => {
-      this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
+      return this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
     }).catch((err) => {
-      console.log(err); 
+      console.log(err);
     })
   }
 
@@ -38,7 +38,7 @@ class UserMapDisplay extends React.Component {
       )
     } else {
       return <div></div>
-    }  
+    }
   }
 }
 
@@ -58,5 +58,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMapDisplay);
-
-// dumb comment

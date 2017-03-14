@@ -61,16 +61,16 @@ app.get('/find/cookie/:token', (req, res) => {
 
 app.post('/map', (req, res) => {
   const content = req.body;
-  const { feature, lat_long } = content;
+  const { name, lat_long } = content;
   let saved_location_id;
 
   knex('locations')
-    .where('name', content.feature.properties.name)
-    .andWhere('lat_long', [content.lat_long.lat, content.lat_long.lng])
+    .where('name', content.name)
+    .andWhere('lat_long', [content.lat_long.lat || content.lat_long[0], content.lat_long.lng || content.lat_long[1]])
     .then(location => {
       if (!location[0]) {
         return knex('locations').insert({
-          name: feature.properties.name,
+          name: name,
           address: null,
           lat_long: [lat_long.lat, lat_long.lng]
         })
@@ -89,49 +89,73 @@ app.post('/map', (req, res) => {
       }
     })
     .then(() => {
-      return knex('reviews').insert({
-        user_id: content.user_id,
-        location_id: saved_location_id,
-        short_description: content.short_description,
-        long_description: content.long_description,
-        image: content.image
+      knex('reviews')
+      .where('location_id', saved_location_id)
+      .andWhere('user_id', content.user_id)
+      .then(review => {
+        if (!review[0]) {
+          return knex('reviews').insert({
+            user_id: content.user_id,
+            location_id: saved_location_id,
+            short_description: content.short_description,
+            long_description: content.long_description,
+            image: content.image,
+            show: content.show,
+            saved: true
+          })
+          .then(() => console.log('Review saved.'))
+          .catch(err => {
+            res.sendStatus(400);
+            console.error('Error saving review:', err)
+          });
+        } else {
+          knex('reviews')
+          .where('location_id', saved_location_id)
+          .andWhere('user_id', content.user_id)
+          .update({
+            short_description: content.short_description,
+            long_description: content.long_description,
+            show: content.show,
+            saved: true
+          })
+          .then(() => console.log('Review updated!'))
+        }
       })
-      .then(() => console.log('Review saved.'))
-      .catch(err => {
-        res.sendStatus(400);
-        console.error('Error saving review:', err)
-      });
     })
     .then(() => {
-      content.tag_array.forEach(user_tag => {
-        return knex('tags')
-        .where('tag', user_tag)
-        .then(result => {
-          if (!result[0]) {
-            return knex('tags').insert({
-              tag: user_tag
-            })
-            .returning('id')
-            .then(id => {
+      if (content.tag_array) {
+        content.tag_array.forEach(user_tag => {
+          return knex('tags')
+          .where('tag', user_tag)
+          .then(result => {
+            if (!result[0]) {
+              return knex('tags').insert({
+                tag: user_tag
+              })
+              .returning('id')
+              .then(id => {
+                return knex('locations_users_tags').insert({
+                  location_id: saved_location_id,
+                  tag_id: id[0],
+                  user_id: content.user_id
+                })
+                .then(() => console.log('Relation saved.'))
+                .catch(error => console.error('Error saving relation: ', error))
+              })
+            } else {
               return knex('locations_users_tags').insert({
                 location_id: saved_location_id,
-                tag_id: id[0],
+                tag_id: result[0].id,
                 user_id: content.user_id
               })
               .then(() => console.log('Relation saved.'))
               .catch(error => console.error('Error saving relation: ', error))
-            })
-          } else {
-            return knex('locations_users_tags').insert({
-              location_id: saved_location_id,
-              tag_id: result[0].id,
-              user_id: content.user_id
-            })
-            .then(() => console.log('Relation saved.'))
-            .catch(error => console.error('Error saving relation: ', error))
-          }
+            }
+          });
         });
-      });
+      } else {
+        return;
+      }
     });
   return res.sendStatus(201);
 });
@@ -183,7 +207,7 @@ app.post('/signup', (req, res) => {
   const user = req;
   const { password, email, username } = req.body;
   const passwordToSave = bcrypt.hashSync(password, salt)
-  const token = uuidV1(); 
+  const token = uuidV1();
   const userValidityCheck = userValidity.signUpValidity(user)
 
   if (userValidityCheck.isInvalid) {
