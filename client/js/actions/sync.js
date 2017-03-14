@@ -106,6 +106,11 @@ export const signInModal = () => ({
   type: SIGN_IN_MODAL
 });
 
+export const LOCATIONS_SAVED_MODAL = 'LOCATIONS_SAVED_MODAL';
+export const locationsSavedModal = () => ({
+  type: LOCATIONS_SAVED_MODAL
+})
+
 export const SIGN_UP_FOLLOW_UP_MODAL = 'SIGN_UP_FOLLOW_UP_MODAL';
 export const signUpFollowUpModal = () => ({
   type: SIGN_UP_FOLLOW_UP_MODAL

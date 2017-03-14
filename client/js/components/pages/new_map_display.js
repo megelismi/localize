@@ -8,6 +8,7 @@ import { bindActionCreators } from 'redux';
 import * as getActionCreators from '../../actions/get_request.js';
 import * as syncActionCreators from '../../actions/sync.js';
 import Tutorial from '../tutorial_modal/tutorial';
+import LocationsSaved from '../local_components/modals/locations_saved';
 
 class NewMapDisplay extends React.Component {
 
@@ -22,11 +23,14 @@ class NewMapDisplay extends React.Component {
     });
   }
 
+
+
   render () {
     return (
       <div>
         <Header />
         {this.props.tutorialModalOpen ? <Tutorial /> : null}
+        {this.props.locationsSavedModalOpen ? <LocationsSaved /> : null}
         <NewMap />
         <NewMapSidebar />
         <Footer />
@@ -37,7 +41,8 @@ class NewMapDisplay extends React.Component {
 
 const mapStateToProps = (state) => ({
   tutorialModalOpen: state.tutorialModalOpen,
-  currentUser: state.currentUser
+  currentUser: state.currentUser, 
+  locationsSavedModalOpen: state.locationsSavedModalOpen 
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
+// import * as syncActions from '../../../actions/sync.js';
+// import * as postActions from '../../../actions/post_request.js';
 import * as syncActionCreators from '../../../actions/sync.js';
 import * as postActionCreators from '../../../actions/post_request.js';
 import * as getActionCreators from '../../../actions/get_request.js';
@@ -19,10 +21,8 @@ class SaveMap extends React.Component {
     this.setState({ infoText: "Yay! Your map locations have been updated!", textClass: "save-map-text purple" });
     this.props.localsMapLocations.forEach((location) => {
       this.props.postActionCreators.saveMap(location)
-    }).then(() => {
-      alert("you changes have been saved");
-      hashHistory.push('/map/portland');
-    })
+    });
+    this.props.syncActionCreators.locationsSavedModal()
   }
 
   setInfoText() {

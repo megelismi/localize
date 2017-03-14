@@ -16,7 +16,8 @@ const state = (state = {
   updateProfilePictureModalOpen: false,
   showModal: false,
   showUploadModal: false,
-  tutorialModalOpen: false
+  tutorialModalOpen: false, 
+  locationsSavedModalOpen: false
 }, action) => {
   switch (action.type) {
 
@@ -267,6 +268,11 @@ const state = (state = {
     case sync_actions.TUTORIAL_MODAL:
       return Object.assign({}, state, {
         tutorialModalOpen: !state.tutorialModalOpen
+      });
+
+    case sync_actions.LOCATIONS_SAVED_MODAL:
+      return Object.assign({}, state, {
+        locationsSavedModalOpen: !state.locationsSavedModalOpen
       });
 
     case sync_actions.FILTER_TAGS_BY_SELECTED_LOCATIONS:
