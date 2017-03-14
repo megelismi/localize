@@ -19,7 +19,10 @@ class SaveMap extends React.Component {
     this.setState({ infoText: "Yay! Your map locations have been updated!", textClass: "save-map-text purple" });
     this.props.localsMapLocations.forEach((location) => {
       this.props.postActionCreators.saveMap(location)
-    });
+    }).then(() => {
+      alert("you changes have been saved");
+      hashHistory.push('/map/portland');
+    })
   }
 
   setInfoText() {
