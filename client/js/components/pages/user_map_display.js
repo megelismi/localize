@@ -21,7 +21,7 @@ class UserMapDisplay extends React.Component {
       return this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
     }).catch((err) => {
       console.log(err);
-    })
+    });
   }
 
   render() {
