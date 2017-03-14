@@ -11,28 +11,14 @@ Localize is an app for travelers. It allows people to get recommendations on whe
 You can use Localize with or without an account. If you simply want to view the map and pinned locations, you do not need an account. If you would like to pin locations to the map, you will need to sign up for an account.
 
 * To view a pin and its details, click the pin
-
-[ screenshot ]
-
 * To filter pins by tag, click the filter icon and select the tags you would like to apply
-
-[ screenshot ]
-
 * To view a specific user's pinned locations, click that user
-
-[ screenshot ]
-
 * To add your own pinned location...
-
    * Log in or create an account, then click "create map" in the header bar
-
    * Next, search for a location to add to your map
-
    * Then, add tags and a description
-
    * Finally, click "save map" to save your location to the map!
-   
-[ screenshot ]
+
 
 ### The code
 
