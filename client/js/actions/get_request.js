@@ -28,8 +28,6 @@ export const getSelectedUsers = () => (dispatch, getState) => {
       dispatch(get_result.getLocationUserTagsHelperSuccess(res))
     }).catch(err => {
       dispatch(get_result.getLocationUserTagsHelperError(err))
-    }).then(() => {
-      dispatch(sync.showRelevantUsersOnly());
     });
   });
 }
@@ -98,6 +96,8 @@ export const getLocationsAndDescriptions = () => dispatch => {
         dispatch(get_result.getTagsError(err))
       }).then(() => {
         dispatch(sync.filterLocations())
+      }).then(() => {
+        dispatch(sync.showRelevantUsersOnly());
       });
     });
   });

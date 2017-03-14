@@ -37,7 +37,7 @@ class MapDisplay extends React.Component {
 const mapStateToProps = (state) => {
   return {
     signUpModalOpen: state.signUpModalOpen,
-    signInModalOpen: state.signInModalOpen, 
+    signInModalOpen: state.signInModalOpen,
     tutorialModalOpen: state.tutorialModalOpen,
     followUpModalOpen: state.followUpModalOpen
   }

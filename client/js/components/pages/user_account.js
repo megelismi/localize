@@ -14,8 +14,12 @@ import Tutorial from '../tutorial_modal/tutorial';
 export class UserAccountPage extends React.Component {
 
   componentDidMount() {
-    this.props.dispatch(getActionCreators.getSelectedUsers());
-    this.props.dispatch(getActionCreators.getLocationsAndDescriptions());
+    return this.props.dispatch(getActionCreators.getSelectedUsers()
+    ).then(() => {
+      return this.props.dispatch(getActionCreators.getLocationsAndDescriptions())
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 
   render () {
@@ -59,5 +63,3 @@ export default connect(mapStateToProps)(UserAccountPage);
 
 
     //<UserMaps id={currentUser.id} relevantUsers={relevantUsers} />
-
-

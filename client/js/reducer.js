@@ -155,7 +155,7 @@ const state = (state = {
     case sync_actions.SHOW_RELEVANT_USERS_ONLY:
     let selectedUsers;
     if (state.locationUserTagsHelper && state.users) {
-      let idsToSelect = state.locationUserTagsHelper.map((relation) => {
+      let idsToSelect = state.allLocationsAndDescriptions.map((relation) => {
         return relation.user_id
       }).filter((item, idx, ary) => ary.indexOf(item) === idx);
       selectedUsers = idsToSelect.map((id) => {
