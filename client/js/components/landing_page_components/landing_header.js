@@ -13,6 +13,7 @@ const LandingHeader = (props) => {
       </Navbar.Collapse>
   </Navbar>
 	)
+  
 }
 
 export default LandingHeader; 

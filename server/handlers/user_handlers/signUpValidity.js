@@ -1,7 +1,11 @@
+//Checks that email is valid
+
 const validEmail = email => {
     var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
 }
+
+//Checks that all fields of the sign up and sign in form are filled out before user can submit
 
 export const allFormFieldsFilledIn = request => {
  for (let field in request) {
@@ -11,6 +15,8 @@ export const allFormFieldsFilledIn = request => {
  }
  return true; 
 };
+
+//Checks that the user password meets the requirement of having six characters, 1 symbol, and 1 digit
 
  const passwordMeetsRequirements = password => {
   let symbol = /[!@#$%^&*-_=+-{}\\?.()]/;
@@ -27,6 +33,8 @@ export const allFormFieldsFilledIn = request => {
   }
   return true; 
 }
+
+//Uses above functions to make sure the sign up is valid before submitting the info to the database
 
 export const signUpValidity = (req) => {
   let { username, password, first_name, last_name, email, confirmed_password } = req.body;

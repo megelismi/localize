@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
   tutorialModalOpen: state.tutorialModalOpen
 })
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
   }

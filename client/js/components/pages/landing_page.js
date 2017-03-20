@@ -37,7 +37,7 @@ class LandingPage extends React.Component {
   }
 
 	render () {
-		const { currentUser } = this.props; 
+		const { currentUser, dispatch, signUpModalOpen, signInModalOpen, tutorialModalOpen } = this.props; 
 		let rightNavLinks; 
 
 		if (!currentUser) {
@@ -62,8 +62,8 @@ class LandingPage extends React.Component {
 		return (
 			<div className="landingpage-container">
 				<LandingHeader rightNavLinks={rightNavLinks}/>
-				{this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
-				{this.props.tutorialModalOpen ? <Tutorial /> : null}
+				{signUpModalOpen ? <SignUpForm /> : <SignInForm />}
+				{tutorialModalOpen ? <Tutorial /> : null}
 				<div className="landingpage-details-container">
 					<h1 className="welcome-header">Localize</h1>
 					<h4 className="app-description-landing">explore a city with local recommendations</h4>
@@ -83,6 +83,12 @@ const mapStateToProps = state => {
   }
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getActionCreators: bindActionCreators(getActionCreators, dispatch),
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
+  }
+}
+
 export default connect(mapStateToProps)(LandingPage);
 
-//

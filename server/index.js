@@ -1,24 +1,28 @@
 import 'babel-polyfill';
 import 'dotenv';
-import express from 'express';
 import bodyParser from 'body-parser';
+import express from 'express';
+
+//Handlers
+
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
 import * as userValidity from './handlers/user_handlers/signUpValidity';
 import verifyPassword from './handlers/user_handlers/verifyPassword';
+
+//Authentication 
+
 import passport from 'passport';
 import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
-
 const salt = bcrypt.genSaltSync(10);
 const uuidV1 = require('uuid/v1');
 
+
 const HOST = process.env.HOST;
 const PORT = process.env.PORT || 8080;
-
 console.log(`Server running in ${process.env.NODE_ENV} mode`);
 
-const app = express();
-app.use(passport.initialize())
+//Database setup
 
 const localConnection = {
   database: 'localize'
@@ -29,10 +33,14 @@ const knex = require('knex')({
   connection: process.env.DATABASE_URL || localConnection
 });
 
+
+const app = express();
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
+app.use(passport.initialize())
+app.use(passport.initialize())
 
-//keep users logged in
+//Keep users logged in on page refresh
 
 app.get('/find/cookie/:token', (req, res) => {
   let { token } = req.params;
@@ -57,7 +65,7 @@ app.get('/find/cookie/:token', (req, res) => {
     })
 })
 
-// save new map
+// Saves new maps
 
 app.post('/map', (req, res) => {
   const content = req.body;
@@ -160,6 +168,8 @@ app.post('/map', (req, res) => {
   return res.sendStatus(201);
 });
 
+//Protecs endpoints by making sure users have a valid token
+
 passport.use(new Strategy(
   function(token, callback) {
     return knex('users').where('token', token).then((user) => {
@@ -172,7 +182,7 @@ passport.use(new Strategy(
   }
 ));
 
-//sign in existing users
+//Signs in existing users
 
 app.post('/signin', (req, res, next) => {
   const { emailOrUsername, password } = req.body;
@@ -201,7 +211,7 @@ app.post('/signin', (req, res, next) => {
     }
 })
 
-//sign up new users, encrypt their passwords
+//Signs up new users, encrypts their passwords
 
 app.post('/signup', (req, res) => {
   const user = req;
@@ -214,7 +224,7 @@ app.post('/signup', (req, res) => {
     return res.status(userValidityCheck.status).json({ message: userValidityCheck.message });
   }
 
-  //check to see if username or email is already taken, if not create user
+  //Checks to see if username or email is already taken, if not creates user
 
   knex('users').where('email', email).then((user) => {
     if (user.length > 0) {
@@ -259,13 +269,13 @@ app.post('/signup', (req, res) => {
   });
 });
 
-//sign out a user
+//Signs out a user
 
 app.post('/logout', passport.authenticate('bearer', { session: false }), (req, res) => {
   return res.sendStatus(200);
 });
 
-//update user account info
+//Update user account info
 
 app.put('/account/:userId/update', passport.authenticate('bearer', {session: false}), (req, res) => {
   let { userId } = req.params;
@@ -294,7 +304,7 @@ app.put('/account/:userId/update', passport.authenticate('bearer', {session: fal
   })
 });
 
-// get all locations
+// Get all locations
 
 app.get('/locations', (req, res) => {
   knex('locations').then((locations) => {
@@ -302,7 +312,7 @@ app.get('/locations', (req, res) => {
   });
 });
 
-// get all reviews
+// Get all reviews
 
 app.get('/reviews', (req,res) => {
   knex('reviews').then((reviews) => {
@@ -310,7 +320,7 @@ app.get('/reviews', (req,res) => {
   });
 });
 
-// get all locations with reviews
+// Get all locations with reviews
 
 app.get('/locations/reviews', (req, res) => {
   knex('locations').then((locations) => {
@@ -321,7 +331,7 @@ app.get('/locations/reviews', (req, res) => {
   });
 });
 
-// get all tags
+// Get all tags
 
 app.get('/tags', (req, res) => {
   knex('tags').then((tags) => {
@@ -329,7 +339,7 @@ app.get('/tags', (req, res) => {
   });
 });
 
-// get all data from location_tags
+// Get all data from location_tags
 
 app.get('/locations/tags', (req,res) => {
   knex('locations_users_tags').then((location_user_tags) => {
@@ -337,7 +347,7 @@ app.get('/locations/tags', (req,res) => {
   });
 });
 
-// get all locations with that tag
+// Get all locations with that tag
 
 app.get('/locations/:tag', (req, res) => {
   const { tag } = req.params;
@@ -350,7 +360,7 @@ app.get('/locations/:tag', (req, res) => {
   });
 });
 
-// get all users with that tag
+// Get all users with that tag
 
 app.get('/users/:tag', (req, res) => {
   const { tag } = req.params;
@@ -364,7 +374,7 @@ app.get('/users/:tag', (req, res) => {
   });
 });
 
-// get all users
+// Get all users
 
 app.get('/users', (req, res) => {
   knex('users').then((users) => {
@@ -372,7 +382,7 @@ app.get('/users', (req, res) => {
   });
 });
 
-// get one users
+// Get one users
 
 app.get('/users/:id', (req, res) => {
   knex('users').then((users) => {
@@ -380,13 +390,15 @@ app.get('/users/:id', (req, res) => {
   });
 });
 
-// get all location id/user ids/tag ids
+// Get all location id/user ids/tag ids
 
 app.get('/locations/users/tags', (req, res) => {
   knex('locations_users_tags').then((data) => {
     return res.status(200).json(data);
   });
 });
+
+
 
 function runServer() {
   return new Promise((resolve, reject) => {
