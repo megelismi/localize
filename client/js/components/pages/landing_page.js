@@ -66,7 +66,7 @@ class LandingPage extends React.Component {
 				{this.props.tutorialModalOpen ? <Tutorial /> : null}
 				<div className="landingpage-details-container">
 					<h1 className="welcome-header">Localize</h1>
-					<h4 className="app-description-landing">{"ever been on a trip and found yourself wishing you could pick a local's brain — find out the best ramen place, her favorite coffee shop, or the coolest place to see some local music?"}
+					<h4 className="app-description-landing">{"ever been on a trip and found yourself wishing you could pick a local's brain — find out her favorite ramen place, the best coffee shop, or the coolest place to see some local music?"}
             <br />
             <br />
           <span className="emphasis">{"that's why we built localize."}</span>
