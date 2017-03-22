@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 import LandingHeader from '../landing_page_components/landing_header';
 import { hashHistory } from 'react-router';
 import { connect } from 'react-redux';
@@ -6,7 +6,7 @@ import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
 import Tutorial from '../tutorial_modal/tutorial';
 import * as actionCreators from '../../actions/sync.js';
-import * as post_actions from '../../actions/post_request.js'; 
+import * as post_actions from '../../actions/post_request.js';
 import * as sync_actions from '../../actions/sync.js';
 import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 
@@ -29,16 +29,16 @@ class LandingPage extends React.Component {
   }
 
   logOut () {
-    this.props.dispatch(post_actions.logOut(this.props.currentUser.token)); 
+    this.props.dispatch(post_actions.logOut(this.props.currentUser.token));
   }
 
   openTutorial () {
-  	this.props.dispatch(sync_actions.tutorialModal()); 
+  	this.props.dispatch(sync_actions.tutorialModal());
   }
 
 	render () {
-		const { currentUser } = this.props; 
-		let rightNavLinks; 
+		const { currentUser } = this.props;
+		let rightNavLinks;
 
 		if (!currentUser) {
 			rightNavLinks = (
@@ -51,7 +51,7 @@ class LandingPage extends React.Component {
 		} else {
 			rightNavLinks = (
 				<Nav pullRight>
-	      	<NavItem className="right-link-header" onClick={()=> {hashHistory.push('/account')}}>{currentUser.first_name}'s Profile</NavItem>
+	      	<NavItem className="right-link-header" onClick={()=> {hashHistory.push('/account')}}>Your Profile</NavItem>
 	        <NavItem className="right-link-header" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
 	        <NavItem className="right-link-header" href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
 	        <NavItem className="landing-header-links" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
@@ -66,7 +66,13 @@ class LandingPage extends React.Component {
 				{this.props.tutorialModalOpen ? <Tutorial /> : null}
 				<div className="landingpage-details-container">
 					<h1 className="welcome-header">Localize</h1>
-					<h4 className="app-description-landing">explore a city with local recommendations</h4>
+					<h4 className="app-description-landing">{"ever been on a trip and found yourself wishing you could pick a local's brain — find out the best ramen place, her favorite coffee shop, or the coolest place to see some local music?"}
+            <br />
+            <br />
+          <span className="emphasis">{"that's why we built localize."}</span>
+            <br />
+            <br />
+          {"explore a city with recommendations from actual locals — the people who know the city best."}</h4>
 					<button className="enter-app-button" onClick={() => {hashHistory.push('/map/portland')}}>get started with Portland, Maine</button>
 				</div>
 			</div>
@@ -77,7 +83,7 @@ class LandingPage extends React.Component {
 const mapStateToProps = state => {
   return {
     signUpModalOpen: state.signUpModalOpen,
-    signInModalOpen: state.signInModalOpen, 
+    signInModalOpen: state.signInModalOpen,
     tutorialModalOpen: state.tutorialModalOpen,
     currentUser: state.currentUser
   }
