@@ -1,0 +1,28 @@
+$base-font: 'Lato', sans-serif;
+$app-font: 'stokedregular';
+$border-color: lightgray;
+$accent-color: #4ddcb1;
+$charcoal: #2D2D2D;
+$purple: #748CCD;
+$darkpurple: #4062BB;
+
+.about-page {
+  height: 100vh;
+  background-color: $darkpurple; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.about-cards-container {
+	width: 70%; 
+	display: flex; 
+	justify-content: space-around; 
+}
+
+.about-card {
+	background-color: #5F88E8;
+	color: white; 
+	width: 30%; 
+	height: 300px;  
+}

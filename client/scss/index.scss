@@ -12,6 +12,7 @@
 @import 'landing_page';
 @import 'new_map';
 @import 'tutorial';
+@import 'about'; 
 
 @font-face {
     font-family: 'stokedregular';
@@ -22,6 +23,12 @@
 }
 
 $base-font: 'Lato', sans-serif;
+$app-font: 'stokedregular';
+$border-color: lightgray;
+$accent-color: #4ddcb1;
+$charcoal: #2D2D2D;
+$purple: #748CCD;
+$darkpurple: #4062BB;
 
 * {
   box-sizing: border-box;
@@ -90,7 +97,9 @@ table {
     border-spacing: 0;
 }
 
-
+.navbar {
+  border-radius: 0 !important; 
+}
 
 @media only screen and (max-width: 1020px) {
  .display-map {
