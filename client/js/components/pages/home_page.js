@@ -1,7 +1,7 @@
 import React from 'react'; 
 import LandingPage from './landing_page'; 
 import MapsPage from './map_display'; 
-import About from '../about/about-app';
+import About from '../about/about-display';
 
 const HomePage = props => {
 	return (

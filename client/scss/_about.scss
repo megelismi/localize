@@ -12,12 +12,22 @@ $mediumpurple: #5F88E8;
   flex-direction: column;
   justify-content: center; 
   align-items: center; 
-  h2 {
+  h2, p {
   	color: white;
   	margin: 0; 
-  	font-weight: 300;
-  	font-size: 52px; 
+  	font-weight: 300; 
   }
+  h2 {
+  	font-size: 52px;  
+  }
+  h3 {
+  	font-size: 18px;
+  	margin: 0; 
+  }
+}
+
+.about-header-container {
+	text-align: center;
 }
 
 .about-cards-container {
@@ -26,20 +36,30 @@ $mediumpurple: #5F88E8;
 	justify-content: space-around; 
 }
 
+.about-icon {
+	width: 70px;
+	margin: 30px;   
+}
+
 .about-card {
 	background-color: $mediumpurple;
 	box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 	color: white; 
 	width: 30%; 
-	height: 350px;  
+	height: 350px; 
+	text-align: center;
+	padding: 10px; 
 }
 
 .short-line {
+	display: inline-block;
 	border-width: 0;
-  color: #27374c;
-  height: 2px;
+	height: 2px;
   margin: 2em 0;
-  width: 50px;
-  color: white; 
+  width: 50px; 
   background-color: white;
+}
+
+.cards-line {
+	margin: 1em 0; 
 }
