@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
 import Tutorial from '../tutorial_modal/tutorial';
+import Header from '../partials/header'; 
 import * as actionCreators from '../../actions/sync.js';
 import * as post_actions from '../../actions/post_request.js';
 import * as sync_actions from '../../actions/sync.js';
@@ -38,34 +39,16 @@ class LandingPage extends React.Component {
 
 	render () {
 		const { currentUser } = this.props;
-		let rightNavLinks;
 
-		if (!currentUser) {
-			rightNavLinks = (
-				<Nav pullRight>
-					<NavItem className="landing-header-links" onClick={this.openSignIn.bind(this)} href="#">Sign In</NavItem>
-	        <NavItem className="landing-header-links" onClick={this.openSignUp.bind(this)} href="#">Sign Up</NavItem>
-	        <NavItem className="landing-header-links" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
-	      </Nav>
-			)
-		} else {
-			rightNavLinks = (
-				<Nav pullRight>
-	      	<NavItem className="right-link-header" onClick={()=> {hashHistory.push('/account')}}>Your Profile</NavItem>
-	        <NavItem className="right-link-header" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
-	        <NavItem className="right-link-header" href="#" onClick={this.logOut.bind(this)}>Log Out</NavItem>
-	        <NavItem className="landing-header-links" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
-	      </Nav>
-	     )
-		}
 
 		return (
 			<div className="landingpage-container">
-				<LandingHeader rightNavLinks={rightNavLinks}/>
+				<Header />
 				{this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
 				{this.props.tutorialModalOpen ? <Tutorial /> : null}
 				<div className="landingpage-details-container">
-					<h1 className="welcome-header">Localize</h1>
+					<h2>Discover a New City</h2>
+					<h3>Guided by Locals</h3>
 				</div>
 			</div>
 		)

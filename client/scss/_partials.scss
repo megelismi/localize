@@ -5,10 +5,22 @@ $charcoal: #2D2D2D;
 $purple: #748CCD;
 $darkpurple: #4062BB;
 
-.welcome-header {
-  font: $app-font;
-  color: white;
+// .main-header {
+//   border: none !important;
+//   border-bottom: 3px solid $border-color !important; 
+//   background-color: white; 
+// }
+
+.navbar-default {
+  border: none !important;
+  border-bottom: 3px solid $border-color !important; 
+  background-color: white !important; 
 }
+
+// .welcome-header {
+//   font: $app-font;
+//   color: white;
+// }
 
 .app-name {
   cursor: pointer; 
@@ -69,12 +81,6 @@ $darkpurple: #4062BB;
   font-size: 32px !important;
   padding: 15px 5px !important;
   position: relative; 
-}
-
-.navbar-inverse {
-  background-color: white !important;
-  border-color: white !important;
-  border-bottom: 1px solid $border-color !important;
 }
 
 .navbar-toggle {

@@ -23,7 +23,7 @@ class MapDisplay extends React.Component {
 
     return (
       <div>
-        <Header />
+        {this.props.currentUser ? <Header /> : null}
         {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
         {this.props.tutorialModalOpen ? <Tutorial /> : null}
         <Map />
@@ -36,6 +36,7 @@ class MapDisplay extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    currentUser: state.currentUser,
     signUpModalOpen: state.signUpModalOpen,
     signInModalOpen: state.signInModalOpen,
     tutorialModalOpen: state.tutorialModalOpen,
