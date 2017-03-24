@@ -3,8 +3,8 @@ import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Modal, OverlayTrigger, Pop
 import * as actionCreators from '../../actions/sync.js';
 import * as post_actions from '../../actions/post_request.js';
 import { hashHistory } from 'react-router';
-
 import { connect } from 'react-redux';
+import { Sticky } from 'react-sticky';
 
 class Header extends React.Component  {
   constructor (props) {
@@ -56,17 +56,19 @@ class Header extends React.Component  {
     let logo = (<img className="logo" src="/assets/images/logo-map-pin.png" />)
 
     return (
-      <Navbar className="main-header" collapseOnSelect>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span className="logo-container">{logo}</span></a>
-          </Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar.Header>
-        <Navbar.Collapse>
-          {rightNavLinks}
-        </Navbar.Collapse>
-      </Navbar>
+      <Sticky>
+        <Navbar className="main-header" collapseOnSelect>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span className="logo-container">{logo}</span></a>
+            </Navbar.Brand>
+            <Navbar.Toggle />
+          </Navbar.Header>
+          <Navbar.Collapse>
+            {rightNavLinks}
+          </Navbar.Collapse>
+        </Navbar>
+      </Sticky>
     )
   }
 }
