@@ -1,28 +1,45 @@
-$base-font: 'Lato', sans-serif;
-$app-font: 'stokedregular';
 $border-color: lightgray;
 $accent-color: #4ddcb1;
-$charcoal: #2D2D2D;
 $purple: #748CCD;
 $darkpurple: #4062BB;
+$mediumpurple: #5F88E8;
 
 .about-page {
   height: 100vh;
+  min-height: 500px; 
   background-color: $darkpurple; 
   display: flex; 
+  flex-direction: column;
   justify-content: center; 
   align-items: center; 
+  h2 {
+  	color: white;
+  	margin: 0; 
+  	font-weight: 300;
+  	font-size: 52px; 
+  }
 }
 
 .about-cards-container {
-	width: 70%; 
+	width: 90%; 
 	display: flex; 
 	justify-content: space-around; 
 }
 
 .about-card {
-	background-color: #5F88E8;
+	background-color: $mediumpurple;
+	box-shadow: 0 3px 5px rgba(0,0,0,0.2);
 	color: white; 
 	width: 30%; 
-	height: 300px;  
+	height: 350px;  
+}
+
+.short-line {
+	border-width: 0;
+  color: #27374c;
+  height: 2px;
+  margin: 2em 0;
+  width: 50px;
+  color: white; 
+  background-color: white;
 }
