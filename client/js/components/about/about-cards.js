@@ -12,7 +12,7 @@ const AboutCards = () => {
 			</div>
 			<div className="about-card">
 				<img className="about-icon" src="assets/images/filter.png" />
-				<h3>Filter your Search</h3>
+				<h3>Filter Your Search</h3>
 				<hr className="short-line cards-line" />
 				<p>Sometimes we know exactly what we want. The filtering feature allows you to search for locations with that keyword.</p>
 			</div>

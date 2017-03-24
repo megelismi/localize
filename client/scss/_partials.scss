@@ -5,22 +5,19 @@ $charcoal: #2D2D2D;
 $purple: #748CCD;
 $darkpurple: #4062BB;
 
-// .main-header {
-//   border: none !important;
-//   border-bottom: 3px solid $border-color !important; 
-//   background-color: white; 
-// }
 
 .navbar-default {
   border: none !important;
   border-bottom: 3px solid $border-color !important; 
   background-color: white !important; 
+  display: block;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px !important;
+  z-index: 2 !important;
 }
-
-// .welcome-header {
-//   font: $app-font;
-//   color: white;
-// }
 
 .app-name {
   cursor: pointer; 
