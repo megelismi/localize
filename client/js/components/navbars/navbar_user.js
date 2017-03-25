@@ -9,17 +9,21 @@ class NavbarUser extends React.Component  {
 
   render () {
     const { currentUser } = this.props;
+    const logo = (<img className="logo" src="/assets/images/logo-map-pin.png" />)
     return (
       <Navbar className="user-navbar" collapseOnSelect>
         <Navbar.Header>
           <Navbar.Toggle />
         </Navbar.Header>
+        <Navbar.Brand>
+          <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span className="logo-container">{logo}</span></a>
+        </Navbar.Brand>
         <Navbar.Collapse>
         <Nav pullRight>
-          <NavItem className="navbaruser-link" onClick={()=> {hashHistory.push('/account')}}>Your Profile</NavItem>
-          <NavItem className="navbaruser-link" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
-          <NavItem className="navbaruser-link" href="#" onClick={() => {this.props.dispatch(post_actions.logOut(this.props.currentUser.token))}}>Log Out</NavItem>
-          <NavItem className="navbaruser-link" onClick={() => {this.props.dispatch(sync_actions.tutorialModal())}}>Help</NavItem>
+          <NavItem className="user-navbar-link" onClick={()=> {hashHistory.push('/account')}}>Your Profile</NavItem>
+          <NavItem className="user-navbar-link" href="#" onClick={()=> {hashHistory.push(`/newmap/${currentUser.id}`)}}>Create Map</NavItem>
+          <NavItem className="user-navbar-link" href="#" onClick={() => {this.props.dispatch(post_actions.logOut(this.props.currentUser.token))}}>Log Out</NavItem>
+          <NavItem className="user-navbar-link" onClick={() => {this.props.dispatch(sync_actions.tutorialModal())}}>Help</NavItem>
         </Nav>
         </Navbar.Collapse>
       </Navbar>

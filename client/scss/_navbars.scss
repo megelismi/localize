@@ -10,7 +10,7 @@ $darkpurple: #4062BB;
   background-color: white !important; 
 }
 
-.user-navbar {
+nav.user-navbar {
   border-bottom: 1px solid $border-color !important; 
   margin-bottom: 20px !important; 
 }
@@ -19,7 +19,7 @@ $darkpurple: #4062BB;
   border-bottom: 3px solid $border-color !important; 
 }
 
-.navbaruser-link {
+.user-navbar-link {
   a {
     color: $darkpurple !important;
     font-size: 16px !important;
@@ -38,44 +38,7 @@ $darkpurple: #4062BB;
 
 .app-name {
   cursor: pointer; 
-  margin-left: 10px !important;
-}
-
-// .header {
-//   margin: 0 5px 30px 5px;
-//   width: 100%;
-//   padding: 15px 0;
-//   ul {
-//     list-style: none;
-//     padding-right: 10px;
-//     display: flex;
-//     justify-content: flex-end;
-//     align-items: center;
-//     margin: 0;
-//     padding-right: 50px;
-//     li {
-//       display: inline-block;
-//       padding: 10px;
-//       a {
-//         text-decoration: none;
-//         color: $charcoal;
-//         &:hover {
-//           color: gray;
-//           cursor: pointer;
-//         }
-//       }
-//     }
-//   }
-// }
-
-.help-button {
-  border: none; 
-  background-color: transparent;
-  color: $charcoal;
-  font-size: 16px; 
-  &:hover {
-    opacity: 0.5; 
-  }
+  margin-left: -10px !important;
 }
 
 .navbar-brand {
@@ -118,7 +81,6 @@ $darkpurple: #4062BB;
 
 .logo {
   width: 28px;
-  margin: -7px;
 }
 
 .logo-container {
