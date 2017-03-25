@@ -24,12 +24,10 @@ class LocationsSaved extends Component {
           <Modal.Header closeButton>
           	<Modal.Title>Success!</Modal.Title>
         	</Modal.Header>
-       		<Modal.Body>
-            <p>Your mapped locations have been saved.</p>
+       		<Modal.Body className="locations-saved-body">
+            <p>Your changes have been saved.</p>
+            <button className="saved-locations-confirm accent-button" onClick={this.locationsSaved.bind(this)}>Okay.</button>
           </Modal.Body>
-          <Modal.Footer>
-            <button className="saved-locations-confirm accent-button" onClick={this.locationsSaved.bind(this)}>Got it.</button>
-          </Modal.Footer>
     		</Modal>
       </div>
     )

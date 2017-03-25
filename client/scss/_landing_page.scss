@@ -24,7 +24,6 @@
 	left: 0; 
 	right: 0; 
 	h2 {
-		font-size: 22px; 
 		font-weight: 300; 
 	}
 }
@@ -47,21 +46,30 @@
 	width: 50px; 
 }
 
+@media screen and (min-width: 320px) {
+	.landingpage-details-container {
+		h2 {
+			font-size: 18px;  
+		}
+	}
+}
+
+@media screen and (min-width: 460px) {
+	.landingpage-container {
+		flex-direction: column;
+	}
+}
+
 @media screen and (min-width: 768px) {
 	.welcome-header {
 		font-size: 60px;
 	}
 
-	.landing-header-links {
-		a {
-			font-size: 16px;
+	.landingpage-details-container {
+		h2 {
+			font-size: 22px;  
 		}
 	}
-
-	.app-description-landing {
-		font-size: 25px;
-	}
-
 }
 
 @media screen and (min-width: 1200px) {

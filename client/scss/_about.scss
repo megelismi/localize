@@ -6,12 +6,13 @@ $mediumpurple: #5F88E8;
 
 .about-page {
   height: 100vh;
-  min-height: 500px; 
+  min-height: 700px; 
   background-color: $darkpurple; 
   display: flex; 
   flex-direction: column;
   justify-content: center; 
   align-items: center; 
+  flex-wrap: wrap;
   h2, p {
   	color: white;
   	margin: 0; 
@@ -67,3 +68,9 @@ $mediumpurple: #5F88E8;
 .cards-line {
 	margin: 1em 0; 
 }
+
+// @media screen and (min-width: 460px) {
+// 	.about-cards-container {
+// 		flex-direction: column;
+// 	}
+// }
