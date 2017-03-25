@@ -14,14 +14,15 @@ const AboutCards = () => {
 				<img className="about-icon" src="assets/images/filter.png" />
 				<h3>Filter Your Search</h3>
 				<hr className="short-line cards-line" />
-				<p>Sometimes we know exactly what we want. The filtering feature allows you to search for locations with that keyword.</p>
+				<p>Sometimes we know exactly what we want. The filter feature allows you to search for 
+				locations using keywords.</p>
 			</div>
 			<div className="about-card">
 				<img className="about-icon" src="assets/images/local.png" />
 				<h3>Learn About the Locals</h3>
 				<hr className="short-line cards-line" />
 				<p>Have something in common with one of the users? 
-				Click on her name to see an extended bio and a filtered view of her locations and tags. </p>
+				Click on her name to see an extended bio and a filtered view of all her locations and tags. </p>
 			</div>
 		</div>
 	)

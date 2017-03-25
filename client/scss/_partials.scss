@@ -10,13 +10,10 @@ $darkpurple: #4062BB;
   border: none !important;
   border-bottom: 3px solid $border-color !important; 
   background-color: white !important; 
-  // display: block;
-  // position: fixed !important;
-  // top: 0;
-  // left: 0;
-  // right: 0;
-  // height: 40px !important;
-  // z-index: 2 !important;
+}
+
+.navbar {
+  margin-bottom: 0 !important;
 }
 
 .app-name {

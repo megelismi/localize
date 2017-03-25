@@ -34,7 +34,7 @@ class MapDisplay extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     currentUser: state.currentUser,
     signUpModalOpen: state.signUpModalOpen,
@@ -44,7 +44,7 @@ const mapStateToProps = (state) => {
   }
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     getActionCreators: bindActionCreators(getActionCreators, dispatch),
     syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
