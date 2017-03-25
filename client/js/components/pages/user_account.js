@@ -7,7 +7,7 @@ import UpdateUserDetails from '../user_account_components/modals/update_user_det
 import UpdateProfilePicture from '../user_account_components/modals/update_profile_picture';
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
-import Header from '../partials/header';
+import NavbarUser from '../navbars/navbar_user';
 import Tutorial from '../tutorial_modal/tutorial';
 
 export class UserAccountPage extends React.Component {
@@ -26,7 +26,7 @@ export class UserAccountPage extends React.Component {
     if (relevantUsers) {
       return (
      <div>
-          <Header />
+          <NavbarUser />
           {tutorialModalOpen ? <Tutorial /> : null}
           {updateUserDetailsModalOpen ? <UpdateUserDetails /> : null}
           {updateProfilePictureModalOpen ? <UpdateProfilePicture /> : null}

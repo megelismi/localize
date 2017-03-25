@@ -5,11 +5,10 @@ import * as getActionCreators from '../../actions/get_request.js';
 import * as syncActionCreators from '../../actions/sync.js';
 import Map from '../visitor_components/map_view/map';
 import SidebarContainer from '../visitor_components/map_view_sidebar/sidebar_container';
-import Header from '../partials/header';
+import NavbarUser from '../navbars/navbar_user';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
 import Tutorial from '../tutorial_modal/tutorial';
-import FollowUpModal from '../auth/signup_followup';
 
 class MapDisplay extends React.Component {
 
@@ -22,7 +21,7 @@ class MapDisplay extends React.Component {
 
     return (
       <div>
-        {this.props.currentUser ? <Header /> : null}
+        {this.props.currentUser ? <NavbarUser /> : null}
         {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
         {this.props.tutorialModalOpen ? <Tutorial /> : null}
         <Map />

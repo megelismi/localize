@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from '../navbars/header-no-user'; 
+import NavbarNoUser from '../navbars/navbar_no_user'; 
 
 const LandingPage = () => {
 	return (
 		<div className="landingpage-container">
-			<Header />
+			<NavbarNoUser />
 			<div className="landingpage-details-container">
 				<h1 className="welcome-header">Localize</h1>
 				<h2>discover a new city, guided by locals</h2>

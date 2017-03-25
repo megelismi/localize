@@ -41,18 +41,6 @@
 	border-bottom: 3px solid $border-color !important; 
 }
 
-.landing-header-links {
-	a {
-		color: $darkpurple !important;
-		&:hover {
-			opacity: 0.8 !important;
-		}
-	 	&:focus {
-      outline: none;
-   	}
-	}
-}
-
 .landing-page-header-toggle {
 	background-color:transparent !important;
 	border-color: white !important;
@@ -63,13 +51,6 @@
 
 .landing-page-header-toggle.icon-bar {
 	background-color: white !important;
-}
-
-.right-link-header {
-	a {
-		color: white !important;
-		font-size: 16px !important;
-	}
 }
 
 .nav-text-header {

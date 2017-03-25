@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import { Sticky } from 'react-sticky';
 import * as actionCreators from '../../actions/sync.js';
 
-class Header extends React.Component  {
+class NavbarNoUser extends React.Component  {
 
   render () {
     return (
       <Sticky>
-        <Navbar className="main-header" collapseOnSelect>
+        <Navbar className="no-user-navbar" collapseOnSelect>
           <Navbar.Header>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem className="right-link" onClick={() => {this.props.dispatch(actionCreators.signUpModal())}}>Sign In</NavItem>
-            <NavItem className="right-link" onClick={() => {this.props.dispatch(actionCreators.signInModal())}}>Sign Up</NavItem>
+            <NavItem className="right-link" onClick={() => {this.props.dispatch(actionCreators.signInModal())}}>Sign In</NavItem>
+            <NavItem className="right-link" onClick={() => {this.props.dispatch(actionCreators.signUpModal())}}>Sign Up</NavItem>
           </Nav>
           </Navbar.Collapse>
         </Navbar>
@@ -27,4 +27,4 @@ class Header extends React.Component  {
 
 const mapStateToProps = state => ({})
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps)(NavbarNoUser);
