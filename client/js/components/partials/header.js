@@ -19,53 +19,18 @@ class Header extends React.Component  {
     this.props.dispatch(actionCreators.signInModal());
   }
 
-  logOut () {
-    this.props.dispatch(post_actions.logOut(this.props.currentUser.token));
-  }
-
-  openTutorial () {
-    this.props.dispatch(actionCreators.tutorialModal());
-  }
-
-  openMap() {
-    hashHistory.push(`/newmap/${this.props.currentUser.id}`);
-  }
-
   render () {
-    const { currentUser } = this.props;
-    let rightNavLinks;
-    if (currentUser) {
-      rightNavLinks = (
-      <Nav pullRight>
-        <NavItem className="right-link" onClick={()=> {hashHistory.push('/account')}}>My Profile</NavItem>
-        <NavItem className="right-link" onClick={this.openMap.bind(this)}>My Map</NavItem>
-        <NavItem className="right-link" onClick={this.logOut.bind(this)}>Log Out</NavItem>
-        <NavItem className="right-link" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
-      </Nav>
-      )
-    } else {
-      rightNavLinks = (
-      <Nav pullRight>
-        <NavItem className="right-link" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
-        <NavItem className="right-link" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
-        <NavItem className="right-link" onClick={this.openTutorial.bind(this)} href="#">Help</NavItem>
-      </Nav>
-      )
-    }
-
-    let logo = (<img className="logo" src="/assets/images/logo-map-pin.png" />)
-
     return (
       <Sticky>
         <Navbar className="main-header" collapseOnSelect>
           <Navbar.Header>
-            <Navbar.Brand>
-              <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span className="logo-container">{logo}</span></a>
-            </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
-            {rightNavLinks}
+          <Nav pullRight>
+            <NavItem className="right-link" onClick={this.openSignIn.bind(this)}>Sign In</NavItem>
+            <NavItem className="right-link" onClick={this.openSignUp.bind(this)}>Sign Up</NavItem>
+          </Nav>
           </Navbar.Collapse>
         </Navbar>
       </Sticky>
@@ -73,7 +38,6 @@ class Header extends React.Component  {
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.currentUser
-})
+const mapStateToProps = state => ({})
+
 export default connect(mapStateToProps)(Header);

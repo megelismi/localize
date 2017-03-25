@@ -7,8 +7,8 @@ const AboutCards = () => {
 				<img className="about-icon" src="assets/images/review.png" />
 				<h3>Explore the Reviews</h3>
 				<hr className="short-line cards-line" />
-				<p>Ever been on a trip and found yourself wishing you could pick a local's brain?
-				 Localize brings you reviews by the people who know a city best - its locals.</p>
+				<p>Ever been on a trip and wished you could pick a local's brain about where to go?
+				 That's why we created Localize. Get a city's inside scoop by the people who know it best - its locals.</p>
 			</div>
 			<div className="about-card">
 				<img className="about-icon" src="assets/images/filter.png" />

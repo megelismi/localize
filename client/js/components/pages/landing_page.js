@@ -13,14 +13,6 @@ import { Nav, Navbar, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 
 class LandingPage extends React.Component {
 
-	componentWillMount() {
-		document.body.style.backgroundImage = "linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(assets/images/city.jpg)";
-	}
-
-	componentWillUnmount () {
-		document.body.style.backgroundImage = null;
-	}
-
 	openSignUp () {
     this.props.dispatch(actionCreators.signUpModal());
   }
@@ -47,8 +39,11 @@ class LandingPage extends React.Component {
 				{this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
 				{this.props.tutorialModalOpen ? <Tutorial /> : null}
 				<div className="landingpage-details-container">
-					<h2>Discover a New City</h2>
-					<h3>Guided by Locals</h3>
+					<h1 className="welcome-header">Localize</h1>
+					<h2>discover a new city, guided by locals</h2>
+				</div>
+				<div className="homepage-scroll-container">
+					<img className="homepage-scroll-arrow" src="assets/images/scroll-arrow.png" />
 				</div>
 			</div>
 		)
