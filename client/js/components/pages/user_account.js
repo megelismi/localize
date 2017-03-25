@@ -8,7 +8,6 @@ import UpdateProfilePicture from '../user_account_components/modals/update_profi
 import UserDetailsTable from '../user_account_components/user_details_table';
 import UserMaps from '../user_account_components/user_maps';
 import Header from '../partials/header';
-import Footer from '../partials/footer';
 import Tutorial from '../tutorial_modal/tutorial';
 
 export class UserAccountPage extends React.Component {
@@ -41,7 +40,6 @@ export class UserAccountPage extends React.Component {
               bio={currentUser.bio}
               openUpdateUserDetailsModal={() => {this.props.dispatch(actionCreators.updateUserDetailsModal())}} />
           </div>
-          <Footer />
         </div>
       )
     } else {
