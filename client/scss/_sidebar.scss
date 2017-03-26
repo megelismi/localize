@@ -40,7 +40,8 @@ $accent-color: #4ddcb1;
   font-size: 18px !important;
   margin: 10px; 
   color: $charcoal !important;
-  position: relative; 
+  position: relative;
+  z-index: -5;  
   &:hover {
     color: gray !important;
   }

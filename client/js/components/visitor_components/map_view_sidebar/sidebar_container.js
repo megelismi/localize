@@ -43,7 +43,6 @@ class NewSidebar extends React.Component {
         locationInfo={selectedLocation}
         selectLocationById={selectLocationById} />
     } else if (this.state.displayLocals) {
-      console.log('relevantUsers in react', relevantUsers)
       display = <LocalsDisplay
         city={'Portland'}
         users={relevantUsers}

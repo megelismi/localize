@@ -57,6 +57,7 @@
 @media screen and (min-width: 460px) {
 	.landingpage-container {
 		flex-direction: column;
+		min-height: auto; 
 	}
 }
 
