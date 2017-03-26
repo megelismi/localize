@@ -91,17 +91,6 @@ $mediumpurple: #5F88E8;
     }
   }
 
-  .landingpage-details-container {
-    top: 125px; 
-  }
-    
-  .homepage-scroll-container {
-    top: 300px; 
-  }
-
-  .homepage-scroll-arrow {
-    width: 30px; 
-  }
 }
 
 @media screen and (max-width: 460px) {
@@ -113,6 +102,10 @@ $mediumpurple: #5F88E8;
 
   .short-line {
     margin: 1em 0; 
+  }
+
+  .about-card {
+    width: 90%; 
   }
 
 }

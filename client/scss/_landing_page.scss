@@ -1,7 +1,6 @@
 .landingpage-container {
 	height: 100vh;
-	min-height: 700px;
-	width: 100%;
+	min-height: 80vh;    
 	position: relative;
 	background: 
 		linear-gradient(
@@ -67,10 +66,19 @@
 	}
 
 	.landingpage-details-container {
+		top: 125px; 
 		h2 {
 			font-size: 22px;  
 		}
 	}
+    
+  .homepage-scroll-container {
+    top: 300px; 
+  }
+
+  .homepage-scroll-arrow {
+    width: 30px; 
+  }
 }
 
 @media screen and (min-width: 1200px) {
