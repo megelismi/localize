@@ -1,6 +1,5 @@
 .landingpage-container {
-	height: 100vh;
-	min-height: 80vh;    
+	height: 100vh;     
 	position: relative;
 	background: 
 		linear-gradient(
@@ -30,6 +29,7 @@
 .welcome-header {
 	font-family: $app-font;
 	color: white;
+	font-size: 72px; 
 }
 
 .homepage-scroll-container {
@@ -45,22 +45,33 @@
 	width: 50px; 
 }
 
-@media screen and (min-width: 320px) {
-	.landingpage-details-container {
-		h2 {
-			font-size: 18px;  
-		}
-	}
+@media screen and (max-width: 320px) {
+
 }
 
-@media screen and (min-width: 460px) {
+@media screen and (max-width: 460px) {
 	.landingpage-container {
 		flex-direction: column;
 		min-height: auto; 
 	}
+
+	.landingpage-details-container {
+		h2 {
+			font-size: 18px !important;   
+		}
+	}
+
+	.welcome-header {
+		font-size: 48px;
+	}
+
+	.homepage-scroll-container {
+		top: 400px !important; 
+	}
+
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
 	.welcome-header {
 		font-size: 60px;
 	}
@@ -81,10 +92,3 @@
   }
 }
 
-@media screen and (min-width: 1200px) {
-
-	.welcome-header {
-		font-size: 72px;
-	}
-
-}

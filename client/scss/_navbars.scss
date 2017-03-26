@@ -5,6 +5,10 @@ $charcoal: #2D2D2D;
 $purple: #748CCD;
 $darkpurple: #4062BB;
 
+.sticky {
+  z-index: 999; 
+}
+
 .no-user-navbar, .user-navbar {
   border: none !important;
   background-color: white !important; 
