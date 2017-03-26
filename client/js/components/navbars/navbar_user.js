@@ -14,10 +14,10 @@ class NavbarUser extends React.Component  {
       <Navbar className="user-navbar" collapseOnSelect>
         <Navbar.Header>
           <Navbar.Toggle />
+          <Navbar.Brand>
+            <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span className="logo-container">{logo}</span></a>
+          </Navbar.Brand>
         </Navbar.Header>
-        <Navbar.Brand>
-          <a className="app-name" onClick={() => {hashHistory.push('/map/portland')}}>Localize <span className="logo-container">{logo}</span></a>
-        </Navbar.Brand>
         <Navbar.Collapse>
         <Nav pullRight>
           <NavItem className="user-navbar-link" onClick={()=> {hashHistory.push('/account')}}>Your Profile</NavItem>
