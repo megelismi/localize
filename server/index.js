@@ -395,6 +395,8 @@ app.get('/locations/users/tags', (req, res) => {
 
 // new endpoints
 
+//get all locations that have been reviewed in that city
+
 app.get('/locations/city/:city_id', (req, res) => {
   const { city_id } = req.params; 
   knex('locations').where('city_id', city_id).then((locations) => {
@@ -429,6 +431,26 @@ app.get('/users/city/:city_id', (req, res) => {
   });
 }); 
 
+//get all reviews for a location or all reviews for a single user
+
+// All reviews: [{locationId: 1, userId: 1, review: “Everything is amazing.”}, locationId: 1, userId: 2, review: “Food is alright.”}, ...]
+// User reviews: [{locationId: 1, userId: 1, review: “Everything is amazing.”}, {locationId: 2, userId: 1, review: “Bagels are good.”}]
+
+
+app.get('/reviews/:location_id/:user_id', (req, res) => {
+  if (req.params.user_id !== 'null') {
+    const { location_id, user_id } = req.params;
+    knex('reviews').where({'location_id': location_id, 'user_id': user_id}).then((reviews) => {
+      return res.status(200).json(reviews); 
+    })
+  } 
+  else {
+    const { location_id } = req.params; 
+    knex('reviews').where('location_id', location_id).then((reviews) => {
+      return res.status(200).json(reviews); 
+    });
+  } 
+}); 
 
 function runServer() {
   return new Promise((resolve, reject) => {
