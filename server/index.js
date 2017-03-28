@@ -3,8 +3,10 @@ import 'dotenv';
 import express from 'express';
 import bodyParser from 'body-parser';
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
-import * as userValidity from './handlers/user_handlers/signUpValidity';
-import verifyPassword from './handlers/user_handlers/verifyPassword';
+import * as userValidity from './handlers/user_handlers/sign_up_validity';
+import verifyPassword from './handlers/user_handlers/verify_password';
+import createLocationIdsArrayForUser from './handlers/user_handlers/user_locations'; 
+import selectQuery from './handlers/query_handlers/select_query'; 
 import passport from 'passport';
 import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
@@ -296,7 +298,7 @@ app.put('/account/:userId/update', passport.authenticate('bearer', {session: fal
 
 // get all locations
 
-app.get('/locations', (req, res) => {
+app.get('/locations/', (req, res) => {
   knex('locations').then((locations) => {
     return res.status(200).json(locations);
   });
@@ -339,16 +341,18 @@ app.get('/locations/tags', (req,res) => {
 
 // get all locations with that tag
 
-app.get('/locations/:tag', (req, res) => {
-  const { tag } = req.params;
-  knex('tags').where({tag}).select('user_id')
-  .then((data) => {
-    knex('locations').whereIn('user_id', data[0].user_id)
-    .then((locations) => {
-      return res.status(200).json(locations);
-    });
-  });
-});
+  // this is never used -- delete ?
+
+// app.get('/locations/:tag', (req, res) => {
+//   const { tag } = req.params;
+//   knex('tags').where({tag}).select('user_id')
+//   .then((data) => {
+//     knex('locations').whereIn('user_id', data[0].user_id)
+//     .then((locations) => {
+//       return res.status(200).json(locations);
+//     });
+//   });
+// });
 
 // get all users with that tag
 
@@ -387,6 +391,44 @@ app.get('/locations/users/tags', (req, res) => {
     return res.status(200).json(data);
   });
 });
+
+
+// new endpoints
+
+app.get('/locations/city/:city_id', (req, res) => {
+  const { city_id } = req.params; 
+  knex('locations').where('city_id', city_id).then((locations) => {
+    return res.status(200).json(locations);
+  });
+});
+
+// get all users who have reviewed locations in that city
+
+app.get('/users/city/:city_id', (req, res) => {
+  const { city_id } = req.params; 
+  knex('locations').where('city_id', city_id).then((locations) => {
+    let locationsIds = locations.map((location) => {
+      return location.id; 
+    }); 
+    let selectUserIdsQuery = selectQuery(locationsIds, 'user_id, location_id', 'locations_users_tags', 'location_id');
+    knex.raw(selectUserIdsQuery).then((data) => {
+      let usersAndLocationIds = data.rows; 
+      let userIds = data.rows.map((data) => {
+        return data.user_id; 
+      }); 
+      let selectUsersQuery = selectQuery(userIds, 'bio, first_name, id, image', 'users', 'id'); 
+      knex.raw(selectUsersQuery).then((data) => {
+        let users = data.rows; 
+        users.forEach((user) => {
+          let locations = createLocationIdsArrayForUser(user.id, usersAndLocationIds);
+          user.locations = locations; 
+        }); 
+        return res.status(200).json(users);
+      });
+    });
+  });
+}); 
+
 
 function runServer() {
   return new Promise((resolve, reject) => {
