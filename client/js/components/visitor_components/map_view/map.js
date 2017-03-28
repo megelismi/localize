@@ -7,25 +7,36 @@ import Tile from './tile_layer';
 import MarkerLayer from './marker_layer';
 L.Icon.Default.imagePath = '../assets/images/';
 
+    // locations = locations.filter(location => {
+    //     return location.show === 'yes'
+    //   });
+
 class MapComponent extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
-    const { selectedLocations, allLocationsAndDescriptions, locationsFilteredByUser } = this.props;
-    if (!allLocationsAndDescriptions) {
+    // const { selectedLocations, allLocationsAndDescriptions, locationsFilteredByUser } = this.props;
+    // if (!allLocationsAndDescriptions) {
+    //   return <div></div>
+    // } else {
+    //   let locations;
+    //   if (selectedLocations && selectedLocations.length > 0) {
+    //     locations = selectedLocations
+    //   } else if (locationsFilteredByUser && locationsFilteredByUser.length > 0) {
+    //     locations = locationsFilteredByUser
+    //   } else {
+    //     locations = allLocationsAndDescriptions
+    //   }
+    //   locations = locations.filter(location => {
+    //     return location.show === 'yes'
+    //   });
+
+    const { locations } = this.props; 
+
+    if (!locations) {
       return <div></div>
-    } else {
-      let locations;
-      if (selectedLocations && selectedLocations.length > 0) {
-        locations = selectedLocations
-      } else if (locationsFilteredByUser && locationsFilteredByUser.length > 0) {
-        locations = locationsFilteredByUser
-      } else {
-        locations = allLocationsAndDescriptions
-      }
-      locations = locations.filter(location => {
-        return location.show === 'yes'
-      });
+    }
+
       return (
         <Map className="display-map" center={city} zoom={14}>
           <Tile />
@@ -34,12 +45,12 @@ class MapComponent extends React.Component {
       );
     }
   }
-}
 
 const mapStateToProps = (state) => ({
   selectedLocations: state.selectedLocations,
   locationsFilteredByUser: state.locationsFilteredByUser,
-  allLocationsAndDescriptions: state.allLocationsAndDescriptions
+  allLocationsAndDescriptions: state.allLocationsAndDescriptions, 
+  locations: state.locations
 });
 
 export default connect(mapStateToProps, syncActionCreators)(MapComponent);
