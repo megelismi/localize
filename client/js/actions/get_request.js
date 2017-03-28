@@ -6,6 +6,34 @@ import * as get_result from './get_result.js';
 import * as post_result from './post_result.js';
 import * as sync from './sync.js';
 
+export const getAllUsersForCity = () => dispatch => {
+  return fetch('/users/city/1')
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText); 
+    }
+    return res.json(); 
+  }).then(users => {
+    dispatch(get_result.getUsersForCitySuccess(users)); 
+  }).catch(err => {
+    dispatch(get_result.getUsersForCityError(err)); 
+  })
+};
+
+export const getAllLocationsForCity = () => dispatch => {
+  return fetch('/locations/city/1')
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText); 
+    }
+    return res.json(); 
+  }).then(locations => {
+    dispatch(get_result.getLocationsForCitySuccess(locations)); 
+  }).catch(err => {
+    dispatch(get_result.getLocationsForCityError(err)); 
+  })
+};
+
 export const getSelectedUsers = () => (dispatch, getState) => {
   return fetch('/users')
   .then(res => {

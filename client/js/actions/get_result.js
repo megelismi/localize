@@ -1,3 +1,30 @@
+//new actions
+
+export const GET_USERS_FOR_CITY_SUCCESS = 'GET_USERS_FOR_CITY_SUCCESS'; 
+export const getUsersForCitySuccess = users => ({
+  type: GET_USERS_FOR_CITY_SUCCESS, 
+  users
+});
+
+export const GET_USERS_FOR_CITY_ERROR = 'GET_USERS_FOR_CITY_ERROR'; 
+export const getUsersForCityError = error => ({
+  type: GET_USERS_FOR_CITY_ERROR, 
+  error
+});
+
+export const GET_LOCATIONS_FOR_CITY_SUCCESS = 'GET_LOCATIONS_FOR_CITY_SUCCESS'; 
+export const getLocationsForCitySuccess = locations => ({
+  type: GET_LOCATIONS_FOR_CITY_SUCCESS, 
+  locations
+});
+
+export const GET_LOCATIONS_FOR_CITY_ERROR = 'GET_LOCATIONS_FOR_CITY_ERROR'; 
+export const getLocationsForCityError = error => ({
+  type: GET_LOCATIONS_FOR_CITY_ERROR, 
+  error
+});
+
+
 export const GET_LOCATIONS_SUCCESS = 'GET_LOCATIONS_SUCCESS';
 export const getLocationsSuccess = locations => ({
   type: GET_LOCATIONS_SUCCESS,
