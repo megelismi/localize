@@ -1,14 +1,14 @@
 //new actions
 
-export const GET_USERS_FOR_CITY_SUCCESS = 'GET_USERS_FOR_CITY_SUCCESS'; 
-export const getUsersForCitySuccess = users => ({
-  type: GET_USERS_FOR_CITY_SUCCESS, 
+export const GET_USERS_WITH_REVIEWS_SUCCESS = 'GET_USERS_WITH_REVIEWS_SUCCESS'; 
+export const getUsersWithReviewsSuccess = users => ({
+  type: GET_USERS_WITH_REVIEWS_SUCCESS, 
   users
 });
 
-export const GET_USERS_FOR_CITY_ERROR = 'GET_USERS_FOR_CITY_ERROR'; 
-export const getUsersForCityError = error => ({
-  type: GET_USERS_FOR_CITY_ERROR, 
+export const GET_USERS_WITH_REVIEWS_ERROR = 'GET_USERS_WITH_REVIEWS_ERROR';  
+export const getUsersWithReviewsError = error => ({
+  type: GET_USERS_WITH_REVIEWS_ERROR, 
   error
 });
 

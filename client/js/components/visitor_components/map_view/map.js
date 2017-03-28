@@ -15,22 +15,6 @@ class MapComponent extends React.Component {
 
   render() {
     const city = [43.6615, -70.2553];
-    // const { selectedLocations, allLocationsAndDescriptions, locationsFilteredByUser } = this.props;
-    // if (!allLocationsAndDescriptions) {
-    //   return <div></div>
-    // } else {
-    //   let locations;
-    //   if (selectedLocations && selectedLocations.length > 0) {
-    //     locations = selectedLocations
-    //   } else if (locationsFilteredByUser && locationsFilteredByUser.length > 0) {
-    //     locations = locationsFilteredByUser
-    //   } else {
-    //     locations = allLocationsAndDescriptions
-    //   }
-    //   locations = locations.filter(location => {
-    //     return location.show === 'yes'
-    //   });
-
     const { locations } = this.props; 
 
     if (!locations) {

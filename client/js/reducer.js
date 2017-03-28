@@ -21,8 +21,8 @@ const state = (state = {
 }, action) => {
   switch (action.type) {
 
-    case get_actions.GET_USERS_FOR_CITY_SUCCESS: 
-    return Object.assign({}, state, {testUsers: action.users});
+    case get_actions.GET_USERS_WITH_REVIEWS_SUCCESS: 
+    return Object.assign({}, state, {relevantUsers: action.users});
 
     case get_actions.GET_LOCATIONS_FOR_CITY_SUCCESS:
     return Object.assign({}, state, {locations: action.locations}); 
@@ -173,7 +173,7 @@ const state = (state = {
       selectedUsers = state.users || [];
     }
     return state = Object.assign({}, state, {
-      relevantUsers: selectedUsers
+      oldRelevantUsers: selectedUsers
     });
 
     case get_actions.GET_USERS_ERROR:

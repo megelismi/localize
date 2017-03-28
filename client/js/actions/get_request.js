@@ -6,7 +6,7 @@ import * as get_result from './get_result.js';
 import * as post_result from './post_result.js';
 import * as sync from './sync.js';
 
-export const getAllUsersForCity = () => dispatch => {
+export const getUsersWithReviews = () => dispatch => {
   return fetch('/users/city/1')
   .then(res => {
     if (!res.ok) {
@@ -14,9 +14,9 @@ export const getAllUsersForCity = () => dispatch => {
     }
     return res.json(); 
   }).then(users => {
-    dispatch(get_result.getUsersForCitySuccess(users)); 
+    dispatch(get_result.getUsersWithReviewsSuccess(users)); 
   }).catch(err => {
-    dispatch(get_result.getUsersForCityError(err)); 
+    dispatch(get_result.getUsersWithReviewsError(err)); 
   })
 };
 

@@ -15,7 +15,7 @@ class MapDisplay extends React.Component {
   componentDidMount() {
     this.props.getActionCreators.getSelectedUsers();
     this.props.getActionCreators.getLocationsAndDescriptions();
-    this.props.getActionCreators.getAllUsersForCity();
+    this.props.getActionCreators.getUsersWithReviews();
     this.props.getActionCreators.getAllLocationsForCity();
   }
 
