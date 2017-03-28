@@ -1,5 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as postActionCreators from '../../../actions/post_request.js'
 import * as syncActionCreators from '../../../actions/sync.js';
 import SidebarPresentation from './sidebar_presentation';
 import LocalDetailsDisplay from './local_details_display';
@@ -14,10 +16,13 @@ class NewSidebar extends React.Component {
   }
 
   componentWillMount() {
-    this.props.deselectUser();
+    this.props.syncActionCreators.deselectUser();
   }
 
-  showTagsView() { this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }) }
+  showTagsView() { 
+    this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }); 
+    this.props.postActionCreators.grabRelevantTags(this.props.filteredLocations); 
+  }
 
   showAllLocalsOrSingleLocal() {
     this.props.selectedUser ?
@@ -27,15 +32,15 @@ class NewSidebar extends React.Component {
 
   clearSelectedUser() {
     this.setState({ displayLocals: true, displayTags: false, displayOneUser: false });
-    this.props.deselectUser();
+    this.props.syncActionCreators.deselectUser();
   }
 
   selectLocalUser(user) {
     this.setState({ displayLocals: false, displayTags: false, displayOneUser: true });
     //fire off the actions filters that array
     // this.props.selectUserAndUpdateTags(user);
-    this.props.filterLocationsForUser(user); 
-    this.props.selectUser(user); 
+    this.props.syncActionCreators.filterLocationsForUser(user); 
+    this.props.syncActionCreators.selectUser(user); 
   }
 
   render() {
@@ -80,7 +85,15 @@ const mapStateToProps = (state) => ({
   allTags: state.allTags,
   selectedLocation: state.selectedLocation,
   selectedUser: state.selectedUser,
-  tagsFilteredByUser: state.tagsFilteredByUser
+  tagsFilteredByUser: state.tagsFilteredByUser, 
+  filteredLocations: state.filteredLocations
 });
 
-export default connect(mapStateToProps, syncActionCreators)(NewSidebar);
+const mapDispatchToProps = dispatch => {
+  return {
+    postActionCreators: bindActionCreators(postActionCreators, dispatch),
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewSidebar);

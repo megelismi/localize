@@ -2,6 +2,37 @@ import * as post_result from './post_result.js';
 import Cookies from 'js-cookie';
 import { hashHistory } from 'react-router';
 
+export const grabRelevantTags = (locations, user) => dispatch => {
+  let location_ids = locations.map(location => {
+    return location.id; 
+  });
+  let user_id = null; 
+  if (user) {
+    user_id = user.id; 
+  }
+  console.log('user_id', user_id);
+
+  console.log('location ids', location_ids)
+  return fetch('/locations/tags', {
+    method: 'post',
+    headers: {
+      'Content-type': "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({
+      location_ids,
+      user_id 
+    })
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+  }).then(res => {
+    dispatch(post_result.grabRelevantTagsSuccess())
+  }).catch(err => {
+    dispatch(post_result.grabRelevantTagsError())
+  });
+}
+
 export const saveMap = (localsMapLocations) => dispatch => {
   console.log(localsMapLocations);
   return fetch('/map', {

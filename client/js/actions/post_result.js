@@ -1,3 +1,15 @@
+export const GRAB_RELEVANT_TAGS = 'GRAB_RELEVANT_TAGS';
+export const grabRelevantTagsSuccess = (tags) => ({
+  type: GRAB_RELEVANT_TAGS, 
+  tags
+});
+
+export const GRAB_RELEVANT_TAGS_ERROR = ' GRAB_RELEVANT_TAGS_ERROR';
+export const grabRelevantTagsError = (error) => ({
+  type: GRAB_RELEVANT_TAGS_ERROR, 
+  error
+});
+
 export const SAVE_MAP_SUCCESS = 'SAVE_MAP_SUCCESS';
 export const saveMapSuccess = () => ({
   type: SAVE_MAP_SUCCESS

@@ -37,7 +37,7 @@ app.use(bodyParser.json());
 //keep users logged in
 
 app.get('/find/cookie/:token', (req, res) => {
-  let { token } = req.params;
+  const { token } = req.params;
   knex('users')
     .where('token', token)
     .then (user => {
@@ -409,20 +409,20 @@ app.get('/locations/city/:city_id/', (req, res) => {
 app.get('/users/city/:city_id', (req, res) => {
   const { city_id } = req.params; 
   knex('locations').where('city_id', city_id).then((locations) => {
-    let locationsIds = locations.map((location) => {
+    const locationsIds = locations.map((location) => {
       return location.id; 
     }); 
-    let selectUserIdsQuery = selectQuery(locationsIds, 'user_id, location_id', 'locations_users_tags', 'location_id');
-    knex.raw(selectUserIdsQuery).then((data) => {
-      let usersAndLocationIds = data.rows; 
-      let userIds = data.rows.map((data) => {
+    const selectUserIdsByLocationIdsQuery = selectQuery(locationsIds, 'user_id, location_id', 'locations_users_tags', 'location_id');
+    knex.raw(selectUserIdsByLocationIdsQuery).then((data) => {
+      const usersAndLocationIds = data.rows; 
+      const userIds = data.rows.map((data) => {
         return data.user_id; 
       }); 
-      let selectUsersQuery = selectQuery(userIds, 'bio, first_name, id, image', 'users', 'id'); 
-      knex.raw(selectUsersQuery).then((data) => {
-        let users = data.rows; 
+      const selectUsersByUserIdsQuery = selectQuery(userIds, 'bio, first_name, id, image', 'users', 'id'); 
+      knex.raw(selectUsersByUserIdsQuery).then((data) => {
+        const users = data.rows; 
         users.forEach((user) => {
-          let locations = createLocationIdsArrayForUser(user.id, usersAndLocationIds);
+          const locations = createLocationIdsArrayForUser(user.id, usersAndLocationIds);
           user.locations = locations; 
         }); 
         return res.status(200).json(users);
@@ -434,7 +434,7 @@ app.get('/users/city/:city_id', (req, res) => {
 //get all reviews for a location or all reviews for a single user
 
 app.get('/reviews/:location_id/:user_id', (req, res) => {
-  if (req.params.user_id !== 'null') {
+  if (req.params.user_id !== 0) {
     const { location_id, user_id } = req.params;
     knex('reviews').where({'location_id': location_id, 'user_id': user_id}).then((reviews) => {
       return res.status(200).json(reviews); 
@@ -447,6 +447,39 @@ app.get('/reviews/:location_id/:user_id', (req, res) => {
     });
   } 
 }); 
+
+//get all tags for locations associated with a city or all tags for associated with locations associated with a user
+
+const addTagValues = (locationUserTags, tags) => {
+  const tagIds = tags.map(tag => {
+    return tag.id; 
+  });
+  for (let i = 0; i<locationUserTags.length; i++) {
+    let tagId = locationUserTags[i].tag_id;
+    let tagIndex = tagIds.indexOf(tagId); 
+    let tagValue = tags[tagIndex].tag; 
+    locationUserTags[i].tag = tagValue; 
+  }
+  return locationUserTags; 
+};
+
+
+app.post('/locations/tags', (req, res) => {
+  const { location_ids } = req.body;
+  const selectTagIdsByLocationIdsQuery = selectQuery(location_ids, '*', 'locations_users_tags', 'location_id'); 
+  knex.raw(selectTagIdsByLocationIdsQuery).then((data) => {
+    const locationUserTagIds = data.rows;
+    const tag_ids = locationUserTagIds.map(ids => {
+      return ids.tag_id; 
+    })
+    const selectTagsByTagIdQuery = selectQuery(tag_ids, '*', 'tags', 'id');
+    knex.raw(selectTagsByTagIdQuery).then((data) => {
+      const tags = data.rows;
+      const tagsResponse = addTagValues(locationUserTagIds, tags); 
+      return res.status(200).json(tagsResponse);
+    }) 
+  })
+})
 
 function runServer() {
   return new Promise((resolve, reject) => {

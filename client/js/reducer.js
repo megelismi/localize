@@ -27,8 +27,13 @@ const state = (state = {
     case get_actions.GET_LOCATIONS_FOR_CITY_SUCCESS:
     return Object.assign({}, state, {locations: action.locations, filteredLocations: action.locations}); 
 
+    case post_actions.GRAB_RELEVANT_TAGS_SUCCESS:
+    return Object.assign({}, state, {tags: action.tags});
+
     case sync_actions.FILTER_LOCATIONS_BY_USER:
     return Object.assign({}, state, {filteredLocations: action.filteredLocations});
+
+    ////////////////
 
     case post_actions.SAVE_MAP_SUCCESS:
     return state = Object.assign({}, state, { saveMapSuccess: true });
