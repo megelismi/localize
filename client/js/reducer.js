@@ -346,7 +346,7 @@ const state = (state = {
     case sync_actions.DESELECT_USER:
     return state = Object.assign({}, state, {
       selectedUser: null,
-      locationsFilteredByUser: null,
+      filteredLocations: state.locations,
       tagsFilteredByUser: null
     });
 
