@@ -6,22 +6,13 @@ export const grabRelevantTags = (locations, user) => dispatch => {
   let location_ids = locations.map(location => {
     return location.id; 
   });
-  let user_id = null; 
-  if (user) {
-    user_id = user.id; 
-  }
-  console.log('user_id', user_id);
-
   console.log('location ids', location_ids)
   return fetch('/locations/tags', {
     method: 'post',
     headers: {
       'Content-type': "application/json; charset=utf-8"
     },
-    body: JSON.stringify({
-      location_ids,
-      user_id 
-    })
+    body: JSON.stringify(location_ids)
   }).then(res => {
     if (!res.ok) {
       throw new Error(res.statusText)
