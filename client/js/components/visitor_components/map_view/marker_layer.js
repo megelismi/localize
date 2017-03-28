@@ -5,6 +5,11 @@ import { LayerGroup, Marker, Popup } from 'react-leaflet';
 
 const MarkerLayer = (props) => {
 
+  //if there's a selected user id, then filter then the locations and save it to variable
+  //else 
+
+  // let locations = store.locations;
+
   return (
     <LayerGroup>{
         props.locationInfo.map((location, index) => {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import * as syncActionCreators from '../../../actions/sync.js';
+import * as syncActions from '../../../actions/sync.js';
 import SidebarPresentation from './sidebar_presentation';
 import LocalDetailsDisplay from './local_details_display';
 import LocationDetailsDisplay from './location_details_display';
@@ -32,7 +33,9 @@ class NewSidebar extends React.Component {
 
   selectLocalUser(user) {
     this.setState({ displayLocals: false, displayTags: false, displayOneUser: true });
-    this.props.selectUserAndUpdateTags(user);
+    //fire off the actions filters that array
+    // this.props.selectUserAndUpdateTags(user);
+    this.props.filterLocationsForUser(user); 
   }
 
   render() {

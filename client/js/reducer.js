@@ -25,7 +25,10 @@ const state = (state = {
     return Object.assign({}, state, {relevantUsers: action.users});
 
     case get_actions.GET_LOCATIONS_FOR_CITY_SUCCESS:
-    return Object.assign({}, state, {locations: action.locations}); 
+    return Object.assign({}, state, {locations: action.locations, filteredLocations: action.locations}); 
+
+    case sync_actions.FILTER_LOCATIONS_BY_USER:
+    return Object.assign({}, state, {filteredLocations: action.filteredLocations});
 
     case post_actions.SAVE_MAP_SUCCESS:
     return state = Object.assign({}, state, { saveMapSuccess: true });
@@ -212,33 +215,33 @@ const state = (state = {
       locationsError: true
     });
 
-    case get_actions.GET_DESCRIPTIONS_SUCCESS:
-    let mergedLocations = action.descriptions.map(description => {
-      let merge = description;
-      let matches = state.locations.filter(location => location.id === merge.location_id);
-      matches.forEach(match => {
-        return merge = Object.assign({}, match, {
-          short_description: merge.short_description,
-          long_description: merge.long_description,
-          image: merge.image,
-          user_id: merge.user_id,
-          saved: merge.saved,
-          show: merge.show || 'yes'
-        });
-      });
-      return merge;
-    });
-    let locationsToInclude = mergedLocations.filter(location => {
-      return location.show === 'yes';
-    });
-    return state = Object.assign({}, state, {
-      allLocationsAndDescriptions: locationsToInclude,
-      getDescriptionsError: false
-    });
-    case get_actions.GET_DESCRIPTIONS_ERROR:
-    return state = Object.assign({}, state, {
-      getDescriptionsError: true
-    });
+    // case get_actions.GET_DESCRIPTIONS_SUCCESS:
+    // let mergedLocations = action.descriptions.map(description => {
+    //   let merge = description;
+    //   let matches = state.filteredLocations.filter(location => location.id === merge.location_id);
+    //   matches.forEach(match => {
+    //     return merge = Object.assign({}, match, {
+    //       short_description: merge.short_description,
+    //       long_description: merge.long_description,
+    //       image: merge.image,
+    //       user_id: merge.user_id,
+    //       saved: merge.saved,
+    //       show: merge.show || 'yes'
+    //     });
+    //   });
+    //   return merge;
+    // });
+    // let locationsToInclude = mergedLocations.filter(location => {
+    //   return location.show === 'yes';
+    // });
+    // return state = Object.assign({}, state, {
+    //   allLocationsAndDescriptions: locationsToInclude,
+    //   getDescriptionsError: false
+    // });
+    // case get_actions.GET_DESCRIPTIONS_ERROR:
+    // return state = Object.assign({}, state, {
+    //   getDescriptionsError: true
+    // });
 
     case sync_actions.GET_SEARCH_RESULTS:
     return state = Object.assign({}, state,
@@ -352,27 +355,27 @@ const state = (state = {
       selectedUser: action.user
     });
 
-    case sync_actions.FILTER_LOCATIONS_BY_USER:
-    let selectedUserLocations;
-    if (action.user) {
-      let filteredJoinArrayForUser = state.locationUserTagsHelper.filter((object) => {
-        return object.user_id === action.user.id
-      });
-      selectedUserLocations = filteredJoinArrayForUser.map((object) => {
-        return state.allLocationsAndDescriptions.filter((location) => {
-          return location.id === object.location_id
-        });
-      }).reduce((a, b) => a.concat(b))
-      .filter((item, idx, ary) => ary.indexOf(item) === idx )
-      .filter(item => {
-        return item.user_id === action.user.id;
-      });
-    } else {
-      selectedUserLocations = state.allLocationsAndDescriptions;
-    }
-    return state = Object.assign({}, state, {
-      locationsFilteredByUser: selectedUserLocations
-    });
+    // case sync_actions.FILTER_LOCATIONS_BY_USER:
+    // let selectedUserLocations;
+    // if (action.user) {
+    //   let filteredJoinArrayForUser = state.locationUserTagsHelper.filter((object) => {
+    //     return object.user_id === action.user.id
+    //   });
+    //   selectedUserLocations = filteredJoinArrayForUser.map((object) => {
+    //     return state.allLocationsAndDescriptions.filter((location) => {
+    //       return location.id === object.location_id
+    //     });
+    //   }).reduce((a, b) => a.concat(b))
+    //   .filter((item, idx, ary) => ary.indexOf(item) === idx )
+    //   .filter(item => {
+    //     return item.user_id === action.user.id;
+    //   });
+    // } else {
+    //   selectedUserLocations = state.allLocationsAndDescriptions;
+    // }
+    // return state = Object.assign({}, state, {
+    //   locationsFilteredByUser: selectedUserLocations
+    // });
 
     case sync_actions.FILTER_TAGS_BY_USER:
     let filteredLocationUserTags = state.locationUserTagsHelper.filter((object) => {

@@ -51,6 +51,12 @@ export const addLocationToLocalsMap = (user_id, feature, lat_long, short = null,
 
 //////////////////////////////////////////////////////////////////////////
 
+export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
+export const filterLocationsByUser = filteredLocations => ({
+  type: FILTER_LOCATIONS_BY_USER,
+  filteredLocations
+});
+
 export const FILTER_BY_TAG = 'FILTER_BY_TAG';
 export const filterByTag = tag => ({
   type: FILTER_BY_TAG,
@@ -85,11 +91,11 @@ export const filterTagsByUser = () => ({
   type: FILTER_TAGS_BY_USER
 });
 
-export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
-export const filterLocationsByUser = user => ({
-  type: FILTER_LOCATIONS_BY_USER,
-  user
-});
+// export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
+// export const filterLocationsByUser = user => ({
+//   type: FILTER_LOCATIONS_BY_USER,
+//   user
+// });
 
 export const DESELECT_USER = 'DESELECT_USER';
 export const deselectUser = () => ({
@@ -137,6 +143,20 @@ export const setLocalsMapLocations = locations => ({
   locations
 })
 
+export const filterLocationsForUser = user => (dispatch, getState) => {
+  let allLocations = getState().locations; 
+  let userLocations = user.locations; 
+  let filteredLocations = allLocations.filter(location => {
+    if (userLocations.indexOf(location.id) !== -1) {
+      return location; 
+    }
+  }); 
+  dispatch({
+    type: FILTER_LOCATIONS_BY_USER, 
+    filteredLocations
+  }) 
+}; 
+
 export const selectUserAndUpdateTags = user => (dispatch, getState) => {
   let selectedUser = getState().selectedUser;
   let currentUser = getState().currentUser;
@@ -165,13 +185,13 @@ export const selectUserAndUpdateTags = user => (dispatch, getState) => {
   }
 }
 
-export const filterLocations = () => (dispatch, getState) => {
-  dispatch({
-    type: FILTER_TAGS_BY_SELECTED_LOCATIONS
-  });
-  if (getState().allTags) {
-    dispatch({
-      type: FILTER_BY_TAG
-    });
-  }
-}
+// export const filterLocations = () => (dispatch, getState) => {
+//   dispatch({
+//     type: FILTER_TAGS_BY_SELECTED_LOCATIONS
+//   });
+//   if (getState().allTags) {
+//     dispatch({
+//       type: FILTER_BY_TAG
+//     });
+//   }
+// }

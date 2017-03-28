@@ -16,4 +16,7 @@ const mergeLocationAndDescription = (locations, descriptions) => {
   return mergedLocations;
 }
 
-export default mergeLocationAndDescription;
+export default mergeLocationAndDescription; 
+
+
+
