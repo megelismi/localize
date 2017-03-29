@@ -101,6 +101,7 @@
     "knex": "^0.12.6",
     "leaflet": "^1.0.3",
     "leaflet-geocoder-mapzen": "^1.7.1",
+    "lodash": "^4.17.4",
     "mongoose": "^4.7.7",
     "passport": "^0.3.2",
     "passport-google-oauth20": "^1.0.0",
@@ -126,6 +127,7 @@
     "redux-thunk": "^2.2.0",
     "superagent": "^3.4.4",
     "thunk": "0.0.1",
+    "underscore": "^1.8.3",
     "uuid": "^3.0.1"
   }
 }

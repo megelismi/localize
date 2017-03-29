@@ -91,11 +91,11 @@ export const filterTagsByUser = () => ({
   type: FILTER_TAGS_BY_USER
 });
 
-// export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
-// export const filterLocationsByUser = user => ({
-//   type: FILTER_LOCATIONS_BY_USER,
-//   user
-// });
+export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
+export const filterLocationsByUser = user => ({
+  type: FILTER_LOCATIONS_BY_USER,
+  user
+});
 
 export const DESELECT_USER = 'DESELECT_USER';
 export const deselectUser = () => ({

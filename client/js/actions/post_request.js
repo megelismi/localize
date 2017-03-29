@@ -2,8 +2,13 @@ import * as post_result from './post_result.js';
 import Cookies from 'js-cookie';
 import { hashHistory } from 'react-router';
 
-export const grabRelevantTags = (locations) => dispatch => {
-  let location_ids = locations.map(location => {
+export const getRelevantTags = locations => (dispatch, getState) => {
+  let selectedUser = getState().selectedUser;
+  let userId;  
+  if (selectedUser) {
+    userId = selectedUser.id; 
+  }
+  let locationIds = locations.map(location => {
     return location.id; 
   });
     return fetch('/locations/tags', {
@@ -11,7 +16,7 @@ export const grabRelevantTags = (locations) => dispatch => {
     headers: {
       'Content-type': "application/json; charset=utf-8"
     },
-    body: JSON.stringify(location_ids)
+    body: JSON.stringify({locationIds, userId})
   }).then(res => {
     if (!res.ok) {
       throw new Error(res.statusText)

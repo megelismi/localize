@@ -464,20 +464,23 @@ const addTagValues = (locationUserTags, tags) => {
 };
 
 app.post('/locations/tags', (req, res) => {
-  const location_ids = req.body;
-  const selectTagIdsByLocationIdsQuery = selectQuery(location_ids, '*', 'locations_users_tags', 'location_id'); 
-  knex.raw(selectTagIdsByLocationIdsQuery).then((data) => {
-    const locationUserTagIds = data.rows;
-    const tag_ids = locationUserTagIds.map(ids => {
-      return ids.tag_id; 
+  const { locationIds, userId } = req.body;
+    let selectTagIdsByLocationIdsQuery = selectQuery(locationIds, 'location_id, tag_id', 'locations_users_tags', 'location_id'); 
+    if (userId !== 0) {
+      selectTagIdsByLocationIdsQuery += ` and user_id = ${userId}`;
+    }
+    knex.raw(selectTagIdsByLocationIdsQuery).then((data) => {
+      const locationTagIds = data.rows;
+      const tagIds = locationTagIds.map(ids => {
+        return ids.tag_id; 
+      });
+      const selectTagsByTagIdQuery = selectQuery(tagIds, '*', 'tags', 'id');
+      knex.raw(selectTagsByTagIdQuery).then((data) => {
+        const tags = data.rows;
+        const tagsResponse = addTagValues(locationTagIds, tags);  
+        return res.status(200).json(tagsResponse);
+      }); 
     });
-    const selectTagsByTagIdQuery = selectQuery(tag_ids, '*', 'tags', 'id');
-    knex.raw(selectTagsByTagIdQuery).then((data) => {
-      const tags = data.rows;
-      const tagsResponse = addTagValues(locationUserTagIds, tags);  
-      return res.status(200).json(tagsResponse);
-    }); 
-  });
 })
 
 function runServer() {

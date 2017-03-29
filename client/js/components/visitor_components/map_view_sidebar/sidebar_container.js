@@ -21,7 +21,7 @@ class NewSidebar extends React.Component {
 
   showTagsView() { 
     this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }); 
-    this.props.postActionCreators.grabRelevantTags(this.props.filteredLocations);
+    this.props.postActionCreators.getRelevantTags(this.props.filteredLocations);
   }
 
   showAllLocalsOrSingleLocal() {
