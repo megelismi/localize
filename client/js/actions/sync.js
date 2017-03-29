@@ -51,11 +51,11 @@ export const addLocationToLocalsMap = (user_id, feature, lat_long, short = null,
 
 //////////////////////////////////////////////////////////////////////////
 
-export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
-export const filterLocationsByUser = filteredLocations => ({
-  type: FILTER_LOCATIONS_BY_USER,
-  filteredLocations
-});
+// export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
+// export const filterLocationsByUser = filteredLocations => ({
+//   type: FILTER_LOCATIONS_BY_USER,
+//   filteredLocations
+// });
 
 export const FILTER_BY_TAG = 'FILTER_BY_TAG';
 export const filterByTag = tag => ({

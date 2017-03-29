@@ -2,12 +2,11 @@ import * as post_result from './post_result.js';
 import Cookies from 'js-cookie';
 import { hashHistory } from 'react-router';
 
-export const grabRelevantTags = (locations, user) => dispatch => {
+export const grabRelevantTags = (locations) => dispatch => {
   let location_ids = locations.map(location => {
     return location.id; 
   });
-  console.log('location ids', location_ids)
-  return fetch('/locations/tags', {
+    return fetch('/locations/tags', {
     method: 'post',
     headers: {
       'Content-type': "application/json; charset=utf-8"
@@ -17,12 +16,13 @@ export const grabRelevantTags = (locations, user) => dispatch => {
     if (!res.ok) {
       throw new Error(res.statusText)
     }
+    return res.json()
   }).then(res => {
-    dispatch(post_result.grabRelevantTagsSuccess())
+    dispatch(post_result.getRelevantTagsSuccess(res))
   }).catch(err => {
-    dispatch(post_result.grabRelevantTagsError())
+    dispatch(post_result.getRelevantTagsError(err))
   });
-}
+};
 
 export const saveMap = (localsMapLocations) => dispatch => {
   console.log(localsMapLocations);
@@ -41,7 +41,7 @@ export const saveMap = (localsMapLocations) => dispatch => {
   }).catch(err => {
     dispatch(post_result.saveMapError())
   });
-}
+};
 
 export const createNewUser = user => {
 	return dispatch => {

@@ -22,8 +22,6 @@ class NewMapDisplay extends React.Component {
     });
   }
 
-
-
   render () {
     return (
       <div>

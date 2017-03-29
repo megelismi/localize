@@ -4,7 +4,7 @@ const LocalsDisplay = (props) => {
 
   const selectLocalAndClearTags = (user) => {
     props.selectLocalUser(user);
-    props.clearAllAppliedTags();
+    // props.clearAllAppliedTags();
   }
 
   const reduceBio = (bio) => {

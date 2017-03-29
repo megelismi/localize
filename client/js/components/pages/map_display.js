@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as getActionCreators from '../../actions/get_request.js';
+import * as postActionCreators from '../../actions/post_request.js';
 import * as syncActionCreators from '../../actions/sync.js';
 import Map from '../visitor_components/map_view/map';
 import SidebarContainer from '../visitor_components/map_view_sidebar/sidebar_container';
@@ -12,8 +13,8 @@ import Tutorial from '../tutorial_modal/tutorial';
 
 class MapDisplay extends React.Component {
 
-  componentDidMount() {
-    this.props.getActionCreators.getSelectedUsers();
+  componentWillMount() {
+    // this.props.getActionCreators.getSelectedUsers();
     // this.props.getActionCreators.getLocationsAndDescriptions();
     this.props.getActionCreators.getUsersWithReviews();
     this.props.getActionCreators.getAllLocationsForCity();
@@ -39,13 +40,15 @@ const mapStateToProps = state => {
     signUpModalOpen: state.signUpModalOpen,
     signInModalOpen: state.signInModalOpen,
     tutorialModalOpen: state.tutorialModalOpen,
-    followUpModalOpen: state.followUpModalOpen
+    followUpModalOpen: state.followUpModalOpen, 
+    filteredLocations: state.filteredLocations
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     getActionCreators: bindActionCreators(getActionCreators, dispatch),
+    postActionCreators: bindActionCreators(postActionCreators, dispatch),
     syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
   }
 }

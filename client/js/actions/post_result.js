@@ -1,12 +1,12 @@
-export const GRAB_RELEVANT_TAGS = 'GRAB_RELEVANT_TAGS';
-export const grabRelevantTagsSuccess = (tags) => ({
-  type: GRAB_RELEVANT_TAGS, 
+export const GET_RELEVANT_TAGS_SUCCESS = 'GET_RELEVANT_TAGS_SUCCESS';
+export const getRelevantTagsSuccess = tags => ({
+  type: GET_RELEVANT_TAGS_SUCCESS, 
   tags
 });
 
-export const GRAB_RELEVANT_TAGS_ERROR = ' GRAB_RELEVANT_TAGS_ERROR';
-export const grabRelevantTagsError = (error) => ({
-  type: GRAB_RELEVANT_TAGS_ERROR, 
+export const GET_RELEVANT_TAGS_ERROR = 'GET_RELEVANT_TAGS_ERROR';
+export const getRelevantTagsError = error => ({
+  type: GET_RELEVANT_TAGS_ERROR, 
   error
 });
 

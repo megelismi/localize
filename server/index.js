@@ -325,19 +325,19 @@ app.get('/locations/reviews', (req, res) => {
 
 // get all tags
 
-app.get('/tags', (req, res) => {
-  knex('tags').then((tags) => {
-    return res.status(200).json(tags);
-  });
-});
+// app.get('/tags', (req, res) => {
+//   knex('tags').then((tags) => {
+//     return res.status(200).json(tags);
+//   });
+// });
 
 // get all data from location_tags
 
-app.get('/locations/tags', (req,res) => {
-  knex('locations_users_tags').then((location_user_tags) => {
-      return res.status(200).json(location_user_tags);
-  });
-});
+// app.get('/locations/tags', (req,res) => {
+//   knex('locations_users_tags').then((location_user_tags) => {
+//       return res.status(200).json(location_user_tags);
+//   });
+// });
 
 // get all locations with that tag
 
@@ -463,22 +463,21 @@ const addTagValues = (locationUserTags, tags) => {
   return locationUserTags; 
 };
 
-
 app.post('/locations/tags', (req, res) => {
-  const { location_ids } = req.body;
+  const location_ids = req.body;
   const selectTagIdsByLocationIdsQuery = selectQuery(location_ids, '*', 'locations_users_tags', 'location_id'); 
   knex.raw(selectTagIdsByLocationIdsQuery).then((data) => {
     const locationUserTagIds = data.rows;
     const tag_ids = locationUserTagIds.map(ids => {
       return ids.tag_id; 
-    })
+    });
     const selectTagsByTagIdQuery = selectQuery(tag_ids, '*', 'tags', 'id');
     knex.raw(selectTagsByTagIdQuery).then((data) => {
       const tags = data.rows;
-      const tagsResponse = addTagValues(locationUserTagIds, tags); 
+      const tagsResponse = addTagValues(locationUserTagIds, tags);  
       return res.status(200).json(tagsResponse);
-    }) 
-  })
+    }); 
+  });
 })
 
 function runServer() {
