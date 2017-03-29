@@ -4,7 +4,7 @@ import { hashHistory } from 'react-router';
 
 export const getRelevantTags = locations => (dispatch, getState) => {
   let selectedUser = getState().selectedUser;
-  let userId;  
+  let userId = 0;  
   if (selectedUser) {
     userId = selectedUser.id; 
   }

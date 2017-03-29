@@ -58,9 +58,9 @@ export const addLocationToLocalsMap = (user_id, feature, lat_long, short = null,
 // });
 
 export const FILTER_BY_TAG = 'FILTER_BY_TAG';
-export const filterByTag = tag => ({
+export const filterByTag = tagId => ({
   type: FILTER_BY_TAG,
-  tag
+  tagId
 });
 
 export const CLEAR_ALL_APPLIED_TAGS = 'CLEAR_ALL_APPLIED_TAGS';

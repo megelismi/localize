@@ -37,15 +37,17 @@ class NewSidebar extends React.Component {
 
   selectLocalUser(user) {
     this.setState({ displayLocals: false, displayTags: false, displayOneUser: true });
-    //fire off the actions filters that array
-    // this.props.selectUserAndUpdateTags(user);
     this.props.syncActionCreators.filterLocationsForUser(user); 
     this.props.syncActionCreators.selectUser(user); 
   }
 
+  filterByTags(tagId) {
+    this.props.syncActionCreators.filterByTag(tagId); 
+  }
+
   render() {
     let display, navLocalsText, filterId, userIcon;
-    const { selectedLocation, selectLocationById, relevantUsers, allTags, selectedTags, clearAllAppliedTags, filterByTag, selectedUser, tagsFilteredByUser, filteredTags } = this.props;
+    const { selectedLocation, selectLocationById, relevantUsers, allTags, selectedTags, clearAllAppliedTags, selectedUser, tagsFilteredByUser, tags } = this.props;
     if (selectedLocation) {
       display = <LocationDetailsDisplay
         locationInfo={selectedLocation}
@@ -58,10 +60,10 @@ class NewSidebar extends React.Component {
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
       display = <TagsDisplay
-        tags={filteredTags}
+        tags={tags}
         selected={selectedTags}
         clearAllAppliedTags={clearAllAppliedTags}
-        filterByTag={filterByTag} />
+        filterByTag={this.filterByTags.bind(this)} />
     } else if (this.state.displayOneUser) {
       display = <LocalDetailsDisplay
         clearSelectedUser={this.clearSelectedUser.bind(this)}
@@ -79,13 +81,12 @@ class NewSidebar extends React.Component {
   }
 }
 
-   // tags={tagsFilteredByUser ? tagsFilteredByUser : allTags}
+        // filterByTag={() => {this.props.syncActionCreators.filterByTag()}} />
 
 const mapStateToProps = (state) => ({
   relevantUsers: state.relevantUsers,
   selectedTags: state.selectedTags,
-  allTags: state.allTags,
-  filteredTags: state.filteredTags,
+  tags: state.tags,
   selectedLocation: state.selectedLocation,
   selectedUser: state.selectedUser,
   tagsFilteredByUser: state.tagsFilteredByUser, 

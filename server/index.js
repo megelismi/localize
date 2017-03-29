@@ -4,6 +4,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mergeLocationAndDescription from './handlers/location_handlers/locations_handler';
 import * as userValidity from './handlers/user_handlers/sign_up_validity';
+import * as tagHandlers from './handlers/tag_handlers/tag_handlers';
 import verifyPassword from './handlers/user_handlers/verify_password';
 import createLocationIdsArrayForUser from './handlers/user_handlers/user_locations'; 
 import selectQuery from './handlers/query_handlers/select_query'; 
@@ -450,38 +451,26 @@ app.get('/reviews/:location_id/:user_id', (req, res) => {
 
 //get all tags for locations associated with a city or all tags for associated with locations associated with a user
 
-const addTagValues = (locationUserTags, tags) => {
-  const tagIds = tags.map(tag => {
-    return tag.id; 
-  });
-  for (let i = 0; i<locationUserTags.length; i++) {
-    let tagId = locationUserTags[i].tag_id;
-    let tagIndex = tagIds.indexOf(tagId); 
-    let tagValue = tags[tagIndex].tag; 
-    locationUserTags[i].tag = tagValue; 
-  }
-  return locationUserTags; 
-};
-
 app.post('/locations/tags', (req, res) => {
   const { locationIds, userId } = req.body;
-    let selectTagIdsByLocationIdsQuery = selectQuery(locationIds, 'location_id, tag_id', 'locations_users_tags', 'location_id'); 
-    if (userId !== 0) {
-      selectTagIdsByLocationIdsQuery += ` and user_id = ${userId}`;
-    }
-    knex.raw(selectTagIdsByLocationIdsQuery).then((data) => {
-      const locationTagIds = data.rows;
-      const tagIds = locationTagIds.map(ids => {
-        return ids.tag_id; 
-      });
-      const selectTagsByTagIdQuery = selectQuery(tagIds, '*', 'tags', 'id');
-      knex.raw(selectTagsByTagIdQuery).then((data) => {
-        const tags = data.rows;
-        const tagsResponse = addTagValues(locationTagIds, tags);  
-        return res.status(200).json(tagsResponse);
-      }); 
+  let selectTagIdsByLocationIdsQuery = selectQuery(locationIds, 'location_id, tag_id', 'locations_users_tags', 'location_id'); 
+  if (userId !== 0) {
+    selectTagIdsByLocationIdsQuery += ` and user_id = ${userId}`;
+  }
+  knex.raw(selectTagIdsByLocationIdsQuery).then((data) => {
+    const locationTagIds = data.rows;
+    const tagIds = locationTagIds.map(ids => {
+      return ids.tag_id; 
     });
-})
+    const selectTagsByTagIdQuery = selectQuery(tagIds, '*', 'tags', 'id');
+    knex.raw(selectTagsByTagIdQuery).then((data) => {
+      const tags = data.rows;
+      let tagsResponse = tagHandlers.addTagValues(locationTagIds, tags); 
+      tagsResponse = tagHandlers.deleteDupsAndCombineLocationIds(tagsResponse);  
+      return res.status(200).json(tagsResponse);
+    }); 
+  });
+});
 
 function runServer() {
   return new Promise((resolve, reject) => {

@@ -28,13 +28,13 @@ const state = (state = {
     return Object.assign({}, state, {locations: action.locations, filteredLocations: action.locations}); 
 
     case post_actions.GET_RELEVANT_TAGS_SUCCESS:
-    return Object.assign({}, state, {allTags: action.tags, filteredTags: action.tags});
+    return Object.assign({}, state, {tags: action.tags});
 
     case sync_actions.FILTER_LOCATIONS_BY_USER:
     return Object.assign({}, state, {filteredLocations: action.filteredLocations});
 
     case sync_actions.FILTER_BY_TAG:
-    return Object.assign({}, state, {selectedTags: action.tag});
+    return Object.assign({}, state, {selectedTags: [...state.selectedTags, action.tagId]});
 
     ////////////////
 
@@ -163,65 +163,65 @@ const state = (state = {
       logOutError: true
     });
 
-    case get_actions.GET_USERS_SUCCESS:
-    return state = Object.assign({}, state, {
-      users: action.users,
-      usersError: false
-    });
+    // case get_actions.GET_USERS_SUCCESS:
+    // return state = Object.assign({}, state, {
+    //   users: action.users,
+    //   usersError: false
+    // });
 
-    case sync_actions.SHOW_RELEVANT_USERS_ONLY:
-    let selectedUsers;
-    if (state.locationUserTagsHelper && state.users) {
-      let idsToSelect = state.allLocationsAndDescriptions.map((relation) => {
-        return relation.user_id
-      }).filter((item, idx, ary) => ary.indexOf(item) === idx);
-      selectedUsers = idsToSelect.map((id) => {
-        return state.users.filter((user) => {
-          return user.id === id;
-        });
-      }).reduce((a, b) => a.concat(b));
-    } else {
-      selectedUsers = state.users || [];
-    }
-    return state = Object.assign({}, state, {
-      oldRelevantUsers: selectedUsers
-    });
+    // // case sync_actions.SHOW_RELEVANT_USERS_ONLY:
+    // let selectedUsers;
+    // if (state.locationUserTagsHelper && state.users) {
+    //   let idsToSelect = state.allLocationsAndDescriptions.map((relation) => {
+    //     return relation.user_id
+    //   }).filter((item, idx, ary) => ary.indexOf(item) === idx);
+    //   selectedUsers = idsToSelect.map((id) => {
+    //     return state.users.filter((user) => {
+    //       return user.id === id;
+    //     });
+    //   }).reduce((a, b) => a.concat(b));
+    // } else {
+    //   selectedUsers = state.users || [];
+    // }
+    // return state = Object.assign({}, state, {
+    //   oldRelevantUsers: selectedUsers
+    // });
 
-    case get_actions.GET_USERS_ERROR:
-    return state = Object.assign({}, state, {
-      usersError: true
-    });
+    // case get_actions.GET_USERS_ERROR:
+    // return state = Object.assign({}, state, {
+    //   usersError: true
+    // });
 
-    case get_actions.GET_TAGS_SUCCESS:
-    return state = Object.assign({}, state, {
-      tagInfoHelper: action.tags,
-      tagsError: false
-    });
+    // case get_actions.GET_TAGS_SUCCESS:
+    // return state = Object.assign({}, state, {
+    //   tagInfoHelper: action.tags,
+    //   tagsError: false
+    // });
 
-    case get_actions.GET_TAGS_ERROR:
-    return state = Object.assign({}, state, {
-      tagsError: true
-    });
+    // case get_actions.GET_TAGS_ERROR:
+    // return state = Object.assign({}, state, {
+    //   tagsError: true
+    // });
 
-    case get_actions.GET_LOCATION_USER_TAGS_HELPER_SUCCESS:
-    return state = Object.assign({}, state, {
-      locationUserTagsHelper: action.location_user_tags,
-      locationUserTagsHelperError: false
-    });
-    case get_actions.GET_LOCATION_USER_TAGS_HELPER_ERROR:
-    return state = Object.assign({}, state, {
-      locationTagsError: true
-    });
+    // case get_actions.GET_LOCATION_USER_TAGS_HELPER_SUCCESS:
+    // return state = Object.assign({}, state, {
+    //   locationUserTagsHelper: action.location_user_tags,
+    //   locationUserTagsHelperError: false
+    // });
+    // case get_actions.GET_LOCATION_USER_TAGS_HELPER_ERROR:
+    // return state = Object.assign({}, state, {
+    //   locationTagsError: true
+    // });
 
-    case get_actions.GET_LOCATIONS_SUCCESS:
-    return state = Object.assign({}, state, {
-      oldLocations: action.locations,
-      locationsError: false
-    });
-    case get_actions.GET_LOCATIONS_ERROR:
-    return state = Object.assign({}, state, {
-      locationsError: true
-    });
+    // case get_actions.GET_LOCATIONS_SUCCESS:
+    // return state = Object.assign({}, state, {
+    //   oldLocations: action.locations,
+    //   locationsError: false
+    // });
+    // case get_actions.GET_LOCATIONS_ERROR:
+    // return state = Object.assign({}, state, {
+    //   locationsError: true
+    // });
 
     // case get_actions.GET_DESCRIPTIONS_SUCCESS:
     // let mergedLocations = action.descriptions.map(description => {
@@ -314,7 +314,7 @@ const state = (state = {
     //     tagsError: false
     //   });
 
-    case sync_actions.FILTER_BY_TAG:
+    // case sync_actions.FILTER_BY_TAG:
 
     // FILTER_BY_TAG takes all city locations or, if a specific user is selected, it takes
     // just that user's locations
