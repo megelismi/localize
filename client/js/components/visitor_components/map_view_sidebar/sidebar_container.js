@@ -37,17 +37,18 @@ class NewSidebar extends React.Component {
 
   selectLocalUser(user) {
     this.setState({ displayLocals: false, displayTags: false, displayOneUser: true });
-    this.props.syncActionCreators.filterLocationsForUser(user); 
+    this.props.syncActionCreators.filterLocations(user.locations, 'FILTER_LOCATIONS_BY_USER'); 
     this.props.syncActionCreators.selectUser(user); 
   }
 
-  filterByTags(tagId) {
-    this.props.syncActionCreators.filterByTag(tagId); 
+  filterByTags(tagId, locationId) {
+    this.props.syncActionCreators.addSelectedTag(tagId);
+    this.props.syncActionCreators.filterLocations(locationId, 'FILTER_LOCATIONS_BY_TAGS');  
   }
 
   render() {
     let display, navLocalsText, filterId, userIcon;
-    const { selectedLocation, selectLocationById, relevantUsers, allTags, selectedTags, clearAllAppliedTags, selectedUser, tagsFilteredByUser, tags } = this.props;
+    const { selectedLocation, selectLocationById, relevantUsers, selectedTags, clearAllAppliedTags, selectedUser, tagsFilteredByUser, tags } = this.props;
     if (selectedLocation) {
       display = <LocationDetailsDisplay
         locationInfo={selectedLocation}

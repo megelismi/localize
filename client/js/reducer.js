@@ -33,7 +33,15 @@ const state = (state = {
     case sync_actions.FILTER_LOCATIONS_BY_USER:
     return Object.assign({}, state, {filteredLocations: action.filteredLocations});
 
-    case sync_actions.FILTER_BY_TAG:
+    case sync_actions.FILTER_LOCATIONS_BY_TAGS:
+      if (state.selectedTags.length > 1) {
+        return Object.assign({}, state, {filteredLocations: [...state.filteredLocations, ...action.filteredLocations]});
+      } 
+      else {
+         return Object.assign({}, state, {filteredLocations: action.filteredLocations});
+      }
+
+    case sync_actions.ADD_SELECTED_TAG:
     return Object.assign({}, state, {selectedTags: [...state.selectedTags, action.tagId]});
 
     ////////////////
