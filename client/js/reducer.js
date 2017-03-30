@@ -42,12 +42,7 @@ const state = (state = {
       }
 
     case sync_actions.REMOVE_LOCATION_FROM_MAP:
-      if (action.newFilteredLocations.length > 0) {
-        return Object.assign({}, state, {filteredLocations: action.newFilteredLocations});
-      } 
-      else {
-        return Object.assign({}, state, {filteredLocations: state.locations});
-      }
+    return Object.assign({}, state, {filteredLocations: action.filteredLocations});
 
     case sync_actions.ADD_SELECTED_TAG:
     return Object.assign({}, state, {selectedTags: [...state.selectedTags, action.tagId]});

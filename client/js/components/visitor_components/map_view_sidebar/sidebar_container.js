@@ -44,11 +44,23 @@ class NewSidebar extends React.Component {
   filterByTags(tagId, locationId) {
     if (this.props.selectedTags.indexOf(tagId) === -1) {
       this.props.syncActionCreators.addSelectedTag(tagId);
-      this.props.syncActionCreators.filterLocations(locationId, 'FILTER_LOCATIONS_BY_TAGS'); 
+
+      let locationAlreadyBeingFiltered = false;
+      let i = 0; 
+      let filteredLocations = this.props.filteredLocations; 
+      while (!locationAlreadyBeingFiltered && i < filteredLocations.length) {
+        if (locationId.indexOf(filteredLocations[i].id) !== -1 && this.props.selectedTags.length > 0) {
+          locationAlreadyBeingFiltered = true; 
+        }
+        i++; 
+      }
+      
+      if (!locationAlreadyBeingFiltered) {
+        this.props.syncActionCreators.filterLocations(locationId, 'FILTER_LOCATIONS_BY_TAGS'); 
+      }
     } 
     else {
-      this.props.syncActionCreators.removeSelectedTag(tagId);
-      this.props.syncActionCreators.removeLocationFromMap(locationId, 'REMOVE_LOCATION_FROM_MAP'); 
+      this.props.syncActionCreators.removeSelectedTagAndLocationFromMap(tagId, locationId);
     }
 
   }

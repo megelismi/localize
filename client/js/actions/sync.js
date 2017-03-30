@@ -181,6 +181,43 @@ export const setLocalsMapLocations = locations => ({
 })
 
 
+export const removeSelectedTagAndLocationFromMap = (tagId, locationIds) => (dispatch, getState) => {
+
+  let selectedTags = getState().selectedTags; 
+  let index = selectedTags.indexOf(tagId); 
+  selectedTags.splice(index, 1); 
+  dispatch({
+    type: DESELECT_TAG, 
+    selectedTags
+  })
+
+  let stateFilteredLocations = getState().filteredLocations; 
+  let filteredLocations = []; 
+  stateFilteredLocations.forEach(location => {
+    if (locationIds.indexOf(location.id) === -1) {
+      filteredLocations.push(location);  
+    }
+  });
+  
+  let selectedUser = getState().selectedUser; 
+  if (filteredLocations.length === 0) {
+    let filteredLocations = getState().locations;
+    dispatch({
+      type: REMOVE_LOCATION_FROM_MAP, 
+      filteredLocations
+    })
+    if (selectedUser) {
+      let userLocations = selectedUser.locations; 
+      return filterLocations(userLocations, 'REMOVE_LOCATION_FROM_MAP');
+    }
+  } 
+  else {
+    dispatch({
+      type: REMOVE_LOCATION_FROM_MAP, 
+      filteredLocations
+    })
+  }
+};
 
 export const filterLocations = (locationIds, actionType) => (dispatch, getState) => {
   let allLocations = getState().locations; 
@@ -193,31 +230,8 @@ export const filterLocations = (locationIds, actionType) => (dispatch, getState)
     type: actionType, 
     filteredLocations
   }) 
-}; 
+};
 
-export const removeSelectedTag = tagId => (dispatch, getState) => {
-  let selectedTags = getState().selectedTags; 
-  let index = selectedTags.indexOf(tagId); 
-  selectedTags.splice(index, 1); 
-  dispatch({
-    type: DESELECT_TAG, 
-    selectedTags
-  })
-}
-
-export const removeLocationFromMap = (locationIds, actionType) => (dispatch, getState) => {
-  let filteredLocations = getState().filteredLocations; 
-  let newFilteredLocations = []; 
-  filteredLocations.forEach(location => {
-    if (locationIds.indexOf(location.id) === -1) {
-      newFilteredLocations.push(location);  
-    }
-  });
-  dispatch({
-    type: actionType, 
-    newFilteredLocations
-  })
- };
 // export const selectUserAndUpdateTags = user => (dispatch, getState) => {
 //   let selectedUser = getState().selectedUser;
 //   let currentUser = getState().currentUser;
