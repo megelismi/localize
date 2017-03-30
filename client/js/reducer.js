@@ -38,11 +38,22 @@ const state = (state = {
         return Object.assign({}, state, {filteredLocations: [...state.filteredLocations, ...action.filteredLocations]});
       } 
       else {
-         return Object.assign({}, state, {filteredLocations: action.filteredLocations});
+        return Object.assign({}, state, {filteredLocations: action.filteredLocations});
+      }
+
+    case sync_actions.REMOVE_LOCATION_FROM_MAP:
+      if (action.newFilteredLocations.length > 0) {
+        return Object.assign({}, state, {filteredLocations: action.newFilteredLocations});
+      } 
+      else {
+        return Object.assign({}, state, {filteredLocations: state.locations});
       }
 
     case sync_actions.ADD_SELECTED_TAG:
     return Object.assign({}, state, {selectedTags: [...state.selectedTags, action.tagId]});
+
+    case sync_actions.DESELECT_TAG: 
+    return Object.assign({}, state, {selectedTags: action.selectedTags});
 
     ////////////////
 

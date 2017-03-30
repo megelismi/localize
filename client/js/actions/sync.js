@@ -85,6 +85,19 @@ export const filterLocationsByUser = filteredLocations => ({
   filteredLocations
 });
 
+export const REMOVE_LOCATION_FROM_MAP = 'REMOVE_LOCATION_FROM_MAP'; 
+export const removeLocation = newFilteredLocations => ({
+  type: REMOVE_LOCATION_FROM_MAP,
+  newFilteredLocations 
+});
+
+//new
+export const DESELECT_TAG = 'DESELECT_TAG'; 
+export const deselectTag = selectedTags => ({
+  type: DESELECT_TAG,
+  selectedTags 
+});
+
 //old - keep 
 export const CLEAR_ALL_APPLIED_TAGS = 'CLEAR_ALL_APPLIED_TAGS';
 export const clearAllAppliedTags = boolean => ({
@@ -181,6 +194,30 @@ export const filterLocations = (locationIds, actionType) => (dispatch, getState)
     filteredLocations
   }) 
 }; 
+
+export const removeSelectedTag = tagId => (dispatch, getState) => {
+  let selectedTags = getState().selectedTags; 
+  let index = selectedTags.indexOf(tagId); 
+  selectedTags.splice(index, 1); 
+  dispatch({
+    type: DESELECT_TAG, 
+    selectedTags
+  })
+}
+
+export const removeLocationFromMap = (locationIds, actionType) => (dispatch, getState) => {
+  let filteredLocations = getState().filteredLocations; 
+  let newFilteredLocations = []; 
+  filteredLocations.forEach(location => {
+    if (locationIds.indexOf(location.id) === -1) {
+      newFilteredLocations.push(location);  
+    }
+  });
+  dispatch({
+    type: actionType, 
+    newFilteredLocations
+  })
+ };
 // export const selectUserAndUpdateTags = user => (dispatch, getState) => {
 //   let selectedUser = getState().selectedUser;
 //   let currentUser = getState().currentUser;
