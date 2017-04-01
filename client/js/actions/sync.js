@@ -198,7 +198,7 @@ export const removeSelectedTagAndLocationFromMap = (tagId, locationIds) => (disp
       filteredLocations.push(location);  
     }
   });
-  
+
   let selectedUser = getState().selectedUser; 
   if (filteredLocations.length === 0) {
     let filteredLocations = getState().locations;
