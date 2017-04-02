@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as postActionCreators from '../../../actions/post_request.js'
 import * as syncActionCreators from '../../../actions/sync.js';
+// import * as syncActions from '../../../actions/sync.js';
+// import * as postActions from '../../../actions/post_request.js'
 import SidebarPresentation from './sidebar_presentation';
 import LocalDetailsDisplay from './local_details_display';
 import LocationDetailsDisplay from './location_details_display';
@@ -41,28 +43,24 @@ class NewSidebar extends React.Component {
     this.props.syncActionCreators.selectUser(user); 
   }
 
-  filterByTags(tagId, locationId) {
+  filterByTags(tagId) {
     if (this.props.selectedTags.indexOf(tagId) === -1) {
       this.props.syncActionCreators.addSelectedTag(tagId);
-
-      let locationAlreadyBeingFiltered = false;
-      let i = 0; 
-      let filteredLocations = this.props.filteredLocations; 
-      while (!locationAlreadyBeingFiltered && i < filteredLocations.length) {
-        if (locationId.indexOf(filteredLocations[i].id) !== -1 && this.props.selectedTags.length > 0) {
-          locationAlreadyBeingFiltered = true; 
-        }
-        i++; 
-      }
-      
-      if (!locationAlreadyBeingFiltered) {
-        this.props.syncActionCreators.filterLocations(locationId, 'FILTER_LOCATIONS_BY_TAGS'); 
-      }
-    } 
-    else {
-      this.props.syncActionCreators.removeSelectedTagAndLocationFromMap(tagId, locationId);
+      this.props.postActionCreators.getLocationsForTags(); 
     }
-
+    else {
+      this.props.syncActionCreators.removeSelectedTag(tagId);
+      if (this.props.selectedTags.length !== 0) {
+        this.props.postActionCreators.getLocationsForTags(); 
+      } else {
+        if (this.props.selectedUser) {
+          this.props.syncActionCreators.filterLocations(this.props.selectedUser.locations, 'FILTER_LOCATIONS_BY_USER'); 
+        } 
+        else {
+          this.props.syncActionCreators.resetLocations(); 
+        }
+      }
+    }
   }
 
   render() {
@@ -100,8 +98,6 @@ class NewSidebar extends React.Component {
     )
   }
 }
-
-        // filterByTag={() => {this.props.syncActionCreators.filterByTag()}} />
 
 const mapStateToProps = (state) => ({
   relevantUsers: state.relevantUsers,

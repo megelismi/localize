@@ -33,22 +33,29 @@ const state = (state = {
     case sync_actions.FILTER_LOCATIONS_BY_USER:
     return Object.assign({}, state, {filteredLocations: action.filteredLocations});
 
-    case sync_actions.FILTER_LOCATIONS_BY_TAGS:
-      if (state.selectedTags.length > 1) {
-        return Object.assign({}, state, {filteredLocations: [...state.filteredLocations, ...action.filteredLocations]});
-      } 
-      else {
-        return Object.assign({}, state, {filteredLocations: action.filteredLocations});
-      }
+
+    // case sync_actions.FILTER_LOCATIONS_BY_TAGS:
+    //   if (state.selectedTags.length > 1) {
+    //     return Object.assign({}, state, {filteredLocations: [...state.filteredLocations, ...action.filteredLocations]});
+    //   } 
+    //   else {
+    //     return Object.assign({}, state, {filteredLocations: action.filteredLocations});
+    //   }
+
+    case post_actions.GET_LOCATIONS_FOR_TAGS_SUCCESS: 
+    return Object.assign({}, state, {filteredLocations: action.filteredLocations});
 
     case sync_actions.REMOVE_LOCATION_FROM_MAP:
-    return Object.assign({}, state, {filteredLocations: action.filteredLocations});
+    return Object.assign({}, state, {filteredLocations: action.newFilteredLocations});
 
     case sync_actions.ADD_SELECTED_TAG:
     return Object.assign({}, state, {selectedTags: [...state.selectedTags, action.tagId]});
 
     case sync_actions.DESELECT_TAG: 
     return Object.assign({}, state, {selectedTags: action.selectedTags});
+
+    case sync_actions.RESET_LOCATIONS: 
+    return Object.assign({}, state, {filteredLocations: state.locations});
 
     ////////////////
 

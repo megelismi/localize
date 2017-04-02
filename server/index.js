@@ -11,6 +11,7 @@ import selectQuery from './handlers/query_handlers/select_query';
 import passport from 'passport';
 import { Strategy } from 'passport-http-bearer';
 import bcrypt from 'bcryptjs';
+import _ from 'underscore'; 
 
 const salt = bcrypt.genSaltSync(10);
 const uuidV1 = require('uuid/v1');
@@ -451,9 +452,23 @@ app.get('/reviews/:location_id/:user_id', (req, res) => {
 
 //get all tags for locations associated with a city or all tags for associated with locations associated with a user
 
-app.post('/locations/tags', (req, res) => {
+const removeDuplicatedTags = array => {
+  let uniqueArr = []; 
+  let tagIds = {}; 
+  
+  for (let i = 0; i<array.length; i++) {
+    let tagId = array[i].tag_id; 
+    if (tagIds[tagId] === undefined) {
+      uniqueArr.push(array[i]); 
+      tagIds[tagId] = 1; 
+    }
+  }
+  return uniqueArr; 
+};
+
+app.post('/tags', (req, res) => {
   const { locationIds, userId } = req.body;
-  let selectTagIdsByLocationIdsQuery = selectQuery(locationIds, 'location_id, tag_id', 'locations_users_tags', 'location_id'); 
+  let selectTagIdsByLocationIdsQuery = selectQuery(locationIds, 'tag_id', 'locations_users_tags', 'location_id'); 
   if (userId !== 0) {
     selectTagIdsByLocationIdsQuery += ` and user_id = ${userId}`;
   }
@@ -466,9 +481,29 @@ app.post('/locations/tags', (req, res) => {
     knex.raw(selectTagsByTagIdQuery).then((data) => {
       const tags = data.rows;
       let tagsResponse = tagHandlers.addTagValues(locationTagIds, tags); 
-      tagsResponse = tagHandlers.deleteDupsAndCombineLocationIds(tagsResponse);  
+      tagsResponse = removeDuplicatedTags(tagsResponse); 
+      // tagsResponse = tagHandlers.deleteDupsAndCombineLocationIds(tagsResponse);  
       return res.status(200).json(tagsResponse);
     }); 
+  });
+});
+
+app.post('/locations/tags', (req, res) => {
+  const { tags, userId } = req.body; 
+  let selectLocationsByTagsAndUserQuery = selectQuery(tags, 'location_id', 'locations_users_tags', 'tag_id');  
+  if (userId !== 0) {
+    selectLocationsByTagsAndUserQuery += ` and user_id = ${userId}`;
+  }
+  knex.raw(selectLocationsByTagsAndUserQuery).then((data) => {
+    let locationIds = data.rows.map(location => {
+      return location.location_id; 
+    }); 
+    locationIds = _.uniq(locationIds); 
+    let selectLocationsFromLocationIdsQuery = selectQuery(locationIds, '*', 'locations', 'id'); 
+    knex.raw(selectLocationsFromLocationIdsQuery).then((data) => {
+      const locations = data.rows; 
+      return res.status(200).json(locations); 
+     }); 
   });
 });
 

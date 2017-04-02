@@ -58,11 +58,14 @@ export const addLocationToLocalsMap = (user_id, feature, lat_long, short = null,
 
 //////////////////////////////////////////////////////////////////////////
 
-// export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
-// export const filterLocationsByUser = filteredLocations => ({
-//   type: FILTER_LOCATIONS_BY_USER,
-//   filteredLocations
-// });
+
+
+//new
+export const RESET_LOCATIONS = 'RESET_LOCATIONS';
+export const resetLocations = () => ({
+  type: RESET_LOCATIONS
+});
+
 
 //new
 export const ADD_SELECTED_TAG = 'ADD_SELECTED_TAG';
@@ -95,7 +98,7 @@ export const removeLocation = newFilteredLocations => ({
 export const DESELECT_TAG = 'DESELECT_TAG'; 
 export const deselectTag = selectedTags => ({
   type: DESELECT_TAG,
-  selectedTags 
+  selectedTags
 });
 
 //old - keep 
@@ -181,7 +184,7 @@ export const setLocalsMapLocations = locations => ({
 })
 
 
-export const removeSelectedTagAndLocationFromMap = (tagId, locationIds) => (dispatch, getState) => {
+export const removeSelectedTag = (tagId, locationIds) => (dispatch, getState) => {
 
   let selectedTags = getState().selectedTags; 
   let index = selectedTags.indexOf(tagId); 
@@ -190,34 +193,65 @@ export const removeSelectedTagAndLocationFromMap = (tagId, locationIds) => (disp
     type: DESELECT_TAG, 
     selectedTags
   })
+}
 
-  let stateFilteredLocations = getState().filteredLocations; 
-  let filteredLocations = []; 
-  stateFilteredLocations.forEach(location => {
-    if (locationIds.indexOf(location.id) === -1) {
-      filteredLocations.push(location);  
-    }
-  });
+//   let newFilteredLocations = getState().filteredLocations; 
+//   filteredLocations.forEach((location) => {
+//     let locationTagsApplied = location.tags_applied; 
+//     if (locationTagsApplied.indexOf(tag_id) !== -1) {
+//       let tagIdx = locationTagsApplied.indexOf(tag_id); 
+//       locationTagsApplied.splice(tagIdx, 1); 
+//     }
+//   });
 
-  let selectedUser = getState().selectedUser; 
-  if (filteredLocations.length === 0) {
-    let filteredLocations = getState().locations;
-    dispatch({
-      type: REMOVE_LOCATION_FROM_MAP, 
-      filteredLocations
-    })
-    if (selectedUser) {
-      let userLocations = selectedUser.locations; 
-      return filterLocations(userLocations, 'REMOVE_LOCATION_FROM_MAP');
-    }
-  } 
-  else {
-    dispatch({
-      type: REMOVE_LOCATION_FROM_MAP, 
-      filteredLocations
-    })
-  }
-};
+//   filteredLocations.forEach((location, idx) => {
+//     let locationTagsApplied = location.tags_applied;
+//     if (locationTagsApplied.length !== 0) {
+//       newLocations.push(location); 
+//     } 
+//   })
+//   console.log('newFilteredLocations', newFilteredLocations)
+
+//   dispatch({
+//       type: REMOVE_LOCATION_FROM_MAP, 
+//       newFilteredLocations
+//     })
+
+//   console.log('newLocations', newLocations); 
+
+//   let selectedUser = getState().selectedUser; 
+//   if (filteredLocations.length === 0) {
+//     let filteredLocations = getState().locations;
+//     dispatch({
+//       type: REMOVE_LOCATION_FROM_MAP, 
+//       filteredLocations
+//     })
+//     if (selectedUser) {
+//       let userLocations = selectedUser.locations; 
+//       return filterLocations(userLocations, 'REMOVE_LOCATION_FROM_MAP');
+//     }
+//   } 
+//   else {
+//     dispatch({
+//       type: REMOVE_LOCATION_FROM_MAP, 
+//       filteredLocations
+//     })
+//   }
+// };
+
+// export const addSelectedTagToLocationTagsApplied = (tagId, locationId) => (dispatch, getState) => {
+//   let filteredLocations = getState().filteredLocations; 
+//   for (let i = 0; i < filteredLocations.length; i++) {
+//     if (locationId.indexOf(filteredLocations[i].id) !== -1) {
+//       debugger;
+//       filteredLocations[i].tags_applied.push(tagId); 
+//     }
+//   }
+//   // dispatch({
+//   //   type: FILTER_LOCATIONS_BY_TAGS, 
+//   //   filteredLocations
+//   // }) 
+// };
 
 export const filterLocations = (locationIds, actionType) => (dispatch, getState) => {
   let allLocations = getState().locations; 

@@ -1,3 +1,15 @@
+export const GET_LOCATIONS_FOR_TAGS_SUCCESS = 'GET_LOCATIONS_FOR_TAGS_SUCCESS';
+export const getLocationsForTagsSuccess = filteredLocations => ({
+  type: GET_LOCATIONS_FOR_TAGS_SUCCESS, 
+  filteredLocations
+});
+
+export const GET_LOCATIONS_FOR_TAGS_ERROR = 'GET_LOCATIONS_FOR_TAGS_ERROR';
+export const getLocationsForTagsError = error => ({
+  type: GET_LOCATIONS_FOR_TAGS_ERROR, 
+  error
+});
+
 export const GET_RELEVANT_TAGS_SUCCESS = 'GET_RELEVANT_TAGS_SUCCESS';
 export const getRelevantTagsSuccess = tags => ({
   type: GET_RELEVANT_TAGS_SUCCESS, 
