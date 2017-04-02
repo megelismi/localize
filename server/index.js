@@ -435,18 +435,44 @@ app.get('/users/city/:city_id', (req, res) => {
 
 //get all reviews for a location or all reviews for a single user
 
-app.post('/reviews', (req, res) => {
-  console.log('review endpoint hit'); 
+const mergeReviewsAndUserInfo = (reviews, users) => {
+  let userIdxs = {}; 
+  
+  users.forEach((user, idx) => {
+    userIdxs[user.id] = idx; 
+  });
+  
+  reviews.forEach((review, idx) => {
+    let userIdx = userIdxs[review.user_id];  
+    review.user = users[userIdx]; 
+    delete review.user_id; 
+  });
+  return reviews; 
+};
+
+app.post('/reviews', (req, res) => { 
   const { locationId, userId } = req.body; 
   if (userId !== 0) {
     knex('reviews').where({'location_id': locationId, 'user_id': userId}).then((reviews) => {
+      console.log('do something else'); 
       return res.status(200).json(reviews); 
     })
   } 
   else {
     knex('reviews').where('location_id', locationId).then((reviews) => {
-      console.log('reviews', reviews); 
-      return res.status(200).json(reviews); 
+      let userIds = reviews.map(review => {
+        return review.user_id; 
+      })
+      knex('locations').where({id: locationId}).select('name').then((name) => {
+      let locationName = name[0].name; 
+      let selectUsersByUserIdsQuery = selectQuery(userIds, 'first_name, id, image', 'users', 'id'); 
+        knex.raw(selectUsersByUserIdsQuery).then((data) => {
+          let users = data.rows; 
+          console.log('reviews', reviews)
+          let mergedUserAndReviews = mergeReviewsAndUserInfo(reviews, users); 
+          return res.status(200).json({locationName, 'reviews': mergedUserAndReviews}); 
+        });
+      });
     });
   } 
 }); 
