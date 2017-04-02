@@ -22,8 +22,8 @@ class NewSidebar extends React.Component {
   }
 
   showTagsView() { 
-    this.setState({ displayLocals: false, displayTags: true, displayOneUser: false }); 
-    this.props.postActionCreators.getRelevantTags(this.props.filteredLocations);
+    this.setState({ displayLocals: false, displayTags: true, displayOneUser: false });
+    this.props.postActionCreators.getRelevantTags(this.props.filteredLocations); 
   }
 
   showAllLocalsOrSingleLocal() {
@@ -84,7 +84,7 @@ class NewSidebar extends React.Component {
       display = <LocalsDisplay
         city={'Portland'}
         users={relevantUsers}
-        clearAllAppliedTags={clearAllAppliedTags}
+        clearAllAppliedTags={this.clearAllAppliedTags.bind(this)}
         selectLocalUser={this.selectLocalUser.bind(this)} />
     } else if (this.state.displayTags) {
       display = <TagsDisplay

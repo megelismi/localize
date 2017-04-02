@@ -435,36 +435,23 @@ app.get('/users/city/:city_id', (req, res) => {
 
 //get all reviews for a location or all reviews for a single user
 
-app.get('/reviews/:location_id/:user_id', (req, res) => {
-  if (req.params.user_id !== 0) {
-    const { location_id, user_id } = req.params;
+app.post('/reviews', (req, res) => {
+  let location_id = req.body.locationId[0]; 
+  let user_id = req.body.userId; 
+  if (user_id !== 0) {
     knex('reviews').where({'location_id': location_id, 'user_id': user_id}).then((reviews) => {
       return res.status(200).json(reviews); 
     })
   } 
   else {
-    const { location_id } = req.params; 
     knex('reviews').where('location_id', location_id).then((reviews) => {
+      console.log('reviews', reviews); 
       return res.status(200).json(reviews); 
     });
   } 
 }); 
 
-//get all tags for locations associated with a city or all tags for associated with locations associated with a user
-
-const removeDuplicatedTags = array => {
-  let uniqueArr = []; 
-  let tagIds = {}; 
-  
-  for (let i = 0; i<array.length; i++) {
-    let tagId = array[i].tag_id; 
-    if (tagIds[tagId] === undefined) {
-      uniqueArr.push(array[i]); 
-      tagIds[tagId] = 1; 
-    }
-  }
-  return uniqueArr; 
-};
+//get all tags for locations associated with a city or all tags associated with locations and a user
 
 app.post('/tags', (req, res) => {
   const { locationIds, userId } = req.body;
@@ -481,8 +468,7 @@ app.post('/tags', (req, res) => {
     knex.raw(selectTagsByTagIdQuery).then((data) => {
       const tags = data.rows;
       let tagsResponse = tagHandlers.addTagValues(locationTagIds, tags); 
-      tagsResponse = removeDuplicatedTags(tagsResponse); 
-      // tagsResponse = tagHandlers.deleteDupsAndCombineLocationIds(tagsResponse);  
+      tagsResponse = tagHandlers.removeDuplicatedTags(tagsResponse);  
       return res.status(200).json(tagsResponse);
     }); 
   });

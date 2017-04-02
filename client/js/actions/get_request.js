@@ -34,31 +34,31 @@ export const getAllLocationsForCity = () => dispatch => {
   })
 };
 
-export const getSelectedUsers = () => (dispatch, getState) => {
-  return fetch('/users')
-  .then(res => {
-    if (!res.ok) {
-      throw new Error(res.statusText)
-    }
-    return res.json();
-  }).then(res => {
-    dispatch(get_result.getUsersSuccess(res))
-  }).catch(err => {
-    dispatch(get_result.getUsersError(err))
-  }).then(() => {
-    return fetch('/locations/tags')
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(res.statusText)
-      }
-      return res.json();
-    }).then(res => {
-      dispatch(get_result.getLocationUserTagsHelperSuccess(res))
-    }).catch(err => {
-      dispatch(get_result.getLocationUserTagsHelperError(err))
-    });
-  });
-}
+// export const getSelectedUsers = () => (dispatch, getState) => {
+//   return fetch('/users')
+//   .then(res => {
+//     if (!res.ok) {
+//       throw new Error(res.statusText)
+//     }
+//     return res.json();
+//   }).then(res => {
+//     dispatch(get_result.getUsersSuccess(res))
+//   }).catch(err => {
+//     dispatch(get_result.getUsersError(err))
+//   }).then(() => {
+//     return fetch('/locations/tags')
+//     .then(res => {
+//       if (!res.ok) {
+//         throw new Error(res.statusText)
+//       }
+//       return res.json();
+//     }).then(res => {
+//       dispatch(get_result.getLocationUserTagsHelperSuccess(res))
+//     }).catch(err => {
+//       dispatch(get_result.getLocationUserTagsHelperError(err))
+//     });
+//   });
+// }
 
 // export const getUsers = () => dispatch => {
 //   return fetch('/users')
