@@ -43,6 +43,16 @@ class NewSidebar extends React.Component {
     this.props.syncActionCreators.selectUser(user); 
   }
 
+  clearAllAppliedTags () {
+    this.props.syncActionCreators.clearAllAppliedTags(); 
+    if (this.props.selectedUser) {
+      this.props.syncActionCreators.filterLocations(this.props.selectedUser.locations, 'FILTER_LOCATIONS_BY_USER'); 
+    } 
+    else {
+      this.props.syncActionCreators.resetLocations(); 
+    }
+  }
+
   filterByTags(tagId) {
     if (this.props.selectedTags.indexOf(tagId) === -1) {
       this.props.syncActionCreators.addSelectedTag(tagId);
@@ -80,7 +90,7 @@ class NewSidebar extends React.Component {
       display = <TagsDisplay
         tags={tags}
         selected={selectedTags}
-        clearAllAppliedTags={clearAllAppliedTags}
+        clearAllAppliedTags={this.clearAllAppliedTags.bind(this)}
         filterByTag={this.filterByTags.bind(this)} />
     } else if (this.state.displayOneUser) {
       display = <LocalDetailsDisplay

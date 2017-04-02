@@ -33,15 +33,6 @@ const state = (state = {
     case sync_actions.FILTER_LOCATIONS_BY_USER:
     return Object.assign({}, state, {filteredLocations: action.filteredLocations});
 
-
-    // case sync_actions.FILTER_LOCATIONS_BY_TAGS:
-    //   if (state.selectedTags.length > 1) {
-    //     return Object.assign({}, state, {filteredLocations: [...state.filteredLocations, ...action.filteredLocations]});
-    //   } 
-    //   else {
-    //     return Object.assign({}, state, {filteredLocations: action.filteredLocations});
-    //   }
-
     case post_actions.GET_LOCATIONS_FOR_TAGS_SUCCESS: 
     return Object.assign({}, state, {filteredLocations: action.filteredLocations});
 
@@ -56,6 +47,9 @@ const state = (state = {
 
     case sync_actions.RESET_LOCATIONS: 
     return Object.assign({}, state, {filteredLocations: state.locations});
+
+    case sync_actions.CLEAR_ALL_APPLIED_TAGS: 
+    return Object.assign({}, state, {selectedTags: []});
 
     ////////////////
 

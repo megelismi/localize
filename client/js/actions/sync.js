@@ -58,14 +58,17 @@ export const addLocationToLocalsMap = (user_id, feature, lat_long, short = null,
 
 //////////////////////////////////////////////////////////////////////////
 
-
-
 //new
 export const RESET_LOCATIONS = 'RESET_LOCATIONS';
 export const resetLocations = () => ({
   type: RESET_LOCATIONS
 });
 
+//new
+export const CLEAR_ALL_APPLIED_TAGS = 'CLEAR_ALL_APPLIED_TAGS';
+export const clearAllAppliedTags = () => ({
+  type: CLEAR_ALL_APPLIED_TAGS
+})
 
 //new
 export const ADD_SELECTED_TAG = 'ADD_SELECTED_TAG';
@@ -99,13 +102,6 @@ export const DESELECT_TAG = 'DESELECT_TAG';
 export const deselectTag = selectedTags => ({
   type: DESELECT_TAG,
   selectedTags
-});
-
-//old - keep 
-export const CLEAR_ALL_APPLIED_TAGS = 'CLEAR_ALL_APPLIED_TAGS';
-export const clearAllAppliedTags = boolean => ({
-  type: CLEAR_ALL_APPLIED_TAGS,
-  user_is_selected: boolean
 });
 
 //new
@@ -183,7 +179,6 @@ export const setLocalsMapLocations = locations => ({
   locations
 })
 
-
 export const removeSelectedTag = (tagId, locationIds) => (dispatch, getState) => {
 
   let selectedTags = getState().selectedTags; 
@@ -194,64 +189,6 @@ export const removeSelectedTag = (tagId, locationIds) => (dispatch, getState) =>
     selectedTags
   })
 }
-
-//   let newFilteredLocations = getState().filteredLocations; 
-//   filteredLocations.forEach((location) => {
-//     let locationTagsApplied = location.tags_applied; 
-//     if (locationTagsApplied.indexOf(tag_id) !== -1) {
-//       let tagIdx = locationTagsApplied.indexOf(tag_id); 
-//       locationTagsApplied.splice(tagIdx, 1); 
-//     }
-//   });
-
-//   filteredLocations.forEach((location, idx) => {
-//     let locationTagsApplied = location.tags_applied;
-//     if (locationTagsApplied.length !== 0) {
-//       newLocations.push(location); 
-//     } 
-//   })
-//   console.log('newFilteredLocations', newFilteredLocations)
-
-//   dispatch({
-//       type: REMOVE_LOCATION_FROM_MAP, 
-//       newFilteredLocations
-//     })
-
-//   console.log('newLocations', newLocations); 
-
-//   let selectedUser = getState().selectedUser; 
-//   if (filteredLocations.length === 0) {
-//     let filteredLocations = getState().locations;
-//     dispatch({
-//       type: REMOVE_LOCATION_FROM_MAP, 
-//       filteredLocations
-//     })
-//     if (selectedUser) {
-//       let userLocations = selectedUser.locations; 
-//       return filterLocations(userLocations, 'REMOVE_LOCATION_FROM_MAP');
-//     }
-//   } 
-//   else {
-//     dispatch({
-//       type: REMOVE_LOCATION_FROM_MAP, 
-//       filteredLocations
-//     })
-//   }
-// };
-
-// export const addSelectedTagToLocationTagsApplied = (tagId, locationId) => (dispatch, getState) => {
-//   let filteredLocations = getState().filteredLocations; 
-//   for (let i = 0; i < filteredLocations.length; i++) {
-//     if (locationId.indexOf(filteredLocations[i].id) !== -1) {
-//       debugger;
-//       filteredLocations[i].tags_applied.push(tagId); 
-//     }
-//   }
-//   // dispatch({
-//   //   type: FILTER_LOCATIONS_BY_TAGS, 
-//   //   filteredLocations
-//   // }) 
-// };
 
 export const filterLocations = (locationIds, actionType) => (dispatch, getState) => {
   let allLocations = getState().locations; 
@@ -266,31 +203,4 @@ export const filterLocations = (locationIds, actionType) => (dispatch, getState)
   }) 
 };
 
-// export const selectUserAndUpdateTags = user => (dispatch, getState) => {
-//   let selectedUser = getState().selectedUser;
-//   let currentUser = getState().currentUser;
-//   let selectedUserLocations = getState().selectedUserLocations;
-//   dispatch({
-//     type: SELECT_USER,
-//     user
-//   });
-//   if (selectedUser !== getState().selectedUser) {
-//     dispatch({
-//       type: FILTER_LOCATIONS_BY_USER,
-//       user
-//     });
-//   }
-//   if (selectedUserLocations !== getState().locationsFilteredByUser) {
-//     dispatch({
-//       type: FILTER_TAGS_BY_USER
-//     });
-//   }
-//   if (currentUser && getState().locationsFilteredByUser) {
-//     let locations = getState().locationsFilteredByUser;
-//     dispatch({
-//       type: SET_LOCALS_MAP_LOCATIONS,
-//       locations
-//     })
-//   }
-// }
 
