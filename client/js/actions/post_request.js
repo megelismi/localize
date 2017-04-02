@@ -2,6 +2,32 @@ import * as post_result from './post_result.js';
 import Cookies from 'js-cookie';
 import { hashHistory } from 'react-router';
 
+export const getSelectedLocationInfo = (locationId) => (dispatch, getState) => {
+  console.log('post action hit'); 
+  let selectedUser = getState().selectedUser;
+  let userId = 0; 
+  if (selectedUser) {
+    userId = selectedUser.id; 
+  }
+  return fetch('/reviews', {
+  method: 'post',
+  headers: {
+    'Content-type': "application/json; charset=utf-8"
+  },
+  body: JSON.stringify({locationId, userId})
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText)
+    }
+    return res.json()
+  }).then(res => {
+    dispatch(post_result.getSelectedLocationInfoSuccess(res))
+  }).catch(err => {
+    dispatch(post_result.getSelectedLocationInfoError(err))
+  });
+};
+
+
 export const getLocationsForTags = () => (dispatch, getState) => {
   let selectedUser = getState().selectedUser;
   let tags = getState().selectedTags; 

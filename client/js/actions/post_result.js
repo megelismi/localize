@@ -1,3 +1,15 @@
+export const GET_SELECTED_LOCATION_INFO_SUCCESS = 'GET_SELECTED_LOCATION_INFO_SUCCESS';
+export const getSelectedLocationInfoSuccess = selectedLocations => ({
+  type: GET_SELECTED_LOCATION_INFO_SUCCESS, 
+  selectedLocations
+});
+
+export const GET_SELECTED_LOCATION_INFO_ERROR = 'GET_SELECTED_LOCATION_INFO_ERROR';
+export const getSelectedLocationInfoError = error => ({
+  type: GET_SELECTED_LOCATION_INFO_ERROR, 
+  error
+});
+
 export const GET_LOCATIONS_FOR_TAGS_SUCCESS = 'GET_LOCATIONS_FOR_TAGS_SUCCESS';
 export const getLocationsForTagsSuccess = filteredLocations => ({
   type: GET_LOCATIONS_FOR_TAGS_SUCCESS, 

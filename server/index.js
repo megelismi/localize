@@ -436,15 +436,15 @@ app.get('/users/city/:city_id', (req, res) => {
 //get all reviews for a location or all reviews for a single user
 
 app.post('/reviews', (req, res) => {
-  let location_id = req.body.locationId[0]; 
-  let user_id = req.body.userId; 
-  if (user_id !== 0) {
-    knex('reviews').where({'location_id': location_id, 'user_id': user_id}).then((reviews) => {
+  console.log('review endpoint hit'); 
+  const { locationId, userId } = req.body; 
+  if (userId !== 0) {
+    knex('reviews').where({'location_id': locationId, 'user_id': userId}).then((reviews) => {
       return res.status(200).json(reviews); 
     })
   } 
   else {
-    knex('reviews').where('location_id', location_id).then((reviews) => {
+    knex('reviews').where('location_id', locationId).then((reviews) => {
       console.log('reviews', reviews); 
       return res.status(200).json(reviews); 
     });

@@ -17,7 +17,8 @@ const state = (state = {
   showModal: false,
   showUploadModal: false,
   tutorialModalOpen: false, 
-  locationsSavedModalOpen: false
+  locationsSavedModalOpen: false, 
+  selectedLocation: null
 }, action) => {
   switch (action.type) {
 
@@ -424,10 +425,8 @@ const state = (state = {
     });
 
     case sync_actions.SELECT_LOCATION_BY_ID:
-    const selected = state.allLocationsAndDescriptions.filter((location) => location.id === action.id);
-    return state = Object.assign({}, state, {
-      selectedLocation: selected[0]
-    });
+    // const selected = state.allLocationsAndDescriptions.filter((location) => location.id === action.id);
+    return state = Object.assign({}, state, {selectedLocation: action.id});
 
     default:
     return state;

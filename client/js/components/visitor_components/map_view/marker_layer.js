@@ -1,14 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import * as actionCreators from '../../../actions/sync.js';
+import { bindActionCreators } from 'redux';
+import * as syncActionCreators from '../../../actions/sync.js';
+import * as postActionCreators from '../../../actions/post_request'; 
 import { LayerGroup, Marker, Popup } from 'react-leaflet';
 
 const MarkerLayer = (props) => {
 
-  //if there's a selected user id, then filter then the locations and save it to variable
-  //else 
-
-  // let locations = store.locations;
+  function selectLocationById (locationId) {
+    props.syncActionCreators.selectLocationById(locationId); 
+    props.postActionCreators.getSelectedLocationInfo(locationId); 
+  }
 
   return (
     <LayerGroup>{
@@ -18,7 +20,7 @@ const MarkerLayer = (props) => {
               <span className="popup-info">
                 <p className="location-name">{location.name}</p>
                 <p className="location-short-description">{location.short_description}</p>
-                <button className="see-location-details-button" onClick={() => {props.selectLocationById(location.id)}}>See details</button>
+                <button className="see-location-details-button" onClick={() => {selectLocationById(location.id)}}>See details</button>
               </span>
             </Popup>
           </Marker>
@@ -28,4 +30,12 @@ const MarkerLayer = (props) => {
   )
 }
 
-export default connect(null, actionCreators)(MarkerLayer);
+
+const mapDispatchToProps = dispatch => {
+  return {
+    postActionCreators: bindActionCreators(postActionCreators, dispatch),
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(MarkerLayer);

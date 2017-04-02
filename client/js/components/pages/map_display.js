@@ -14,8 +14,6 @@ import Tutorial from '../tutorial_modal/tutorial';
 class MapDisplay extends React.Component {
 
   componentWillMount() {
-    // this.props.getActionCreators.getSelectedUsers();
-    // this.props.getActionCreators.getLocationsAndDescriptions();
     this.props.getActionCreators.getUsersWithReviews();
     this.props.getActionCreators.getAllLocationsForCity();
   }

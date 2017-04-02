@@ -21,6 +21,13 @@ class NewSidebar extends React.Component {
     this.props.syncActionCreators.deselectUser();
   }
 
+  // componentDidMount () {
+  //   if (this.props.selectedLocation !== null) {
+  //     let locationId = this.props.selectedLocation; 
+  //     this.props.postActionCreators.getSelectedLocationInfo(locationId); 
+  //   }
+  // }
+  
   showTagsView() { 
     this.setState({ displayLocals: false, displayTags: true, displayOneUser: false });
     this.props.postActionCreators.getRelevantTags(this.props.filteredLocations); 
@@ -73,13 +80,18 @@ class NewSidebar extends React.Component {
     }
   }
 
+  selectLocationById (locationId) {
+    console.log('hit on sidebar container within selectLocationById'); 
+    this.props.syncActionCreators.selectLocationById(locationId); 
+  }
+
   render() {
     let display, navLocalsText, filterId, userIcon;
-    const { selectedLocation, selectLocationById, relevantUsers, selectedTags, clearAllAppliedTags, selectedUser, tagsFilteredByUser, tags } = this.props;
+    const { selectedLocation, relevantUsers, selectedTags, clearAllAppliedTags, selectedUser, tagsFilteredByUser, tags } = this.props;
     if (selectedLocation) {
       display = <LocationDetailsDisplay
         locationInfo={selectedLocation}
-        selectLocationById={selectLocationById} />
+        selectLocationById={this.selectLocationById.bind(this)} />
     } else if (this.state.displayLocals) {
       display = <LocalsDisplay
         city={'Portland'}
