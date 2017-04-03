@@ -1,12 +1,12 @@
-export const GET_SELECTED_LOCATION_INFO_SUCCESS = 'GET_SELECTED_LOCATION_INFO_SUCCESS';
-export const getSelectedLocationInfoSuccess = selectedLocations => ({
-  type: GET_SELECTED_LOCATION_INFO_SUCCESS, 
-  selectedLocations
+export const GET_SELECTED_LOCATION_REVIEWS_SUCCESS = 'GET_SELECTED_LOCATION_REVIEWS_SUCCESS';
+export const getSelectedLocationReviewsSuccess = reviews => ({
+  type: GET_SELECTED_LOCATION_REVIEWS_SUCCESS, 
+  reviews
 });
 
-export const GET_SELECTED_LOCATION_INFO_ERROR = 'GET_SELECTED_LOCATION_INFO_ERROR';
-export const getSelectedLocationInfoError = error => ({
-  type: GET_SELECTED_LOCATION_INFO_ERROR, 
+export const GET_SELECTED_LOCATION_REVIEWS_ERROR = 'GET_SELECTED_LOCATION_REVIEWS_ERROR';
+export const getSelectedLocationReviewsError = error => ({
+  type: GET_SELECTED_LOCATION_REVIEWS_ERROR, 
   error
 });
 

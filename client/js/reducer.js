@@ -52,6 +52,9 @@ const state = (state = {
     case sync_actions.CLEAR_ALL_APPLIED_TAGS: 
     return Object.assign({}, state, {selectedTags: []});
 
+    case post_actions.GET_SELECTED_LOCATION_REVIEWS_SUCCESS: 
+    return Object.assign({}, state, {selectedLocationName: action.reviews.locationName, selectedLocationReviews: action.reviews.reviews})
+
     ////////////////
 
     case post_actions.SAVE_MAP_SUCCESS:

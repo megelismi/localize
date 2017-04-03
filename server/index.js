@@ -7,6 +7,7 @@ import * as userValidity from './handlers/user_handlers/sign_up_validity';
 import * as tagHandlers from './handlers/tag_handlers/tag_handlers';
 import verifyPassword from './handlers/user_handlers/verify_password';
 import createLocationIdsArrayForUser from './handlers/user_handlers/user_locations'; 
+import mergeReviewsAndUserInfo from './handlers/user_handlers/user_reviews'; 
 import selectQuery from './handlers/query_handlers/select_query'; 
 import passport from 'passport';
 import { Strategy } from 'passport-http-bearer';
@@ -300,99 +301,70 @@ app.put('/account/:userId/update', passport.authenticate('bearer', {session: fal
 
 // get all locations
 
-app.get('/locations/', (req, res) => {
-  knex('locations').then((locations) => {
-    return res.status(200).json(locations);
-  });
-});
+// app.get('/locations/', (req, res) => {
+//   knex('locations').then((locations) => {
+//     return res.status(200).json(locations);
+//   });
+// });
 
-// get all reviews
+// // get all reviews
 
-app.get('/reviews', (req,res) => {
-  knex('reviews').then((reviews) => {
-    return res.status(200).json(reviews);
-  });
-});
+// app.get('/reviews', (req,res) => {
+//   knex('reviews').then((reviews) => {
+//     return res.status(200).json(reviews);
+//   });
+// });
 
 // get all locations with reviews
 
-app.get('/locations/reviews', (req, res) => {
-  knex('locations').then((locations) => {
-    knex('reviews').then((reviews) => {
-      let merged = mergeLocationAndDescription(locations, reviews);
-      return res.status(200).json(merged);
-    });
-  });
-});
-
-// get all tags
-
-// app.get('/tags', (req, res) => {
-//   knex('tags').then((tags) => {
-//     return res.status(200).json(tags);
-//   });
-// });
-
-// get all data from location_tags
-
-// app.get('/locations/tags', (req,res) => {
-//   knex('locations_users_tags').then((location_user_tags) => {
-//       return res.status(200).json(location_user_tags);
-//   });
-// });
-
-// get all locations with that tag
-
-  // this is never used -- delete ?
-
-// app.get('/locations/:tag', (req, res) => {
-//   const { tag } = req.params;
-//   knex('tags').where({tag}).select('user_id')
-//   .then((data) => {
-//     knex('locations').whereIn('user_id', data[0].user_id)
-//     .then((locations) => {
-//       return res.status(200).json(locations);
+// app.get('/locations/reviews', (req, res) => {
+//   knex('locations').then((locations) => {
+//     knex('reviews').then((reviews) => {
+//       let merged = mergeLocationAndDescription(locations, reviews);
+//       return res.status(200).json(merged);
 //     });
 //   });
 // });
 
+
+
 // get all users with that tag
 
-app.get('/users/:tag', (req, res) => {
-  const { tag } = req.params;
-  knex('tags').where({tag}).select('user_id')
-  .then((data) => {
-    knex('users').whereIn('id', data[0].user_id)
-    .then((users) => {
-      console.log(users)
-      return res.status(200).json(users);
-    });
-  });
-});
+// app.get('/users/:tag', (req, res) => {
+//   const { tag } = req.params;
+//   knex('tags').where({tag}).select('user_id')
+//   .then((data) => {
+//     knex('users').whereIn('id', data[0].user_id)
+//     .then((users) => {
+//       console.log(users)
+//       return res.status(200).json(users);
+//     });
+//   });
+// });
 
 // get all users
 
-app.get('/users', (req, res) => {
-  knex('users').then((users) => {
-    return res.status(200).json(users);
-  });
-});
+// app.get('/users', (req, res) => {
+//   knex('users').then((users) => {
+//     return res.status(200).json(users);
+//   });
+// });
 
 // get one users
 
-app.get('/users/:id', (req, res) => {
-  knex('users').then((users) => {
-    return res.status(200).json(users);
-  });
-});
+// app.get('/users/:id', (req, res) => {
+//   knex('users').then((users) => {
+//     return res.status(200).json(users);
+//   });
+// });
 
-// get all location id/user ids/tag ids
+// // get all location id/user ids/tag ids
 
-app.get('/locations/users/tags', (req, res) => {
-  knex('locations_users_tags').then((data) => {
-    return res.status(200).json(data);
-  });
-});
+// app.get('/locations/users/tags', (req, res) => {
+//   knex('locations_users_tags').then((data) => {
+//     return res.status(200).json(data);
+//   });
+// });
 
 
 // new endpoints
@@ -435,31 +407,20 @@ app.get('/users/city/:city_id', (req, res) => {
 
 //get all reviews for a location or all reviews for a single user
 
-const mergeReviewsAndUserInfo = (reviews, users) => {
-  let userIdxs = {}; 
-  
-  users.forEach((user, idx) => {
-    userIdxs[user.id] = idx; 
-  });
-  
-  reviews.forEach((review, idx) => {
-    let userIdx = userIdxs[review.user_id];  
-    review.user = users[userIdx]; 
-    delete review.user_id; 
-  });
-  return reviews; 
-};
-
 app.post('/reviews', (req, res) => { 
+  console.log(req.body); 
   const { locationId, userId } = req.body; 
   if (userId !== 0) {
     knex('reviews').where({'location_id': locationId, 'user_id': userId}).then((reviews) => {
-      console.log('do something else'); 
-      return res.status(200).json(reviews); 
-    })
+      knex('locations').where({id: locationId}).select('name').then((name) => {
+      let locationName = name[0].name; 
+      return res.status(200).json({locationName, reviews}); 
+      });
+    });
   } 
   else {
     knex('reviews').where('location_id', locationId).then((reviews) => {
+      console.log('got to else statement')
       let userIds = reviews.map(review => {
         return review.user_id; 
       })
@@ -468,8 +429,9 @@ app.post('/reviews', (req, res) => {
       let selectUsersByUserIdsQuery = selectQuery(userIds, 'first_name, id, image', 'users', 'id'); 
         knex.raw(selectUsersByUserIdsQuery).then((data) => {
           let users = data.rows; 
-          console.log('reviews', reviews)
+          console.log('got to mergedUserAndReviews'); 
           let mergedUserAndReviews = mergeReviewsAndUserInfo(reviews, users); 
+          console.log('got to response', mergedUserAndReviews)
           return res.status(200).json({locationName, 'reviews': mergedUserAndReviews}); 
         });
       });

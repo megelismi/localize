@@ -9,7 +9,7 @@ const MarkerLayer = (props) => {
 
   function selectLocationById (locationId) {
     props.syncActionCreators.selectLocationById(locationId); 
-    props.postActionCreators.getSelectedLocationInfo(locationId); 
+    props.postActionCreators.getSelectedLocationReviews(locationId); 
   }
 
   return (

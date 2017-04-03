@@ -2,7 +2,7 @@ import * as post_result from './post_result.js';
 import Cookies from 'js-cookie';
 import { hashHistory } from 'react-router';
 
-export const getSelectedLocationInfo = (locationId) => (dispatch, getState) => {
+export const getSelectedLocationReviews = (locationId) => (dispatch, getState) => {
   console.log('post action hit'); 
   let selectedUser = getState().selectedUser;
   let userId = 0; 
@@ -21,9 +21,9 @@ export const getSelectedLocationInfo = (locationId) => (dispatch, getState) => {
     }
     return res.json()
   }).then(res => {
-    dispatch(post_result.getSelectedLocationInfoSuccess(res))
+    dispatch(post_result.getSelectedLocationReviewsSuccess(res))
   }).catch(err => {
-    dispatch(post_result.getSelectedLocationInfoError(err))
+    dispatch(post_result.getSelectedLocationReviewsError(err))
   });
 };
 
