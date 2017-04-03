@@ -7,7 +7,7 @@
 
 .close-button {
   img {
-    width: 22px; 
+    width: 20px; 
      &:hover {
      opacity: 0.7;
     }
@@ -23,9 +23,10 @@
 .location-details-user-container {
   display: flex; 
   flex-direction: column;
+  // box-shadow: 0 0 5px lightgray;
   border: 1px solid $border-color;
   padding: 15px;
-  margin: 10px 0 0 0;
+  margin: 20px 0 0 0;
 }
 
 .location-image {
@@ -39,10 +40,6 @@
   justify-content: space-between;
 }
 
-// .selected-location-info-container {
-//   border: 1px solid $border-color; 
-// }
-
 .selected-location-name {
   font-weight: bold;
   font-size: 18px;
@@ -50,14 +47,21 @@
   margin-bottom: 10px; 
 }
 
+.user-image-review {
+  border-radius: 50%;
+  width: 90px;
+  margin: 0 auto; 
+}
+
 .user-info-for-review {
   display: flex; 
   flex-direction: column; 
-  text-align: left;
+  text-align: center;
   border-bottom: 1px solid $border-color;
   p {
     font-weight: bold; 
     margin-bottom: 5px;
+    font-size: 16px; 
   }
 }
 

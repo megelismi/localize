@@ -17,7 +17,7 @@ const LocationDetailsDisplay = (props) => {
   				return (
             <div className="location-details-user-container">
               <div className="user-info-for-review">
-                <img className="user-image" src={review.user.image} />
+                <img className="user-image-review" src={review.user.image} />
                 <p>{review.user.first_name}</p>
               </div>
     	      	<div className="selected-location-info">{review.long_description}</div>
