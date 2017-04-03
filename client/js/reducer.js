@@ -53,7 +53,18 @@ const state = (state = {
     return Object.assign({}, state, {selectedTags: []});
 
     case post_actions.GET_SELECTED_LOCATION_REVIEWS_SUCCESS: 
-    return Object.assign({}, state, {selectedLocationName: action.reviews.locationName, selectedLocationReviews: action.reviews.reviews})
+      let reviews = action.reviews.reviews; 
+      let users = state.relevantUsers; 
+      let userIdxs = {}; 
+      users.forEach((user, idx) => {
+        userIdxs[user.id] = idx; 
+      });
+      reviews.forEach((review, idx) => {
+        let userIdx = userIdxs[review.user_id];  
+        review.user = users[userIdx]; 
+        delete review.user_id; 
+      });
+    return Object.assign({}, state, {selectedLocationName: action.reviews.locationName, selectedLocationReviews: reviews})
 
     ////////////////
 

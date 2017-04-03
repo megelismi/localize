@@ -2,6 +2,11 @@ import React from 'react';
 
 const LocationDetailsDisplay = (props) => {
 
+  const selectLocalAndClearTags = (user) => {
+    props.selectLocalUser(user);
+    // props.clearAllAppliedTags();
+  }
+
 	if (!props.reviewInfo) {
     return <div></div>
   }
@@ -15,10 +20,10 @@ const LocationDetailsDisplay = (props) => {
         <div className="selected-location-name">{props.locationName}</div>
         { props.reviewInfo.map(review => {
   				return (
-            <div className="location-details-user-container">
+            <div key={review.id} className="location-details-user-container">
               <div className="user-info-for-review">
                 <img className="user-image-review" src={review.user.image} />
-                <p>{review.user.first_name}</p>
+                <button className="see-user-city" onClick={() => {selectLocalAndClearTags(review.user)}}>{review.user.first_name}</button>
               </div>
     	      	<div className="selected-location-info">{review.long_description}</div>
             </div>

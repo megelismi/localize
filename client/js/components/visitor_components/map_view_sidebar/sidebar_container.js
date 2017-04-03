@@ -74,7 +74,6 @@ class NewSidebar extends React.Component {
   }
 
   selectLocationById (locationId) {
-    console.log('hit on sidebar container within selectLocationById'); 
     this.props.syncActionCreators.selectLocationById(locationId); 
   }
 
@@ -85,6 +84,7 @@ class NewSidebar extends React.Component {
       display = <LocationDetailsDisplay
         reviewInfo={selectedLocationReviews}
         locationName={selectedLocationName}
+        selectLocalUser={this.selectLocalUser.bind(this)}
         selectLocationById={this.selectLocationById.bind(this)} />
     } else if (this.state.displayLocals) {
       display = <LocalsDisplay

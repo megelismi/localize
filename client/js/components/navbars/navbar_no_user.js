@@ -2,7 +2,7 @@ import React from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Sticky } from 'react-sticky';
-import * as actionCreators from '../../actions/sync.js';
+import * as syncActionCreators from '../../actions/sync.js';
 
 class NavbarNoUser extends React.Component  {
 
@@ -15,8 +15,8 @@ class NavbarNoUser extends React.Component  {
           </Navbar.Header>
           <Navbar.Collapse>
           <Nav pullRight>
-            <NavItem className="right-link" onClick={() => {this.props.dispatch(actionCreators.signInModal())}}>Sign In</NavItem>
-            <NavItem className="right-link" onClick={() => {this.props.dispatch(actionCreators.signUpModal())}}>Sign Up</NavItem>
+            <NavItem className="right-link" onClick={() => {this.props.dispatch(syncActionCreators.signInModal())}}>Sign In</NavItem>
+            <NavItem className="right-link" onClick={() => {this.props.dispatch(syncActionCreators.signUpModal())}}>Sign Up</NavItem>
           </Nav>
           </Navbar.Collapse>
         </Navbar>

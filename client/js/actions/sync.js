@@ -1,9 +1,3 @@
-//old
-// export const SHOW_RELEVANT_USERS_ONLY = 'SHOW_RELEVANT_USERS_ONLY';
-// export const showRelevantUsersOnly = () => ({
-//   type: SHOW_RELEVANT_USERS_ONLY
-// })
-
 //old - not in use?
 export const UPDATE_LOCATION_IMAGE = 'UPDATE_LOCATION_IMAGE';
 export const updateLocationImage = image => ({
@@ -91,12 +85,6 @@ export const filterLocationsByUser = filteredLocations => ({
   filteredLocations
 });
 
-// export const REMOVE_LOCATION_FROM_MAP = 'REMOVE_LOCATION_FROM_MAP'; 
-// export const removeLocation = newFilteredLocations => ({
-//   type: REMOVE_LOCATION_FROM_MAP,
-//   newFilteredLocations 
-// });
-
 //new
 export const DESELECT_TAG = 'DESELECT_TAG'; 
 export const deselectTag = selectedTags => ({
@@ -123,18 +111,6 @@ export const selectLocationById = id => ({
   type: SELECT_LOCATION_BY_ID,
   id
 });
-
-// //old
-// export const FILTER_TAGS_BY_SELECTED_LOCATIONS = 'FILTER_TAGS_BY_SELECTED_LOCATIONS';
-// export const filterTagsBySelectedLocations = () => ({
-//   type: FILTER_TAGS_BY_SELECTED_LOCATIONS
-// });
-
-// //old
-// export const FILTER_TAGS_BY_USER = 'FILTER_TAGS_BY_USER';
-// export const filterTagsByUser = () => ({
-//   type: FILTER_TAGS_BY_USER
-// });
 
 //old - keep 
 export const SIGN_UP_MODAL = 'SIGN_UP_MODAL';
@@ -171,13 +147,6 @@ export const TUTORIAL_MODAL = 'TUTORIAL_MODAL';
 export const tutorialModal = () => ({
   type: TUTORIAL_MODAL
 });
-
-//old 
-// export const SET_LOCALS_MAP_LOCATIONS = 'SET_LOCALS_MAP_LOCATIONS';
-// export const setLocalsMapLocations = locations => ({
-//   type: SET_LOCALS_MAP_LOCATIONS,
-//   locations
-// })
 
 export const removeSelectedTag = (tagId, locationIds) => (dispatch, getState) => {
 

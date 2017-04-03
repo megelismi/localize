@@ -86,8 +86,6 @@ class EditLocationInfoModal extends Component {
   }
 }
 
-//new-location-details-save
-
 const mapStateToProps = (state) => ({
   showModal: state.showModal
 });
