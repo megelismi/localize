@@ -408,7 +408,6 @@ app.get('/users/city/:city_id', (req, res) => {
 //get all reviews for a location or all reviews for a single user
 
 app.post('/reviews', (req, res) => { 
-  console.log(req.body); 
   const { locationId, userId } = req.body; 
   if (userId !== 0) {
     knex('reviews').where({'location_id': locationId, 'user_id': userId}).then((reviews) => {
@@ -420,7 +419,6 @@ app.post('/reviews', (req, res) => {
   } 
   else {
     knex('reviews').where('location_id', locationId).then((reviews) => {
-      console.log('got to else statement')
       let userIds = reviews.map(review => {
         return review.user_id; 
       })
@@ -429,9 +427,7 @@ app.post('/reviews', (req, res) => {
       let selectUsersByUserIdsQuery = selectQuery(userIds, 'first_name, id, image', 'users', 'id'); 
         knex.raw(selectUsersByUserIdsQuery).then((data) => {
           let users = data.rows; 
-          console.log('got to mergedUserAndReviews'); 
           let mergedUserAndReviews = mergeReviewsAndUserInfo(reviews, users); 
-          console.log('got to response', mergedUserAndReviews)
           return res.status(200).json({locationName, 'reviews': mergedUserAndReviews}); 
         });
       });
