@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as postActionCreators from '../../../actions/post_request.js'
 import * as syncActionCreators from '../../../actions/sync.js';
-// import * as syncActions from '../../../actions/sync.js';
-// import * as postActions from '../../../actions/post_request.js'
 import SidebarPresentation from './sidebar_presentation';
 import LocalDetailsDisplay from './local_details_display';
 import LocationDetailsDisplay from './location_details_display';

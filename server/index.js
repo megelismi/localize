@@ -7,7 +7,6 @@ import * as userValidity from './handlers/user_handlers/sign_up_validity';
 import * as tagHandlers from './handlers/tag_handlers/tag_handlers';
 import verifyPassword from './handlers/user_handlers/verify_password';
 import createLocationIdsArrayForUser from './handlers/user_handlers/user_locations'; 
-import mergeReviewsAndUserInfo from './handlers/user_handlers/user_reviews'; 
 import selectQuery from './handlers/query_handlers/select_query'; 
 import passport from 'passport';
 import { Strategy } from 'passport-http-bearer';
@@ -344,11 +343,8 @@ app.post('/reviews', (req, res) => {
   if (userId !== 0) {
     knex('reviews').where({'location_id': locationId, 'user_id': userId}).then((reviews) => {
       knex('locations').where({id: locationId}).select('name').then((name) => {
-      let locationName = name[0].name; 
-        knex('users').where({id: userId}).select('bio', 'first_name', 'id', 'image').then((user) => {
-          // let mergedUserAndReviews = mergeReviewsAndUserInfo(reviews, user); 
-          return res.status(200).json({locationName, reviews}); 
-        });
+        let locationName = name[0].name; 
+        return res.status(200).json({locationName, reviews}); 
       });
     });
   } 
@@ -358,13 +354,8 @@ app.post('/reviews', (req, res) => {
         return review.user_id; 
       })
       knex('locations').where({id: locationId}).select('name').then((name) => {
-      let locationName = name[0].name; 
-      let selectUsersByUserIdsQuery = selectQuery(userIds, 'bio, first_name, id, image', 'users', 'id'); 
-        knex.raw(selectUsersByUserIdsQuery).then((data) => {
-          let users = data.rows; 
-          // let mergedUserAndReviews = mergeReviewsAndUserInfo(reviews, users); 
-          return res.status(200).json({locationName, reviews}); 
-        });
+        let locationName = name[0].name; 
+        return res.status(200).json({locationName, reviews}); 
       });
     });
   } 
