@@ -3,7 +3,6 @@ import Cookies from 'js-cookie';
 import { hashHistory } from 'react-router';
 
 export const getSelectedLocationReviews = (locationId) => (dispatch, getState) => {
-  console.log('post action hit'); 
   let selectedUser = getState().selectedUser;
   let userId = 0; 
   if (selectedUser) {

@@ -413,7 +413,10 @@ app.post('/reviews', (req, res) => {
     knex('reviews').where({'location_id': locationId, 'user_id': userId}).then((reviews) => {
       knex('locations').where({id: locationId}).select('name').then((name) => {
       let locationName = name[0].name; 
-      return res.status(200).json({locationName, reviews}); 
+        knex('users').where({id: userId}).select('first_name', 'id', 'image').then((user) => {
+          let mergedUserAndReviews = mergeReviewsAndUserInfo(reviews, user); 
+          return res.status(200).json({locationName, 'reviews': mergedUserAndReviews}); 
+        });
       });
     });
   } 
