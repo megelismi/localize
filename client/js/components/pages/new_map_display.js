@@ -10,18 +10,7 @@ import Tutorial from '../tutorial_modal/tutorial';
 import LocationsSaved from '../local_components/modals/locations_saved';
 
 class NewMapDisplay extends React.Component {
-
-  componentWillMount() {
-    return this.props.dispatch(getActionCreators.getSelectedUsers())
-    .then(() => {
-      return this.props.dispatch(getActionCreators.getLocationsAndDescriptions())})
-    .then(() => {
-      return this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-
+  
   render () {
     return (
       <div>
