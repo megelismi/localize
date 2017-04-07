@@ -1,10 +1,10 @@
 import React from 'react';
-import { Map, LayersControl } from 'react-leaflet';
+import { Map } from 'react-leaflet';
 import { connect } from 'react-redux';
-import * as syncActionCreators from '../../../actions/sync.js';
 import L from 'leaflet';
 import Tile from './tile_layer';
 import MarkerLayer from './marker_layer';
+
 L.Icon.Default.imagePath = '../assets/images/';
 
 class MapComponent extends React.Component {
@@ -14,7 +14,7 @@ class MapComponent extends React.Component {
     const { filteredLocations } = this.props; 
 
     if (!filteredLocations) {
-      return <div></div>
+      return <div />;
     }
 
     return (

@@ -14,7 +14,7 @@ const state = (state = {
   signInModalOpen: false,
   updateUserDetailsModalOpen: false,
   updateProfilePictureModalOpen: false,
-  showModal: false,
+  editLocationDetailModal: false,
   showUploadModal: false,
   tutorialModalOpen: false, 
   locationsSavedModalOpen: false, 
@@ -23,82 +23,79 @@ const state = (state = {
   switch (action.type) {
 
     case get_actions.GET_USERS_WITH_REVIEWS_SUCCESS: 
-    return Object.assign({}, state, {relevantUsers: action.users});
+    return Object.assign({}, state, { relevantUsers: action.users });
 
     case get_actions.GET_LOCATIONS_FOR_CITY_SUCCESS:
-    return Object.assign({}, state, {locations: action.locations, filteredLocations: action.locations}); 
+    return Object.assign({}, state, { locations: action.locations, filteredLocations: action.locations }); 
 
     case post_actions.GET_RELEVANT_TAGS_SUCCESS:
-    return Object.assign({}, state, {tags: action.tags});
+    return Object.assign({}, state, { tags: action.tags });
 
     case sync_actions.FILTER_LOCATIONS_BY_USER:
-    return Object.assign({}, state, {filteredLocations: action.filteredLocations});
+    return Object.assign({}, state, { filteredLocations: action.filteredLocations });
 
     case post_actions.GET_LOCATIONS_FOR_TAGS_SUCCESS: 
-    return Object.assign({}, state, {filteredLocations: action.filteredLocations});
+    return Object.assign({}, state, { filteredLocations: action.filteredLocations });
 
     case sync_actions.REMOVE_LOCATION_FROM_MAP:
-    return Object.assign({}, state, {filteredLocations: action.newFilteredLocations});
+    return Object.assign({}, state, { filteredLocations: action.newFilteredLocations });
 
     case sync_actions.ADD_SELECTED_TAG:
-    return Object.assign({}, state, {selectedTags: [...state.selectedTags, action.tagId]});
+    return Object.assign({}, state, { selectedTags: [...state.selectedTags, action.tagId] });
 
     case sync_actions.DESELECT_TAG: 
-    return Object.assign({}, state, {selectedTags: action.selectedTags});
+    return Object.assign({}, state, { selectedTags: action.selectedTags });
 
     case sync_actions.RESET_LOCATIONS: 
-    return Object.assign({}, state, {filteredLocations: state.locations});
+    return Object.assign({}, state, { filteredLocations: state.locations });
 
     case sync_actions.CLEAR_ALL_APPLIED_TAGS: 
-    return Object.assign({}, state, {selectedTags: []});
+    return Object.assign({}, state, { selectedTags: [] });
 
     case sync_actions.SELECT_LOCATION_BY_ID:
-    return state = Object.assign({}, state, {selectedLocation: action.id});
+    return Object.assign({}, state, { selectedLocation: action.id });
 
     case sync_actions.DESELECT_USER:
-    return state = Object.assign({}, state, {
+    return Object.assign({}, state, {
       selectedUser: null,
       filteredLocations: state.locations,
       tagsFilteredByUser: null
     });
 
     case sync_actions.SELECT_USER:
-    return state = Object.assign({}, state, {selectedUser: action.user, selectedLocation: null});
-
+    return Object.assign({}, state, { selectedUser: action.user, selectedLocation: null });
 
     case post_actions.GET_SELECTED_LOCATION_REVIEWS_SUCCESS: 
-      let reviews = action.reviews.reviews; 
-      let users = state.relevantUsers; 
-      let userIdxs = {}; 
+      const reviews = action.reviews.reviews; 
+      const users = state.relevantUsers; 
+      const userIdxs = {}; 
       users.forEach((user, idx) => {
         userIdxs[user.id] = idx; 
       });
-      reviews.forEach((review, idx) => {
-        let userIdx = userIdxs[review.user_id];  
+      reviews.forEach((review) => {
+        const userIdx = userIdxs[review.user_id];  
         review.user = users[userIdx]; 
         delete review.user_id; 
       });
-    return Object.assign({}, state, {selectedLocationName: action.reviews.locationName, selectedLocationReviews: reviews})
-
-    ////////////////
+    return Object.assign({}, state, { selectedLocationName: action.reviews.locationName, selectedLocationReviews: reviews });
 
     case post_actions.SAVE_MAP_SUCCESS:
-    return state = Object.assign({}, state, { saveMapSuccess: true });
+    return Object.assign({}, state, { saveMapSuccess: true });
 
     case post_actions.SAVE_MAP_ERROR:
-    return state = Object.assign({}, state, { saveMapSuccess: false });
+    return Object.assign({}, state, { saveMapSuccess: false });
 
     case sync_actions.SET_LOCALS_MAP_LOCATIONS:
-    return state = Object.assign({}, state, { localsMapLocations: action.locations });
+    return Object.assign({}, state, { localsMapLocations: action.locations });
 
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
-    let locationToUpdate = state.localsMapLocations.map((elem, idx) => {
+    const locationToUpdate = state.localsMapLocations.map((elem, idx) => {
       if (elem.name === action.name) {
         return idx;
       }
     }).filter((result) => result !== undefined);
-    let newLocations = state.localsMapLocations.slice(0, locationToUpdate[0]).concat(state.localsMapLocations.slice(locationToUpdate[0] + 1));
-    return state = Object.assign({}, state, {localsMapLocations: [...newLocations, {
+    const newLocations = state.localsMapLocations.slice(0, locationToUpdate[0]).concat(state.localsMapLocations.slice(locationToUpdate[0] + 1));
+    return Object.assign({}, state, { localsMapLocations: [...newLocations, {
       user_id: action.user_id,
       name: action.name,
       lat_long: action.lat_long,
@@ -110,17 +107,18 @@ const state = (state = {
   );
 
     case sync_actions.UPDATE_LOCATION_IMAGE:
-    let locationWithPhoto = state.localsMapLocations.map((elem, idx) => {
+    const locationWithPhoto = state.localsMapLocations.map((elem, idx) => {
       if (elem.feature.properties.name === action.feature.properties.name) {
         return idx;
       }
     }).filter((result) => result !== undefined);
-    let newLocationsWithPhoto = state.localsMapLocations.slice(0, locationWithPhoto[0]).concat(state.localsMapLocations.slice(locationWithPhoto[0] + 1));
-    return state = Object.assign({}, state, {localsMapLocations: [...newLocationsWithPhoto, { ...locationToUpdate[0], image: action.image }] }
+    const newLocationsWithPhoto = state.localsMapLocations.slice(0, locationWithPhoto[0]).concat(state.localsMapLocations.slice(locationWithPhoto[0] + 1));
+    return Object.assign({}, state, { localsMapLocations: [...newLocationsWithPhoto, { ...locationToUpdate[0], image: action.image }] }
   );
 
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
-    let deleteLocationAt, deleteLocation;
+    let deleteLocationAt; 
+    let deleteLocation;
     state.localsMapLocations.map((elem, idx) => {
       if (elem.name === action.location.name) {
         deleteLocation = elem;
@@ -128,16 +126,16 @@ const state = (state = {
       }
     }).filter((result) => result !== undefined);
 
-    let newLocalsObject = Object.assign({}, deleteLocation, { show: 'no', saved: false });
+    const newLocalsObject = Object.assign({}, deleteLocation, { show: 'no', saved: false });
 
     console.log('DELETE LOCATION AT NEW OBJECT', newLocalsObject, 'DELETE LOCATION AT INDEX', deleteLocationAt);
 
-    let newDeleteLocations = state.localsMapLocations.slice(0, deleteLocationAt).concat(state.localsMapLocations.slice(deleteLocationAt + 1));
+    const newDeleteLocations = state.localsMapLocations.slice(0, deleteLocationAt).concat(state.localsMapLocations.slice(deleteLocationAt + 1));
 
-    return state = Object.assign({}, state, {localsMapLocations: [...newDeleteLocations, newLocalsObject]});
+    return Object.assign({}, state, { localsMapLocations: [...newDeleteLocations, newLocalsObject] });
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
-    return state = Object.assign({}, state,
+    return Object.assign({}, state,
       { localsMapLocations: [{
         user_id: action.user_id,
         name: action.feature.properties.name,
@@ -149,11 +147,11 @@ const state = (state = {
       }, ...state.localsMapLocations] }
     );
 
-    case sync_actions.SHOW_MODAL_FUNCTION:
-    return state = Object.assign({}, state, { showModal: action.boolean });
+    case sync_actions.EDIT_LOCATION_DETAIL_MODAL:
+    return Object.assign({}, state, { editLocationDetailModal: action.boolean });
 
     case sync_actions.SHOW_UPLOAD_MODAL_FUNCTION:
-    return state = Object.assign({}, state, { showUploadModal: action.boolean });
+    return Object.assign({}, state, { showUploadModal: action.boolean });
 
     case put_actions.UPDATE_USER_DETAILS_SUCCESS:
     Object.assign({}, state, {
@@ -162,12 +160,10 @@ const state = (state = {
     });
 
     case put_actions.UPDATE_USER_DETAILS_ERROR:
-    Object.assign({}, state, {
-      updateUserDetailsError: true
-    });
+    Object.assign({}, state, { updateUserDetailsError: true });
 
     case post_actions.CREATE_NEW_USER_SUCCESS:
-    return state = Object.assign({}, state, {
+    return Object.assign({}, state, {
       currentUser: action.user,
       signUpUserError: false,
       signUpModalOpen: false,
@@ -175,20 +171,20 @@ const state = (state = {
     });
 
     case post_actions.CREATE_NEW_USER_ERROR:
-    return state = Object.assign({}, state, {
+    return Object.assign({}, state, {
       userError: true,
       signUpUserError: action.error
     });
 
     case post_actions.SIGN_IN_USER_SUCCESS:
-    return state = Object.assign({}, state, {
+    return Object.assign({}, state, {
       currentUser: action.user,
       signInUserError: false,
       signInModalOpen: false
     });
 
     case post_actions.SIGN_IN_USER_ERROR:
-    return state = Object.assign({}, state, {
+    return Object.assign({}, state, {
       userError: true,
       signInUserError: action.error
     });
@@ -208,9 +204,9 @@ const state = (state = {
     });
 
     case sync_actions.GET_SEARCH_RESULTS:
-    return state = Object.assign({}, state,
-      { mapzenSelectedResults: [ ...state.mapzenSelectedResults,
-        {feature: action.feature, lat_long: action.lat_long}] }
+    return Object.assign({}, state,
+      { mapzenSelectedResults: [...state.mapzenSelectedResults,
+        { feature: action.feature, lat_long: action.lat_long }] }
     );
 
     case sync_actions.SIGN_UP_MODAL:
@@ -226,7 +222,7 @@ const state = (state = {
     case sync_actions.SIGN_UP_FOLLOW_UP_MODAL:
     return Object.assign({}, state, {
       followUpModalOpen: !state.followUpModalOpen
-    })
+    });
 
     case sync_actions.UPDATE_USER_DETAILS_MODAL:
       return Object.assign({}, state, {
@@ -248,24 +244,9 @@ const state = (state = {
         locationsSavedModalOpen: !state.locationsSavedModalOpen
       });
 
-    // case sync_actions.FILTER_TAGS_BY_USER:
-    // let filteredLocationUserTags = state.locationUserTagsHelper.filter((object) => {
-    //   return object.user_id === state.selectedUser.id;
-    // });
-    // let tagsFilteredByUser = filteredLocationUserTags.map((object) => {
-    //   return state.allTags.filter((tag) => {
-    //     return tag.id === object.tag_id;
-    //   });
-    // })
-    // .reduce((a, b) => a.concat(b))
-    // .filter((item, idx, ary) => ary.indexOf(item) === idx );
-    // return state = Object.assign({}, state, {
-    //   tagsFilteredByUser
-    // });
-
     default:
     return state;
   }
-}
+};
 
 export default state;

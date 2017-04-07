@@ -4,17 +4,17 @@ import Geosuggest from 'react-geosuggest';
 class GooglePlacesPractice extends React.Component {
   constructor() {
     super();
-    this.state = { location: '', error: '' }
+    this.state = { location: '', error: '' };
   }
 
   onSuggestSelect(suggest) {
     console.log('suggest', suggest);
-    this.setState({ location: suggest })
+    this.setState({ location: suggest });
   }
 
   onSuggestNoResults(userInput) {
-    console.log('onSuggestNoResults for :' + userInput);
-    this.setState({ error: userInput })
+    console.log(`onSuggestNoResults for :${userInput}`);
+    this.setState({ error: userInput });
   }
 
   getData(event) {
@@ -26,7 +26,7 @@ class GooglePlacesPractice extends React.Component {
     return (
       <form onSubmit={this.getData.bind(this)}>
         <Geosuggest
-          autoActivateFirstSuggest={true}
+          autoActivateFirstSuggest
           onSuggestSelect={this.onSuggestSelect.bind(this)}
           onSuggestNoResults={this.onSuggestNoResults.bind(this)}
           location={new google.maps.LatLng(43.6615, -70.2553)}
@@ -34,7 +34,7 @@ class GooglePlacesPractice extends React.Component {
         />
       <button type="submit">Submit</button>
       </form>
-    )
+    );
   }
 
 }

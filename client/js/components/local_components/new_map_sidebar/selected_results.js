@@ -7,30 +7,30 @@ import UploadLocationPhotoModal from '../modals/upload_location_photo_modal';
 class SelectedResults extends Component {
   constructor() {
     super();
-    this.state = { selected: null }
+    this.state = { selected: null };
   }
 
   editLocationInfo(location) {
     this.setState({ selected: location });
-    this.props.showModalFunction(true);
+    this.props.editLocationDetailModalFunction(true);
   }
 
   render() {
-    console.log('SelectedResults', this.props.results)
     return (
       <div className="bordered">
           {this.props.results.map((location, idx) => {
-            let { short_description, long_description, tag_array, image } = location;
-            let progressMarker, complete;
+            const { short_description, long_description, tag_array } = location;
+            let progressMarker; 
+            let complete;
             if (location.saved) {
-              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true"></i>
-              complete = "location-text saved-location"
+              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
+              complete = 'location-text saved-location';
             } else if (short_description && long_description && tag_array) {
-              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true"></i>
-              complete = "location-text complete"
+              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
+              complete = 'location-text complete';
             } else {
               progressMarker = null;
-              complete = "location-text"
+              complete = 'location-text';
             }
 
             return (
@@ -38,24 +38,28 @@ class SelectedResults extends Component {
                 <li className={complete}>
                   {progressMarker}
                   <h5 className="location-text-element">{location.name}</h5>
-                  <i onClick={() => {this.editLocationInfo(location)}}
+                  <i
+                    onClick={() => { this.editLocationInfo(location); }}
                     className="fa fa-pencil location-text-icon fa-lg"
-                    aria-hidden="true"></i>
+                    aria-hidden="true"
+                  />
                 </li>
               </ul>
-            )
+            );
           })}
           <EditLocationInfoModal
             currentUser={this.props.currentUser}
             location={this.state.selected}
             updateLocationInLocalsMap={this.props.updateLocationInLocalsMap}
-            showModalFunction={this.props.showModalFunction} />
+            editLocationDetailModal={this.props.editLocationDetailModalFunction}
+          />
           <UploadLocationPhotoModal
             location={this.state.selected}
             updateLocationInLocalsMap={this.props.updateLocationInLocalsMap}
-            showUploadModalFunction={this.props.showUploadModalFunction} />
+            showUploadModalFunction={this.props.showUploadModalFunction}
+          />
       </div>
-    )
+    );
   }
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import * as postActionCreators from '../../../actions/post_request.js'
+import * as postActionCreators from '../../../actions/post_request.js';
 import * as syncActionCreators from '../../../actions/sync.js';
 import SidebarPresentation from './sidebar_presentation';
 import LocalDetailsDisplay from './local_details_display';
@@ -12,7 +12,7 @@ import TagsDisplay from './tags_display';
 class NewSidebar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { displayLocals: props.locals, displayTags: false, displayOneUser: props.oneLocal }
+    this.state = { displayLocals: props.locals, displayTags: false, displayOneUser: props.oneLocal };
   }
 
   componentWillMount() {
@@ -27,7 +27,7 @@ class NewSidebar extends React.Component {
   showAllLocalsOrSingleLocal() {
     this.props.selectedUser ?
       this.setState({ displayLocals: false, displayTags: false, displayOneUser: true }) :
-      this.setState({ displayLocals: true, displayTags: false, displayOneUser: false })
+      this.setState({ displayLocals: true, displayTags: false, displayOneUser: false });
   }
 
   clearSelectedUser() {
@@ -41,12 +41,11 @@ class NewSidebar extends React.Component {
     this.props.syncActionCreators.selectUser(user); 
   }
 
-  clearAllAppliedTags () {
+  clearAllAppliedTags() {
     this.props.syncActionCreators.clearAllAppliedTags(); 
     if (this.props.selectedUser) {
       this.props.syncActionCreators.filterLocations(this.props.selectedUser.locations, 'FILTER_LOCATIONS_BY_USER'); 
-    } 
-    else {
+    } else {
       this.props.syncActionCreators.resetLocations(); 
     }
   }
@@ -55,51 +54,51 @@ class NewSidebar extends React.Component {
     if (this.props.selectedTags.indexOf(tagId) === -1) {
       this.props.syncActionCreators.addSelectedTag(tagId);
       this.props.postActionCreators.getLocationsForTags(); 
-    }
-    else {
+    } else {
       this.props.syncActionCreators.removeSelectedTag(tagId);
       if (this.props.selectedTags.length !== 0) {
         this.props.postActionCreators.getLocationsForTags(); 
-      } else {
-        if (this.props.selectedUser) {
+      } else if (this.props.selectedUser) {
           this.props.syncActionCreators.filterLocations(this.props.selectedUser.locations, 'FILTER_LOCATIONS_BY_USER'); 
-        } 
-        else {
+        } else {
           this.props.syncActionCreators.resetLocations(); 
         }
-      }
     }
   }
 
-  selectLocationById (locationId) {
+  selectLocationById(locationId) {
     this.props.syncActionCreators.selectLocationById(locationId); 
   }
 
   render() {
-    let display, navLocalsText, filterId, userIcon;
-    const { selectedLocation, relevantUsers, selectedTags, clearAllAppliedTags, selectedUser, tagsFilteredByUser, tags, selectedLocationReviews, selectedLocationName } = this.props;
+    let display;
+    const { selectedLocation, relevantUsers, selectedTags, selectedUser, tags, selectedLocationReviews, selectedLocationName } = this.props;
     if (selectedLocation) {
-      display = <LocationDetailsDisplay
+      display = (<LocationDetailsDisplay
         reviewInfo={selectedLocationReviews}
         locationName={selectedLocationName}
         selectLocalUser={this.selectLocalUser.bind(this)}
-        selectLocationById={this.selectLocationById.bind(this)} />
+        selectLocationById={this.selectLocationById.bind(this)}
+      />);
     } else if (this.state.displayLocals) {
-      display = <LocalsDisplay
+      display = (<LocalsDisplay
         city={'Portland'}
         users={relevantUsers}
         clearAllAppliedTags={this.clearAllAppliedTags.bind(this)}
-        selectLocalUser={this.selectLocalUser.bind(this)} />
+        selectLocalUser={this.selectLocalUser.bind(this)}
+      />);
     } else if (this.state.displayTags) {
-      display = <TagsDisplay
+      display = (<TagsDisplay
         tags={tags}
         selected={selectedTags}
         clearAllAppliedTags={this.clearAllAppliedTags.bind(this)}
-        filterByTag={this.filterByTags.bind(this)} />
+        filterByTag={this.filterByTags.bind(this)}
+      />);
     } else if (this.state.displayOneUser) {
-      display = <LocalDetailsDisplay
+      display = (<LocalDetailsDisplay
         clearSelectedUser={this.clearSelectedUser.bind(this)}
-        userInfo={selectedUser} />
+        userInfo={selectedUser}
+      />);
     }
 
     return (
@@ -108,8 +107,9 @@ class NewSidebar extends React.Component {
         selectedTags={selectedTags}
         selectedUser={selectedUser}
         showTags={this.showTagsView.bind(this)}
-        showAllOrSingle={this.showAllLocalsOrSingleLocal.bind(this)} />
-    )
+        showAllOrSingle={this.showAllLocalsOrSingleLocal.bind(this)}
+      />
+    );
   }
 }
 
@@ -129,7 +129,7 @@ const mapDispatchToProps = dispatch => {
   return {
     postActionCreators: bindActionCreators(postActionCreators, dispatch),
     syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewSidebar);

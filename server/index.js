@@ -314,6 +314,7 @@ app.get('/users/city/:city_id', (req, res) => {
         const users = data.rows; 
         users.forEach((user) => {
           const locations = createLocationIdsArrayForUser(user.id, usersAndLocationIds);
+          console.log(user, locations); 
           user.locations = locations; 
         }); 
         return res.status(200).json(users);

@@ -12,7 +12,7 @@ class EditLocationInfoModal extends Component {
   updateLocationInfo(e) {
     const tagArray = this.tagField.value.split(', ');
     e.preventDefault();
-    this.props.showModalFunction(false);
+    this.props.editLocationDetailModalFunction(false);
     this.props.updateLocationInLocalsMap(
       this.props.currentUser.id,
       this.props.location.name,
@@ -26,15 +26,15 @@ class EditLocationInfoModal extends Component {
   deleteAndClose(location) {
     console.log('location to be deleted', location);
     this.props.deleteLocationFromLocalsMap(location);
-    this.props.showModalFunction(false);
+    this.props.editLocationDetailModalFunction(false);
   }
 
   render() {
-    const { showModal, showModalFunction, location } = this.props;
+    const { editLocationDetailModal, location } = this.props;
     if (location) {
       return (
         <div className="new-location-modal">
-          <Modal show={showModal} onHide={() => { showModalFunction(false); }}>
+          <Modal show={editLocationDetailModal} onHide={() => { this.props.editLocationDetailModalFunction(false); }}>
             <div className="modal-container">
               <Modal.Header className="add-location-modal-header" closeButton>
                 <Modal.Title>{location.name}</Modal.Title>
@@ -100,7 +100,7 @@ class EditLocationInfoModal extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  showModal: state.showModal
+  editLocationDetailModal: state.editLocationDetailModal
 });
 
 export default connect(mapStateToProps, syncActionCreators)(EditLocationInfoModal);

@@ -1,9 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
 import { bindActionCreators } from 'redux';
-// import * as syncActions from '../../../actions/sync.js';
-// import * as postActions from '../../../actions/post_request.js';
 import * as syncActionCreators from '../../../actions/sync.js';
 import * as postActionCreators from '../../../actions/post_request.js';
 import * as getActionCreators from '../../../actions/get_request.js';
@@ -12,25 +9,25 @@ class SaveMap extends React.Component {
   constructor() {
     super();
     this.state = {
-      infoText: `Search for locations to pin them to your map, then click the edit icon to add personalized descriptions.`,
+      infoText: 'Search for locations to pin them to your map, then click the edit icon to add personalized descriptions.',
       textClass: 'save-map-text'
-    }
-  }
-
-  saveUserLocationsToMap() {
-    this.setState({ infoText: "Yay! Your map locations have been updated!", textClass: "save-map-text purple" });
-    this.props.localsMapLocations.forEach((location) => {
-      this.props.postActionCreators.saveMap(location)
-    });
-    this.props.syncActionCreators.locationsSavedModal()
+    };
   }
 
   setInfoText() {
-    this.setState({ infoText: "Whoops — looks like you haven't added descriptions to all of your pinned locations."})
+    this.setState({ infoText: "Whoops — looks like you haven't added descriptions to all of your pinned locations." });
+  }
+  
+  saveUserLocationsToMap() {
+    this.setState({ infoText: 'Yay! Your map locations have been updated!', textClass: 'save-map-text purple' });
+    this.props.localsMapLocations.forEach((location) => {
+      this.props.postActionCreators.saveMap(location);
+    });
+    this.props.syncActionCreators.locationsSavedModal();
   }
 
   render() {
-    let newLocations = this.props.localsMapLocations.filter(location => !location.saved);
+    const newLocations = this.props.localsMapLocations.filter(location => !location.saved);
     return (
       <div>
         <h5 className={this.state.textClass}><span className="save-map-span">
@@ -40,11 +37,12 @@ class SaveMap extends React.Component {
           (newLocations.length === 0 || this.props.localsMapLocations.length > this.props.saveable.length) ?
             <button
               onClick={this.setInfoText.bind(this)}
-              className="no-click save-map-button">Publish</button> :
+              className="no-click save-map-button"
+            >Publish</button> :
             <button onClick={this.saveUserLocationsToMap.bind(this)} className="save-map-button">Publish</button>
         }
       </div>
-    )
+    );
   }
 }
 
@@ -57,7 +55,7 @@ const mapDispatchToProps = (dispatch) => {
     postActionCreators: bindActionCreators(postActionCreators, dispatch),
     getActionCreators: bindActionCreators(getActionCreators, dispatch),
     syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(SaveMap);
