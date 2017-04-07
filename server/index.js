@@ -313,8 +313,7 @@ app.get('/users/city/:city_id', (req, res) => {
       knex.raw(selectUsersByUserIdsQuery).then((data) => {
         const users = data.rows; 
         users.forEach((user) => {
-          const locations = createLocationIdsArrayForUser(user.id, usersAndLocationIds);
-          console.log(user, locations); 
+          const locations = createLocationIdsArrayForUser(user.id, usersAndLocationIds); 
           user.locations = locations; 
         }); 
         return res.status(200).json(users);
