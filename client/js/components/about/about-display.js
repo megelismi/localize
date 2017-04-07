@@ -8,7 +8,7 @@ const About = () => {
 			<AboutHeader />
 			<AboutCards />
 		</div>
-	)
-}
+	);
+};
 
 export default About; 

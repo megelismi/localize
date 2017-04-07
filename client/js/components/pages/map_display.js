@@ -19,16 +19,15 @@ class MapDisplay extends React.Component {
   }
 
   render() {
-
     return (
       <div>
         {this.props.currentUser ? <NavbarUser /> : null}
         {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
         {this.props.tutorialModalOpen ? <Tutorial /> : null}
         <Map />
-        <SidebarContainer locals={true} oneLocal={false}/>
+        <SidebarContainer locals oneLocal={false} />
       </div>
-    )
+    );
   }
 }
 
@@ -40,7 +39,7 @@ const mapStateToProps = state => {
     tutorialModalOpen: state.tutorialModalOpen,
     followUpModalOpen: state.followUpModalOpen, 
     filteredLocations: state.filteredLocations
-  }
+  };
 };
 
 const mapDispatchToProps = dispatch => {
@@ -48,7 +47,7 @@ const mapDispatchToProps = dispatch => {
     getActionCreators: bindActionCreators(getActionCreators, dispatch),
     postActionCreators: bindActionCreators(postActionCreators, dispatch),
     syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapDisplay);

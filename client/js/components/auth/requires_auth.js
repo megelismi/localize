@@ -1,17 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
-import * as get_actions from '../../actions/get_request.js';
 import { hashHistory } from 'react-router';
+import * as get_actions from '../../actions/get_request.js';
 
-
-export default function(Component) {
+export default function (Component) {
   class RequiresAuth extends React.Component {
     componentDidMount() {
-      let token = Cookies.get('localize_token');
+      const token = Cookies.get('localize_token');
       
       if (!this.props.currentUser && token) {
-        this.props.dispatch(get_actions.findUserFromCookie(token))
+        this.props.dispatch(get_actions.findUserFromCookie(token));
       }
 
       if (!this.props.currentUser && !token) {
@@ -21,16 +20,15 @@ export default function(Component) {
 
     render() {
       if (this.props.currentUser) {
-        return <Component {...this.props} />
-      } else {
-        return <div></div>
-      }
+        return <Component {...this.props} />;
+      } 
+        return <div />;
     }
   }
 
   const mapStateToProps = state => ({
     currentUser: state.currentUser
-  })
+  });
 
-  return connect(mapStateToProps)(RequiresAuth)
+  return connect(mapStateToProps)(RequiresAuth);
 }

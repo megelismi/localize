@@ -6,7 +6,7 @@ const AboutHeader = () => {
 			<h2>How It Works</h2>
 			<hr className="short-line" />
 		</div>
-	)
-}
+	);
+};
 
 export default AboutHeader; 

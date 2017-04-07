@@ -10,10 +10,10 @@ const LandingPage = () => {
 				<h2>discover a new city, guided by locals</h2>
 			</div>
 			<div className="homepage-scroll-container">
-				<img className="homepage-scroll-arrow" src="assets/images/scroll-arrow.png" />
+				<img className="homepage-scroll-arrow" role="presentation" src="assets/images/scroll-arrow.png" />
 			</div>
 		</div>
-	)
-}
+	);
+};
 
 export default LandingPage; 

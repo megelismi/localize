@@ -1,8 +1,8 @@
 import React from 'react';
-import * as postActionCreators from '../../actions/post_request.js';
-import * as actionCreators from '../../actions/sync.js';
 import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
+import * as postActionCreators from '../../actions/post_request.js';
+import * as actionCreators from '../../actions/sync.js';
 
 class SignInForm extends React.Component {
 
@@ -14,13 +14,14 @@ class SignInForm extends React.Component {
     }));
   }
 
-  render () {
+  render() {
     const { signInUserError, signInModalOpen, dispatch } = this.props;
 
     return (
       <Modal
         show={signInModalOpen}
-        onHide={() => {dispatch(actionCreators.signInModal())}}>
+        onHide={() => { dispatch(actionCreators.signInModal()); }}
+      >
         <Modal.Header closeButton>
           <Modal.Title>Sign In</Modal.Title>
         </Modal.Header>
@@ -31,24 +32,33 @@ class SignInForm extends React.Component {
               type="text"
               name="emailOrUsername"
               placeholder="Email or Username"
-              ref={element => this.emailOrUsername = element}/>
+              ref={element => {
+                this.emailOrUsername = element; 
+                return this.emailOrUsername; 
+              }}
+            />
             <input
               className="sign-in-up-modal-input"
               type="password"
               name="lastname"
               placeholder="Password"
-              ref={element => this.password = element}/>
+              ref={element => {
+                this.password = element;
+                return this.password;
+              }}
+            />
             <input
               className="accent-button"
               type="submit"
-              value="Sign In" />
+              value="Sign In"
+            />
           </form>
         </Modal.Body>
         <Modal.Footer>
-          {signInUserError ? <div className="sign-up-error">{signInUserError}</div> : <div></div>}
+          {signInUserError ? <div className="sign-up-error">{signInUserError}</div> : <div />}
         </Modal.Footer>
       </Modal>
-    )
+    );
   }
 
 }
@@ -56,6 +66,6 @@ class SignInForm extends React.Component {
 const mapStateToProps = (state) => ({
   signInUserError: state.signInUserError,
   signInModalOpen: state.signInModalOpen
-})
+});
 
 export default connect(mapStateToProps)(SignInForm);

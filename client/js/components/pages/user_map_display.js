@@ -15,7 +15,8 @@ class UserMapDisplay extends React.Component {
   componentWillMount() {
     return this.props.dispatch(getActionCreators.getSelectedUsers())
     .then(() => {
-       return this.props.dispatch(getActionCreators.getLocationsAndDescriptions())})
+       return this.props.dispatch(getActionCreators.getLocationsAndDescriptions()); 
+    })
     .then(() => {
       return this.props.syncActionCreators.selectUserAndUpdateTags(this.props.currentUser);
     }).catch((err) => {
@@ -31,12 +32,11 @@ class UserMapDisplay extends React.Component {
           {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
           {this.props.tutorialModalOpen ? <Tutorial /> : null}
           <Map />
-          <SidebarContainer locals={false} oneLocal={true}/>
+          <SidebarContainer locals={false} oneLocal />
         </div>
-      )
-    } else {
-      return <div></div>
-    }
+      );
+    } 
+      return <div />;
   }
 }
 
@@ -52,7 +52,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     getActionCreators: bindActionCreators(getActionCreators, dispatch),
     syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMapDisplay);

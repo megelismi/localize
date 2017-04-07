@@ -1,27 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as syncActionCreators from '../../../actions/sync.js';
-import request from 'superagent';
-import ImageUpload from '../../image/image_upload';
-import Dropzone from 'react-dropzone';
 import { Modal } from 'react-bootstrap';
-// import resizeImage from '../../image_manipulation/resize_image';
+import request from 'superagent';
+import * as syncActionCreators from '../../../actions/sync.js';
+import ImageUpload from '../../image/image_upload';
+import resizeImage from '../../image/resize_image'; 
 
 class UploadLocationPhotoModal extends Component {
-  constructor (props) {
-    super(props)
-    this.state = { uploadedFileCloudinaryUrl: '', uploading: false }
+  constructor(props) {
+    super(props);
+    this.state = { uploadedFileCloudinaryUrl: '', uploading: false };
   }
-
-  // saveAndSendDetails() {
-  //   if (this.state.uploadedFileCloudinaryUrl !== '') {
-  //     let token = this.props.currentUser.token;
-  //     let detail = { image: this.state.uploadedFileCloudinaryUrl }
-  //     let userId = this.props.currentUser.id;
-  //     this.props.dispatch(putActionCreators.updateUserDetails(token, detail, userId));
-  //   }
-  //   this.props.dispatch(actionCreators.updateProfilePictureModal());
-  // }
 
   onImageDrop(files) {
     this.setState({ uploadedFile: files[0] });
@@ -31,18 +20,18 @@ class UploadLocationPhotoModal extends Component {
   handleImageUpload(file) {
     this.setState({ uploading: true });
 
-    let upload = request.post('https://api.cloudinary.com/v1_1/megelismi/upload')
+    const upload = request.post('https://api.cloudinary.com/v1_1/megelismi/upload')
     .field('upload_preset', 'lbvileyb')
-    .field('file', file)
+    .field('file', file);
 
     upload.end((err, response) => {
       if (response.body.secure_url !== '') {
         this.setState({
           uploadedFileCloudinaryUrl: resizeImage(response.body.secure_url),
           uploading: false
-        })
+        });
       } else {
-        console.log(err)
+        console.log(err);
       }
     });
   }
@@ -52,20 +41,20 @@ class UploadLocationPhotoModal extends Component {
       <div>
         <Modal
           show={this.props.showUploadModal}
-          onHide={() => {this.props.showUploadModalFunction(false)}}>
+          onHide={() => { this.props.showUploadModalFunction(false); }}
+        >
           <Modal.Header closeButton>
-          	<Modal.Title>Upload image</Modal.Title>
-        	</Modal.Header>
-       		<Modal.Body>
+            <Modal.Title>Upload image</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
             <div className="FileUpload">
               <ImageUpload onDrop={this.onImageDrop.bind(this)} />
             </div>
-       		</Modal.Body>
-          <Modal.Footer>
-          </Modal.Footer>
-    		</Modal>
+          </Modal.Body>
+          <Modal.Footer />
+        </Modal>
       </div>
-    )
+    );
   }
 }
 

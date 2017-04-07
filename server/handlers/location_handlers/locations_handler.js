@@ -1,11 +1,9 @@
 const mergeLocationAndDescription = (locations, descriptions) => {
-  console.log('locations', locations)
-  console.log('descriptions', descriptions)
-  let mergedLocations = descriptions.map(description => {
+  const mergedLocations = descriptions.map(description => {
     let merge = description;
-    let matches = locations.filter(location => location.id === merge.location_id);
+    const matches = locations.filter(location => location.id === merge.location_id);
     matches.forEach(match => {
-      return merge = Object.assign({}, match, {
+      merge = Object.assign({}, match, {
         short_description: merge.short_description,
         long_description: merge.long_description,
         image: merge.image
@@ -14,9 +12,7 @@ const mergeLocationAndDescription = (locations, descriptions) => {
     return merge;
   });
   return mergedLocations;
-}
+};
 
 export default mergeLocationAndDescription; 
-
-
 
