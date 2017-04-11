@@ -23,6 +23,18 @@ export const getLocationsForCityError = error => ({
   error
 });
 
+export const GET_CURRENT_USER_LOCATIONS_AND_REVIEWS_SUCCESS = 'GET_CURRENT_USER_LOCATIONS_AND_REVIEWS_SUCCESS';
+export const getCurrentUserLocationsAndReviewsSuccess = locationsAndReviews => ({
+	type: GET_CURRENT_USER_LOCATIONS_AND_REVIEWS_SUCCESS, 
+	locationsAndReviews
+});
+
+export const GET_CURRENT_USER_LOCATIONS_AND_REVIEWS_ERROR = 'GET_CURRENT_USER_LOCATIONS_AND_REVIEWS_ERROR';
+export const getCurrentUserLocationsAndReviewsError = error => ({
+	type: GET_CURRENT_USER_LOCATIONS_AND_REVIEWS_ERROR, 
+	error
+});
+
 // export const GET_LOCATIONS_SUCCESS = 'GET_LOCATIONS_SUCCESS';
 // export const getLocationsSuccess = locations => ({
 //   type: GET_LOCATIONS_SUCCESS,

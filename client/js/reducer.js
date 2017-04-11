@@ -5,12 +5,10 @@ import * as sync_actions from './actions/sync';
 import { combineReducers } from 'redux';
 
 const state = (state = {
-  allLocationsAndDescriptions: [],
   selectedTags: [],
   mapzenSelectedResults: [],
   localsMapLocations: [],
   signUpModalOpen: false,
-  followUpModalOpen: false,
   signInModalOpen: false,
   updateUserDetailsModalOpen: false,
   updateProfilePictureModalOpen: false,
@@ -27,6 +25,9 @@ const state = (state = {
 
     case get_actions.GET_LOCATIONS_FOR_CITY_SUCCESS:
     return Object.assign({}, state, { locations: action.locations, filteredLocations: action.locations }); 
+
+    case get_actions.GET_CURRENT_USER_LOCATIONS_AND_REVIEWS_SUCCESS: 
+    return Object.assign({}, state, { currentUserLocationsAndReviews: action.locationsAndReviews }); 
 
     case post_actions.GET_RELEVANT_TAGS_SUCCESS:
     return Object.assign({}, state, { tags: action.tags });
@@ -77,6 +78,7 @@ const state = (state = {
         review.user = users[userIdx]; 
         delete review.user_id; 
       });
+
     return Object.assign({}, state, { selectedLocationName: action.reviews.locationName, selectedLocationReviews: reviews });
 
     case post_actions.SAVE_MAP_SUCCESS:
@@ -117,6 +119,7 @@ const state = (state = {
   );
 
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
+
     let deleteLocationAt; 
     let deleteLocation;
     state.localsMapLocations.map((elem, idx) => {

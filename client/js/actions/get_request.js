@@ -1,6 +1,20 @@
 import * as get_result from './get_result.js';
 import * as post_result from './post_result.js';
 
+export const getCurrentUserLocationsAndReviews = userId => dispatch => {
+  return fetch(`/locations/reviews/city/:city_id/${userId}`)
+  .then(res => {
+    if (!res.ok) {
+      throw new Error(res.statusText); 
+    }
+    return res.json(); 
+  }).then(users => {
+    dispatch(get_result.getCurrentUserLocationsAndReviewsSuccess(users)); 
+  }).catch(err => {
+    dispatch(get_result.etCurrentUserLocationsAndReviewsError(err)); 
+  });
+};
+
 export const getUsersWithReviews = () => dispatch => {
   return fetch('/users/city/1')
   .then(res => {
@@ -16,7 +30,7 @@ export const getUsersWithReviews = () => dispatch => {
 };
 
 export const getAllLocationsForCity = () => dispatch => {
-  return fetch('/locations/city/1')
+  return fetch('/locations/city/1/')
   .then(res => {
     if (!res.ok) {
       throw new Error(res.statusText); 

@@ -11,6 +11,7 @@ import * as tagHandlers from './handlers/tag_handlers/tag_handlers';
 import verifyPassword from './handlers/user_handlers/verify_password';
 import createLocationIdsArrayForUser from './handlers/user_handlers/user_locations'; 
 import selectQuery from './handlers/query_handlers/select_query'; 
+import mergeLocationsAndReviews from './handlers/location_handlers/location_handlers'; 
 
 const salt = bcrypt.genSaltSync(10);
 const uuidV1 = require('uuid/v1');
@@ -265,8 +266,6 @@ app.post('/logout', passport.authenticate('bearer', { session: false }), (req, r
 app.put('/account/:userId/update', passport.authenticate('bearer', { session: false }), 
   (req, res) => {
   const { userId } = req.params;
-  console.log('req body', req.body);
-
   knex('users').where('id', userId)
   .update(req.body)
   .into('users')
@@ -290,12 +289,29 @@ app.put('/account/:userId/update', passport.authenticate('bearer', { session: fa
   });
 });
 
-//get all locations that have been reviewed in that city
+//get all locations that have been reviewed in that city or by a certain user
 
 app.get('/locations/city/:city_id/', (req, res) => {
-  const { city_id } = req.params; 
-  knex('locations').where('city_id', city_id).then((locations) => res.status(200).json(locations));
+  const cityId = req.params.city_id; 
+  knex('locations').where('city_id', cityId).then((locations) => res.status(200).json(locations));
 });
+
+//get all locations and reviews for a single user
+
+app.get('/locations/reviews/city/:city_id/:user_id', (req, res) => {
+  const userId = req.params.user_id; 
+  knex('reviews').where('user_id', userId).then(reviews => {
+    const locationIds = reviews.map(review => {
+      return review.location_id; 
+    }); 
+    const selectLocationsByLocationIdsQuery = selectQuery(locationIds, '*', 'locations', 'id'); 
+    knex.raw(selectLocationsByLocationIdsQuery).then(data => {
+      const locations = data.rows; 
+      const mergedLocationsAndReviews = mergeLocationsAndReviews(reviews, locations); 
+      res.status(200).json(mergedLocationsAndReviews);
+    });
+  }); 
+}); 
 
 // get all users who have reviewed locations in that city
 
@@ -365,6 +381,8 @@ app.post('/tags', (req, res) => {
   });
 });
 
+//get locations for that tag, userId optional
+
 app.post('/locations/tags', (req, res) => {
   const { tags, userId } = req.body; 
   let selectLocationsByTagsAndUserQuery 
@@ -382,6 +400,7 @@ app.post('/locations/tags', (req, res) => {
      }); 
   });
 });
+
 
 function runServer() {
   return new Promise((resolve, reject) => {
