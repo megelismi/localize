@@ -23,21 +23,21 @@ class EditLocationInfoModal extends Component {
     );
   }
 
-  deleteAndClose(location) {
-    console.log('location to be deleted', location);
-    this.props.deleteLocation(location);
+  deleteAndClose(review) {
+    console.log('deleting review'); 
+    // this.props.deleteReview(review);
     this.props.editLocationDetailModalFunction(false);
   }
 
   render() {
-    const { editLocationDetailModal, location } = this.props;
-    if (location) {
+    const { editLocationDetailModal, review } = this.props;
+    if (review) {
       return (
         <div className="new-location-modal">
           <Modal show={editLocationDetailModal} onHide={() => { this.props.editLocationDetailModalFunction(false); }}>
             <div className="modal-container">
               <Modal.Header className="add-location-modal-header" closeButton>
-                <Modal.Title>{location.name}</Modal.Title>
+                <Modal.Title>{review.name}</Modal.Title>
               </Modal.Header>
             </div>
             <Modal.Body>
@@ -48,7 +48,7 @@ class EditLocationInfoModal extends Component {
                   type="text"
                   name="shortDescription"
                   placeholder="e.g. Brunch spot with amazing eggs benedict!"
-                  defaultValue={location.short_description || ''}
+                  defaultValue={review.short_description || ''}
                   ref={input => {
                     this.shortDescription = input; 
                     return this.shortDescription; 
@@ -60,7 +60,7 @@ class EditLocationInfoModal extends Component {
                   type="text"
                   name="longDescription"
                   placeholder="e.g. I've been going to this whole-in-the wall for Sunday brunch for years now — the eggs benedict and Bloody Marys are just too good to pass up. In the summer, ask to be seated in the fantastic patio out back. Be forewared, it's a little pricey (think $20 entrees), but if you have the cash, it's worth it."
-                  defaultValue={location.long_description || ''}
+                  defaultValue={review.long_description || ''}
                   ref={input => {
                     this.longDescription = input; 
                     return this.longDescription; 
@@ -72,17 +72,17 @@ class EditLocationInfoModal extends Component {
                   type="text"
                   name="tagField"
                   placeholder="e.g. restaurant, independantly owned, brunch"
-                  defaultValue={location.tag_array ? location.tag_array.join(', ') : ''}
+                  defaultValue={review.locationInfo.tags ? review.locationInfo.tags.join(', ') : ''}
                   ref={input => {
                     this.tagField = input; 
                     return this.tagField; 
                   }}
                 />
                 <button className="accent-button new-location-details-save" type="submit">{
-                    location.short_description || location.long_description || location.tag_array ? 'Update' : 'Save'
+                    review.short_description || review.long_description || review.locationInfo.tags ? 'Update' : 'Save'
                   }</button>
                 <i 
-                  onClick={() => { this.deleteAndClose(location); }}
+                  onClick={() => { this.deleteAndClose(review); }}
                   className="fa fa-trash location-text-icon fa-2x"
                   aria-hidden="true"
                 />

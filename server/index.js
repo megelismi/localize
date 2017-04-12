@@ -8,10 +8,10 @@ import bcrypt from 'bcryptjs';
 import _ from 'underscore'; 
 import * as userValidity from './handlers/user_handlers/sign_up_validity';
 import * as tagHandlers from './handlers/tag_handlers/tag_handlers';
+import * as locationHandlers from './handlers/location_handlers/location_handlers'; 
 import verifyPassword from './handlers/user_handlers/verify_password';
 import createLocationIdsArrayForUser from './handlers/user_handlers/user_locations'; 
 import selectQuery from './handlers/query_handlers/select_query'; 
-import mergeLocationsAndReviews from './handlers/location_handlers/location_handlers'; 
 
 const salt = bcrypt.genSaltSync(10);
 const uuidV1 = require('uuid/v1');
@@ -306,14 +306,28 @@ app.get('/locations/reviews/city/:city_id/:user_id', (req, res) => {
     }
     const locationIds = reviews.map(review => {
       return review.location_id; 
-    }); 
-    const selectLocationsByLocationIdsQuery = selectQuery(locationIds, '*', 'locations', 'id'); 
-    knex.raw(selectLocationsByLocationIdsQuery).then(data => {
-      const locations = data.rows; 
-      const mergedLocationsAndReviews = mergeLocationsAndReviews(reviews, locations); 
-      return res.status(200).json(mergedLocationsAndReviews);
     });
-  }); 
+  let selectTagIdsByLocationIdsQuery 
+  = selectQuery(locationIds, '*', 'locations_users_tags', 'location_id'); 
+    selectTagIdsByLocationIdsQuery += ` and user_id = ${userId}`;
+    knex.raw(selectTagIdsByLocationIdsQuery).then((data) => {
+      const locationTagIds = data.rows;
+      const tagIds = locationTagIds.map(ids => ids.tag_id);
+      const selectTagsByTagIdQuery = selectQuery(tagIds, '*', 'tags', 'id');
+      knex.raw(selectTagsByTagIdQuery).then((data) => {
+        const tags = data.rows;
+        let tagValues = tagHandlers.addTagValues(locationTagIds, tags); 
+        tagValues = tagHandlers.removeDuplicatedTags(tagValues);  
+        const selectLocationsByLocationIdsQuery = selectQuery(locationIds, '*', 'locations', 'id'); 
+        knex.raw(selectLocationsByLocationIdsQuery).then(data => {
+          const locations = data.rows; 
+          const locationsWithTags = locationHandlers.mergeLocationsAndTags(locations, tagValues);
+          const mergedLocationsAndReviews = locationHandlers.mergeLocationsAndReviews(reviews, locationsWithTags); 
+          return res.status(200).json(mergedLocationsAndReviews);
+        });
+      });
+    }); 
+  });
 }); 
 
 // get all users who have reviewed locations in that city
@@ -404,6 +418,13 @@ app.post('/locations/tags', (req, res) => {
   });
 });
 
+app.delete('/reviews/:reviewId', (req, res) => {
+  const { reviewId } = req.params;
+  const deleteQuery = `delete from reviews where id = ${reviewId}`;
+  knex.raw(deleteQuery).then(() => { 
+    res.sendStatus(202); 
+  }); 
+}); 
 
 function runServer() {
   return new Promise((resolve, reject) => {

@@ -1,4 +1,4 @@
-const mergeLocationsAndReviews = (reviews, locations) => {
+export const mergeLocationsAndReviews = (reviews, locations) => {
   const locationIdxs = {}; 
   locations.forEach((location, idx) => {
     locationIdxs[location.id] = idx; 
@@ -11,5 +11,20 @@ const mergeLocationsAndReviews = (reviews, locations) => {
   return reviews; 
 };
 
-export default mergeLocationsAndReviews; 
+export const mergeLocationsAndTags = (locations, tags) => {
+  const locationTags = {}; 
+  tags.forEach(tag => {
+    const id = tag.location_id; 
+    locationTags[id] === undefined ? 
+    locationTags[id] = [tag.tag] 
+    : locationTags[id].push(tag.tag); 
+  });
+  
+  locations.forEach((location) => {
+    if (locationTags[location.id] !== undefined) {
+      location.tags = locationTags[location.id];
+    }
+  });
+  return locations; 
+};
 

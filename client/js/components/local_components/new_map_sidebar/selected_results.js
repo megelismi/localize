@@ -30,7 +30,7 @@ class SelectedResults extends Component {
             if (review.saved) {
               progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
               complete = 'location-text saved-location';
-            } else if (short_description && long_description) {
+            } else if (short_description && long_description && review.locationInfo.tags) {
               progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
               complete = 'location-text complete';
             } else {
@@ -54,7 +54,7 @@ class SelectedResults extends Component {
           })}
           <EditLocationInfoModal
             currentUser={this.props.currentUser}
-            location={this.state.selected}
+            review={this.state.selected}
             updateLocationInLocalsMap={this.props.updateLocationInLocalsMap}
             editLocationDetailModal={this.props.editLocationDetailModalFunction}
           />

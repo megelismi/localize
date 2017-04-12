@@ -2,7 +2,9 @@ import React from 'react';
 import { LayerGroup, Marker, Popup } from 'react-leaflet';
 
 const MarkerLayer = (props) => {
-  console.log('MarkerLayer', props);
+  if (!props.selectedResults) {
+    return <div />;
+  }
   return (
     <LayerGroup>{
         props.selectedResults.map((review, index) => {
