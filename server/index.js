@@ -300,7 +300,10 @@ app.get('/locations/city/:city_id/', (req, res) => {
 
 app.get('/locations/reviews/city/:city_id/:user_id', (req, res) => {
   const userId = req.params.user_id; 
-  knex('reviews').where('user_id', userId).then(reviews => {
+  knex('reviews').where('user_id', userId).then(reviews => { 
+    if (reviews.length === 0) {
+      return res.status(200).json(reviews); 
+    }
     const locationIds = reviews.map(review => {
       return review.location_id; 
     }); 
@@ -308,7 +311,7 @@ app.get('/locations/reviews/city/:city_id/:user_id', (req, res) => {
     knex.raw(selectLocationsByLocationIdsQuery).then(data => {
       const locations = data.rows; 
       const mergedLocationsAndReviews = mergeLocationsAndReviews(reviews, locations); 
-      res.status(200).json(mergedLocationsAndReviews);
+      return res.status(200).json(mergedLocationsAndReviews);
     });
   }); 
 }); 
