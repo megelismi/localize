@@ -14,7 +14,7 @@ const NewMapSidebar = (props) => {
   return (
     <div className="sidebar">
       <SaveMap localsMapLocations={props.localsMapLocations} saveable={saveable} />
-      <SelectedResults results={props.localsMapLocations} currentUser={props.currentUser} />
+      <SelectedResults results={props.currentUserLocationsAndReviews} currentUser={props.currentUser} />
     </div>
   );
 };
@@ -22,7 +22,10 @@ const NewMapSidebar = (props) => {
 const mapStateToProps = (state) => ({
   localsMapLocations: state.localsMapLocations,
   currentUser: state.currentUser,
-  saveMapSuccess: state.saveMapSuccess
+  currentUserLocationsAndReviews: state.currentUserLocationsAndReviews,
+  saveMapSuccess: state.saveMapSuccess,
+
+
 });
 
 export default connect(mapStateToProps)(NewMapSidebar);

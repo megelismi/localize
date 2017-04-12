@@ -16,16 +16,21 @@ class SelectedResults extends Component {
   }
 
   render() {
+    if (this.props.results === undefined) {
+      return (
+        <div />
+      );
+    }
     return (
       <div className="bordered">
           {this.props.results.map((location, idx) => {
-            const { short_description, long_description, tag_array } = location;
+            const { short_description, long_description } = location;
             let progressMarker; 
             let complete;
             if (location.saved) {
               progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
               complete = 'location-text saved-location';
-            } else if (short_description && long_description && tag_array) {
+            } else if (short_description && long_description) {
               progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
               complete = 'location-text complete';
             } else {
@@ -37,7 +42,7 @@ class SelectedResults extends Component {
               <ul className="location-listing" key={idx}>
                 <li className={complete}>
                   {progressMarker}
-                  <h5 className="location-text-element">{location.name}</h5>
+                  <h5 className="location-text-element">{location.locationInfo.name}</h5>
                   <i
                     onClick={() => { this.editLocationInfo(location); }}
                     className="fa fa-pencil location-text-icon fa-lg"
