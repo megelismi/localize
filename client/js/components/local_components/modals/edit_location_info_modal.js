@@ -25,7 +25,7 @@ class EditLocationInfoModal extends Component {
 
   deleteAndClose(location) {
     console.log('location to be deleted', location);
-    this.props.deleteLocationFromLocalsMap(location);
+    this.props.deleteLocation(location);
     this.props.editLocationDetailModalFunction(false);
   }
 

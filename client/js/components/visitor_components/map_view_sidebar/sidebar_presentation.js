@@ -17,7 +17,7 @@ const SidebarPresentation = (props) => {
   }
 
   return (
-    <div className="sidebar">
+    <div className="sidebar main-maps-sidebar">
       <div className="sidebar-nav">
         <ul>
           <li>

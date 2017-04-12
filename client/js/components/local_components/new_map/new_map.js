@@ -18,7 +18,7 @@ class CreateMap extends React.Component {
           <Map className="display-map" center={city} zoom={14}>
             <PlacesSearch currentUser={this.props.currentUser} />
             <Tile />
-            <MarkerLayer selectedResults={this.props.localsMapLocations} />
+            <MarkerLayer selectedResults={this.props.currentUserLocationsAndReviews} />
           </Map>
       </div>
     );
@@ -26,8 +26,8 @@ class CreateMap extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  localsMapLocations: state.localsMapLocations,
-  currentUser: state.currentUser
+  currentUser: state.currentUser, 
+  currentUserLocationsAndReviews: state.currentUserLocationsAndReviews
 });
 
 export default connect(mapStateToProps)(CreateMap);

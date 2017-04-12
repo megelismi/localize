@@ -23,11 +23,11 @@ class SelectedResults extends Component {
     }
     return (
       <div className="bordered">
-          {this.props.results.map((location, idx) => {
-            const { short_description, long_description } = location;
+          {this.props.results.map((review, idx) => {
+            const { short_description, long_description } = review;
             let progressMarker; 
             let complete;
-            if (location.saved) {
+            if (review.saved) {
               progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
               complete = 'location-text saved-location';
             } else if (short_description && long_description) {
@@ -41,10 +41,10 @@ class SelectedResults extends Component {
             return (
               <ul className="location-listing" key={idx}>
                 <li className={complete}>
+                  <h5 className="location-text-element">{review.locationInfo.name}</h5><br / >
                   {progressMarker}
-                  <h5 className="location-text-element">{location.locationInfo.name}</h5>
                   <i
-                    onClick={() => { this.editLocationInfo(location); }}
+                    onClick={() => { this.editLocationInfo(review); }}
                     className="fa fa-pencil location-text-icon fa-lg"
                     aria-hidden="true"
                   />
