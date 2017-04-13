@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { Modal } from 'react-bootstrap';
 import * as syncActionCreators from '../../../actions/sync.js';
+import * as deleteActionCreators from '../../../actions/delete_request.js';
+import * as getActionCreators from '../../../actions/get_request.js';
 
 class EditLocationInfoModal extends Component {
   constructor() {
@@ -12,8 +15,8 @@ class EditLocationInfoModal extends Component {
   updateLocationInfo(e) {
     const tagArray = this.tagField.value.split(', ');
     e.preventDefault();
-    this.props.editLocationDetailModalFunction(false);
-    this.props.updateLocationInLocalsMap(
+    this.props.syncActionCreators.editLocationDetailModalFunction(false);
+    this.props.syncActionCreators.updateLocationInLocalsMap(
       this.props.currentUser.id,
       this.props.location.name,
       this.props.location.lat_long,
@@ -24,9 +27,10 @@ class EditLocationInfoModal extends Component {
   }
 
   deleteAndClose(review) {
-    console.log('deleting review'); 
-    // this.props.deleteReview(review);
-    this.props.editLocationDetailModalFunction(false);
+    this.props.deleteActionCreators.deleteReview(review.id).then(() => {
+      this.props.getActionCreators.getCurrentUserLocationsAndReviews(review.user_id);
+    });
+    this.props.syncActionCreators.editLocationDetailModalFunction(false);
   }
 
   render() {
@@ -34,7 +38,7 @@ class EditLocationInfoModal extends Component {
     if (review) {
       return (
         <div className="new-location-modal">
-          <Modal show={editLocationDetailModal} onHide={() => { this.props.editLocationDetailModalFunction(false); }}>
+          <Modal show={editLocationDetailModal} onHide={() => { this.props.syncActionCreators.editLocationDetailModalFunction(false); }}>
             <div className="modal-container">
               <Modal.Header className="add-location-modal-header" closeButton>
                 <Modal.Title>{review.name}</Modal.Title>
@@ -103,4 +107,13 @@ const mapStateToProps = (state) => ({
   editLocationDetailModal: state.editLocationDetailModal
 });
 
-export default connect(mapStateToProps, syncActionCreators)(EditLocationInfoModal);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch), 
+    deleteActionCreators: bindActionCreators(deleteActionCreators, dispatch), 
+    getActionCreators: bindActionCreators(getActionCreators, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditLocationInfoModal);

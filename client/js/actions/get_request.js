@@ -11,7 +11,7 @@ export const getCurrentUserLocationsAndReviews = userId => dispatch => {
   }).then(users => {
     dispatch(get_result.getCurrentUserLocationsAndReviewsSuccess(users)); 
   }).catch(err => {
-    dispatch(get_result.etCurrentUserLocationsAndReviewsError(err)); 
+    dispatch(get_result.getCurrentUserLocationsAndReviewsError(err)); 
   });
 };
 

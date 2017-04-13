@@ -422,7 +422,7 @@ app.delete('/reviews/:reviewId', (req, res) => {
   const { reviewId } = req.params;
   const deleteQuery = `delete from reviews where id = ${reviewId}`;
   knex.raw(deleteQuery).then(() => { 
-    res.sendStatus(202); 
+    return res.sendStatus(202); 
   }); 
 }); 
 
