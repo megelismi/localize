@@ -7,7 +7,6 @@ import { combineReducers } from 'redux';
 const state = (state = {
   selectedTags: [],
   mapzenSelectedResults: [],
-  localsMapLocations: [],
   signUpModalOpen: false,
   signInModalOpen: false,
   updateUserDetailsModalOpen: false,
@@ -139,16 +138,21 @@ const state = (state = {
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return Object.assign({}, state,
-      { localsMapLocations: [{
+      { currentUserLocationsAndReviews: [{
+        id: 0,
         user_id: action.user_id,
-        name: action.feature.properties.name,
-        lat_long: action.lat_long,
         short_description: action.short,
         long_description: action.long,
-        tag_array: action.tag_array,
-        show: 'yes'
-      }, ...state.localsMapLocations] }
-    );
+        show: 'yes', 
+        saved: false,
+        locationInfo: {
+          id: 0,
+          name: action.feature.properties.name,
+          lat_long: action.lat_long,
+          city_id: 1,
+          tags: action.tag_array
+        }
+      }, ...state.currentUserLocationsAndReviews] });
 
     case sync_actions.EDIT_LOCATION_DETAIL_MODAL:
     return Object.assign({}, state, { editLocationDetailModal: action.boolean });
