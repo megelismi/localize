@@ -63,11 +63,20 @@ app.get('/find/cookie/:token', (req, res) => {
 
 // save new map
 
+const convertLatLongToArray = latLong => {
+  if (Array.isArray(latLong)) {
+    return latLong; 
+  } 
+  return [latLong.lat, latLong.lng]; 
+};
+
 app.post('/map', (req, res) => {
   const review = req.body;
   console.log('review', review);
   const locationName = review.locationInfo.name;
-  const { lat_long } = review.locationInfo;
+  // let { lat_long } = review.locationInfo;
+  const lat_long = convertLatLongToArray(review.locationInfo.lat_long);
+  console.log(lat_long);
   let savedLocationId;
   let savedReviewId;
   knex('locations').where('name', locationName)
@@ -84,8 +93,8 @@ app.post('/map', (req, res) => {
           return savedLocationId; 
         })
         .catch(err => {
-          res.sendStatus(400);
           console.log('Error saving new location:', err);
+          return res.sendStatus(400);
         });
       } 
       savedLocationId = location[0].id;
@@ -110,8 +119,8 @@ app.post('/map', (req, res) => {
             return savedReviewId;
           })
           .catch(err => {
-            res.sendStatus(400);
             console.error('Error saving review:', err);
+            return res.sendStatus(400);
           });
         } 
         return knex('reviews').where('location_id', savedLocationId)
@@ -137,11 +146,7 @@ app.post('/map', (req, res) => {
                   return knex('tags').insert({
                     tag: user_tag
                   }).returning('id')
-                  .then(id => {
-                    console.log('location_id', savedLocationId); 
-                    console.log('tag_id', id[0]); 
-                    console.log('user_id', review.user_id); 
-                    console.log('review_id', savedReviewId); 
+                  .then(id => { 
                     return knex('locations_users_tags').insert({
                       location_id: savedLocationId,
                       tag_id: id[0],
@@ -152,10 +157,6 @@ app.post('/map', (req, res) => {
                   .then(() => console.log('Relation saved1.'))
                   .catch(error => console.error('Error saving relation1: ', error));
                 } 
-                  console.log('location_id', savedLocationId); 
-                  console.log('tag_id', result[0].id); 
-                  console.log('user_id', review.user_id); 
-                  console.log('review_id', savedReviewId); 
                 return knex('locations_users_tags').insert({
                   location_id: savedLocationId,
                   tag_id: result[0].id,
@@ -170,7 +171,7 @@ app.post('/map', (req, res) => {
           }
         });
       });
-    res.sendStatus(201);
+    return res.sendStatus(201);
 });
 
 passport.use(new Strategy(
