@@ -64,110 +64,125 @@ app.get('/find/cookie/:token', (req, res) => {
 // save new map
 
 app.post('/map', (req, res) => {
-  const content = req.body;
-  const { name, lat_long } = content;
-  let saved_location_id;
-
-  knex('locations')
-    .where('name', content.name)
-    .andWhere('lat_long', [content.lat_long.lat 
-      || content.lat_long[0], content.lat_long.lng 
-      || content.lat_long[1]])
+  const review = req.body;
+  console.log('review', review);
+  const locationName = review.locationInfo.name;
+  const { lat_long } = review.locationInfo;
+  let savedLocationId;
+  let savedReviewId;
+  knex('locations').where('name', locationName)
+    .andWhere('lat_long', [review.locationInfo.lat_long.lat 
+      || review.locationInfo.lat_long[0], review.locationInfo.lat_long.lng 
+      || review.locationInfo.lat_long[1]])
     .then(location => {
       if (!location[0]) {
-        return knex('locations').insert({
-          name,
-          address: null,
-          lat_long: [lat_long.lat, lat_long.lng]
-        })
+        return knex('locations').insert({ name: locationName, lat_long })
         .returning('id')
         .then(id => {
           console.log('New location saved with id ', id);
-          saved_location_id = id[0];
-          return saved_location_id; 
+          savedLocationId = id[0];
+          return savedLocationId; 
         })
         .catch(err => {
           res.sendStatus(400);
           console.log('Error saving new location:', err);
         });
       } 
-        saved_location_id = location[0].id;
-        return saved_location_id; 
-      })
+      savedLocationId = location[0].id;
+        return savedLocationId; 
+    })
     .then(() => {
-      knex('reviews')
-      .where('location_id', saved_location_id)
-      .andWhere('user_id', content.user_id)
-      .then(review => {
-        if (!review[0]) {
+      knex('reviews').where('location_id', savedLocationId)
+      .andWhere('user_id', review.user_id)
+      .then(reviewRes => {
+        if (!reviewRes[0]) {
           return knex('reviews').insert({
-            user_id: content.user_id,
-            location_id: saved_location_id,
-            short_description: content.short_description,
-            long_description: content.long_description,
-            image: content.image,
-            show: content.show,
+            user_id: review.user_id,
+            location_id: savedLocationId,
+            short_description: review.short_description,
+            long_description: review.long_description,
             saved: true
           })
-          .then(() => console.log('Review saved.'))
+          .returning('id')
+          .then(id => {
+            console.log('Review saved.');
+            savedReviewId = id[0]; 
+            return savedReviewId;
+          })
           .catch(err => {
             res.sendStatus(400);
             console.error('Error saving review:', err);
           });
         } 
-          knex('reviews')
-          .where('location_id', saved_location_id)
-          .andWhere('user_id', content.user_id)
+        return knex('reviews').where('location_id', savedLocationId)
+          .andWhere('user_id', review.user_id)
           .update({
-            short_description: content.short_description,
-            long_description: content.long_description,
-            show: content.show,
+            short_description: review.short_description,
+            long_description: review.long_description,
             saved: true
           })
-          .then(() => console.log('Review updated!'));
-      });
-    })
-    .then(() => {
-      if (content.tag_array) {
-        content.tag_array.forEach(user_tag => knex('tags')
-          .where('tag', user_tag)
-          .then(result => {
-            if (!result[0]) {
-              return knex('tags').insert({
-                tag: user_tag
-              })
-              .returning('id')
-              .then(id => knex('locations_users_tags').insert({
-                  location_id: saved_location_id,
-                  tag_id: id[0],
-                  user_id: content.user_id
+          .returning('id')
+          .then(id => {
+            console.log('Review updated!');
+            savedReviewId = id[0];
+            return savedReviewId; 
+          });
+        })
+        .then(() => {
+          if (review.locationInfo.tags) {
+            review.locationInfo.tags.forEach(user_tag => knex('tags')
+              .where('tag', user_tag)
+              .then(result => {
+                if (!result[0]) {
+                  return knex('tags').insert({
+                    tag: user_tag
+                  }).returning('id')
+                  .then(id => {
+                    console.log('location_id', savedLocationId); 
+                    console.log('tag_id', id[0]); 
+                    console.log('user_id', review.user_id); 
+                    console.log('review_id', savedReviewId); 
+                    knex('locations_users_tags').insert({
+                      location_id: savedLocationId,
+                      tag_id: id[0],
+                      user_id: review.user_id,
+                      review_id: savedReviewId
+                    });
+                  })
+                  .then(() => console.log('Relation saved1.'))
+                  .catch(error => console.error('Error saving relation1: ', error));
+                } 
+                  console.log('location_id', savedLocationId); 
+                  console.log('tag_id', result[0].id); 
+                  console.log('user_id', review.user_id); 
+                  console.log('review_id', savedReviewId); 
+                return knex('locations_users_tags').insert({
+                  location_id: savedLocationId,
+                  tag_id: result[0].id,
+                  user_id: review.user_id,
+                  review_id: savedReviewId
                 })
-                .then(() => console.log('Relation saved.'))
-                .catch(error => console.error('Error saving relation: ', error)));
-            } 
-              return knex('locations_users_tags').insert({
-                location_id: saved_location_id,
-                tag_id: result[0].id,
-                user_id: content.user_id
-              })
-              .then(() => console.log('Relation saved.'))
-              .catch(error => console.error('Error saving relation: ', error));
-          }));
-      } else {
-        return;
-      }
-    });
-  return res.sendStatus(201);
+                .then(() => console.log('Relation saved2.'))
+                .catch(error => console.error('Error saving relation2: ', error));
+            }));
+          } else {
+            return;
+          }
+        });
+      });
+    return res.sendStatus(201);
 });
 
 passport.use(new Strategy(
-  (token, callback) => knex('users').where('token', token).then((user) => {
-      if (!user) { return callback(null, false); }
-      return callback(null, user);
-    }).catch((err) => {
-      console.log(err);
-      return callback(err);
+  (token, callback) => knex('users').where('token', token)
+  .then((user) => {
+    if (!user) { return callback(null, false); }
+    return callback(null, user);
     })
+  .catch((err) => {
+    console.log(err);
+    return callback(err);
+  })
 ));
 
 //sign in existing users

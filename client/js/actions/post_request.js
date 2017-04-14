@@ -79,13 +79,13 @@ export const getRelevantTags = locations => (dispatch, getState) => {
   });
 };
 
-export const saveMap = (localsMapLocations) => dispatch => {
+export const saveMap = (localsMapLocation) => dispatch => {
   return fetch('/map', {
     method: 'post',
     headers: {
       'Content-type': 'application/json; charset=utf-8'
     },
-    body: JSON.stringify(localsMapLocations)
+    body: JSON.stringify(localsMapLocation)
   }).then(res => {
     if (!res.ok) {
       throw new Error(res.statusText);

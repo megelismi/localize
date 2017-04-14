@@ -1,5 +1,6 @@
 .landingpage-container {
-	height: 100vh;     
+	height: 100vh;  
+	min-height: 800px;    
 	position: relative;
 	background: 
 		linear-gradient(
@@ -12,6 +13,7 @@
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+  background-position: 50% 50%;
 }
 
 .landingpage-details-container {
