@@ -13,6 +13,7 @@ import verifyPassword from './handlers/user_handlers/verify_password';
 import createLocationIdsArrayForUser from './handlers/user_handlers/user_locations'; 
 import selectQuery from './handlers/query_handlers/select_query'; 
 
+
 const salt = bcrypt.genSaltSync(10);
 const uuidV1 = require('uuid/v1');
 
@@ -86,7 +87,7 @@ app.post('/map', (req, res) => {
         });
       } 
       savedLocationId = location[0].id;
-        return savedLocationId; 
+      return savedLocationId; 
     })
     .then(() => {
       knex('reviews').where('location_id', savedLocationId)
@@ -133,7 +134,8 @@ app.post('/map', (req, res) => {
                 if (!result[0]) {
                   return knex('tags').insert({
                     tag: user_tag
-                  }).returning('id')
+                  })
+                  .returning('id')
                   .then(id => { 
                     return knex('locations_users_tags').insert({
                       location_id: savedLocationId,
@@ -293,11 +295,18 @@ app.put('/account/:userId/update', passport.authenticate('bearer', { session: fa
   });
 });
 
-//get all locations that have been reviewed in that city or by a certain user
+//get all locations that have been reviewed in that city
 
 app.get('/locations/city/:city_id/', (req, res) => {
   const cityId = req.params.city_id; 
-  knex('locations').where('city_id', cityId).then((locations) => res.status(200).json(locations));
+  knex.select('location_id').from('reviews').then((locations) => {
+    const locationIds = _.uniq(locations.map(location => {
+      return location.location_id; 
+    })); 
+    let selectLocationsByLocationIdsQuery = selectQuery(locationIds, '*', 'locations', 'id');
+    selectLocationsByLocationIdsQuery += `and city_id = ${cityId}`; 
+    knex.raw(selectLocationsByLocationIdsQuery).then((data) => res.status(200).json(data.rows));
+  }); 
 });
 
 //get all locations and reviews for a single user
