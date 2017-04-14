@@ -142,7 +142,7 @@ app.post('/map', (req, res) => {
                     console.log('tag_id', id[0]); 
                     console.log('user_id', review.user_id); 
                     console.log('review_id', savedReviewId); 
-                    knex('locations_users_tags').insert({
+                    return knex('locations_users_tags').insert({
                       location_id: savedLocationId,
                       tag_id: id[0],
                       user_id: review.user_id,
@@ -170,7 +170,7 @@ app.post('/map', (req, res) => {
           }
         });
       });
-    return res.sendStatus(201);
+    res.sendStatus(201);
 });
 
 passport.use(new Strategy(

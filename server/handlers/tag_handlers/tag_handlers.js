@@ -1,5 +1,4 @@
 export const addTagValues = (locationUserTags, tags) => {
-  console.log('locationUserTags', locationUserTags); 
   const tagIds = tags.map(tag => {
     return tag.id; 
   });
