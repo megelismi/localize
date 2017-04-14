@@ -63,26 +63,14 @@ app.get('/find/cookie/:token', (req, res) => {
 
 // save new map
 
-const convertLatLongToArray = latLong => {
-  if (Array.isArray(latLong)) {
-    return latLong; 
-  } 
-  return [latLong.lat, latLong.lng]; 
-};
-
 app.post('/map', (req, res) => {
   const review = req.body;
-  console.log('review', review);
   const locationName = review.locationInfo.name;
-  // let { lat_long } = review.locationInfo;
-  const lat_long = convertLatLongToArray(review.locationInfo.lat_long);
-  console.log(lat_long);
+  const lat_long = locationHandlers.convertLatLongToArray(review.locationInfo.lat_long);
   let savedLocationId;
   let savedReviewId;
   knex('locations').where('name', locationName)
-    .andWhere('lat_long', [review.locationInfo.lat_long.lat 
-      || review.locationInfo.lat_long[0], review.locationInfo.lat_long.lng 
-      || review.locationInfo.lat_long[1]])
+    .andWhere('lat_long', lat_long)
     .then(location => {
       if (!location[0]) {
         return knex('locations').insert({ name: locationName, lat_long })
