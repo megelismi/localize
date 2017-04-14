@@ -20,21 +20,21 @@ class SaveMap extends React.Component {
   
   saveUserLocationsToMap() {
     this.setState({ infoText: 'Yay! Your map locations have been updated!', textClass: 'save-map-text purple' });
-    this.props.localsMapLocations.forEach((location) => {
+    this.props.currentUserLocationsAndReviews.forEach((location) => {
       this.props.postActionCreators.saveMap(location);
     });
     this.props.syncActionCreators.locationsSavedModal();
   }
 
   render() {
-    const newLocations = this.props.localsMapLocations.filter(location => !location.saved);
+    const newLocations = this.props.currentUserLocationsAndReviews.filter(location => !location.saved);
     return (
       <div>
         <h5 className={this.state.textClass}><span className="save-map-span">
           {this.state.infoText}
         </span></h5>
         {
-          (newLocations.length === 0 || this.props.localsMapLocations.length > this.props.saveable.length) ?
+          (newLocations.length === 0 || this.props.currentUserLocationsAndReviews.length > this.props.saveable.length) ?
             <button
               onClick={this.setInfoText.bind(this)}
               className="no-click save-map-button"
@@ -47,7 +47,8 @@ class SaveMap extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  allLocationsAndDescriptions: state.allLocationsAndDescriptions
+  allLocationsAndDescriptions: state.allLocationsAndDescriptions, 
+  currentUserLocationsAndReviews: state.currentUserLocationsAndReviews
 });
 
 const mapDispatchToProps = (dispatch) => {

@@ -100,14 +100,9 @@ export const tutorialModal = () => ({
 });
 
 export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
-export const updateLocationInLocalsMap = (user_id = 3, name, lat_long, short = null, long = null, tag_array = null) => ({
+export const updateLocationInLocalsMap = (updatedReview) => ({
   type: UPDATE_LOCATION_IN_LOCALS_MAP,
-  user_id,
-  name,
-  lat_long,
-  short,
-  long,
-  tag_array
+  updatedReview
 });
 
 export const UPDATE_PROFILE_PICTURE_MODAL = 'UPDATE_PROFILE_PICTURE_MODAL';

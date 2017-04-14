@@ -15,7 +15,8 @@ const state = (state = {
   showUploadModal: false,
   tutorialModalOpen: false, 
   locationsSavedModalOpen: false, 
-  selectedLocation: null
+  selectedLocation: null, 
+  currentUserLocationsAndReviews: []
 }, action) => {
   switch (action.type) {
 
@@ -90,32 +91,51 @@ const state = (state = {
     return Object.assign({}, state, { localsMapLocations: action.locations });
 
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
-    const locationToUpdate = state.localsMapLocations.map((elem, idx) => {
-      if (elem.name === action.name) {
-        return idx;
-      }
-    }).filter((result) => result !== undefined);
-    const newLocations = state.localsMapLocations.slice(0, locationToUpdate[0]).concat(state.localsMapLocations.slice(locationToUpdate[0] + 1));
-    return Object.assign({}, state, { localsMapLocations: [...newLocations, {
-      user_id: action.user_id,
-      name: action.name,
-      lat_long: action.lat_long,
-      short_description: action.short,
-      long_description: action.long,
-      tag_array: action.tag_array,
-      show: 'yes'
-    }] }
-  );
+      const updatedReview = action.updatedReview;
+      const currentUserLocationsAndReviewsCopy = [...state.currentUserLocationsAndReviews];
+      console.log(currentUserLocationsAndReviewsCopy);
+      const updateReview = (updatedReview, currentUserLocationsAndReviews) => {
+        let reviewIdx; 
+        console.log('currentUserLocationsAndReviews', currentUserLocationsAndReviews);
+        currentUserLocationsAndReviews.forEach((review, idx) => {
+          console.log('got inside forEach, reviews:', review);
+          if (review.locationInfo.name === updatedReview.locationInfo.name) {
+            reviewIdx = idx; 
+          }
+        }); 
+        currentUserLocationsAndReviews[reviewIdx] = updatedReview; 
+        return currentUserLocationsAndReviews; 
+      };
+      const newCurrentUserLocationsAndReviews = updateReview(updatedReview, currentUserLocationsAndReviewsCopy); 
+    return Object.assign({}, state, { currentUserLocationsAndReviews: newCurrentUserLocationsAndReviews });
+
+    case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
+    return Object.assign({}, state,
+      { currentUserLocationsAndReviews: [{
+        id: 0,
+        user_id: action.user_id,
+        short_description: action.short,
+        long_description: action.long,
+        show: 'yes', 
+        saved: false,
+        locationInfo: {
+          id: 0,
+          name: action.feature.properties.name,
+          lat_long: action.lat_long,
+          city_id: 1,
+          tags: action.tag_array
+        }
+      }, ...state.currentUserLocationsAndReviews] });
 
     case sync_actions.UPDATE_LOCATION_IMAGE:
-    const locationWithPhoto = state.localsMapLocations.map((elem, idx) => {
-      if (elem.feature.properties.name === action.feature.properties.name) {
-        return idx;
-      }
-    }).filter((result) => result !== undefined);
-    const newLocationsWithPhoto = state.localsMapLocations.slice(0, locationWithPhoto[0]).concat(state.localsMapLocations.slice(locationWithPhoto[0] + 1));
-    return Object.assign({}, state, { localsMapLocations: [...newLocationsWithPhoto, { ...locationToUpdate[0], image: action.image }] }
-  );
+      const locationWithPhoto = state.localsMapLocations.map((elem, idx) => {
+        if (elem.feature.properties.name === action.feature.properties.name) {
+          return idx;
+        }
+      }).filter((result) => result !== undefined);
+      const newLocationsWithPhoto = state.localsMapLocations.slice(0, locationWithPhoto[0]).concat(state.localsMapLocations.slice(locationWithPhoto[0] + 1));
+      return Object.assign({}, state, { localsMapLocations: [...newLocationsWithPhoto, { ...locationToUpdate[0], image: action.image }] }
+    );
 
     case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
 

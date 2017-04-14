@@ -14,16 +14,14 @@ class EditLocationInfoModal extends Component {
 
   updateLocationInfo(e) {
     const tagArray = this.tagField.value.split(', ');
-    e.preventDefault();
+    e.preventDefault(); 
+    const reviewCopy = Object.assign({}, this.props.review); 
+    reviewCopy.short_description = this.shortDescription.value; 
+    reviewCopy.long_description = this.longDescription.value; 
+    reviewCopy.locationInfo.tags = tagArray; 
+    console.log('review copy', reviewCopy); 
     this.props.syncActionCreators.editLocationDetailModalFunction(false);
-    this.props.syncActionCreators.updateLocationInLocalsMap(
-      this.props.currentUser.id,
-      this.props.location.name,
-      this.props.location.lat_long,
-      this.shortDescription.value,
-      this.longDescription.value,
-      tagArray
-    );
+    this.props.syncActionCreators.updateLocationInLocalsMap(reviewCopy); 
   }
 
   deleteAndClose(review) {
