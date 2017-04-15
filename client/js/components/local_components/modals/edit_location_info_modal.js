@@ -13,23 +13,27 @@ class EditLocationInfoModal extends Component {
   }
 
   updateLocationInfo(e) {
-    const tagArray = this.tagField.value.split(', ');
     e.preventDefault();
+    const tagArray = this.tagField.value.split(', ').filter(tag => {
+      const validCharacters = /[a-z0-9]/gi; 
+      return validCharacters.test(tag);
+    }).map(tag => tag.trim()); 
+    const reviewCopy = Object.assign({}, this.props.review); 
+    reviewCopy.short_description = this.shortDescription.value; 
+    reviewCopy.long_description = this.longDescription.value; 
+    reviewCopy.locationInfo.tags = tagArray.length > 0 ? tagArray : null; 
     this.props.syncActionCreators.editLocationDetailModalFunction(false);
-    this.props.syncActionCreators.updateLocationInLocalsMap(
-      this.props.currentUser.id,
-      this.props.location.name,
-      this.props.location.lat_long,
-      this.shortDescription.value,
-      this.longDescription.value,
-      tagArray
-    );
+    this.props.syncActionCreators.updateLocationInLocalsMap(reviewCopy); 
   }
 
   deleteAndClose(review) {
-    this.props.deleteActionCreators.deleteReview(review.id).then(() => {
-      this.props.getActionCreators.getCurrentUserLocationsAndReviews(review.user_id);
-    });
+    if (!review.id) {
+      this.props.syncActionCreators.deleteReviewFromReduxStore(review);
+    } else {
+      this.props.deleteActionCreators.deleteReviewFromDatabase(review.id).then(() => {
+        this.props.getActionCreators.getCurrentUserLocationsAndReviews(review.user_id);
+      });
+    }
     this.props.syncActionCreators.editLocationDetailModalFunction(false);
   }
 

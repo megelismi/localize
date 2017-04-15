@@ -1,7 +1,6 @@
 import * as delete_result from './delete_result.js';
-import * as get_result from './get_result.js';
 
-export const deleteReview = reviewId => dispatch => {
+export const deleteReviewFromDatabase = reviewId => dispatch => {
 	return fetch(`/reviews/${reviewId}`, {
 		method: 'delete'
 	})

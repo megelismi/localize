@@ -28,7 +28,10 @@ const LocationDetailsDisplay = (props) => {
                   {review.user.first_name}
                 </button>
               </div>
-              <div className="selected-location-info">{review.long_description}</div>
+              <div className="selected-location-info">
+                <p className="bold">{review.short_description}</p>
+                <p>{review.long_description}</p>
+              </div>
             </div>
           );
         }) }

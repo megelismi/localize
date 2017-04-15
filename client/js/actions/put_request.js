@@ -14,7 +14,7 @@ export const updateUserDetails = (token, detail, userId) => dispatch => {
     }
     return res.json(); 
   }).then(res => {
-dispatch(put_result.updateUserDetailsSuccess(res));
+    dispatch(put_result.updateUserDetailsSuccess(res));
   }).catch(err => {
     dispatch(put_result.updateUserDetailsError(err));
   });

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Modal } from 'react-bootstrap';
 import request from 'superagent';
 import * as putActionCreators from '../../../actions/put_request.js';
-import * as actionCreators from '../../../actions/sync.js';
+import * as syncActionCreators from '../../../actions/sync.js';
 import ImageUpload from '../../image/image_upload';
 import resizeImage from '../../image/resize_image';
 
@@ -25,7 +25,7 @@ class UpdateProfilePicture extends React.Component {
       const userId = this.props.currentUser.id;
       this.props.dispatch(putActionCreators.updateUserDetails(token, detail, userId));
     }
-    this.props.dispatch(actionCreators.updateProfilePictureModal());
+    this.props.dispatch(syncActionCreators.updateProfilePictureModal());
   }
 
   handleImageUpload(file) {
@@ -53,7 +53,7 @@ class UpdateProfilePicture extends React.Component {
     return (
       <Modal
         show={updateProfilePictureModalOpen}
-        onHide={() => { this.props.dispatch(actionCreators.updateProfilePictureModal()); }}
+        onHide={() => { this.props.dispatch(syncActionCreators.updateProfilePictureModal()); }}
       >
         <Modal.Header closeButton>
           <Modal.Title>Update Profile Picture</Modal.Title>

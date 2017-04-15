@@ -97,17 +97,20 @@ table {
     border-spacing: 0;
 }
 
+.bold {
+  font-weight: 700;
+}
 .navbar {
   border-radius: 0 !important; 
 }
 
-@media only screen and (max-width: 1020px) {
+@media only screen and (max-width: 1120px) {
  .display-map {
     width: 60%;
  }
 
  .sidebar {
-    width: 34%;
+    width: 30%;
  }
 }
 
@@ -161,10 +164,6 @@ table {
       font-size: 16px;
       margin-left: 96px;
       margin-bottom: 5px;
-   }
-
-  .see-user-city {
-    margin-left: 90px;
    }
 
    .user-image {

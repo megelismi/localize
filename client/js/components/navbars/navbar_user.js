@@ -19,8 +19,8 @@ class NavbarUser extends React.Component {
         </Navbar.Header>
         <Navbar.Collapse>
         <Nav pullRight>
-          <NavItem className="user-navbar-link" onClick={() => { hashHistory.push('/account'); }}>Your Profile</NavItem>
-          <NavItem className="user-navbar-link" href="#" onClick={() => { hashHistory.push(`/newmap/${currentUser.id}`); }}>Create Map</NavItem>
+          <NavItem className="user-navbar-link" onClick={() => { hashHistory.push('/account'); }}>My Profile</NavItem>
+          <NavItem className="user-navbar-link" href="#" onClick={() => { hashHistory.push(`/newmap/${currentUser.id}`); }}>My Map</NavItem>
           <NavItem className="user-navbar-link" href="#" onClick={() => { this.props.dispatch(postActionCreators.logOut(this.props.currentUser.token)); }}>Log Out</NavItem>
           <NavItem className="user-navbar-link" onClick={() => { this.props.dispatch(syncActionCreators.tutorialModal()); }}>Help</NavItem>
         </Nav>
