@@ -4,13 +4,14 @@ import SelectedResults from './selected_results';
 import SaveMap from './save_map';
 
 const NewMapSidebar = (props) => {
-  const saveable = props.currentUserLocationsAndReviews.filter((location) => {
+  const saveable = props.currentUserLocationsAndReviews.filter(review => {
     return (
-      location.short_description &&
-      location.long_description
+      review.short_description && 
+      review.long_description && 
+      review.locationInfo.tags &&
+      !review.saved
     );
-  });
-
+  }); 
   return (
     <div className="sidebar">
       <SaveMap currentUserLocationsAndReviews={props.currentUserLocationsAndReviews} saveable={saveable} />

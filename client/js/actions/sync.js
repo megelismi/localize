@@ -21,10 +21,10 @@ export const clearAllAppliedTags = () => ({
   type: CLEAR_ALL_APPLIED_TAGS
 });
 
-export const DELETE_LOCATION_FROM_LOCALS_MAP = 'DELETE_LOCATION_FROM_LOCALS_MAP';
-export const deleteLocationFromLocalsMap = location => ({
-  type: DELETE_LOCATION_FROM_LOCALS_MAP,
-  location
+export const DELETE_REVIEW_FROM_REDUX_STORE = 'DELETE_REVIEW_FROM_REDUX_STORE';
+export const deleteReviewFromReduxStore = review => ({
+  type: DELETE_REVIEW_FROM_REDUX_STORE,
+  review
 });
 
 export const DESELECT_TAG = 'DESELECT_TAG'; 
@@ -100,9 +100,9 @@ export const tutorialModal = () => ({
 });
 
 export const UPDATE_LOCATION_IN_LOCALS_MAP = 'UPDATE_LOCATION_IN_LOCALS_MAP';
-export const updateLocationInLocalsMap = (updatedReview) => ({
+export const updateLocationInLocalsMap = (review) => ({
   type: UPDATE_LOCATION_IN_LOCALS_MAP,
-  updatedReview
+  review
 });
 
 export const UPDATE_PROFILE_PICTURE_MODAL = 'UPDATE_PROFILE_PICTURE_MODAL';

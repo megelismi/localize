@@ -15,28 +15,25 @@ class SaveMap extends React.Component {
   }
 
   setInfoText() {
-    this.setState({ infoText: "Whoops — looks like you haven't added descriptions to all of your pinned locations." });
+    this.setState({ infoText: "Whoops — looks like you haven't added descriptions and tags to all of your pinned locations or you have no new locations to publish." });
   }
   
   saveUserLocationsToMap() {
     this.setState({ infoText: 'Yay! Your map locations have been updated!', textClass: 'save-map-text purple' });
-    this.props.currentUserLocationsAndReviews.forEach((review) => {
-      if (!review.saved) {
-        this.props.postActionCreators.saveMap(review);
-      }
+    this.props.saveable.forEach((review) => {
+      this.props.postActionCreators.saveMap(review);
     });
     this.props.syncActionCreators.locationsSavedModal();
   }
 
   render() {
-    const newLocations = this.props.currentUserLocationsAndReviews.filter(location => !location.saved);
     return (
       <div>
         <h5 className={this.state.textClass}><span className="save-map-span">
           {this.state.infoText}
         </span></h5>
         {
-          (newLocations.length === 0 || this.props.currentUserLocationsAndReviews.length > this.props.saveable.length) ?
+          !this.props.saveable.length ?
             <button
               onClick={this.setInfoText.bind(this)}
               className="no-click save-map-button"

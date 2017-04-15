@@ -82,9 +82,10 @@ const state = (state = {
     return Object.assign({}, state, { localsMapLocations: action.locations });
 
     case sync_actions.UPDATE_LOCATION_IN_LOCALS_MAP:
-      const updatedReview = action.updatedReview;
+      let review = action.review;
       const currentUserLocationsAndReviewsCopy = [...state.currentUserLocationsAndReviews];
-      const newCurrentUserLocationsAndReviews = reviewHandlers.updateReviewInReduxStore(updatedReview, currentUserLocationsAndReviewsCopy); 
+      review = reviewHandlers.updateOrCreate(review, currentUserLocationsAndReviewsCopy);
+      const newCurrentUserLocationsAndReviews = reviewHandlers.updateReviewInReduxStore(review, currentUserLocationsAndReviewsCopy); 
     return Object.assign({}, state, { currentUserLocationsAndReviews: newCurrentUserLocationsAndReviews });
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
@@ -93,7 +94,6 @@ const state = (state = {
         user_id: action.user_id,
         short_description: action.short,
         long_description: action.long,
-        show: 'yes', 
         saved: false,
         locationInfo: {
           name: action.feature.properties.name,
@@ -103,33 +103,9 @@ const state = (state = {
         }
       }, ...state.currentUserLocationsAndReviews] });
 
-    // case sync_actions.UPDATE_LOCATION_IMAGE:
-    //   const locationWithPhoto = state.localsMapLocations.map((elem, idx) => {
-    //     if (elem.feature.properties.name === action.feature.properties.name) {
-    //       return idx;
-    //     }
-    //   }).filter((result) => result !== undefined);
-    //   const newLocationsWithPhoto = state.localsMapLocations.slice(0, locationWithPhoto[0]).concat(state.localsMapLocations.slice(locationWithPhoto[0] + 1));
-    //   return Object.assign({}, state, { localsMapLocations: [...newLocationsWithPhoto, { ...locationToUpdate[0], image: action.image }] }
-    // );
-
-    // case sync_actions.DELETE_LOCATION_FROM_LOCALS_MAP:
-    // let deleteLocationAt; 
-    // let deleteLocation;
-    // state.localsMapLocations.map((elem, idx) => {
-    //   if (elem.name === action.location.name) {
-    //     deleteLocation = elem;
-    //     deleteLocationAt = idx;
-    //   }
-    // }).filter((result) => result !== undefined);
-
-    // const newLocalsObject = Object.assign({}, deleteLocation, { show: 'no', saved: false });
-
-    // console.log('DELETE LOCATION AT NEW OBJECT', newLocalsObject, 'DELETE LOCATION AT INDEX', deleteLocationAt);
-
-    // const newDeleteLocations = state.localsMapLocations.slice(0, deleteLocationAt).concat(state.localsMapLocations.slice(deleteLocationAt + 1));
-
-    // return Object.assign({}, state, { localsMapLocations: [...newDeleteLocations, newLocalsObject] });
+    case sync_actions.DELETE_REVIEW_FROM_REDUX_STORE: 
+      const updatedLocationsAndReviews = reviewHandlers.deleteReviewFromReduxStore(action.review, [...state.currentUserLocationsAndReviews]);
+      return Object.assign({}, state, { currentUserLocationsAndReviews: updatedLocationsAndReviews });
 
     case sync_actions.ADD_LOCATION_TO_LOCALS_MAP:
     return Object.assign({}, state,
