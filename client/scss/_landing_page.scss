@@ -47,30 +47,27 @@
 	width: 50px; 
 }
 
-@media screen and (max-width: 320px) {
-
-}
-
 @media screen and (max-width: 460px) {
+
 	.landingpage-container {
 		flex-direction: column;
 		min-height: auto; 
 	}
 
 	.landingpage-details-container {
+		top: 210px !important;
 		h2 {
-			font-size: 18px !important;   
+			font-size: 16px !important;   
 		}
 	}
 
 	.welcome-header {
-		font-size: 48px;
+		font-size: 48px !important;
 	}
 
 	.homepage-scroll-container {
 		top: 400px !important; 
 	}
-
 }
 
 @media screen and (max-width: 768px) {
@@ -79,14 +76,14 @@
 	}
 
 	.landingpage-details-container {
-		top: 125px; 
+		top: 250px !important; 
 		h2 {
 			font-size: 22px;  
 		}
 	}
     
   .homepage-scroll-container {
-    top: 300px; 
+    top: 550px !important; 
   }
 
   .homepage-scroll-arrow {
