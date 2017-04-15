@@ -6,7 +6,7 @@ import * as postActionCreators from '../../actions/post_request.js';
 import * as syncActionCreators from '../../actions/sync.js';
 import Map from '../visitor_components/map_view/map';
 import SidebarContainer from '../visitor_components/map_view_sidebar/sidebar_container';
-import NavbarUser from '../navbars/navbar_user';
+import NavbarApp from '../navbars/navbar_app';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
 import Tutorial from '../tutorial_modal/tutorial';
@@ -21,7 +21,7 @@ class MapDisplay extends React.Component {
   render() {
     return (
       <div>
-        {this.props.currentUser ? <NavbarUser /> : null}
+        <NavbarApp />
         {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
         {this.props.tutorialModalOpen ? <Tutorial /> : null}
         <Map />

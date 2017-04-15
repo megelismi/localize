@@ -9,21 +9,21 @@ $darkpurple: #4062BB;
   z-index: 999; 
 }
 
-.no-user-navbar, .user-navbar {
+.navbar-homepage, .user-navbar {
   border: none !important;
+}
+
+.navbar-homepage {
+  background-color: transparent !important; 
+}
+
+nav.navbar-app {
+  border-bottom: 1px solid $border-color !important; 
+  margin-bottom: 20px !important; 
   background-color: white !important; 
 }
 
-nav.user-navbar {
-  border-bottom: 1px solid $border-color !important; 
-  margin-bottom: 20px !important; 
-}
-
-.no-user-navbar {
-  border-bottom: 3px solid $border-color !important; 
-}
-
-.user-navbar-link {
+.navbar-app-link {
   a {
     color: $darkpurple !important;
     font-size: 16px !important;
@@ -66,12 +66,12 @@ nav.user-navbar {
   background-color: $accent-color !important;
 }
 
-.right-link {
+.right-link{
   font-size: 16px !important;
   a {
-     color: $darkpurple !important;
+     color: white !important;
      &:hover {
-        color: $purple !important;
+        opacity: 0.8; 
      }
      &:focus {
         outline: none;

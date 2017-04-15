@@ -4,12 +4,12 @@ import { connect } from 'react-redux';
 import { Sticky } from 'react-sticky';
 import * as syncActionCreators from '../../actions/sync.js';
 
-class NavbarNoUser extends React.Component {
+class NavbarHomePage extends React.Component {
 
   render() {
     return (
       <Sticky>
-        <Navbar className="no-user-navbar" collapseOnSelect>
+        <Navbar className="navbar-homepage" collapseOnSelect>
           <Navbar.Header>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -27,4 +27,4 @@ class NavbarNoUser extends React.Component {
 
 const mapStateToProps = () => ({});
 
-export default connect(mapStateToProps)(NavbarNoUser);
+export default connect(mapStateToProps)(NavbarHomePage);

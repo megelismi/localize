@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import NewMap from '../local_components/new_map/new_map';
 import NewMapSidebar from '../local_components/new_map_sidebar/new_map_sidebar';
-import NavbarUser from '../navbars/navbar_user';
+import NavbarApp from '../navbars/navbar_app';
 import * as getActionCreators from '../../actions/get_request.js';
 import * as syncActionCreators from '../../actions/sync.js';
 import Tutorial from '../tutorial_modal/tutorial';
@@ -18,7 +18,7 @@ class NewMapDisplay extends React.Component {
   render() {
     return (
       <div>
-        <NavbarUser />
+        <NavbarApp />
         {this.props.tutorialModalOpen ? <Tutorial /> : null}
         {this.props.locationsSavedModalOpen ? <LocationsSaved /> : null}
         <NewMap />

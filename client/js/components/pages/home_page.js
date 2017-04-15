@@ -2,7 +2,6 @@ import React from 'react';
 import { StickyContainer } from 'react-sticky';
 import { connect } from 'react-redux';
 import LandingPage from './landing_page'; 
-import MapsPage from './map_display'; 
 import About from '../about/about-display';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin'; 
@@ -14,7 +13,6 @@ class HomePage extends React.Component {
 				{this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
 				<LandingPage />
 				<About />
-				<MapsPage />
 			</StickyContainer>
 		);
 	}
@@ -28,4 +26,6 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(HomePage);
+
+
 

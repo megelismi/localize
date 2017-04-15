@@ -78,6 +78,7 @@
     "browserify-shim": {
       "tangram": "global:Tangram"
     },
+    "chai": "^3.5.0",
     "chokidar-cli": "^1.2.0",
     "clean-css": "^3.4.19",
     "eslint-config-rallycoding": "^3.2.0",
