@@ -37,6 +37,18 @@ const knex = require('knex')({
 app.use(express.static(process.env.CLIENT_PATH));
 app.use(bodyParser.json());
 
+passport.use(new Strategy(
+  (token, callback) => knex('users').where('token', token)
+  .then((user) => {
+    if (!user) { return callback(null, false); }
+    return callback(null, user);
+    })
+  .catch((err) => {
+    console.log(err);
+    return callback(err);
+  })
+));
+
 //keep users logged in
 
 app.get('/find/cookie/:token', (req, res) => {
@@ -163,18 +175,6 @@ app.post('/map', (req, res) => {
       });
     return res.sendStatus(201);
 });
-
-passport.use(new Strategy(
-  (token, callback) => knex('users').where('token', token)
-  .then((user) => {
-    if (!user) { return callback(null, false); }
-    return callback(null, user);
-    })
-  .catch((err) => {
-    console.log(err);
-    return callback(err);
-  })
-));
 
 //sign in existing users
 

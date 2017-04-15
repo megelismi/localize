@@ -38,6 +38,12 @@ export const deselectUser = () => ({
   type: DESELECT_USER
 });
 
+export const EDIT_LOCATION_DETAIL_MODAL = 'EDIT_LOCATION_DETAIL_MODAL';
+export const editLocationDetailModalFunction = boolean => ({
+  type: EDIT_LOCATION_DETAIL_MODAL,
+  boolean
+});
+
 export const FILTER_LOCATIONS_BY_TAGS = 'FILTER_LOCATIONS_BY_TAGS'; 
 export const filterLocationsByTags = filteredLocations => ({
   type: FILTER_LOCATIONS_BY_TAGS, 
@@ -70,12 +76,6 @@ export const SELECT_USER = 'SELECT_USER';
 export const selectUser = user => ({
   type: SELECT_USER,
   user
-});
-
-export const EDIT_LOCATION_DETAIL_MODAL = 'EDIT_LOCATION_DETAIL_MODAL';
-export const editLocationDetailModalFunction = boolean => ({
-  type: EDIT_LOCATION_DETAIL_MODAL,
-  boolean
 });
 
 export const SHOW_UPLOAD_MODAL_FUNCTION = 'SHOW_UPLOAD_MODAL_FUNCTION';
@@ -116,7 +116,7 @@ export const updateUserDetailsModal = () => ({
 });
 
 export const filterLocations = (locationIds, actionType) => (dispatch, getState) => {
-  const allLocations = getState().locations; 
+  const allLocations = [...getState().locations]; 
   const filteredLocations = allLocations.filter(location => {
     if (locationIds.indexOf(location.id) !== -1) {
       return location; 
@@ -129,7 +129,7 @@ export const filterLocations = (locationIds, actionType) => (dispatch, getState)
 };
 
 export const removeSelectedTag = (tagId) => (dispatch, getState) => {
-  const selectedTags = getState().selectedTags; 
+  const selectedTags = [...getState().selectedTags]; 
   const index = selectedTags.indexOf(tagId); 
   selectedTags.splice(index, 1); 
   dispatch({
