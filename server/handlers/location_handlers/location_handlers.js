@@ -1,3 +1,11 @@
+
+export const convertLatLongToArray = latLong => {
+  if (Array.isArray(latLong)) {
+    return latLong; 
+  } 
+  return [latLong.lat, latLong.lng]; 
+};
+
 export const mergeLocationsAndReviews = (reviews, locations) => {
   const locationIdxs = {}; 
   locations.forEach((location, idx) => {
@@ -26,12 +34,5 @@ export const mergeLocationsAndTags = (locations, tags) => {
     }
   });
   return locations; 
-};
-
-export const convertLatLongToArray = latLong => {
-  if (Array.isArray(latLong)) {
-    return latLong; 
-  } 
-  return [latLong.lat, latLong.lng]; 
 };
 
