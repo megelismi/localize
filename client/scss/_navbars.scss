@@ -1,0 +1,94 @@
+$app-font: 'stokedregular';
+$border-color: lightgray;
+$accent-color: #4ddcb1;
+$charcoal: #2D2D2D;
+$purple: #748CCD;
+$darkpurple: #4062BB;
+
+.sticky {
+  z-index: 999; 
+}
+
+.navbar-homepage, .user-navbar {
+  border: none !important;
+}
+
+.navbar-homepage {
+  background-color: transparent !important; 
+}
+
+nav.navbar-app {
+  border-bottom: 1px solid $border-color !important; 
+  margin-bottom: 20px !important; 
+  background-color: white !important; 
+}
+
+.navbar-app-link {
+  a {
+    color: $darkpurple !important;
+    font-size: 16px !important;
+    &:hover {
+      opacity: 0.8 !important;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
+.navbar {
+  margin-bottom: 0 !important;
+}
+
+.app-name {
+  cursor: pointer; 
+  margin-left: -10px !important;
+}
+
+.navbar-brand {
+  font-family: $app-font;
+  color: $accent-color !important;
+  font-size: 32px !important;
+  padding: 15px 5px !important;
+  position: relative; 
+}
+
+.navbar-toggle {
+  background-color: white !important;
+  border-color: $accent-color !important;
+}
+
+.navbar-collapse {
+  border-color: $border-color !important;
+}
+
+.icon-bar {
+  background-color: $accent-color !important;
+}
+
+.right-link{
+  font-size: 16px !important;
+  a {
+     color: white !important;
+     &:hover {
+        opacity: 0.8; 
+     }
+     &:focus {
+        outline: none;
+     }
+  }
+}
+
+.container {
+  width: 98% !important; 
+}
+
+.logo {
+  width: 28px;
+}
+
+.logo-container {
+  position: absolute;
+  top: 9px; 
+  left: 180px; 
+}

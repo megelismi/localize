@@ -1,12 +1,11 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { MapControl } from 'react-leaflet';
 import * as syncActionCreators from '../../../actions/sync.js';
 
 class PlacesSearch extends MapControl {
-  constructor() {
-    super();
-    this.state = { content: '' }
+  constructor(props) {
+    super(props);
+    this.state = { content: '' };
   }
 
   componentWillMount(props) {

@@ -2,52 +2,52 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as getActionCreators from '../../actions/get_request.js';
+import * as postActionCreators from '../../actions/post_request.js';
 import * as syncActionCreators from '../../actions/sync.js';
 import Map from '../visitor_components/map_view/map';
 import SidebarContainer from '../visitor_components/map_view_sidebar/sidebar_container';
-import Header from '../partials/header';
-import Footer from '../partials/footer';
+import NavbarApp from '../navbars/navbar_app';
 import SignUpForm from '../auth/signup';
 import SignInForm from '../auth/signin';
 import Tutorial from '../tutorial_modal/tutorial';
-import FollowUpModal from '../auth/signup_followup';
 
 class MapDisplay extends React.Component {
 
-  componentDidMount() {
-    this.props.getActionCreators.getSelectedUsers();
-    this.props.getActionCreators.getLocationsAndDescriptions();
+  componentWillMount() {
+    this.props.getActionCreators.getUsersWithReviews();
+    this.props.getActionCreators.getAllLocationsForCity();
   }
 
   render() {
-
     return (
       <div>
-        <Header />
+        <NavbarApp />
         {this.props.signUpModalOpen ? <SignUpForm /> : <SignInForm />}
         {this.props.tutorialModalOpen ? <Tutorial /> : null}
         <Map />
-        <SidebarContainer locals={true} oneLocal={false}/>
-        <Footer openTutorial={() => {this.props.syncActionCreators.tutorialModal()}}/>
+        <SidebarContainer locals oneLocal={false} />
       </div>
-    )
+    );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
+    currentUser: state.currentUser,
     signUpModalOpen: state.signUpModalOpen,
     signInModalOpen: state.signInModalOpen,
     tutorialModalOpen: state.tutorialModalOpen,
-    followUpModalOpen: state.followUpModalOpen
-  }
+    followUpModalOpen: state.followUpModalOpen, 
+    filteredLocations: state.filteredLocations
+  };
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = dispatch => {
   return {
     getActionCreators: bindActionCreators(getActionCreators, dispatch),
+    postActionCreators: bindActionCreators(postActionCreators, dispatch),
     syncActionCreators: bindActionCreators(syncActionCreators, dispatch)
-  }
-}
+  };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapDisplay);

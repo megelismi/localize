@@ -1,46 +1,54 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as syncActionCreators from '../../../actions/sync.js';
+import { bindActionCreators } from 'redux';
 import { Modal } from 'react-bootstrap';
+import * as syncActionCreators from '../../../actions/sync.js';
+import * as deleteActionCreators from '../../../actions/delete_request.js';
+import * as getActionCreators from '../../../actions/get_request.js';
 
 class EditLocationInfoModal extends Component {
   constructor() {
     super();
-    this.deleteAndClose = this.deleteAndClose.bind(this)
+    this.deleteAndClose = this.deleteAndClose.bind(this);
   }
 
   updateLocationInfo(e) {
-    let tagArray = this.tagField.value.split(', ');
     e.preventDefault();
-    this.props.showModalFunction(false);
-    this.props.updateLocationInLocalsMap(
-      this.props.currentUser.id,
-      this.props.location.name,
-      this.props.location.lat_long,
-      this.shortDescription.value,
-      this.longDescription.value,
-      tagArray
-    );
+    const tagArray = this.tagField.value.split(', ').filter(tag => {
+      const validCharacters = /[a-z0-9]/gi; 
+      return validCharacters.test(tag);
+    }).map(tag => tag.trim()); 
+    const reviewCopy = Object.assign({}, this.props.review); 
+    reviewCopy.short_description = this.shortDescription.value; 
+    reviewCopy.long_description = this.longDescription.value; 
+    reviewCopy.locationInfo.tags = tagArray.length > 0 ? tagArray : null; 
+    this.props.syncActionCreators.editLocationDetailModalFunction(false);
+    this.props.syncActionCreators.updateLocationInLocalsMap(reviewCopy); 
   }
 
-  deleteAndClose(location) {
-    console.log('location to be deleted', location);
-    this.props.deleteLocationFromLocalsMap(location);
-    this.props.showModalFunction(false);
+  deleteAndClose(review) {
+    if (!review.id) {
+      this.props.syncActionCreators.deleteReviewFromReduxStore(review);
+    } else {
+      this.props.deleteActionCreators.deleteReviewFromDatabase(review.id).then(() => {
+        this.props.getActionCreators.getCurrentUserLocationsAndReviews(review.user_id);
+      });
+    }
+    this.props.syncActionCreators.editLocationDetailModalFunction(false);
   }
 
   render() {
-    const { showModal, showModalFunction, location } = this.props;
-    if (location) {
+    const { editLocationDetailModal, review } = this.props;
+    if (review) {
       return (
         <div className="new-location-modal">
-          <Modal show={showModal} onHide={() => {showModalFunction(false)}}>
+          <Modal show={editLocationDetailModal} onHide={() => { this.props.syncActionCreators.editLocationDetailModalFunction(false); }}>
             <div className="modal-container">
               <Modal.Header className="add-location-modal-header" closeButton>
-              	<Modal.Title>{location.name}</Modal.Title>
-            	</Modal.Header>
+                <Modal.Title>{review.name}</Modal.Title>
+              </Modal.Header>
             </div>
-         		<Modal.Body>
+            <Modal.Body>
               <form onSubmit={this.updateLocationInfo.bind(this)}>
                 <h4 className="info-text">{'Describe this location in a few words.'}</h4>
                 <input
@@ -48,48 +56,68 @@ class EditLocationInfoModal extends Component {
                   type="text"
                   name="shortDescription"
                   placeholder="e.g. Brunch spot with amazing eggs benedict!"
-                  defaultValue={location.short_description || ''}
-                  ref={input => this.shortDescription = input} />
+                  defaultValue={review.short_description || ''}
+                  ref={input => {
+                    this.shortDescription = input; 
+                    return this.shortDescription; 
+                  }}
+                />
                 <h4 className="info-text">{'Now, tell us more — what draws you to this place? When is the best time to go? What should someone see, try, or do at this place?'}</h4>
                 <textarea
                   className="long-description"
                   type="text"
                   name="longDescription"
                   placeholder="e.g. I've been going to this whole-in-the wall for Sunday brunch for years now — the eggs benedict and Bloody Marys are just too good to pass up. In the summer, ask to be seated in the fantastic patio out back. Be forewared, it's a little pricey (think $20 entrees), but if you have the cash, it's worth it."
-                  defaultValue={location.long_description || ''}
-                  ref={input => this.longDescription = input} />
+                  defaultValue={review.long_description || ''}
+                  ref={input => {
+                    this.longDescription = input; 
+                    return this.longDescription; 
+                  }}
+                />
                 <h4 className="info-text">{'Enter tags, separated by commas.'}</h4>
                 <input
                   className="tag-field"
                   type="text"
                   name="tagField"
                   placeholder="e.g. restaurant, independantly owned, brunch"
-                  defaultValue={location.tag_array ? location.tag_array.join(', ') : ''}
-                  ref={input => this.tagField = input} />
+                  defaultValue={review.locationInfo.tags ? review.locationInfo.tags.join(', ') : ''}
+                  ref={input => {
+                    this.tagField = input; 
+                    return this.tagField; 
+                  }}
+                />
                 <button className="accent-button new-location-details-save" type="submit">{
-                    location.short_description || location.long_description || location.tag_array ? 'Update' : 'Save'
+                    review.short_description || review.long_description || review.locationInfo.tags ? 'Update' : 'Save'
                   }</button>
-                <i onClick={() => {this.deleteAndClose(location)}}
+                <i 
+                  onClick={() => { this.deleteAndClose(review); }}
                   className="fa fa-trash location-text-icon fa-2x"
-                  aria-hidden="true"></i>
+                  aria-hidden="true"
+                />
               </form>
-         		</Modal.Body>
+              </Modal.Body>
             <div className="modal-container">
-              <Modal.Footer></Modal.Footer>
+              <Modal.Footer />
             </div>
-      		</Modal>
+          </Modal>
         </div>
-      )
-    } else {
-      return <div></div>
-    }
+      );
+    } 
+      return <div />;
   }
 }
 
-//new-location-details-save
-
 const mapStateToProps = (state) => ({
-  showModal: state.showModal
+  editLocationDetailModal: state.editLocationDetailModal
 });
 
-export default connect(mapStateToProps, syncActionCreators)(EditLocationInfoModal);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    syncActionCreators: bindActionCreators(syncActionCreators, dispatch), 
+    deleteActionCreators: bindActionCreators(deleteActionCreators, dispatch), 
+    getActionCreators: bindActionCreators(getActionCreators, dispatch)
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(EditLocationInfoModal);

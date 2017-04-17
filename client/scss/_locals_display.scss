@@ -15,8 +15,6 @@
 }
 
 .user-name {
-  font-weight: bold; 
-  font-size: 16px !important; 
   color: $charcoal;
   margin-left: 86px; 
 }
@@ -33,6 +31,8 @@
   border: none;
   outline: none; 
   background-color: white;
+  font-weight: bold;
+  font-size: 16px;
   color: $purple; 
   &:hover {
     color: $darkpurple; 

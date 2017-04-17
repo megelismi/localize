@@ -2,21 +2,23 @@ import React from 'react';
 import { LayerGroup, Marker, Popup } from 'react-leaflet';
 
 const MarkerLayer = (props) => {
-  console.log('MarkerLayer', props);
+  if (!props.selectedResults) {
+    return <div />;
+  }
   return (
     <LayerGroup>{
-        props.selectedResults.map((location, index) => {
-          return <Marker position={[location.lat_long.lat || location.lat_long[0], location.lat_long.lng || location.lat_long[1]]} key={index}>
+        props.selectedResults.map((review, index) => {
+          return (<Marker position={[review.locationInfo.lat_long.lat || review.locationInfo.lat_long[0], review.locationInfo.lat_long.lng || review.locationInfo.lat_long[1]]} key={index}>
             <Popup>
               <span className="popup-info">
-                <p className="location-name">{location.name}</p>
+                <p className="location-name">{review.locationInfo.name}</p>
               </span>
             </Popup>
-          </Marker>
+          </Marker>);
         })
       }
     </LayerGroup>
-  )
-}
+  );
+};
 
 export default MarkerLayer;

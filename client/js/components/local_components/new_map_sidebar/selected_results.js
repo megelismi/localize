@@ -7,55 +7,64 @@ import UploadLocationPhotoModal from '../modals/upload_location_photo_modal';
 class SelectedResults extends Component {
   constructor() {
     super();
-    this.state = { selected: null }
+    this.state = { selected: null };
   }
 
   editLocationInfo(location) {
     this.setState({ selected: location });
-    this.props.showModalFunction(true);
+    this.props.editLocationDetailModalFunction(true);
   }
 
   render() {
-    console.log('SelectedResults', this.props.results)
+    if (this.props.results === undefined) {
+      return (
+        <div />
+      );
+    }
     return (
       <div className="bordered">
-          {this.props.results.map((location, idx) => {
-            let { short_description, long_description, tag_array, image } = location;
-            let progressMarker, complete;
-            if (location.saved) {
-              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true"></i>
-              complete = "location-text saved-location"
-            } else if (short_description && long_description && tag_array) {
-              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true"></i>
-              complete = "location-text complete"
+          {this.props.results.map((review, idx) => {
+            const { short_description, long_description } = review;
+            let progressMarker; 
+            let complete;
+            if (review.saved) {
+              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
+              complete = 'location-text saved-location';
+            } else if (short_description && long_description && review.locationInfo.tags) {
+              progressMarker = <i className="fa fa-check location-text-element fa-lg" aria-hidden="true" />;
+              complete = 'location-text complete';
             } else {
               progressMarker = null;
-              complete = "location-text"
+              complete = 'location-text';
             }
 
             return (
               <ul className="location-listing" key={idx}>
                 <li className={complete}>
+                  <h5 className="location-text-element">{review.locationInfo.name}</h5><br / >
                   {progressMarker}
-                  <h5 className="location-text-element">{location.name}</h5>
-                  <i onClick={() => {this.editLocationInfo(location)}}
+                  <i
+                    onClick={() => { this.editLocationInfo(review); }}
                     className="fa fa-pencil location-text-icon fa-lg"
-                    aria-hidden="true"></i>
+                    aria-hidden="true"
+                  />
                 </li>
               </ul>
-            )
+            );
           })}
           <EditLocationInfoModal
             currentUser={this.props.currentUser}
-            location={this.state.selected}
+            review={this.state.selected}
             updateLocationInLocalsMap={this.props.updateLocationInLocalsMap}
-            showModalFunction={this.props.showModalFunction} />
+            editLocationDetailModal={this.props.editLocationDetailModalFunction}
+          />
           <UploadLocationPhotoModal
             location={this.state.selected}
             updateLocationInLocalsMap={this.props.updateLocationInLocalsMap}
-            showUploadModalFunction={this.props.showUploadModalFunction} />
+            showUploadModalFunction={this.props.showUploadModalFunction}
+          />
       </div>
-    )
+    );
   }
 }
 

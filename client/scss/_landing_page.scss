@@ -1,128 +1,93 @@
 .landingpage-container {
-	height: 100%;
-	width: 100%;
+	height: 100vh;  
+	min-height: 800px;    
 	position: relative;
+	background: 
+		linear-gradient(
+      rgba(0, 0, 0, 0.5),
+      rgba(0, 0, 0, 0.5)
+    ),
+    url('../assets/images/city.jpg'),
+    no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: 50% 50%;
 }
 
 .landingpage-details-container {
-	position: absolute;
-	margin: 0 auto;
-	left: 0;
-	right: 0;
-	top: 150px;
+	color: white;
+	text-align: center;
+	position: absolute; 
+	top: 225px; 
+	left: 0; 
+	right: 0; 
+	h2 {
+		font-weight: 300; 
+	}
 }
 
 .welcome-header {
 	font-family: $app-font;
 	color: white;
-	text-align: center;
+	font-size: 72px; 
 }
 
-.enter-app-button {
-	display: block;
-	margin: 0 auto;
-  display: block;
-  background-color: transparent;
-  border: 3px solid $accent-color;
-  border-radius: 2px;
-  color: white;
-  font-size: 16px;
-  padding: 10px;
-  background-color: rgba(77,220,177,0.3);
-  &:hover {
-  	opacity: 0.8;
-  }
+.homepage-scroll-container {
+	position: absolute;
+	width: 100px;  
+	top: 550px; 
+	left: 50%;  
+	margin-left: -50px;
+	text-align: center; 
 }
 
-.landing-header {
-	background-color: transparent !important;
-	border: none !important;
-	span {
-		color: white !important;
+.homepage-scroll-arrow {
+	width: 50px; 
+}
+
+@media screen and (max-width: 460px) {
+
+	.landingpage-container {
+		flex-direction: column;
+		min-height: auto; 
 	}
-}
 
-.landing-header-links {
-	a {
-		color: white !important;
-		&:hover {
-			opacity: 0.8 !important;
+	.landingpage-details-container {
+		top: 210px !important;
+		h2 {
+			font-size: 16px !important;   
 		}
-	 	&:focus {
-      outline: none;
-   	}
+	}
+
+	.welcome-header {
+		font-size: 48px !important;
+	}
+
+	.homepage-scroll-container {
+		top: 400px !important; 
 	}
 }
 
-.landing-page-header-toggle {
-	background-color:transparent !important;
-	border-color: white !important;
-	span {
-		background-color: white !important;
-	}
-}
-
-.landing-page-header-toggle.icon-bar {
-	background-color: white !important;
-}
-
-.app-description-landing {
-  color: white !important;
-  text-align: center;
-  margin-top: 15px;
-  margin-bottom: 20px;
-  max-width: 650px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: rgba(77,220,177,0.2);
-  padding: 15px;
-  border-radius: 10px;
-}
-
-.emphasis {
-  font-size: 1.5em;
-  font-weight: bold;
-}
-
-.right-link-header {
-	a {
-		color: white !important;
-		font-size: 16px !important;
-	}
-}
-
-.nav-text-header {
-	color: white !important;
-}
-
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
 	.welcome-header {
 		font-size: 60px;
 	}
 
-	.landing-header-links {
-		a {
-			font-size: 16px;
+	.landingpage-details-container {
+		top: 250px !important; 
+		h2 {
+			font-size: 22px;  
 		}
 	}
+    
+  .homepage-scroll-container {
+    top: 550px !important; 
+  }
 
-	.app-description-landing {
-		font-size: 25px;
-	}
-
-	.enter-app-button {
-		font-size: 30px;
-	}
-
+  .homepage-scroll-arrow {
+    width: 30px; 
+  }
 }
 
-@media screen and (min-width: 1200px) {
-
-	.welcome-header {
-		font-size: 72px;
-	}
-
-	.enter-app-button {
-		border: 4px solid $accent-color;
-	}
-}

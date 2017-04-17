@@ -1,5 +1,5 @@
 @import 'map';
-@import 'partials';
+@import 'navbars';
 @import 'sidebar';
 @import 'locals_display';
 @import 'tags_display';
@@ -12,6 +12,7 @@
 @import 'landing_page';
 @import 'new_map';
 @import 'tutorial';
+@import 'about'; 
 
 @font-face {
     font-family: 'stokedregular';
@@ -22,6 +23,12 @@
 }
 
 $base-font: 'Lato', sans-serif;
+$app-font: 'stokedregular';
+$border-color: lightgray;
+$accent-color: #4ddcb1;
+$charcoal: #2D2D2D;
+$purple: #748CCD;
+$darkpurple: #4062BB;
 
 * {
   box-sizing: border-box;
@@ -90,15 +97,20 @@ table {
     border-spacing: 0;
 }
 
+.bold {
+  font-weight: 700;
+}
+.navbar {
+  border-radius: 0 !important; 
+}
 
-
-@media only screen and (max-width: 1020px) {
+@media only screen and (max-width: 1120px) {
  .display-map {
     width: 60%;
  }
 
  .sidebar {
-    width: 34%;
+    width: 30%;
  }
 }
 
@@ -120,8 +132,7 @@ table {
       width: 80%;
       height: 60vh;
       float: none;
-      margin-left: auto !important;
-      margin-right: auto !important;
+      margin: 30px auto !important;
    }
 
    .sidebar {
@@ -153,10 +164,6 @@ table {
       font-size: 16px;
       margin-left: 96px;
       margin-bottom: 5px;
-   }
-
-  .see-user-city {
-    margin-left: 90px;
    }
 
    .user-image {

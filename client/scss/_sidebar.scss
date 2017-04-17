@@ -7,12 +7,15 @@ $accent-color: #4ddcb1;
 .sidebar {
   float: right;
   width: 30%;
-  height: 100vh; 
   border-radius: 2px;
   margin-right: 35px;
   padding: 0 15px 50px 0;
   text-align: center;
   overflow: hidden;  
+}
+
+.main-maps-sidebar {
+  height: 100vh; 
 }
 
 .sidebar-inner-container {
@@ -40,7 +43,7 @@ $accent-color: #4ddcb1;
   font-size: 18px !important;
   margin: 10px; 
   color: $charcoal !important;
-  position: relative; 
+  position: relative;
   &:hover {
     color: gray !important;
   }

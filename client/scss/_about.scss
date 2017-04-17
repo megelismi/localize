@@ -1,0 +1,123 @@
+$border-color: lightgray;
+$accent-color: #4ddcb1;
+$purple: #748CCD;
+$darkpurple: #4062BB;
+$mediumpurple: #5F88E8;
+
+.about-page {
+  height: 100vh;
+  min-height: 700px; 
+  background-color: $darkpurple; 
+  display: flex; 
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  h2, p {
+  	color: white;
+  	margin: 0; 
+  	font-weight: 300; 
+  }
+  p {
+  	line-height: 24px; 
+  }
+  h2 {
+  	font-size: 52px;  
+  }
+  h3 {
+  	font-size: 18px;
+  	margin: 0; 
+  }
+}
+
+.about-header-container {
+	text-align: center;
+}
+
+.about-cards-container {
+	width: 90%; 
+	display: flex; 
+	justify-content: space-around; 
+}
+
+.about-icon {
+	width: 70px;
+	margin: 30px;   
+}
+
+.about-card {
+	background-color: $mediumpurple;
+	box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+	color: white; 
+	width: 30%; 
+	height: 350px; 
+	text-align: center;
+	padding: 10px; 
+}
+
+.cards-line {
+	margin: 1em 0; 
+}
+
+.short-line {
+  display: inline-block;
+  border-width: 0;
+  height: 2px;
+  margin: 2em 0;
+  width: 50px; 
+  background-color: white;
+}
+
+.enter-app-link {
+  color: white;
+  font-size: 16px;
+  text-decoration: underline;
+  padding-top: 50px;
+  cursor: pointer;
+  &:hover {
+    color: white;
+    text-decoration: none; 
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+	.about-page {
+    height: auto; 
+    min-height: auto; 
+    padding: 10px;  
+  }
+
+  .about-cards-container {
+    flex-direction: column; 
+    align-items: center; 
+  }
+
+  .about-card {
+    margin: 20px; 
+    width: 50%; 
+  }
+
+  .about-page {
+    h2 {
+      font-size: 40px; 
+    }
+  }
+
+}
+
+@media screen and (max-width: 460px) {
+  .about-page {
+    h2 {
+      font-size: 32px; 
+    }
+  }
+
+  .short-line {
+    margin: 1em 0; 
+  }
+
+  .about-card {
+    width: 90%; 
+  }
+
+}

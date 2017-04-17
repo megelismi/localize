@@ -2,12 +2,11 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 
 const UserDetailsTable = (props) => {
-
   return (
     <div className="user-account-details">
       <div className="general-user-account-container"><h4>General Account Settings</h4></div>
       <div className="profile-picture-container">
-        <img className="user-profile-picture" src={props.image} />
+        <img className="user-profile-picture" role="presentation" src={props.image} />
         <button className="change-profile-picture-button" onClick={props.updateProfilePicture}>Update Picture</button>
       </div>
       <div className="user-details-table">
@@ -34,7 +33,7 @@ const UserDetailsTable = (props) => {
         <button className="edit-user-details-button" onClick={props.openUpdateUserDetailsModal}>Edit Account Details</button>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default UserDetailsTable;
