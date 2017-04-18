@@ -37,14 +37,14 @@ class NewSidebar extends React.Component {
 
   selectLocalUser(user) {
     this.setState({ displayLocals: false, displayTags: false, displayOneUser: true });
-    this.props.syncActionCreators.filterLocations(user.locations, 'FILTER_LOCATIONS_BY_USER'); 
+    this.props.syncActionCreators.filterLocationsByUser(user.locations, this.props.allLocations);
     this.props.syncActionCreators.selectUser(user); 
   }
 
   clearAllAppliedTags() {
     this.props.syncActionCreators.clearAllAppliedTags(); 
     if (this.props.selectedUser) {
-      this.props.syncActionCreators.filterLocations(this.props.selectedUser.locations, 'FILTER_LOCATIONS_BY_USER'); 
+      this.props.syncActionCreators.filterLocationsByUser(this.props.selectedUser.locations, this.props.allLocations); 
     } else {
       this.props.syncActionCreators.resetLocations(); 
     }
@@ -56,13 +56,6 @@ class NewSidebar extends React.Component {
       this.props.postActionCreators.getLocationsForTags(); 
     } else {
       this.props.syncActionCreators.removeSelectedTag(tagId);
-      if (this.props.selectedTags.length !== 0) {
-        this.props.postActionCreators.getLocationsForTags(); 
-      } else if (this.props.selectedUser) {
-          this.props.syncActionCreators.filterLocations(this.props.selectedUser.locations, 'FILTER_LOCATIONS_BY_USER'); 
-        } else {
-          this.props.syncActionCreators.resetLocations(); 
-        }
     }
   }
 
@@ -114,6 +107,7 @@ class NewSidebar extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  allLocations: state.locations,
   relevantUsers: state.relevantUsers,
   selectedTags: state.selectedTags,
   tags: state.tags,

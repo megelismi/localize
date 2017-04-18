@@ -3,6 +3,7 @@ import * as post_actions from './actions/post_result';
 import * as put_actions from './actions/put_result';
 import * as sync_actions from './actions/sync';
 import * as reviewHandlers from './actions/handlers/review_handlers'; 
+import filterLocations from './actions/handlers/location_handlers';
 
 const state = (state = {
   selectedTags: [],
@@ -98,7 +99,8 @@ const state = (state = {
     return Object.assign({}, state, { relevantUsers: action.users });
 
     case sync_actions.FILTER_LOCATIONS_BY_USER:
-    return Object.assign({}, state, { filteredLocations: action.filteredLocations });
+    const newFilteredLocations = filterLocations(action.userLocations, action.allLocations); 
+    return Object.assign({}, state, { filteredLocations: newFilteredLocations });
 
     case sync_actions.LOCATIONS_SAVED_MODAL:
     return Object.assign({}, state, { locationsSavedModalOpen: !state.locationsSavedModalOpen });

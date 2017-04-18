@@ -1,3 +1,4 @@
+import * as postActions from './post_request'; 
 
 export const ADD_LOCATION_TO_LOCALS_MAP = 'ADD_LOCATION_TO_LOCALS_MAP';
 export const addLocationToLocalsMap = (user_id, feature, lat_long, short = null, long = null, tag_array = null) => ({
@@ -44,16 +45,11 @@ export const editLocationDetailModalFunction = boolean => ({
   boolean
 });
 
-export const FILTER_LOCATIONS_BY_TAGS = 'FILTER_LOCATIONS_BY_TAGS'; 
-export const filterLocationsByTags = filteredLocations => ({
-  type: FILTER_LOCATIONS_BY_TAGS, 
-  filteredLocations
-});
-
 export const FILTER_LOCATIONS_BY_USER = 'FILTER_LOCATIONS_BY_USER';
-export const filterLocationsByUser = filteredLocations => ({
+export const filterLocationsByUser = (userLocations, allLocations) => ({
   type: FILTER_LOCATIONS_BY_USER,
-  filteredLocations
+  userLocations, 
+  allLocations
 });
 
 export const LOCATIONS_SAVED_MODAL = 'LOCATIONS_SAVED_MODAL';
@@ -115,26 +111,36 @@ export const updateUserDetailsModal = () => ({
   type: UPDATE_USER_DETAILS_MODAL
 });
 
-export const filterLocations = (locationIds, actionType) => (dispatch, getState) => {
-  const allLocations = [...getState().locations]; 
-  const filteredLocations = allLocations.filter(location => {
-    if (locationIds.indexOf(location.id) !== -1) {
-      return location; 
-    }
-  }); 
-  dispatch({
-    type: actionType, 
-    filteredLocations
-  }); 
-};
-
-export const removeSelectedTag = (tagId) => (dispatch, getState) => {
+export const removeSelectedTag = tagId => (dispatch, getState) => {
   const selectedTags = [...getState().selectedTags]; 
-  const index = selectedTags.indexOf(tagId); 
-  selectedTags.splice(index, 1); 
+  const tagIndex = selectedTags.indexOf(tagId); 
+  selectedTags.splice(tagIndex, 1);
+  let selectedUser; 
+  let userLocations; 
+  let allLocations; 
+
+  if (getState().selectedUser) {
+    selectedUser = getState().selectedUser;
+    userLocations = getState().selectedUser.locations; 
+    allLocations = getState().locations;
+  }
+
+  if (selectedTags.length > 0) {
+    postActions.getLocationsForTags(); 
+  } else if (selectedUser) {
+    dispatch({
+      type: FILTER_LOCATIONS_BY_USER,
+      userLocations,
+      allLocations
+    });
+  } else {
+    dispatch({
+      type: RESET_LOCATIONS 
+    });
+  }
+
   dispatch({
     type: DESELECT_TAG, 
     selectedTags
   });
-};
-
+}; 
