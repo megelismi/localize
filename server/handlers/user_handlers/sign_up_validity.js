@@ -32,14 +32,6 @@ export const signUpValidity = (req) => {
   confirmed_password = confirmed_password.trim(); 
   email = email.trim();
 
-  if (!req.body) {
-    return {
-      isInvalid: true, 
-      status: 400,
-      message: 'Request body is missing.'
-    };
-  }
-
   if (!allFormFieldsFilledIn(req.body)) {
      return {
       isInvalid: true, 
